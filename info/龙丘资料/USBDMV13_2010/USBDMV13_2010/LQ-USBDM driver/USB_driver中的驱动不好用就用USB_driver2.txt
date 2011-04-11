@@ -1,0 +1,24 @@
+USB_driver中的驱动不好用就用USB_driver2中的
+
+如果还是不行，就修改VID和PID:
+在*inf中，
+    如修改USB_Driver2中的USBDM.inf：
+
+;--------------------------------------------------------------------------
+; Devices
+;--------------------------------------------------------------------------
+
+[Devices]
+"JB16-JMxx USBDM (OSBDM mode)"=LIBUSB_DEV, USB\VID_15a2&PID_0021
+"JB16-JMxx USBDM (TBDML mode)"=LIBUSB_DEV, USB\VID_0425&PID_1000
+"JMxx USBDM (TBLCF mode)"=LIBUSB_DEV, USB\VID_0425&PID_1001
+
+[Devices.NT]
+"JB16-JMxx USBDM (OSBDM mode)"=LIBUSB_DEV, USB\VID_15a2&PID_0021
+"JB16-JMxx USBDM (TBDML mode)"=LIBUSB_DEV, USB\VID_0425&PID_1000
+"JMxx USBDM (TBLCF mode)"=LIBUSB_DEV, USB\VID_0425&PID_1001
+
+[Devices.NTAMD64]
+"JB16-JMxx USBDM (OSBDM mode)"=LIBUSB_DEV, USB\VID_15a2&PID_0021
+"JB16-JMxx USBDM (TBDML mode)"=LIBUSB_DEV, USB\VID_0425&PID_1000
+"JMxx USBDM (TBLCF mode)"=LIBUSB_DEV, USB\VID_0425&PID_1001
