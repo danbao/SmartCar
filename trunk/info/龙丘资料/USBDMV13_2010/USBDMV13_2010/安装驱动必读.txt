@@ -1,0 +1,9 @@
+CodeWarrior for S12(X) V5.0
+3.1、如果安装了5.0（4.7）版的，而且驱动选择的是...USBDMV13\LQ-USBDM driver\USB_driver2则将龙丘光盘（或者给你的驱动）\BDM驱动程序\LQ-USBDM\Debug DLLs20090530下的拷贝tbdml.dll -> "C:\Program Files\Freescale\CodeWarrior for S12(X) V5.0\Prog\gdi"文件夹下面。
+
+CodeWarrior for Microcontrollers V6.2
+2.1、如果安装了6.2版的，则将龙丘光盘（或者给你的驱动）\BDM驱动程序\LQ-USBDM\Debug DLLs20090530下的opensourcebdm.dll拷贝到（当前Codewarrior的安装路径）\Program Files\Freescale\CodeWarrior for Microcontrollers V6.2\prog\gdi文件夹下面。
+
+
+
+如果驱动安装不上，可以试试先拔掉USB线，用BDM接开发板，然后再插上USB线，安装驱动
