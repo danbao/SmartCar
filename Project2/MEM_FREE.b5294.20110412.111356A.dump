@@ -1,0 +1,417 @@
+Crash report for MEM_FREE (.20110412.111356A)
+
+Unhandled exception 0xc0000005 caught at 0x02ffffff
+(The memory at address 0x02ffffff could not be read.)
+
+IDE Version: 5.9.0 Build 5294
+
+OS Version: Professional  (6.1.7600)
+
+Product info:
+CodeWarrior Development Studio for the S12(X) Version 5.1, build 10221.
+
+Please send this crash report to <support@freescale.com>, along
+with a brief description of the operations leading up to the crash.
+
+Stack trace:
+	0x02ffffff (MEM_FREE:0x02ffffff) (EBP:0x0012e908)
+	0x765b89b5 (USER32.dll:0x765b89b5) (EBP:0x0012e968)
+	0x765b8e9c (USER32.dll:0x765b8e9c) (EBP:0x0012e978)
+	0x765b7033 (USER32.dll:0x765b7033) (EBP:0x0012e99c)
+	0x765c40c4 (USER32.dll:0x765c40c4) (EBP:0x0012e9bc)
+	0x55220bda (IDE_MFC60cw.dll:0x55220bda) (EBP:0x0012e9d0)
+	0x5521e25b (IDE_MFC60cw.dll:0x5521e25b) (EBP:0x0012e9dc)
+	0x5522c84d (IDE_MFC60cw.dll:0x5522c84d) (EBP:0x0012ea3c)
+	0x008fc6f6 (MEM_FREE:0x008fc6f6) (EBP:0x0012ea48)
+	0x5521d3d5 (IDE_MFC60cw.dll:0x5521d3d5) (EBP:0x0012ea60)
+	0x5522303d (IDE_MFC60cw.dll:0x5522303d) (EBP:0x0012ea78)
+	0x008d1381 (MEM_FREE:0x008d1381) (EBP:0x0012ea90)
+	0x5522346b (IDE_MFC60cw.dll:0x5522346b) (EBP:0x0012eaa4)
+	0x008d1170 (MEM_FREE:0x008d1170) (EBP:0x0012eab8)
+	0x004040bd (MEM_FREE:0x004040bd) (EBP:0x0012eac0)
+	0x00403f7d (MEM_FREE:0x00403f7d) (EBP:0x0012eae8)
+	0x0040211b (MEM_FREE:0x0040211b) (EBP:0x0012f064)
+	0x0040b1ff (MEM_FREE:0x0040b1ff) (EBP:0x0012f21c)
+	0x006ca008 (MEM_FREE:0x006ca008) (EBP:0x0012fe7c)
+	0x008d100a (MEM_FREE:0x008d100a) (EBP:0x0012fe9c)
+	0x5521ef48 (IDE_MFC60cw.dll:0x5521ef48) (EBP:0x0012feb0)
+	0x00955ed4 (MEM_FREE:0x00955ed4) (EBP:0x0012fec8)
+	0x0092e4c6 (MEM_FREE:0x0092e4c6) (EBP:0x0012ff88)
+	0x75551194 (kernel32.dll:0x75551194) (EBP:0x0012ff94)
+	0x7706b429 (ntdll.dll:0x7706b429) (EBP:0x0012ffd4)
+	0x7706b3fc (ntdll.dll:0x7706b3fc) (EBP:0x0012ffec)
+
+Module list:
+	C:\Windows\SYSTEM32\ntdll.dll (load: 0x77010000, preferred: 0x77010000)
+		version 6.1.7600.16695
+	C:\Windows\system32\kernel32.dll (load: 0x75500000, preferred: 0x75500000)
+		version 6.1.7600.16481
+	D:\software\CWS12v5.1\bin\IDE_MFC60cw.dll (load: 0x551c0000, preferred: 0x551c0000)
+		version 6.0.8665.0
+	C:\Windows\system32\USER32.dll (load: 0x765a0000, preferred: 0x765a0000)
+		version 6.1.7600.16385
+
+Register Dump:
+	EAX:0x00000000 EDX:0x00000000 ECX:0x0034bd80 EBX:0x00000000
+	ESI:0x00000201 EDI:0x0012e8e0 EBP:0x0012e908 ESP:0x0012e8ac
+	EIP:0x02ffffff EFLAGS:0x00010216
+	CS:0x001b SS:0x0023 DS:0x0023 ES:0x0023
+	FS:0x003b GS:0x0000
+
+Stack Dump:
+0012E8A0: 000002CC 00000018 00000000 B3F82607 00D55DF0 00D55DE8 013ACA40 00000024 
+0012E8C0: 00000001 00000000 00000000 00000070 FFFFFFFF FFFFFFFF 765B881F 765B88C9 
+0012E8E0: FFFFFFFE 00000001 00000000 00000000 0012E8AC 0012E4AC 0012E958 766062E3 
+0012E900: C5B1479F FFFFFFFE 0012E968 765B89B5 00000000 55251390 000506C4 00000201 
+0012E920: 00000001 006D0044 013ACA54 00000001 B3F82667 013B5220 00D55DE8 00000002 
+0012E940: 000506C4 00000001 00000000 000506C4 0012E930 0012E4AC 0012FF14 766062E3 
+0012E960: C5B146D7 FFFFFFFE 0012E978 765B8E9C 55251390 00000000 0012E99C 765B7033 
+0012E980: 00D55DE8 00D55DE8 00D55DF0 00B862FE 00000000 00000004 013B5220 0012E9BC 
+0012E9A0: 765C40C4 001F0592 013ACA40 00B862FE 05A54860 00000000 00000001 0012E9D0 
+0012E9C0: 55220BDA 001F0592 00D55DE8 00000000 0012E9DC 5521E25B 00D55DE8 0012EA3C 
+0012E9E0: 5522C84D 00D55DE8 00000028 00000000 00000000 00000000 00000000 00000000 
+0012EA00: 00000000 00000000 00000000 00000000 00000000 00000044 0000006D 0034BD80 
+0012EA20: 0031A620 00000000 FFFFFFFF 00000201 001F0592 00D55DE8 00B889DC 0012EA48 
+0012EA40: 008FC6F6 00D55DE8 0012EA60 5521D3D5 00D55DE8 00B8214E 00D55DE8 0031A620 
+0012EA60: 0012EA78 5522303D 0015057C 00D55DE8 00D55DB4 00D55DE8 0012EA90 008D1381 
+0012EA80: 00D55DE8 00B8214E 00B8214E 00D55DB4 0012EAA4 5522346B 00D55DE8 00000000 
+0012EAA0: 00D55DB4 0012EAB8 008D1170 00AE3BA0 0012F110 00AE3C00 0012EAC0 004040BD 
+0012EAC0: 0012EAE8 00403F7D 00000000 7A970000 009B0006 0000FEDF 0001013D 00000000 
+0012EAE0: 00AE3BA0 00AE3B00 0012F064 0040211B 00000001 77067DAF 770E8118 00AE4268 
+0012EB00: 03F72640 00000000 00311EB0 556656E8 00D46294 00000001 00000008 00000000 
+0012EB20: 00000004 56E80000 62945566 000000D4 00000000 00000000 00040000 00000000 
+0012EB40: 0000012F 0012EB54 003F73C2 003C0278 00000FA0 0012F03C 55650605 003C0278 
+0012EB60: 00000FA0 00000000 00000000 00000000 00000000 00000000 00000000 0012EAF4 
+0012EB80: 0012F110 00000000 8E00018F 00000000 03FE6370 03FBBE68 03F94FC8 00000878 
+0012EBA0: 002F0000 00100000 03FE6140 0012EC9C 770631A8 002F0138 77063189 777BF39B 
+0012EBC0: 00000000 002F0000 03FE6148 00000000 00000000 00000000 00000000 00000000 
+0012EBE0: 00000000 03FBBE68 002F2FE8 00000000 002F0000 002F0000 03FE60A8 00000000 
+0012EC00: D50001D4 22200002 03FE6148 03FBBE68 03F94FC8 00000AA0 002F0000 00000080 
+0012EC20: 03FE60A8 0012ED14 770631A8 002F0138 77063189 770622C6 777BF3BB 0012EDB4 
+0012EC40: 002F01A4 002F0000 00000000 002F30F8 0052002B 00000002 00000000 03FBBE68 
+0012EC60: 002F2FE8 03FBBE68 004E002C 00000002 00000000 01000000 002F7018 22200002 
+0012EC80: 00000018 47005017 00000000 0036C250 002F6D08 002F6E24 003C0258 0012ECB4 
+0012ECA0: 77069A3A 00000008 00000000 00000000 00000000 0012ED34 770699BC 00000000 
+0012ECC0: 00000000 770816A8 00000000 0012EDAC 00000008 770699DA 777BF233 00000004 
+0012ECE0: 00000001 00000000 00000000 00000000 00000000 00000000 00000000 00000004 
+0012ED00: 00000000 0012EF64 00000000 770816A8 00000000 00000000 0012ED70 0012ECD8 
+0012ED20: 7705570C 7707304F 00000014 0012EDC4 0012EDC4 00000000 00000004 00000001 
+0012ED40: 0012EFD4 753FBD39 0012EDC4 00000000 753F7BA1 753FBD93 B3C10FCA 00001614 
+0012ED60: 55646B50 03FAFE76 0012EDF4 77034E9A C0000135 0012EE40 00000000 00000000 
+0012ED80: 003C0218 00000001 0012F01C 03F9FB10 00000000 00001614 000012BC 00000002 
+0012EDA0: FFFFFFFF 556500D0 7FFD9000 00000000 00000000 003C0258 00000288 00000000 
+0012EDC0: 0006E73C 0034001C 00000002 00000230 00000384 00000004 000AD3BD 00000000 
+0012EDE0: 00010001 00000000 00000000 00000288 00001614 000012BC 00000000 00000001 
+0012EE00: 003C0218 0012EF74 7706F70F 77066D1E 7706F59A 777BF073 77056F2A 003A1C94 
+0012EE20: 77057136 0012EFB8 0012EE48 1000AECA 0037EB00 00000000 00000000 0012EFA0 
+0012EE40: 00180016 003C0218 0012EE60 0012EE40 C0000135 00000000 00000000 1000AC45 
+0012EE60: 00387578 1003F514 00000005 10041DC0 00000040 1003F4F0 0012EE90 1000B5B1 
+0012EE80: 770622C6 777BF00F 0012EFE0 002F01A4 002F0000 004A002D 00000001 00000000 
+0012EEA0: 00000001 00000024 00010003 00000008 0012ED94 00000000 00010004 00000004 
+0012EEC0: 0012EDA8 00000000 03FA6708 00000018 00000088 00000000 0036C250 002F6D08 
+0012EEE0: 002F6E24 003C0218 002F7168 0000007C 0012EE84 0012EF0C 0012EFBC 00001548 
+0012EF00: 0038E2A8 1003F4F0 0012EF20 1000B766 1003F4F0 0038E2A8 00001548 10041DC0 
+0012EF20: 0038E2A8 0012EF34 1000B8C7 10041DC0 00000001 0012EF40 556431BC 0038E2A8 
+0012EF40: 0012EF64 5564152E 1003F504 556507D7 556656E8 00D46294 00000000 00001548 
+0012EF60: 00387968 00000010 1003F4F0 00387968 0012EF01 0012EFB0 556507D7 556656E8 
+0012EF80: 00D46294 00000000 00000000 00000000 0012EFA8 0012EFA0 5564FEE0 00387968 
+0012EFA0: 0012EFC8 55650859 556656E8 00D46294 00000000 00000000 00000000 00000004 
+0012EFC0: 03FA0000 03FAFE01 0012EFE4 5564FCB8 79680001 03FAFFA0 0012EFF0 0012EFE8 
+0012EFE0: 5564FEE0 03FAFE10 0012F010 55650859 556656E8 00D46294 00000000 00000000 
+0012F000: 00000000 00000004 03FA0000 03FAFDF8 0012F024 556513F8 FE100001 000003FA 
+0012F020: 03FAFFA0 0012F030 0051A822 03FAFFA0 0012F040 0052067F 03FAFFA0 006A54B1 
+0012F040: 00000004 5566D078 03FAFFA0 0012F110 0012F060 004011A7 00001614 002F247C 
+0012F060: 00AE3BA0 0012F21C 0040B1FF 00311E80 00000002 00000002 03F72528 00000006 
+0012F080: 00000008 00000000 003872C0 00000000 00311E90 00B44356 5566D078 00000002 
+
+0012F7E0: 00000001 002F0000 00100002 00000008 002F00C4 003CA4F0 003CA4EB 00000000 
+0012F800: 002F0000 002F0000 010016F8 0012F754 002F0000 0012F8E4 7702D555 006F17F7 
+0012F820: FFFFFFFE 0000003E 00371998 002F0000 00371C98 003CA4EA 003CA4E8 00000000 
+0012F840: 735C3A44 7774666F 5C657261 31535743 2E357632 69625C31 00005C6E 00000000 
+0012F860: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012F880: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012F8A0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012F8C0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012F8E0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012F900: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012F920: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012F940: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012F960: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012F980: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012F9A0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012F9C0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012F9E0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012FA00: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012FA20: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012FA40: 0012FA50 495F574D 505F4544 4D5F4C43 445F4753 4F535F3A 41575446 435F4552 
+0012FA60: 32315357 312E3556 4E49425F 4544495F 4558452E 767DB800 7706ABF7 0012FD4C 
+0012FA80: 003CA428 0012FAAC 767F0FAA 0012FD4C 00000020 00000000 003CA470 003CA300 
+0012FAA0: 008F7680 0012FDB8 767F108F 0012FCB0 0012FAC8 00000004 00000000 00372FB8 
+0012FAC0: 003CA300 767F109C 0000002B 00000022 00000009 0000000B 00000000 00000016 
+0012FAE0: 0000004A 00000190 00000000 00000060 00000060 2020FF1E 27000000 000000A3 
+0012FB00: 00240040 00000800 00000AB8 0000055F 800002FF 100FFFFF 00000000 00000000 
+0012FB20: 003E019F 4F030000 08006C61 00000000 00000000 00000000 00000000 00000000 
+0012FB40: 00000000 00000000 495F574D 435F4544 5F52424C 5F545645 535F3A44 5754464F 
+0012FB60: 5F455241 31535743 2E355632 49425F31 44495F4E 58452E45 00000045 00000000 
+0012FB80: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012FBA0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012FBC0: 00000000 002F0000 002F0000 003CAFE8 00000000 003CAFE8 0012FBFC 7706A61C 
+0012FBE0: 003CAFE8 003CAFE0 002F0000 7706A59F 00372FE8 002F0000 00372FE0 0012FC30 
+0012FC00: 00372FB0 002F0000 00000000 00003BF8 000007FF 002F0000 00000000 0000077F 
+0012FC20: 002F00C4 002F2FE8 0000AEA7 00372FB0 002F0000 003CAFE0 00002240 002F0000 
+0012FC40: 00372FB0 00003BF8 000007FF 735C3A44 7774666F 5C657261 31535743 2E357632 
+0012FC60: 69625C31 44495C6E 58452E45 002F0045 01372FB0 00000000 002F0000 00000000 
+0012FC80: 00372FB0 00000000 23012002 00000000 0012FCA8 0000015F 771B3100 002F2F00 
+0012FCA0: 002F0000 00000000 00372FB0 0012FD9C 770631A8 002F0138 77063189 777BE29B 
+0012FCC0: 00000000 002F0000 00372FB8 6E694C40 73656F67 02777777 65646F63 6C616900 
+0012FCE0: 00007974 0034DC38 000007FF 6E694C40 002F0000 002F2FE8 65646F63 6C616900 
+0012FD00: 00007974 002F00C4 00372FB8 00372FB3 00000000 00000000 000001C0 535F3A44 
+0012FD20: 5754464F 5F455241 31535743 2E355632 49425F31 44495F4E 58452E45 77060045 
+0012FD40: 0005752C 00057538 00372FB2 CFC4BDD4 00000000 3500C400 00003200 00D55DB4 
+0012FD60: 0012FE80 0092E610 00000000 0000AEA7 00000000 01005E92 00B8214E 73795325 
+0012FD80: 01016574 0012FCBC 767DBB71 0012FF14 7702D555 006F17D7 FFFFFFFE 77063189 
+0012FDA0: 77062D80 00000000 00372FB8 003CA4E4 00372FB8 00000001 00372FB0 0012FDE8 
+0012FDC0: 767DBB24 002F0000 00000000 00372FB8 00B8214E 00B8214E 00000000 003CA4E4 
+0012FDE0: 00000000 0005752C 0012FE18 767F11B5 F2010EEF 00000000 00000000 008F7680 
+0012FE00: 00000000 00000003 00000000 00B8214E 00B8214E 00D55DB4 0012FE38 767F1182 
+0012FE20: 00387000 00000000 00311E50 00B44356 5566D078 00000002 00000008 03F72500 
+0012FE40: 00000004 43960000 D07800B4 00005566 00000000 00000000 00040000 00000000 
+0012FE60: 0000012F 00000500 010002F8 00871AA7 00B8214E 002F247C 00D55DB4 0012FE9C 
+0012FE80: 008D100A 00400000 00000000 002F247C 00000001 00B8214E 00D55DB4 0012FEB0 
+0012FEA0: 5521EF48 00000000 00000000 7FFDE000 0012FEC8 00955ED4 00400000 00000000 
+0012FEC0: 002F247C 00000001 0012FF88 0092E4C6 00400000 00000000 002F247C 00000001 
+0012FEE0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+0012FF00: 00000000 00000000 00000000 00000000 00000000 0012FF78 00955E40 FFFFFFFF 
+0012FF20: FFFFFFFF 0012FF88 00000044 00308138 0030F178 003116C0 00000000 00000000 
+0012FF40: 00000000 00000000 00000000 00000000 00000000 00000401 00000001 00000000 
+0012FF60: 00000000 00010001 00000000 00000000 0012FF28 0012FFC4 0012FFC4 00929FE2 
+0012FF80: 00B9EF0C 00000000 0012FF94 75551194 7FFDE000 0012FFD4 7706B429 7FFDE000 
+0012FFA0: 777BE0D3 00000000 00000000 7FFDE000 00000000 00000000 00000000 0012FFA0 
+0012FFC0: 00000000 FFFFFFFF 7702D555 006F1AB7 00000000 0012FFEC 7706B3FC 0092E400 
+0012FFE0: 7FFDE000 00000000 00000000 00000000 00000000 0092E400 7FFDE000 00000000 
+
+Components:
+|                          Name|             Version|        File|     Product|              Mod Date| File Size
+------------------------------------------------------------------------------------------------------------------------------------------------------
+|                  ASINTPPC.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 14:59 |    643072| D:\software\CWS12v5.1\Bin\ASINTPPC.dll
+|                    CmdIDE.exe|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 15:16 |     42496| D:\software\CWS12v5.1\Bin\CmdIDE.exe
+|                       IDE.exe|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 15:12 |  10760192| D:\software\CWS12v5.1\Bin\IDE.exe
+|              IDENewDialog.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 14:59 |    206584| D:\software\CWS12v5.1\Bin\IDENewDialog.dll
+|               IDE_MFC60cw.dll|         6.00.8665.0|  6.0.8665.0|     6.0.4.0|      2010/8/5, 14:53 |   1662976| D:\software\CWS12v5.1\Bin\IDE_MFC60cw.dll
+|         IDE_MSL_DLL90_x86.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 14:50 |    303104| D:\software\CWS12v5.1\Bin\IDE_MSL_DLL90_x86.dll
+|         InstallHelperKeys.exe|     No Version Info|     0.0.0.0|     0.0.0.0|     2005/3/22, 19:01 |     78336| D:\software\CWS12v5.1\Bin\InstallHelperKeys.exe
+|                    lmgr11.dll|     No Version Info|     0.0.0.0|     0.0.0.0|     2008/5/28, 17:05 |   1490944| D:\software\CWS12v5.1\Bin\lmgr11.dll
+|                    lmgr8c.dll|     No Version Info|     0.0.0.0|     0.0.0.0|     2004/2/15, 19:02 |    851968| D:\software\CWS12v5.1\Bin\lmgr8c.dll
+|                 MWCore5_0.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 14:54 |    245760| D:\software\CWS12v5.1\Bin\MWCore5_0.dll
+|                MWRADUtils.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 14:59 |    266240| D:\software\CWS12v5.1\Bin\MWRADUtils.dll
+|                  Mwregsvr.exe|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 15:01 |     36864| D:\software\CWS12v5.1\Bin\Mwregsvr.exe
+|            MWRegSvrWinApp.exe|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 15:01 |     36864| D:\software\CWS12v5.1\Bin\MWRegSvrWinApp.exe
+|                 PluginLib.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 14:51 |    122880| D:\software\CWS12v5.1\Bin\PluginLib.dll
+|                PluginLib2.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 14:51 |    122880| D:\software\CWS12v5.1\Bin\PluginLib2.dll
+|                PluginLib3.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 14:51 |    122880| D:\software\CWS12v5.1\Bin\PluginLib3.dll
+|                PluginLib4.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 14:51 |     86016| D:\software\CWS12v5.1\Bin\PluginLib4.dll
+|                PluginLib5.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 14:51 |     86016| D:\software\CWS12v5.1\Bin\PluginLib5.dll
+|                PluginLib6.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 14:51 |     86016| D:\software\CWS12v5.1\Bin\PluginLib6.dll
+|         CPPCodeCompletion.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 15:15 |    827392| D:\software\CWS12v5.1\Bin\Plugins\COM\CPPCodeCompletion.dll
+|             DebugDatabase.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 15:23 |    331776| D:\software\CWS12v5.1\Bin\Plugins\COM\DebugDatabase.dll
+|          DebugRegisterMgr.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 15:23 |    118784| D:\software\CWS12v5.1\Bin\Plugins\COM\DebugRegisterMgr.dll
+|                HC12Wizard.dll|           5.2.10221| 5.2.0.10221| 5.2.0.10221|     2010/8/10, 16:40 |    983040| D:\software\CWS12v5.1\Bin\Plugins\COM\HC12Wizard.dll
+|                MWActivate.dll|          5.9.0.5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 15:16 |    585728| D:\software\CWS12v5.1\Bin\Plugins\COM\MWActivate.dll
+|                 PackAndGo.dll|         1,0,0,10221| 1.0.0.10221| 1.0.0.10221|     2010/8/10, 16:41 |    352256| D:\software\CWS12v5.1\Bin\Plugins\COM\PackAndGo.dll
+|                   pe_init.exe|     No Version Info|     0.0.0.0|     0.0.0.0|     2009/3/17, 20:46 |     94208| D:\software\CWS12v5.1\Bin\Plugins\COM\pe_init.exe
+|                PE_options.dll|         1, 0, 0, 13|    1.0.0.13|    1.0.0.13|      2005/8/8, 13:33 |     32768| D:\software\CWS12v5.1\Bin\Plugins\COM\PE_options.dll
+|                 PE_Plugin.dll|         4.44.0.5282| 4.44.0.5282| 4.44.0.5282|     2010/8/16, 12:58 |   7860736| D:\software\CWS12v5.1\Bin\Plugins\COM\PE_Plugin.dll
+|                PE_prelink.dll|          1, 0, 0, 4|     1.0.0.4|     1.0.0.4|      2005/8/8, 13:34 |     97764| D:\software\CWS12v5.1\Bin\Plugins\COM\PE_prelink.dll
+|               TipOfTheDay.dll|         1,0,0,10221| 1.0.0.10221| 1.0.0.10221|     2010/8/10, 16:41 |     65536| D:\software\CWS12v5.1\Bin\Plugins\COM\TipOfTheDay.dll
+|         hw_hc12_assembler.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:19 |     89088| D:\software\CWS12v5.1\Bin\Plugins\compiler\hw_hc12_assembler.dll
+|          hw_hc12_compiler.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:19 |     89088| D:\software\CWS12v5.1\Bin\Plugins\compiler\hw_hc12_compiler.dll
+|          hw_hc12_importer.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:19 |     89088| D:\software\CWS12v5.1\Bin\Plugins\compiler\hw_hc12_importer.dll
+|        hw_xgate_assembler.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:19 |     89088| D:\software\CWS12v5.1\Bin\Plugins\compiler\hw_xgate_assembler.dll
+|         hw_xgate_compiler.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:19 |     89088| D:\software\CWS12v5.1\Bin\Plugins\compiler\hw_xgate_compiler.dll
+|         hw_xgate_importer.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:19 |     89088| D:\software\CWS12v5.1\Bin\Plugins\compiler\hw_xgate_importer.dll
+|              OsekCompiler.dll|          2, 1, 2, 0|     2.1.2.0|     2.1.2.0|     2006/9/12, 14:00 |     77312| D:\software\CWS12v5.1\Bin\Plugins\compiler\OsekCompiler.dll
+|            PCLintCompiler.dll|                 1.5|     1.5.0.5|     1.5.0.5|      2003/9/4, 16:58 |     81920| D:\software\CWS12v5.1\Bin\Plugins\compiler\PCLintCompiler.dll
+|                 HC12_Coloring|     No Version Info|     0.0.0.0|     0.0.0.0|     2006/6/20, 15:58 |     47515| D:\software\CWS12v5.1\Bin\Plugins\Editor\HC12_Coloring
+|           MWE_Common_Coloring|     No Version Info|     0.0.0.0|     0.0.0.0|    2004/12/29, 21:23 |     29907| D:\software\CWS12v5.1\Bin\Plugins\Editor\MWE_Common_Coloring
+|                XGATE_Coloring|     No Version Info|     0.0.0.0|     0.0.0.0|      2004/5/5, 21:48 |     35863| D:\software\CWS12v5.1\Bin\Plugins\Editor\XGATE_Coloring
+|     BatchRunnerPostLinker.dll|    2.0.0 Build 0006|     2.0.0.6|     2.0.0.6|      2004/7/9, 14:01 |     41472| D:\software\CWS12v5.1\Bin\Plugins\linker\BatchRunnerPostLinker.dll
+|      BatchRunnerPreLinker.dll|    1.0.0 build 0002|     1.0.0.2|     1.0.0.2|      2004/7/9, 14:01 |     43008| D:\software\CWS12v5.1\Bin\Plugins\linker\BatchRunnerPreLinker.dll
+|       ExternalBuildLinker.dll|          5.9.0.5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 15:28 |     81920| D:\software\CWS12v5.1\Bin\Plugins\linker\ExternalBuildLinker.dll
+|          hw_hc12_libmaker.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:20 |     94720| D:\software\CWS12v5.1\Bin\Plugins\linker\hw_hc12_libmaker.dll
+|            hw_hc12_linker.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:20 |     94720| D:\software\CWS12v5.1\Bin\Plugins\linker\hw_hc12_linker.dll
+|         hw_xgate_libmaker.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:20 |     94720| D:\software\CWS12v5.1\Bin\Plugins\linker\hw_xgate_libmaker.dll
+|           hw_xgate_linker.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:20 |     94720| D:\software\CWS12v5.1\Bin\Plugins\linker\hw_xgate_linker.dll
+|              PCLintLinker.dll|                 1.5|     1.5.0.5|     1.5.0.5|      2003/9/4, 16:58 |     86016| D:\software\CWS12v5.1\Bin\Plugins\linker\PCLintLinker.dll
+|   hw_hc12_assembler_panel.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:20 |     91648| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\hw_hc12_assembler_panel.dll
+|      hw_hc12_burner_panel.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:20 |     91648| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\hw_hc12_burner_panel.dll
+|    hw_hc12_compiler_panel.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:20 |     91648| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\hw_hc12_compiler_panel.dll
+|    hw_hc12_importer_panel.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:20 |     91648| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\hw_hc12_importer_panel.dll
+|    hw_hc12_libmaker_panel.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:20 |     91648| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\hw_hc12_libmaker_panel.dll
+|      hw_hc12_linker_panel.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:20 |     91648| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\hw_hc12_linker_panel.dll
+|  hw_xgate_assembler_panel.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:20 |     91648| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\hw_xgate_assembler_panel.dll
+|     hw_xgate_burner_panel.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:20 |     91648| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\hw_xgate_burner_panel.dll
+|   hw_xgate_compiler_panel.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:20 |     91648| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\hw_xgate_compiler_panel.dll
+|   hw_xgate_importer_panel.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:20 |     91648| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\hw_xgate_importer_panel.dll
+|   hw_xgate_libmaker_panel.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:20 |     91648| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\hw_xgate_libmaker_panel.dll
+|     hw_xgate_linker_panel.dll|        5.0.14.10203|5.0.14.10203|5.0.14.10203|     2010/7/23, 11:20 |     91648| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\hw_xgate_linker_panel.dll
+|                 OsekPanel.dll|          2, 1, 2, 0|     2.1.2.0|     2.1.2.0|     2006/8/29, 18:11 |     72192| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\OsekPanel.dll
+|    PBatchRunnerPostLinker.dll|    2.0.0 Build 0004|     2.0.0.4|     2.0.0.4|     2003/9/11, 23:31 |     39936| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\PBatchRunnerPostLinker.dll
+|     PBatchRunnerPreLinker.dll|    1.0.0 build 0003|     1.0.0.3|     1.0.0.3|     2003/9/11, 23:31 |     30208| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\PBatchRunnerPreLinker.dll
+|             PCLintOptions.dll|                 1.5|     1.5.0.5|     1.5.0.5|      2003/9/4, 16:58 |     41984| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\PCLintOptions.dll
+|            PCLintSettings.dll|                 1.5|     1.5.0.5|     1.5.0.5|      2003/9/4, 16:58 |     83968| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\PCLintSettings.dll
+|           PDebugx86Except.dll|     5.9 Build 5294 |     5.8.0.0|     5.8.0.0|      2010/8/5, 15:29 |     65536| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\PDebugx86Except.dll
+|            PExternalBuild.dll|             1.0.1.0|     1.0.1.0|     1.0.1.0|      2010/8/5, 15:28 |     65536| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\PExternalBuild.dll
+|                    pMWCVS.dll|          1.3.0.5294|  1.3.0.5294|  1.3.0.5294|      2010/8/5, 15:29 |     65536| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\pMWCVS.dll
+|             pmwSourceSafe.dll|         5.5.1.40704| 5.5.1.40704| 5.5.1.40704|     2004/4/13, 17:47 |     29696| D:\software\CWS12v5.1\Bin\Plugins\preference_panel\pmwSourceSafe.dll
+|            CPlusSourceGen.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 15:13 |    278528| D:\software\CWS12v5.1\Bin\Plugins\Support\CPlusSourceGen.dll
+|                 MWComBase.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 14:58 |     65536| D:\software\CWS12v5.1\Bin\Plugins\Support\MWComBase.dll
+|              MWComHelpers.DLL|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 14:55 |    471040| D:\software\CWS12v5.1\Bin\Plugins\Support\MWComHelpers.DLL
+|                MWRadModel.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 15:00 |    585728| D:\software\CWS12v5.1\Bin\Plugins\Support\MWRadModel.dll
+|                     mwcvs.dll|          1.3.0.5294|  1.3.0.5294|  1.3.0.5294|      2010/8/5, 15:29 |    233472| D:\software\CWS12v5.1\Bin\Plugins\version_control\mwcvs.dll
+|              mwSourceSafe.dll|           1.0.3.716|   1.0.3.716|   1.0.3.716|     2004/4/13, 17:47 |    140540| D:\software\CWS12v5.1\Bin\Plugins\version_control\mwSourceSafe.dll
+|              VCSClearCase.dll|          1.1.2.1999|  1.1.2.1999|  1.1.2.1999|     2004/9/29, 17:28 |     77824| D:\software\CWS12v5.1\Bin\Plugins\version_control\VCSClearCase.dll
+|            CPlusResources.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 15:13 |     24576| D:\software\CWS12v5.1\Bin\resource\CPlusResources.dll
+|    ExternalBuildResources.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 15:28 |      6144| D:\software\CWS12v5.1\Bin\resource\ExternalBuildResources.dll
+|     IDEAuxiliaryResources.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 14:55 |     45056| D:\software\CWS12v5.1\Bin\resource\IDEAuxiliaryResources.dll
+|              IDEResources.dll|    5.9.0 Build 5294|  5.9.0.5294|  5.9.0.5294|      2010/8/5, 14:55 |     53248| D:\software\CWS12v5.1\Bin\resource\IDEResources.dll
+|                     SHW32.DLL|                    |     4.0.1.0|     4.0.1.0|      2000/2/11, 2:15 |    112688| D:\software\CWS12v5.1\Bin\SHW32.DLL
+|                  sunvmhub.dll|     No Version Info|     0.0.0.0|     0.0.0.0|     2002/1/29, 23:20 |     50688| D:\software\CWS12v5.1\Bin\sunvmhub.dll
+|                    tcl84t.dll|              8.4.12|    8.4.2.12|    8.4.2.12|     2006/9/25, 22:22 |    590336| D:\software\CWS12v5.1\Bin\tcl84t.dll
+|            utf8conversion.dll|     No Version Info|     0.0.0.0|     0.0.0.0|     2008/5/22, 19:36 |    536576| D:\software\CWS12v5.1\Bin\utf8conversion.dll
+|              xerces-2_2_0.dll|             2, 2, 0|     2.2.0.0|     2.2.0.0|      2010/8/5, 15:01 |   2248704| D:\software\CWS12v5.1\Bin\xerces-2_2_0.dll
+
++--------------------------------+
+| Black-box Recorder Information |
++--------------------------------+
+IDE start time: 11:13:53.892
+IDE crash time: 11:13:56.004
+IDE life time:  00:00:03
+
+Group : Keydowns
+
+Group : CompilerLinker
+
+Group : Context Menu
+
+Group : Menu
+
+Group : Mouse Clicks
+	[11:13:55.923, tid=5448] mouse click, left, point=(68, 109)
+
+Group : Pref Panel
+	[11:13:54.331, tid=5448] reqUpdateProject, panel=VCS Setup
+	[11:13:54.258, tid=5448] reqUpdateProject, panel=Custom Keywords
+	[11:13:54.258, tid=5448] reqUpdateProject, panel=Build Extras
+	[11:13:54.258, tid=5448] reqUpdateProject, panel=File Mappings
+	[11:13:54.257, tid=5448] reqUpdateProject, panel=Target Settings
+	[11:13:54.251, tid=5448] reqUpdateProject, panel=Access Paths
+	[11:13:54.250, tid=5448] reqUpdateProject, panel=Source Trees
+	[11:13:54.250, tid=5448] reqPrefsLoaded, panel=File Mappings
+	[11:13:54.250, tid=5448] reqPrefsLoaded, panel=Target Settings
+	[11:13:53.980, tid=5448] reqUpdateProject, panel=VCS Setup
+
+Group : Projects
+	[11:13:54.660, tid=5448] opened D:\sm\trunk\Project2\Project2.mcp
+
+Group : Debug Launches
+
+Group : Dispatched Msgs
+	[11:13:54.673, tid=5820] msgActiveTargetListChanged
+	[11:13:54.673, tid=5820] msgActiveTargetListChanged
+	[11:13:54.673, tid=5448] msgActiveCatalogListsChanged
+	[11:13:54.673, tid=5448] msgActiveCatalogListsChanged
+	[11:13:54.673, tid=5448] msgActiveCatalogListsChanged
+	[11:13:54.673, tid=5448] type_EndUpdateMessage
+	[11:13:54.673, tid=5448] type_EndUpdateMessage
+	[11:13:54.673, tid=5448] type_BeginUpdateAndClearMessage
+	[11:13:54.673, tid=5448] msgUpdateActiveCatalogLists
+	[11:13:54.673, tid=5820] msgActiveTargetListChanged
+	[11:13:54.673, tid=5820] msgActiveTargetListChanged
+	[11:13:54.673, tid=5820] msgActiveTargetListChanged
+	[11:13:54.673, tid=5448] type_EndUpdateMessage
+	[11:13:54.673, tid=5448] msgActiveCatalogListsChanged
+	[11:13:54.673, tid=5448] msgActiveCatalogListsChanged
+	[11:13:54.673, tid=5820] msgActiveTargetListChanged
+	[11:13:54.673, tid=5448] msgActiveCatalogListsChanged
+	[11:13:54.673, tid=5448] type_BeginUpdateMessage
+	[11:13:54.673, tid=5448] msgActiveCatalogListsChanged
+	[11:13:54.673, tid=5448] msgActiveCatalogListsChanged
+	[11:13:54.673, tid=5448] msgActiveCatalogListsChanged
+	[11:13:54.673, tid=5448] type_EndUpdateMessage
+	[11:13:54.673, tid=5448] type_BeginUpdateMessage
+	[11:13:54.673, tid=5448] type_BeginUpdateAndClearMessage
+	[11:13:54.673, tid=5448] msgBreakpointStatusChanged, breakpoint=Hardware Breakpoint
+	[11:13:54.673, tid=5448] msgBreakpointStatusChanged, breakpoint=Hardware Breakpoint
+	[11:13:54.673, tid=5448] msgBreakpointStatusChanged, breakpoint=Software Breakpoint
+	[11:13:54.673, tid=5448] msgBreakpointStatusChanged, breakpoint=Software Breakpoint
+	[11:13:54.673, tid=5448] msgBreakpointStatusChanged, breakpoint=Auto Breakpoint
+	[11:13:54.673, tid=5448] msgBreakpointStatusChanged, breakpoint=Auto Breakpoint
+	[11:13:54.673, tid=5448] type_EndUpdateMessage
+	[11:13:54.673, tid=5448] type_BeginUpdateAndClearMessage
+	[11:13:54.070, tid=5092] msgQuitThread
+
+Group : Actions
+	[11:13:54.682, tid=5448] EnableMenusAction
+	[11:13:54.672, tid=5448] TextDocumentAction, action=syncInfoForProject
+	[11:13:54.672, tid=5448] FireProjectDocumentOpenedAction, project=D:\sm\trunk\Project2\Project2.mcp
+	[11:13:54.672, tid=5448] TextDocumentAction, action=syncInfoForProject
+	[11:13:54.672, tid=5448] TextDocumentAction, action=syncInfoForProject, project=Project2.mcp
+	[11:13:54.672, tid=5448] SetSelectedProjectPanelAction, project=Project2.mcp
+	[11:13:54.303, tid=5448] FireProjectVisibleAction, project=Project2.mcp, target ID=0
+	[11:13:54.303, tid=5448] FireProjectOpenedAction, project=Project2.mcp, target ID=0
+	[11:13:54.303, tid=5448] CacheSubprojectsAction, project=Project2.mcp, target ID=1
+	[11:13:54.303, tid=5448] EnableBrowserAction, project=Project2.mcp
+	[11:13:54.294, tid=5448] RemoveRegisterDetailsAction
+
+*** Most Recent Activity Summary ***
+[11:13:55.923] | Mouse Clicks    | 5448 | mouse click, left, point=(68, 109)
+[11:13:54.682] | Actions         | 5448 | EnableMenusAction
+[11:13:54.673] | Dispatched Msgs | 5820 | msgActiveTargetListChanged
+[11:13:54.673] | Dispatched Msgs | 5820 | msgActiveTargetListChanged
+[11:13:54.673] | Dispatched Msgs | 5448 | msgActiveCatalogListsChanged
+[11:13:54.673] | Dispatched Msgs | 5448 | msgActiveCatalogListsChanged
+[11:13:54.673] | Dispatched Msgs | 5448 | msgActiveCatalogListsChanged
+[11:13:54.673] | Dispatched Msgs | 5448 | type_EndUpdateMessage
+[11:13:54.673] | Dispatched Msgs | 5448 | type_EndUpdateMessage
+[11:13:54.673] | Dispatched Msgs | 5448 | type_BeginUpdateAndClearMessage
+[11:13:54.673] | Dispatched Msgs | 5448 | msgUpdateActiveCatalogLists
+[11:13:54.673] | Dispatched Msgs | 5820 | msgActiveTargetListChanged
+[11:13:54.673] | Dispatched Msgs | 5820 | msgActiveTargetListChanged
+[11:13:54.673] | Dispatched Msgs | 5820 | msgActiveTargetListChanged
+[11:13:54.673] | Dispatched Msgs | 5448 | type_EndUpdateMessage
+[11:13:54.673] | Dispatched Msgs | 5448 | msgActiveCatalogListsChanged
+[11:13:54.673] | Dispatched Msgs | 5448 | msgActiveCatalogListsChanged
+[11:13:54.673] | Dispatched Msgs | 5820 | msgActiveTargetListChanged
+[11:13:54.673] | Dispatched Msgs | 5448 | msgActiveCatalogListsChanged
+[11:13:54.673] | Dispatched Msgs | 5448 | type_BeginUpdateMessage
+[11:13:54.673] | Dispatched Msgs | 5448 | msgActiveCatalogListsChanged
+[11:13:54.673] | Dispatched Msgs | 5448 | msgActiveCatalogListsChanged
+[11:13:54.673] | Dispatched Msgs | 5448 | msgActiveCatalogListsChanged
+[11:13:54.673] | Dispatched Msgs | 5448 | type_EndUpdateMessage
+[11:13:54.673] | Dispatched Msgs | 5448 | type_BeginUpdateMessage
+[11:13:54.673] | Dispatched Msgs | 5448 | type_BeginUpdateAndClearMessage
+[11:13:54.673] | Dispatched Msgs | 5448 | msgBreakpointStatusChanged, breakpoint=Hardware Breakpoint
+[11:13:54.673] | Dispatched Msgs | 5448 | msgBreakpointStatusChanged, breakpoint=Hardware Breakpoint
+[11:13:54.673] | Dispatched Msgs | 5448 | msgBreakpointStatusChanged, breakpoint=Software Breakpoint
+[11:13:54.673] | Dispatched Msgs | 5448 | msgBreakpointStatusChanged, breakpoint=Software Breakpoint
+[11:13:54.673] | Dispatched Msgs | 5448 | msgBreakpointStatusChanged, breakpoint=Auto Breakpoint
+[11:13:54.673] | Dispatched Msgs | 5448 | msgBreakpointStatusChanged, breakpoint=Auto Breakpoint
+[11:13:54.673] | Dispatched Msgs | 5448 | type_EndUpdateMessage
+[11:13:54.673] | Dispatched Msgs | 5448 | type_BeginUpdateAndClearMessage
+[11:13:54.672] | Actions         | 5448 | TextDocumentAction, action=syncInfoForProject
+[11:13:54.672] | Actions         | 5448 | FireProjectDocumentOpenedAction, project=D:\sm\trunk\Project2\Project2.mcp
+[11:13:54.672] | Actions         | 5448 | TextDocumentAction, action=syncInfoForProject
+[11:13:54.672] | Actions         | 5448 | TextDocumentAction, action=syncInfoForProject, project=Project2.mcp
+[11:13:54.672] | Actions         | 5448 | SetSelectedProjectPanelAction, project=Project2.mcp
+[11:13:54.660] | Projects        | 5448 | opened D:\sm\trunk\Project2\Project2.mcp
+[11:13:54.331] | Pref Panel      | 5448 | reqUpdateProject, panel=VCS Setup
+[11:13:54.303] | Actions         | 5448 | FireProjectVisibleAction, project=Project2.mcp, target ID=0
+[11:13:54.303] | Actions         | 5448 | FireProjectOpenedAction, project=Project2.mcp, target ID=0
+[11:13:54.303] | Actions         | 5448 | CacheSubprojectsAction, project=Project2.mcp, target ID=1
+[11:13:54.303] | Actions         | 5448 | EnableBrowserAction, project=Project2.mcp
+[11:13:54.294] | Actions         | 5448 | RemoveRegisterDetailsAction
+[11:13:54.258] | Pref Panel      | 5448 | reqUpdateProject, panel=Custom Keywords
+[11:13:54.258] | Pref Panel      | 5448 | reqUpdateProject, panel=Build Extras
+[11:13:54.258] | Pref Panel      | 5448 | reqUpdateProject, panel=File Mappings
+[11:13:54.257] | Pref Panel      | 5448 | reqUpdateProject, panel=Target Settings
+
