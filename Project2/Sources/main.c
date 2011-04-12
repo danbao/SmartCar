@@ -3,7 +3,7 @@
 #include <MC9S12XS128.h>
 #define LASER_MAX 15          //激光管数量
 #define PWM67 224	
-#define PWM01 1482
+#define PWM01 1488
 #define ANGLE_DELTA 30
 #define PWM6_MID 224		
 
@@ -17,14 +17,14 @@
   int countPIT0=0;
   int position=0;                        
   int His_ADD_Position[3];                      //步进累加值历史   His_ADD_Position[2]=aabs[1]
-  int His_Position[3];                        //历史position  position[3]=position[1]-position[0] position[2]=aabs[position]
+  int His_Position[4];                        //历史position  position[3]=position[1]-position[0] position[2]=aabs[position]
   int angle[2]; 
   int Calculate_HitBlackNum(void);
   int YaoKp ,YaoKd,ZhuanKp,ZhuanKd;
   byte lost_line_flag=0;
   int ADD_Position; 
   int Diff_Position;
-  int GDiff_Position[2];                      //步进累加的值
+  int GDiff_Position[3];                      //摇头舵机的摆值  GDiff_Position[2]=aabs（GD【1】）
   
 //===============时钟初始化========================//
 
@@ -111,7 +111,7 @@ void PWM_Init(void){     		//PWM初始化。其中P4,P5控制电机正反转, P6,P7级联激光管
 	PWMPOL_PPOL7=1;
   
   PWMCTL = 0B00100000;     //通道23级联
-  
+  PWMCTL=0xf0;
 	PWMCAE_CAE0=0;				//转向摆头舵机对齐方式
 	PWMCAE_CAE1=0;	
 	PWMCAE_CAE6=1;         		//激光摆头数字舵机对齐方式
@@ -120,16 +120,16 @@ void PWM_Init(void){     		//PWM初始化。其中P4,P5控制电机正反转, P6,P7级联激光管
   PWMCNT01 = 0;				//01口计数器清零；
   PWMCNT23 = 0;			//计数器23清零 
   
-	PWMCTL=0x90;            	//控制寄存器，01和67口级联。
+ //	PWMCTL=0x90;            	//控制寄存器，01和67口级联。
 	
 	PWMPER23 = 125;    //频率 8kHz 
 	PWMPER01=20000;				//1024×1024（频率）*Clock A/2/PWMSCLB/PWMPER67
 	PWMPER67=1000;				//1024×1024（频率）*Clock B/2/PWMSCLB/PWMPER67
  
 	PWMDTY01=PWM01;
-	PWMDTY23 = 0;      //速度为0，即静止
+	PWMDTY23 =0;      //速度为0，即静止
 	PWMDTY67=PWM67;				//PWMDTY67/PWMPER67*100%
-	PWME=0xff;         			//启动通道使能。
+	PWME=0xaa;  
 }
 //=====================激光初始化======================//
  void LIGHT_Init(void){ 
@@ -301,16 +301,18 @@ void  baitou (void) {
     His_Position[2]=position;
     His_Position[2]=aabs(His_Position[2]); 
     
-    if(His_Position[2]>1&&His_Position[2]<=3)
-    Diff_Position=(4*His_Position[1])/5;
-    else if(His_Position[2]>3&&His_Position[2]<=6)
+    if(His_Position[2]<=1)
+    Diff_Position=0;
+    else if(His_Position[2]>1&&His_Position[2]<=3)
+    Diff_Position=(3*His_Position[1])/5;
+    else if(His_Position[2]>3&&His_Position[2]<=7)
     Diff_Position=(5*His_Position[1])/4;
-    else if(His_Position[2]>6&&His_Position[2]<=14)
-    Diff_Position=2*His_Position[1];
-    else if(His_Position[2]>6&&His_Position[2]<=10)
-    Diff_Position=2*His_Position[1];
-    else if(His_Position[2]>10&&His_Position[2]<=14)
-    Diff_Position=(5*His_Position[1])/2;
+    else if(His_Position[2]>7&&His_Position[2]<=10)
+    Diff_Position=(6*His_Position[1])/4;
+    else if(His_Position[2]>10&&His_Position[2]<=12)
+    Diff_Position=(6*His_Position[1])/5;
+    else if(His_Position[2]>12&&His_Position[2]<=14)
+    Diff_Position=(7*His_Position[1])/5;
     
   /*  else if(His_Position[3]>4&&His_Position[3]<=6)
     Diff_Position=(1+2)*His_Position[2]-(2+2*2)*His_Position[1]+2*His_Position[0];
@@ -330,23 +332,41 @@ void  baitou (void) {
 
 /*=======================打角舵机===========================*/
 //GDiff_Position是存储 摇头舵机差值 传给打角的参数
-void dajiao(void) {
-    int ZhuanPwm;
-    
-    GDiff_Position[1]=PWMDTY67-PWM67;
+//  1488   1778  1198
    
-    if(His_Position[2]>0&&His_Position[2]<=4)
-    ZhuanPwm=PWM01-(position+GDiff_Position[1])*4-2*(GDiff_Position[1]-GDiff_Position[0]);
-    else if(His_Position[2]>4&&His_Position[2]<=8)
-    ZhuanPwm=PWM01-(position+GDiff_Position[1])*6-2*(GDiff_Position[1]-GDiff_Position[0]);
-    else if(His_Position[2]>8&&His_Position[2]<=14)
-    ZhuanPwm=PWM01-(position+GDiff_Position[1])*8-2*(GDiff_Position[1]-GDiff_Position[0]);
+ 
+void dajiao(void) {
     
+    int ZhuanPwm=0;
+    GDiff_Position[1]=PWMDTY67-PWM67;
+    GDiff_Position[2]=PWMDTY67-PWM67;
+    GDiff_Position[2]=aabs(GDiff_Position[2]);
+    //His_Position[3]=position;
+    //His_Position[3]=aabs(His_Position[3]);
     
-    if(ZhuanPwm>1772)
-    ZhuanPwm=1772;
-    else if(ZhuanPwm<1204)
-    ZhuanPwm=1204;
+    //if(His_Position[3]<=1){  
+   // if(GDiff_Position[1]<=6&&GDiff_Position[1]>=-6)
+   // ZhuanPwm=PWM01;           
+   // }
+    if(GDiff_Position[2]<=8)
+    ZhuanPwm=PWM01;
+    else if(GDiff_Position[2]>8&&GDiff_Position[2]<=14)
+    ZhuanPwm=PWM01-(4*position+GDiff_Position[1])-0*(GDiff_Position[1]-GDiff_Position[0]);
+    else if(GDiff_Position[2]>14&&GDiff_Position[2]<=24)
+    ZhuanPwm=PWM01-(6*position+3*GDiff_Position[1])-0*(GDiff_Position[1]-GDiff_Position[0]);
+    else if(GDiff_Position[2]>24&&GDiff_Position[2]<=40)
+    ZhuanPwm=PWM01-(8*position+5*GDiff_Position[1])-0*(GDiff_Position[1]-GDiff_Position[0]);
+    else if(GDiff_Position[2]>40&&GDiff_Position[2]<=60)
+    ZhuanPwm=PWM01-(10*position+6*GDiff_Position[1])-0*(GDiff_Position[1]-GDiff_Position[0]);
+    else if(GDiff_Position[2]>60&&GDiff_Position[2]<=80)
+    ZhuanPwm=PWM01-(12*position+7*GDiff_Position[1])-0*(GDiff_Position[1]-GDiff_Position[0]);
+    else if(GDiff_Position[2]>80)
+    ZhuanPwm=PWM01-(12*position+7*GDiff_Position[1])-0*(GDiff_Position[1]-GDiff_Position[0]);
+    
+    if(ZhuanPwm>1778)
+    ZhuanPwm=1778;
+    else if(ZhuanPwm<1198)
+    ZhuanPwm=1198;
     
     PWMDTY01=ZhuanPwm;
     GDiff_Position[0]=GDiff_Position[1]; 
@@ -358,46 +378,7 @@ void dajiao(void) {
    
    
     
-  /*   His_Position[0]=His_Position[1];
-     His_Position[1]=position;
-     His_Position[2]=position;  
-     His_Position[2]=aabs(His_Position[2]);
-     His_Position[3]=His_Position[1]-His_Position[0] ;
-     ADD_Position=ADD_Position+angle[0];
-            
-    if(ADD_Position>=120)
-    ADD_Position;
-    else if(ADD_Position<=-120)
-    ADD_Position=-120;
-    else
-    PWMDTY67=ADD_Position+PWM67;
-    
-    His_ADD_Position[1]=ADD_Position;
-    His_ADD_Position[2]=aabs(His_ADD_Position[1]);
-    if( His_ADD_Position[2]>0&& His_ADD_Position[2]<=15)
-    ZhuanPwm=PWM01-(-position+His_ADD_Position[1])*4-2*(-His_Position[3]+His_ADD_Position[1]-His_ADD_Position[0]);
-    else if( His_ADD_Position[2]>15&&His_ADD_Position[2]<=25)
-    ZhuanPwm=PWM01-(-position+His_ADD_Position[1])*7-2*(-His_Position[3]+His_ADD_Position[1]-His_ADD_Position[0]);
-    else if( His_ADD_Position[2]>25&& His_ADD_Position[2]<=35)
-    ZhuanPwm=PWM01-(-position+His_ADD_Position[1])*7-2*(-His_Position[3]+His_ADD_Position[1]-His_ADD_Position[0]);
-    else if( His_ADD_Position[2]>35&&His_ADD_Position[2]<=50)
-    ZhuanPwm=PWM01-(-position+His_ADD_Position[1])*7-2*(-His_Position[3]+His_ADD_Position[1]-His_ADD_Position[0]);
-    else if( His_ADD_Position[2]>50&& His_ADD_Position[2]<=70)
-    ZhuanPwm=PWM01-(-position+His_ADD_Position[1])*6-2*(-His_Position[3]+His_ADD_Position[1]-His_ADD_Position[0]);
-    else if( His_ADD_Position[2]>70)
-    ZhuanPwm=PWM01-(-position+His_ADD_Position[1])*5-2*(-His_Position[3]+His_ADD_Position[1]-His_ADD_Position[0]);
-    
-    His_ADD_Position[0]=His_ADD_Position[1];
-    if(ZhuanPwm>1772)
-    ZhuanPwm=1772;
-    else if(ZhuanPwm<1204)
-    ZhuanPwm=1204;
-    
-    PWMDTY01=ZhuanPwm;
-    //PWMDTY01=PWM01-(ADD_Position+position)*3;
-    
-    */
-} // DerectionCtrl
+ } // DerectionCtrl
 
 //【type declaration】
 /* ============== 激光管状态枚举类型 LASER_STATUS ================ 
@@ -616,7 +597,7 @@ void SCI_SetDriver(int value){
   PWMDTY01 = value; 
 }
 void SpeedCtrl (void) {
-PWMDTY23=84;
+PWMDTY23=58;
 }
 
 void main(void) {
@@ -634,21 +615,22 @@ void main(void) {
   for(i=0;;i++) {
     if(i == 5) 
     {i = 0;
-   // Confirm_Light();    
-   //   count++;
-  //         if(count%20==0){  
-  //            count=1; 
- //  SendSmartcarInfo(light_temp_laser_array);
- //   SCISend('\n');    
- //            }         
+   
+    //  count++;
+      //     if(count%20==0){  
+      //        count=1; 
+//  SendSmartcarInfo(light_temp_laser_array);
+  //  SCISend('\n');    
+  //          }         
      temp_laserStatus = Status_Judge();
-     CalculateAngle(temp_laserStatus); //得到舵机需要调整的转角      
+     CalculateAngle(temp_laserStatus); //得到舵机需要调整的转角 
+    dajiao();     
    testcount++;
-   if(testcount%15==0){
+  if(testcount%25==0){
        testcount=1;
-    baitou( );
+   baitou( );
    }
-     dajiao();
+    
      SpeedCtrl();
      receive(i);
     } else receive(i);
