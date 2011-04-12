@@ -17,7 +17,7 @@
   int countPIT0=0;
   int position=0;                        
   int His_ADD_Position[3];                      //步进累加值历史   His_ADD_Position[2]=aabs[1]
-  int His_Position[4];                        //历史position  position[3]=position[1]-position[0] position[2]=aabs[position]
+  int His_Position[3];                        //历史position  position[3]=position[1]-position[0] position[2]=aabs[position]
   int angle[2]; 
   int Calculate_HitBlackNum(void);
   int YaoKp ,YaoKd,ZhuanKp,ZhuanKd;
@@ -241,7 +241,7 @@ void SendSmartcarInfo(byte temp_laser_array[]) {
 
 /*=====================激光管对应权值======================
 LASER_MAX    14   13   12   11  10    9   8   7    6    5    4     3     2        1     0
-对应的权值  -14  -12  -10   -8  -6   -4  -2  -0    2    4    6      8     10       12    14
+对应的权值  -14  -12  -10   -8  -6   -4  -2   0    2    4    6      8     10       12    14
                                                  
 程序未完成，必须有参数和返回值，需要建立联系！  
 
@@ -286,26 +286,32 @@ int Calculate_HitBlackNum(void){
   return HitBlackNum;
 }
   
-/*=====================激光摆头/转向舵机======================*/
+/*=====================激光摆头======================*/
 //转向舵机：1482 1772 1204   摆头舵机：224+-90
 //0.10712*x^2 + 4.5791*10^(-17)*x + 6.7084
-void  DerectionCtrl () {
+//Diff_Position是增量pd的 加到pwm上的增量
+void  baitou (void) {
    
      
-     int ZhuanPwm;
-   //lost_blackline();
-  //  if(lost_line_flag==0){
     
-    His_Position[2]=position;  
+  
     
-    His_Position[3]=position;
-    //His_Position[3]=aabs(His_Position[3]); 
+    His_Position[1]=position;  
     
-    if(position==-14)
-   // Diff_Position=His_Position[2]-His_Position[1]+0*His_Position[0];
-     PWMDTY67=PWM67-27;
-   // else if(His_Position[3]<-1)
-    //Diff_Position=His_Position[2]-His_Position[1]+0*His_Position[0];
+    His_Position[2]=position;
+    His_Position[2]=aabs(His_Position[2]); 
+    
+    if(His_Position[2]>1&&His_Position[2]<=3)
+    Diff_Position=(4*His_Position[1])/5;
+    else if(His_Position[2]>3&&His_Position[2]<=6)
+    Diff_Position=(5*His_Position[1])/4;
+    else if(His_Position[2]>6&&His_Position[2]<=14)
+    Diff_Position=2*His_Position[1];
+    else if(His_Position[2]>6&&His_Position[2]<=10)
+    Diff_Position=2*His_Position[1];
+    else if(His_Position[2]>10&&His_Position[2]<=14)
+    Diff_Position=(5*His_Position[1])/2;
+    
   /*  else if(His_Position[3]>4&&His_Position[3]<=6)
     Diff_Position=(1+2)*His_Position[2]-(2+2*2)*His_Position[1]+2*His_Position[0];
     else if(His_Position[3]>6&&His_Position[3]<=8)
@@ -318,21 +324,23 @@ void  DerectionCtrl () {
     Diff_Position=(1+2)*His_Position[2]-(2+2*2)*His_Position[1]+2*His_Position[0];  */
     
      His_Position[0]=His_Position[1];
-     His_Position[1]=His_Position[2];
+     PWMDTY67=PWMDTY67+Diff_Position;
     
-    
-    GDiff_Position[0]=GDiff_Position[1];
-    
-   // PWMDTY67=PWMDTY67+Diff_Position;
+}
+
+/*=======================打角舵机===========================*/
+//GDiff_Position是存储 摇头舵机差值 传给打角的参数
+void dajiao(void) {
+    int ZhuanPwm;
     
     GDiff_Position[1]=PWMDTY67-PWM67;
    
-    if(His_Position[3]>0&&His_Position[3]<=4)
-    ZhuanPwm=PWM01-(position+GDiff_Position[1])*3-2*(GDiff_Position[1]-GDiff_Position[0]);
-    else if(His_Position[3]>4&&His_Position[3]<=8)
-    ZhuanPwm=PWM01-(position+GDiff_Position[1])*5-2*(GDiff_Position[1]-GDiff_Position[0]);
-    else if(His_Position[3]>8&&His_Position[3]<=14)
-    ZhuanPwm=PWM01-(position+GDiff_Position[1])*7-2*(GDiff_Position[1]-GDiff_Position[0]);
+    if(His_Position[2]>0&&His_Position[2]<=4)
+    ZhuanPwm=PWM01-(position+GDiff_Position[1])*4-2*(GDiff_Position[1]-GDiff_Position[0]);
+    else if(His_Position[2]>4&&His_Position[2]<=8)
+    ZhuanPwm=PWM01-(position+GDiff_Position[1])*6-2*(GDiff_Position[1]-GDiff_Position[0]);
+    else if(His_Position[2]>8&&His_Position[2]<=14)
+    ZhuanPwm=PWM01-(position+GDiff_Position[1])*8-2*(GDiff_Position[1]-GDiff_Position[0]);
     
     
     if(ZhuanPwm>1772)
@@ -341,7 +349,7 @@ void  DerectionCtrl () {
     ZhuanPwm=1204;
     
     PWMDTY01=ZhuanPwm;
-     
+    GDiff_Position[0]=GDiff_Position[1]; 
   
   
   
@@ -620,12 +628,13 @@ void main(void) {
   SetBusCLK_40M();    //   设置时钟初始化。40MHz.
   PWM_Init();
   LIGHT_Init();
+  delayms(2);
   Laser_num();
    SCI_Init();
   for(i=0;;i++) {
     if(i == 5) 
     {i = 0;
-    Confirm_Light();    
+   // Confirm_Light();    
    //   count++;
   //         if(count%20==0){  
   //            count=1; 
@@ -634,11 +643,12 @@ void main(void) {
  //            }         
      temp_laserStatus = Status_Judge();
      CalculateAngle(temp_laserStatus); //得到舵机需要调整的转角      
- //  testcount++;
- //  if(testcount%9==0){
- //      testcount=1;
-    DerectionCtrl( );
- //  }
+   testcount++;
+   if(testcount%15==0){
+       testcount=1;
+    baitou( );
+   }
+     dajiao();
      SpeedCtrl();
      receive(i);
     } else receive(i);
