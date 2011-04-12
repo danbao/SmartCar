@@ -24,8 +24,8 @@
   byte lost_line_flag=0;
   int ADD_Position; 
   int Diff_Position;
-  int GDiff_Position[3];                      //Ò¡Í·¶æ»úµÄ°ÚÖµ  GDiff_Position[2]=aabs£¨GD¡¾1¡¿£©
-  
+  int GDiff_Position[3];                      //Ò¡Í·¶æ»úµÄ°ÚÖµ(ÓÉÓÚ²ÉÑùÖÜÆÚ²»Í¬ ¶æ»ú²îÖµÒªÉèÁ½¸ö)  GDiff_Position[2]=aabs£¨GD¡¾1¡¿£©
+  int YDiff_Position[2];                      //Ò¡Í·¶æ»ú°ÚÖµ
 //===============Ê±ÖÓ³õÊ¼»¯========================//
 
 void SetBusCLK_40M()
@@ -110,8 +110,8 @@ void PWM_Init(void){     		//PWM³õÊ¼»¯¡£ÆäÖÐP4,P5¿ØÖÆµç»úÕý·´×ª, P6,P7¼¶Áª¼¤¹â¹Ü
 	PWMPOL_PPOL6=1;				//¼¤¹â°ÚÍ·Êý×Ö¼«ÐÔÑ¡ÔñÉèÖÃ
 	PWMPOL_PPOL7=1;
   
-  PWMCTL = 0B00100000;     //Í¨µÀ23¼¶Áª
-  PWMCTL=0xf0;
+  PWMCTL = 0B00110000;     //Í¨µÀ23¼¶Áª
+  
 	PWMCAE_CAE0=0;				//×ªÏò°ÚÍ·¶æ»ú¶ÔÆë·½Ê½
 	PWMCAE_CAE1=0;	
 	PWMCAE_CAE6=1;         		//¼¤¹â°ÚÍ·Êý×Ö¶æ»ú¶ÔÆë·½Ê½
@@ -120,16 +120,16 @@ void PWM_Init(void){     		//PWM³õÊ¼»¯¡£ÆäÖÐP4,P5¿ØÖÆµç»úÕý·´×ª, P6,P7¼¶Áª¼¤¹â¹Ü
   PWMCNT01 = 0;				//01¿Ú¼ÆÊýÆ÷ÇåÁã£»
   PWMCNT23 = 0;			//¼ÆÊýÆ÷23ÇåÁã 
   
- //	PWMCTL=0x90;            	//¿ØÖÆ¼Ä´æÆ÷£¬01ºÍ67¿Ú¼¶Áª¡£
+	PWMCTL=0x90;            	//¿ØÖÆ¼Ä´æÆ÷£¬01ºÍ67¿Ú¼¶Áª¡£
 	
-	PWMPER23 = 125;    //ÆµÂÊ 8kHz 
+	PWMPER23 = 1000;    //ÆµÂÊ 8kHz 
 	PWMPER01=20000;				//1024¡Á1024£¨ÆµÂÊ£©*Clock A/2/PWMSCLB/PWMPER67
 	PWMPER67=1000;				//1024¡Á1024£¨ÆµÂÊ£©*Clock B/2/PWMSCLB/PWMPER67
  
 	PWMDTY01=PWM01;
-	PWMDTY23 =0;      //ËÙ¶ÈÎª0£¬¼´¾²Ö¹
+	PWMDTY23 = 0;      //ËÙ¶ÈÎª0£¬¼´¾²Ö¹
 	PWMDTY67=PWM67;				//PWMDTY67/PWMPER67*100%
-	PWME=0xaa;  
+	PWME=0xff;         			//Æô¶¯Í¨µÀÊ¹ÄÜ¡
 }
 //=====================¼¤¹â³õÊ¼»¯======================//
  void LIGHT_Init(void){ 
@@ -297,22 +297,22 @@ void  baitou (void) {
   
     
     His_Position[1]=position;  
-    
     His_Position[2]=position;
     His_Position[2]=aabs(His_Position[2]); 
+    YDiff_Position[1]= Diff_Position;
     
     if(His_Position[2]<=1)
     Diff_Position=0;
     else if(His_Position[2]>1&&His_Position[2]<=3)
-    Diff_Position=(3*His_Position[1])/5;
+    Diff_Position=(4*His_Position[1])/5+3*(YDiff_Position[1]-YDiff_Position[0])/11;
     else if(His_Position[2]>3&&His_Position[2]<=7)
-    Diff_Position=(5*His_Position[1])/4;
+    Diff_Position=(4*His_Position[1])/6+3*(YDiff_Position[1]-YDiff_Position[0])/11;
     else if(His_Position[2]>7&&His_Position[2]<=10)
-    Diff_Position=(6*His_Position[1])/4;
+    Diff_Position=(5*His_Position[1])/6+4*(YDiff_Position[1]-YDiff_Position[0])/11;
     else if(His_Position[2]>10&&His_Position[2]<=12)
-    Diff_Position=(6*His_Position[1])/5;
+    Diff_Position=(4*His_Position[1])/6+4*(YDiff_Position[1]-YDiff_Position[0])/11;
     else if(His_Position[2]>12&&His_Position[2]<=14)
-    Diff_Position=(7*His_Position[1])/5;
+    Diff_Position=(4*His_Position[1])/6+4*(YDiff_Position[1]-YDiff_Position[0])/11;
     
   /*  else if(His_Position[3]>4&&His_Position[3]<=6)
     Diff_Position=(1+2)*His_Position[2]-(2+2*2)*His_Position[1]+2*His_Position[0];
@@ -325,6 +325,7 @@ void  baitou (void) {
     else if(His_Position[3]>12&&His_Position[3]<=14)
     Diff_Position=(1+2)*His_Position[2]-(2+2*2)*His_Position[1]+2*His_Position[0];  */
     
+     YDiff_Position[0]=YDiff_Position[1];
      His_Position[0]=His_Position[1];
      PWMDTY67=PWMDTY67+Diff_Position;
     
@@ -351,17 +352,17 @@ void dajiao(void) {
     if(GDiff_Position[2]<=8)
     ZhuanPwm=PWM01;
     else if(GDiff_Position[2]>8&&GDiff_Position[2]<=14)
-    ZhuanPwm=PWM01-(4*position+GDiff_Position[1])-0*(GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM01-(4*position+GDiff_Position[1])-5*(GDiff_Position[1]-GDiff_Position[0])/11;
     else if(GDiff_Position[2]>14&&GDiff_Position[2]<=24)
-    ZhuanPwm=PWM01-(6*position+3*GDiff_Position[1])-0*(GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM01-(6*position+3*GDiff_Position[1])-5*(GDiff_Position[1]-GDiff_Position[0])/11;
     else if(GDiff_Position[2]>24&&GDiff_Position[2]<=40)
-    ZhuanPwm=PWM01-(8*position+5*GDiff_Position[1])-0*(GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM01-(8*position+4*GDiff_Position[1])-5*(GDiff_Position[1]-GDiff_Position[0])/11;
     else if(GDiff_Position[2]>40&&GDiff_Position[2]<=60)
-    ZhuanPwm=PWM01-(10*position+6*GDiff_Position[1])-0*(GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM01-(9*position+5*GDiff_Position[1])-5*(GDiff_Position[1]-GDiff_Position[0])/11;
     else if(GDiff_Position[2]>60&&GDiff_Position[2]<=80)
-    ZhuanPwm=PWM01-(12*position+7*GDiff_Position[1])-0*(GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM01-(11*position+6*GDiff_Position[1])-5*(GDiff_Position[1]-GDiff_Position[0])/11;
     else if(GDiff_Position[2]>80)
-    ZhuanPwm=PWM01-(12*position+7*GDiff_Position[1])-0*(GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM01-(11*position+7*GDiff_Position[1])-5*(GDiff_Position[1]-GDiff_Position[0])/11;
     
     if(ZhuanPwm>1778)
     ZhuanPwm=1778;
@@ -371,14 +372,7 @@ void dajiao(void) {
     PWMDTY01=ZhuanPwm;
     GDiff_Position[0]=GDiff_Position[1]; 
   
-  
-  
-  
-  
-   
-   
-    
- } // DerectionCtrl
+  } // DerectionCtrl
 
 //¡¾type declaration¡¿
 /* ============== ¼¤¹â¹Ü×´Ì¬Ã¶¾ÙÀàÐÍ LASER_STATUS ================ 
@@ -597,7 +591,7 @@ void SCI_SetDriver(int value){
   PWMDTY01 = value; 
 }
 void SpeedCtrl (void) {
-PWMDTY23=58;
+PWMDTY23=75;
 }
 
 void main(void) {
@@ -626,7 +620,7 @@ void main(void) {
      CalculateAngle(temp_laserStatus); //µÃµ½¶æ»úÐèÒªµ÷ÕûµÄ×ª½Ç 
     dajiao();     
    testcount++;
-  if(testcount%25==0){
+  if(testcount%17==0){
        testcount=1;
    baitou( );
    }
