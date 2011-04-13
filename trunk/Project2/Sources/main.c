@@ -1,94 +1,9 @@
 #include <hidef.h>      /* common defines and macros */
 #include "derivative.h"      /* derivative-specific definitions */
 #include <MC9S12XS128.h>
-#define LASER_MAX 15          //激光管数量
-#define PWM67 224	
-#define PWM01 1488
-#define ANGLE_DELTA 30
-#define PWM6_MID 224		
+#include "math.h"			//abs绝对值要用到
+#include "main.h"			//所有变量的定义都放在main.h文件下了 
 
-//===============全局变量定义======================//
-   int temp_pwm67=PWM67;						//激光摆头舵机初始值
-  int temp_pwm01=PWM01;						//转向摆头舵机初始值
-  byte light_temp_laser_array[LASER_MAX];  //当前激光管信息保存数组
-  int testcount=1;
-  int count=1;                                  //串口接收延时
-  int q_temp_laser_num[LASER_MAX];       //激光管对应的权值
-  int countPIT0=0;
-  int position=0;                        
-  int His_ADD_Position[3];                      //步进累加值历史   His_ADD_Position[2]=aabs[1]
-  int His_Position[4];                        //历史position  position[3]=position[1]-position[0] position[2]=aabs[position]
-  int angle[2]; 
-  int Calculate_HitBlackNum(void);
-  int YaoKp ,YaoKd,ZhuanKp,ZhuanKd;
-  byte lost_line_flag=0;
-  int ADD_Position; 
-  int Diff_Position;
-  int GDiff_Position[3];                      //摇头舵机的摆值(由于采样周期不同 舵机差值要设两个)  GDiff_Position[2]=aabs（GD【1】）
-  int YDiff_Position[2];                      //摇头舵机摆值
-//===============时钟初始化========================//
-
-void SetBusCLK_40M()
-{   
-    CLKSEL=0X00;				//disengage PLL to system
-    PLLCTL_PLLON=1;			//turn on PLL
-    SYNR =0xc0 | 0x04;                        
-    REFDV=0x80 | 0x01; 
-    POSTDIV=0x00;       //pllclock=2*osc*(1+SYNR)/(1+REFDV)=80MHz;
-    _asm(nop);          //BUS CLOCK=40M
-    _asm(nop);
-    while(!(CRGFLG_LOCK==1));	  //when pll is steady ,then use it;
-    CLKSEL_PLLSEL =1;		        //engage PLL to system; 
-}  
-
-//=====================串口接收函数====================//
-char SCI_RXD(void)
-{
-    char ch; 
-    while (!(SCI0SR1 & 0x20));       //等待接收数据完毕
-    SCI0SR1_RDRF = 1;
-    ch = SCI0DRL;
-    return ch;
-}
-//==============串口输出显示函数========================//
-void SCISend(unsigned char ch)
-{ 
-  if (ch == '\n')  
-  {
-      while(!(SCI0SR1&0x80)) ;     
-      SCI0DRL= 0x0d;   
-      while(!(SCI0SR1&0x80)) ;     
-      SCI0DRL= 0x0a;               
-     return;
-  } 
-  else while (!(SCI0SR1&0x80));
-    SCI0DRH=0;
-    SCI0DRL=ch;
-}
-
-static void SCI_Init(void)  //SCI
-{
-    SCI0CR1=0x00;
-    SCI0CR2=0x2c;
-     SCI0BD=260;                    //设置波特率公式=总线频率/所需要的波特率/16=所要设置的值;
-                  
-}
-//==============延时程序================================//
-void delayms(int ms)    //延时程序。
-{   
-   int ii,jj;
-   if (ms<1) ms=1;
-   for(ii=0;ii<ms;ii++)
-     for(jj=0;jj<3338;jj++);    //40MHz--1ms      
-}
-
-//==============aabs绝对值================================//
-int aabs(int num) {
-if (num>=0)return num;
-else {
-num=-num;return num;
-}
-}
  //=====================舵机初始化======================//
 void PWM_Init(void){     		//PWM初始化。其中P4,P5控制电机正反转, P6,P7级联激光管控制舵机。
 
@@ -186,16 +101,16 @@ void receive(int send) {
 /*==================排除干扰点============================
 i-(7-position/2)>3    排除
 不足：当这种情况连续出现 则认同
-*/
+       */
 void Confirm_Light(){
  int i=0;
  int halfposition=position/2;
  for(i=0;i<LASER_MAX;i++) {
   if (light_temp_laser_array[i]==0) continue;
-  else if (aabs(i-(7-halfposition))>=3) light_temp_laser_array[i] =0;
+  else if (abs(i-(7-halfposition))>=3) light_temp_laser_array[i] =0;
   else continue;   
  }
-}
+} 
 
 /*======================lost_blackline();======================*/
 void lost_blackline(void){
@@ -203,9 +118,9 @@ void lost_blackline(void){
   lost_line_flag=0;
   HitBlackNum=Calculate_HitBlackNum();
   if(HitBlackNum) {
-  if (14-aabs(His_Position[2])<=3&&(aabs(His_Position[2]-position))<=2)
+  if (14-abs(His_Position[2])<=3&&(abs(His_Position[2]-position))<=2)
       lost_line_flag=0; 
-   else if(14-aabs(His_Position[2])<=3&&aabs(His_Position[2]+position)<=11)
+   else if(14-abs(His_Position[2])<=3&&abs(His_Position[2]+position)<=11)
    lost_line_flag=1;
   } 
   else  
@@ -218,7 +133,7 @@ void lost_blackline(void){
       Post: 无
        
 */ 
-void SendSmartcarInfo(byte temp_laser_array[]) {
+/*void SendSmartcarInfo(byte temp_laser_array[]) {
     int i; 
     int data;
     char g[20]=" ";
@@ -236,7 +151,7 @@ void SendSmartcarInfo(byte temp_laser_array[]) {
   //for(i=0;g[i]!='\0';i++)
   //SCISend(g[i]);  
      
-}
+}       */
 
 
 /*=====================激光管对应权值======================
@@ -298,7 +213,7 @@ void  baitou (void) {
     
     His_Position[1]=position;  
     His_Position[2]=position;
-    His_Position[2]=aabs(His_Position[2]); 
+    His_Position[2]=abs(His_Position[2]); 
     YDiff_Position[1]= Diff_Position;
     
     if(His_Position[2]<=1)
@@ -341,9 +256,9 @@ void dajiao(void) {
     int ZhuanPwm=0;
     GDiff_Position[1]=PWMDTY67-PWM67;
     GDiff_Position[2]=PWMDTY67-PWM67;
-    GDiff_Position[2]=aabs(GDiff_Position[2]);
+    GDiff_Position[2]=abs(GDiff_Position[2]);
     //His_Position[3]=position;
-    //His_Position[3]=aabs(His_Position[3]);
+    //His_Position[3]=abs(His_Position[3]);
     
     //if(His_Position[3]<=1){  
    // if(GDiff_Position[1]<=6&&GDiff_Position[1]>=-6)
@@ -605,7 +520,6 @@ void main(void) {
   LIGHT_Init();
   delayms(2);
   Laser_num();
-   SCI_Init();
   for(i=0;;i++) {
     if(i == 5) 
     {i = 0;
@@ -633,58 +547,3 @@ void main(void) {
  /* loop forever */
   /* please make sure that you never leave main */
 }
-//===================摆头舵机中断================//
-#pragma CODE_SEG __NEAR_SEG NON_BANKED 
-interrupt 20 void Rx_SetDriver(void)
-{
-    char tmp;
-    char result;
-    DisableInterrupts;
-    tmp = SCI0SR1;                   //清除标志
-    result= SCI_RXD();
-    switch(result)
-    {
-      case 'd':                          //激光摆头舵机向右偏参数
-        temp_pwm67=temp_pwm67+1;
-        Light_SetDriver(temp_pwm67);
-       SCISend('d'); 
-      break;
-            case 'a':                   //激光摆头舵机向左偏参数
-        temp_pwm67=temp_pwm67-1;
-        Light_SetDriver(temp_pwm67);
-       SCISend('a'); 
-      break;
-            case 'r':                      //激光摆头舵机重置
-        temp_pwm67=PWM67; 
-        Light_SetDriver(temp_pwm67);
-       SCISend('r');
-      break;
-            case 'j':                          //转向摆头舵机向左偏参数 5度档
-        temp_pwm01=temp_pwm01+5;
-        SCI_SetDriver(temp_pwm01);
-       SCISend('j'); 
-      break;
-            case 'l':                         //转向摆头舵机向右偏参数 5度档
-        temp_pwm01=temp_pwm01-5;
-        SCI_SetDriver(temp_pwm01);
-       SCISend('l'); 
-      break;
-            case 'n':                          //转向摆头舵机向左偏参数 5度档
-        temp_pwm01=temp_pwm01+1;
-        SCI_SetDriver(temp_pwm01);
-       SCISend('n'); 
-      break;
-            case 'm':                         //转向摆头舵机向右偏参数 5度档
-        temp_pwm01=temp_pwm01-1;
-        SCI_SetDriver(temp_pwm01);
-       SCISend('m'); 
-      break;
-            case 'p':                      //转向摆头舵机重置
-        temp_pwm01=PWM01; 
-        SCI_SetDriver(temp_pwm01);
-       SCISend('p');
-      break;
-    }
-    EnableInterrupts;
-}
-#pragma CODE_SEG DEFAULT

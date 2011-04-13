@@ -61,7 +61,7 @@ static void SCI_Init(void)  //SCI
  /*---------------------------------------
 SCI中断
 编写日期：200110411
------------------------------------------  */
+-----------------------------------------  */         
 #pragma CODE_SEG __NEAR_SEG NON_BANKED 
 interrupt 20 void Rx_SCI(void)
 {
@@ -78,8 +78,9 @@ interrupt 20 void Rx_SCI(void)
      SCISend_chars(SCIreceive);
       break;
       case 'c':                          //清屏
-    SCISend_chars("clear");
-    LCD_clear();
+    sprintf(SCIreceive,"Proportion2值为:%d%d",abs(SpeedMin),SpeedMin);            
+    SCISend_chars(SCIreceive);
+    //LCD_clear();
       break;
     }
     EnableInterrupts;

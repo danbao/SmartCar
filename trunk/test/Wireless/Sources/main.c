@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "main.h"
+#include <math.h>
 #include "LCD.h"
 #include "SCI.h"
 void main(void) {
