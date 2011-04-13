@@ -25,7 +25,9 @@ void main(void) {
   Diff1=-123;
   Diff2=123;
   SpeedMax=1234;
-  SpeedMin=-234; 
+  SpeedMin=0; 
+  SpeedNow=345;
+  SpeedAver=467.96;
   for(;;) {
     _FEED_COP(); /* feeds the dog */
   } /* loop forever */
