@@ -1,5 +1,5 @@
 *** EVALUATION ***
-PROGRAM "D:\sm\trunk\Project2\bin\Project.abs"
+PROGRAM "D:\Documents\SmartCar\trunk\Project2\bin\Project.abs"
 
 *********************************************************************************************
 TARGET SECTION
@@ -15,6 +15,7 @@ FILE SECTION
 MC9S12XS128.c.o                         Model: BANKED,        Lang: ANSI-C
 main.c.o                                Model: BANKED,        Lang: ANSI-C
 Start12.c.o                             Model: BANKED,        Lang: ANSI-C
+STDLIB.C.o (ansixbi.lib)                Model: BANKED,        Lang: ANSI-C
 rtshc12.c.o (ansixbi.lib)               Model: BANKED,        Lang: ANSI-C
 
 *********************************************************************************************
@@ -24,8 +25,8 @@ Entry point: 0xC000 (_Startup)
 _startupData is allocated at 0xC00F and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x2100     77
-  _Copy    *toCopyDownBeg 0xC0DC
+  _Range   pZeroOut       0x2100     73
+  _Copy    *toCopyDownBeg 0xC024
 } _startupData;
 
 *********************************************************************************************
@@ -34,11 +35,11 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             15     R     0xC000     0xC00E   ROM_C000
 .startData                        10     R     0xC00F     0xC018   ROM_C000
-NON_BANKED                       195     R     0xC019     0xC0DB   ROM_C000
-.copy                             11     R     0xC0DC     0xC0E6   ROM_C000
-.text                           1771     R   0xFE8000   0xFE86EA   PAGE_FE
+NON_BANKED                        11     R     0xC019     0xC023   ROM_C000
+.copy                              7     R     0xC024     0xC02A   ROM_C000
+.text                           1701     R   0xFE8000   0xFE86A4   PAGE_FE
 .stack                           256   R/W     0x2000     0x20FF   RAM
-.data                              6   R/W     0x2100     0x2105   RAM
+.data                              2   R/W     0x2100     0x2101   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
 .abs_section_b                     1   N/I        0xB        0xB   .absSeg2
@@ -330,14 +331,13 @@ NON_BANKED                       195     R     0xC019     0xC0DB   ROM_C000
 .abs_section_352                   2   N/I      0x352      0x353   .absSeg288
 .abs_section_354                   2   N/I      0x354      0x355   .absSeg289
 .abs_section_356                   2   N/I      0x356      0x357   .absSeg290
-.abs_section_ffd6                  2     R     0xFFD6     0xFFD7   .absSeg291
-.bss                               2   R/W     0x2106     0x2107   RAM
-.common                           69   R/W     0x2108     0x214C   RAM
-.vectSeg292_vect                   2     R     0xFFFE     0xFFFF   .vectSeg292
+.bss                               2   R/W     0x2102     0x2103   RAM
+.common                           69   R/W     0x2104     0x2148   RAM
+.vectSeg291_vect                   2     R     0xFFFE     0xFFFF   .vectSeg291
 
 Summary of section sizes per section type:
-READ_ONLY (R):         7D6 (dec:     2006)
-READ_WRITE (R/W):      14D (dec:      333)
+READ_ONLY (R):         6D2 (dec:     1746)
+READ_WRITE (R/W):      149 (dec:      329)
 NO_INIT (N/I):         168 (dec:      360)
 
 *********************************************************************************************
@@ -410,12 +410,12 @@ MODULE:                 -- MC9S12XS128.c.o --
      _PAFLG                                      61       1       1       0   .abs_section_61
      _OCPD                                       6C       1       1       0   .abs_section_6c
      _PTPSR                                      6E       1       1       0   .abs_section_6e
-     _SCI0ACR2                                   CA       1       1       1   .abs_section_ca
-     _SCI0CR2                                    CB       1       1       1   .abs_section_cb
-     _SCI0SR1                                    CC       1       1       6   .abs_section_cc
+     _SCI0ACR2                                   CA       1       1       0   .abs_section_ca
+     _SCI0CR2                                    CB       1       1       0   .abs_section_cb
+     _SCI0SR1                                    CC       1       1       0   .abs_section_cc
      _SCI0SR2                                    CD       1       1       0   .abs_section_cd
-     _SCI0DRH                                    CE       1       1       1   .abs_section_ce
-     _SCI0DRL                                    CF       1       1       3   .abs_section_cf
+     _SCI0DRH                                    CE       1       1       0   .abs_section_ce
+     _SCI0DRL                                    CF       1       1       0   .abs_section_cf
      _SCI1ACR2                                   D2       1       1       0   .abs_section_d2
      _SCI1CR2                                    D3       1       1       0   .abs_section_d3
      _SCI1SR1                                    D4       1       1       0   .abs_section_d4
@@ -589,7 +589,7 @@ MODULE:                 -- MC9S12XS128.c.o --
      _TC6                                        5C       2       2       0   .abs_section_5c
      _TC7                                        5E       2       2       0   .abs_section_5e
      _PACNT                                      62       2       2       0   .abs_section_62
-     _SCI0BD                                     C8       2       2       1   .abs_section_c8
+     _SCI0BD                                     C8       2       2       0   .abs_section_c8
      _SCI1BD                                     D0       2       2       0   .abs_section_d0
      _SPI0DR                                     DC       2       2       0   .abs_section_dc
      _FCCOB                                     10A       2       2       0   .abs_section_10a
@@ -632,10 +632,10 @@ MODULE:                 -- MC9S12XS128.c.o --
      _PWMPER23                                  316       2       2       1   .abs_section_316
      _PWMPER45                                  318       2       2       0   .abs_section_318
      _PWMPER67                                  31A       2       2       1   .abs_section_31a
-     _PWMDTY01                                  31C       2       2       3   .abs_section_31c
+     _PWMDTY01                                  31C       2       2       2   .abs_section_31c
      _PWMDTY23                                  31E       2       2       2   .abs_section_31e
      _PWMDTY45                                  320       2       2       0   .abs_section_320
-     _PWMDTY67                                  322       2       2       6   .abs_section_322
+     _PWMDTY67                                  322       2       2       5   .abs_section_322
      _PITLD0                                    348       2       2       0   .abs_section_348
      _PITCNT0                                   34A       2       2       0   .abs_section_34a
      _PITLD1                                    34C       2       2       0   .abs_section_34c
@@ -647,50 +647,43 @@ MODULE:                 -- MC9S12XS128.c.o --
 MODULE:                 -- main.c.o --
 - PROCEDURES:
      SetBusCLK_40M                           FE8000      1A      26       2   .text       
-     SCI_RXD                                 FE801A       A      10       2   .text       
-     SCISend                                 FE8024      22      34       2   .text       
-     SCI_Init                                FE8046       D      13       2   .text       
-     delayms                                 FE8053      25      37       4   .text       
-     aabs                                    FE8078       D      13       4   .text       
-     PWM_Init                                FE8085      77     119       2   .text       
-     LIGHT_Init                              FE80FC       8       8       2   .text       
-     receive                                 FE8104      C3     195       4   .text       
-     Laser_num                               FE81C7      17      23       2   .text       
-     Status_Judge                            FE81DE      31      49       2   .text       
-     Calculate_HitBlackNum                   FE820F      23      35       2   .text       
-     baitou                                  FE8232      AC     172       2   .text       
-     dajiao                                  FE82DE     139     313      13   .text       
-     CalculateAngle                          FE8417     23A     570      53   .text       
-     Light_SetDriver                         FE8651       4       4       6   .text       
-     SCI_SetDriver                           FE8655       4       4       6   .text       
-     SpeedCtrl                               FE8659       7       7       2   .text       
-     main                                    FE8660      62      98       2   .text       
-     Rx_SetDriver                              C019      B3     179       1   NON_BANKED  
+     delayms                                 FE801A      25      37       4   .text       
+     PWM_Init                                FE803F      77     119       2   .text       
+     LIGHT_Init                              FE80B6       8       8       2   .text       
+     receive                                 FE80BE      C3     195       4   .text       
+     Laser_num                               FE8181      17      23       2   .text       
+     Status_Judge                            FE8198      31      49       2   .text       
+     Calculate_HitBlackNum                   FE81C9      23      35       2   .text       
+     baitou                                  FE81EC      AC     172       2   .text       
+     dajiao                                  FE8298     139     313      13   .text       
+     CalculateAngle                          FE83D1     23A     570      53   .text       
+     SpeedCtrl                               FE860B       7       7       2   .text       
+     main                                    FE8612      5E      94       2   .text       
 - VARIABLES:
-     temp_pwm67                                2100       2       2       5   .data       
-     temp_pwm01                                2102       2       2       7   .data       
-     testcount                                 2104       2       2       3   .data       
-     position                                  2106       2       2       6   .bss        
-     _Vector_20                                FFD6       2       2       0   .abs_section_ffd6
-     light_temp_laser_array                    2108       F      15      17   .common     
-     q_temp_laser_num                          2117      1E      30       2   .common     
-     His_Position                              2135       8       8       7   .common     
-     angle                                     213D       4       4      19   .common     
-     Diff_Position                             2141       2       2       4   .common     
-     GDiff_Position                            2143       6       6      16   .common     
-     YDiff_Position                            2149       4       4       7   .common     
+     testcount                                 2100       2       2       3   .data       
+     position                                  2102       2       2       6   .bss        
+     light_temp_laser_array                    2104       F      15      17   .common     
+     q_temp_laser_num                          2113      1E      30       2   .common     
+     His_Position                              2131       8       8       7   .common     
+     angle                                     2139       4       4      19   .common     
+     Diff_Position                             213D       2       2       4   .common     
+     GDiff_Position                            213F       6       6      16   .common     
+     YDiff_Position                            2145       4       4       7   .common     
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
-     Init                                    FE86C2      29      41       2   .text       
+     Init                                    FE8670      29      41       2   .text       
      _Startup                                  C000       F      15       0   .init       
 - VARIABLES:
      _startupData                              C00F       6       6       3   .startData  
 - LABELS:
      __SEG_END_SSTACK                          2100       0       0       1               
+MODULE:                 -- STDLIB.C.o (ansixbi.lib) --
+- PROCEDURES:
+     abs                                     FE8699       C      12       4   .text       
+- VARIABLES:
 MODULE:                 -- rtshc12.c.o (ansixbi.lib) --
 - PROCEDURES:
-     _CASE_DIRECT_BYTE                         C0CC       5       5       1   NON_BANKED  
-     _CASE_CHECKED                             C0D1       B      11       1   NON_BANKED  
+     _CASE_CHECKED                             C019       B      11       1   NON_BANKED  
 - VARIABLES:
 
 *********************************************************************************************
@@ -698,26 +691,26 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   MC9S12XS128.c.o                            360      0      0
-  main.c.o                                    77   1909      2
+  main.c.o                                    73   1648      0
   Start12.c.o                                  0     56      0
-  rtshc12.c.o (ansixbi.lib)                    0     16      0
-  other                                      256     12     11
+  STDLIB.C.o (ansixbi.lib)                     0     12      0
+  rtshc12.c.o (ansixbi.lib)                    0     11      0
+  other                                      256     12      7
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  SetBusCLK_40M SCI_RXD SCISend SCI_Init delayms aabs PWM_Init LIGHT_Init 
-  receive Laser_num Status_Judge Calculate_HitBlackNum baitou dajiao 
-  CalculateAngle Light_SetDriver SCI_SetDriver SpeedCtrl main Init 
+  SetBusCLK_40M delayms PWM_Init LIGHT_Init receive Laser_num Status_Judge 
+  Calculate_HitBlackNum baitou dajiao CalculateAngle SpeedCtrl main Init abs 
 SECTION: ".data"
-  temp_pwm67 temp_pwm01 testcount 
+  testcount 
 SECTION: ".bss"
   position 
 SECTION: ".init"
   _Startup 
 SECTION: "NON_BANKED"
-  Rx_SetDriver _CASE_DIRECT_BYTE _CASE_CHECKED 
+  _CASE_CHECKED 
 SECTION: ".abs_section_8"
   _PORTE 
 SECTION: ".abs_section_9"
@@ -1300,8 +1293,6 @@ SECTION: ".abs_section_354"
   _PITLD3 
 SECTION: ".abs_section_356"
   _PITCNT3 
-SECTION: ".abs_section_ffd6"
-  _Vector_20 
 SECTION: ".common"
   light_temp_laser_array q_temp_laser_num His_Position angle Diff_Position 
   GDiff_Position YDiff_Position 
@@ -1381,13 +1372,13 @@ OBJECT LIST SORTED BY ADDRESS
      _PACNT                                      62       2       2       0   .abs_section_62
      _OCPD                                       6C       1       1       0   .abs_section_6c
      _PTPSR                                      6E       1       1       0   .abs_section_6e
-     _SCI0BD                                     C8       2       2       1   .abs_section_c8
-     _SCI0ACR2                                   CA       1       1       1   .abs_section_ca
-     _SCI0CR2                                    CB       1       1       1   .abs_section_cb
-     _SCI0SR1                                    CC       1       1       6   .abs_section_cc
+     _SCI0BD                                     C8       2       2       0   .abs_section_c8
+     _SCI0ACR2                                   CA       1       1       0   .abs_section_ca
+     _SCI0CR2                                    CB       1       1       0   .abs_section_cb
+     _SCI0SR1                                    CC       1       1       0   .abs_section_cc
      _SCI0SR2                                    CD       1       1       0   .abs_section_cd
-     _SCI0DRH                                    CE       1       1       1   .abs_section_ce
-     _SCI0DRL                                    CF       1       1       3   .abs_section_cf
+     _SCI0DRH                                    CE       1       1       0   .abs_section_ce
+     _SCI0DRL                                    CF       1       1       0   .abs_section_cf
      _SCI1BD                                     D0       2       2       0   .abs_section_d0
      _SCI1ACR2                                   D2       1       1       0   .abs_section_d2
      _SCI1CR2                                    D3       1       1       0   .abs_section_d3
@@ -1580,10 +1571,10 @@ OBJECT LIST SORTED BY ADDRESS
      _PWMPER23                                  316       2       2       1   .abs_section_316
      _PWMPER45                                  318       2       2       0   .abs_section_318
      _PWMPER67                                  31A       2       2       1   .abs_section_31a
-     _PWMDTY01                                  31C       2       2       3   .abs_section_31c
+     _PWMDTY01                                  31C       2       2       2   .abs_section_31c
      _PWMDTY23                                  31E       2       2       2   .abs_section_31e
      _PWMDTY45                                  320       2       2       0   .abs_section_320
-     _PWMDTY67                                  322       2       2       6   .abs_section_322
+     _PWMDTY67                                  322       2       2       5   .abs_section_322
      _PWMSDN                                    324       1       1       0   .abs_section_324
      _PITCFLMT                                  340       1       1       0   .abs_section_340
      _PITFLT                                    341       1       1       0   .abs_section_341
@@ -1601,82 +1592,69 @@ OBJECT LIST SORTED BY ADDRESS
      _PITCNT2                                   352       2       2       0   .abs_section_352
      _PITLD3                                    354       2       2       0   .abs_section_354
      _PITCNT3                                   356       2       2       0   .abs_section_356
-     temp_pwm67                                2100       2       2       5   .data       
-     temp_pwm01                                2102       2       2       7   .data       
-     testcount                                 2104       2       2       3   .data       
-     position                                  2106       2       2       6   .bss        
-     light_temp_laser_array                    2108       F      15      17   .common     
-     q_temp_laser_num                          2117      1E      30       2   .common     
-     His_Position                              2135       8       8       7   .common     
-     angle                                     213D       4       4      19   .common     
-     Diff_Position                             2141       2       2       4   .common     
-     GDiff_Position                            2143       6       6      16   .common     
-     YDiff_Position                            2149       4       4       7   .common     
+     testcount                                 2100       2       2       3   .data       
+     position                                  2102       2       2       6   .bss        
+     light_temp_laser_array                    2104       F      15      17   .common     
+     q_temp_laser_num                          2113      1E      30       2   .common     
+     His_Position                              2131       8       8       7   .common     
+     angle                                     2139       4       4      19   .common     
+     Diff_Position                             213D       2       2       4   .common     
+     GDiff_Position                            213F       6       6      16   .common     
+     YDiff_Position                            2145       4       4       7   .common     
      _Startup                                  C000       F      15       0   .init       
-     Rx_SetDriver                              C019      B3     179       1   NON_BANKED  
-     _CASE_DIRECT_BYTE                         C0CC       5       5       1   NON_BANKED  
-     _CASE_CHECKED                             C0D1       B      11       1   NON_BANKED  
-     _Vector_20                                FFD6       2       2       0   .abs_section_ffd6
+     _CASE_CHECKED                             C019       B      11       1   NON_BANKED  
      SetBusCLK_40M                           FE8000      1A      26       2   .text       
-     SCI_RXD                                 FE801A       A      10       2   .text       
-     SCISend                                 FE8024      22      34       2   .text       
-     SCI_Init                                FE8046       D      13       2   .text       
-     delayms                                 FE8053      25      37       4   .text       
-     aabs                                    FE8078       D      13       4   .text       
-     PWM_Init                                FE8085      77     119       2   .text       
-     LIGHT_Init                              FE80FC       8       8       2   .text       
-     receive                                 FE8104      C3     195       4   .text       
-     Laser_num                               FE81C7      17      23       2   .text       
-     Status_Judge                            FE81DE      31      49       2   .text       
-     Calculate_HitBlackNum                   FE820F      23      35       2   .text       
-     baitou                                  FE8232      AC     172       2   .text       
-     dajiao                                  FE82DE     139     313      13   .text       
-     CalculateAngle                          FE8417     23A     570      53   .text       
-     Light_SetDriver                         FE8651       4       4       6   .text       
-     SCI_SetDriver                           FE8655       4       4       6   .text       
-     SpeedCtrl                               FE8659       7       7       2   .text       
-     main                                    FE8660      62      98       2   .text       
-     Init                                    FE86C2      29      41       2   .text       
+     delayms                                 FE801A      25      37       4   .text       
+     PWM_Init                                FE803F      77     119       2   .text       
+     LIGHT_Init                              FE80B6       8       8       2   .text       
+     receive                                 FE80BE      C3     195       4   .text       
+     Laser_num                               FE8181      17      23       2   .text       
+     Status_Judge                            FE8198      31      49       2   .text       
+     Calculate_HitBlackNum                   FE81C9      23      35       2   .text       
+     baitou                                  FE81EC      AC     172       2   .text       
+     dajiao                                  FE8298     139     313      13   .text       
+     CalculateAngle                          FE83D1     23A     570      53   .text       
+     SpeedCtrl                               FE860B       7       7       2   .text       
+     main                                    FE8612      5E      94       2   .text       
+     Init                                    FE8670      29      41       2   .text       
+     abs                                     FE8699       C      12       4   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
 NOT USED PROCEDURES
 main.c.o:
-  Confirm_Light lost_blackline SendSmartcarInfo 
+  Confirm_Light lost_blackline Light_SetDriver SCI_SetDriver 
+STDLIB.C.o (ansixbi.lib):
+  atexit getenv system mblen mbtowc wctomb mbstowcs wcstombs CheckCharWithBase 
+  _strtoul strtoul _strtol strtol _itoa bsearch swap qsort div ldiv labs rand 
+  srand 
 rtshc12.c.o (ansixbi.lib):
   _BSHL _BSHRS _BSHRU _BDIVMODU _BDIVMODS _ISHL _ISHRU _ISHRS _LSHL _LSHRU 
   _LSHRS _LADD _LSUB _LAND _LOR _LXOR _LCMP _LCMP_P _LCMP_PP _LNEG _LCOM _LINC 
   _LDEC _LMUL _LMULU16x32 _LMULS16x32 _lDivMod _LDIVU _NEG_P _LDIVS _LMODU 
-  _LMODS _ILSEXT _COPY _CASE_DIRECT _CASE_CHECKED_BYTE _CASE_SEARCH 
-  _CASE_SEARCH_BYTE _CASE_SEARCH_8 _CASE_SEARCH_8_BYTE _FCALL _FPCMP _PADD 
-  _PSUB _PINC _PDEC 
+  _LMODS _ILSEXT _COPY _CASE_DIRECT _CASE_DIRECT_BYTE _CASE_CHECKED_BYTE 
+  _CASE_SEARCH _CASE_SEARCH_BYTE _CASE_SEARCH_8 _CASE_SEARCH_8_BYTE _FCALL 
+  _FPCMP _PADD _PSUB _PINC _PDEC 
 NOT USED VARIABLES
 main.c.o:
-  count countPIT0 lost_line_flag His_ADD_Position YaoKp YaoKd ZhuanKp ZhuanKd 
-  ADD_Position 
+  temp_pwm67 temp_pwm01 count countPIT0 lost_line_flag His_ADD_Position YaoKp 
+  YaoKd ZhuanKp ZhuanKd ADD_Position 
+STDLIB.C.o (ansixbi.lib):
+  seed channels errno 
 rtshc12.c.o (ansixbi.lib):
   _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
 
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC0DC ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC024 ---- SIZE       4 ---
 Filling bytes inserted
- 00052101
-------- ROM-ADDRESS: 0xC0E0 ---- RAM-ADDRESS: 0x2101 ---- SIZE       1 ---
-Name of initialized Object : temp_pwm67:1
- E0
-------- ROM-ADDRESS: 0xC0E1 ---- RAM-ADDRESS: 0x2102 ---- SIZE       2 ---
-Name of initialized Object : temp_pwm01
- 05D0
-------- ROM-ADDRESS: 0xC0E3 ---- SIZE       1 ---
-Filling bytes inserted
- 00
-------- ROM-ADDRESS: 0xC0E4 ---- RAM-ADDRESS: 0x2105 ---- SIZE       1 ---
+ 00012101
+------- ROM-ADDRESS: 0xC028 ---- RAM-ADDRESS: 0x2101 ---- SIZE       1 ---
 Name of initialized Object : testcount:1
  01
-------- ROM-ADDRESS: 0xC0E5 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC029 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1684,13 +1662,7 @@ Filling bytes inserted
 OBJECT-DEPENDENCIES SECTION
 ---------------------------------------------------------------------------------------------
 _Startup                  USES __SEG_END_SSTACK Init main 
-Rx_SetDriver              USES _SCI0SR1 SCI_RXD _CASE_DIRECT_BYTE temp_pwm67 
-                                Light_SetDriver temp_pwm01 SCI_SetDriver SCISend 
-_Vector_20                USES Rx_SetDriver 
 SetBusCLK_40M             USES _CLKSEL _PLLCTL _SYNR _REFDV _POSTDIV _CRGFLG 
-SCI_RXD                   USES _SCI0SR1 _SCI0DRL 
-SCISend                   USES _SCI0SR1 _SCI0DRL _SCI0DRH 
-SCI_Init                  USES _SCI0ACR2 _SCI0CR2 _SCI0BD 
 PWM_Init                  USES _PWME _PWMPRCLK _PWMSCLA _PWMSCLB _PWMCLK 
                                 _PWMPOL _PWMCTL _PWMCAE _PWMCNT01 _PWMCNT23 _PWMPER23 
                                 _PWMPER01 _PWMPER67 _PWMDTY01 _PWMDTY23 _PWMDTY67 
@@ -1700,17 +1672,15 @@ Laser_num                 USES q_temp_laser_num
 Status_Judge              USES Calculate_HitBlackNum light_temp_laser_array 
                                 q_temp_laser_num position 
 Calculate_HitBlackNum     USES light_temp_laser_array 
-baitou                    USES position His_Position aabs Diff_Position 
+baitou                    USES position His_Position abs Diff_Position 
                                 YDiff_Position _PWMDTY67 
-dajiao                    USES _PWMDTY67 GDiff_Position aabs dajiao position 
+dajiao                    USES _PWMDTY67 GDiff_Position abs dajiao position 
                                 _PWMDTY01 
 CalculateAngle            USES _CASE_CHECKED CalculateAngle angle 
-Light_SetDriver           USES _PWMDTY67 
-SCI_SetDriver             USES _PWMDTY01 
 SpeedCtrl                 USES _PWMDTY23 
 main                      USES SetBusCLK_40M PWM_Init LIGHT_Init delayms 
-                                Laser_num SCI_Init Status_Judge CalculateAngle dajiao 
-                                testcount baitou SpeedCtrl receive 
+                                Laser_num Status_Judge CalculateAngle dajiao testcount 
+                                baitou SpeedCtrl receive 
 Init                      USES _startupData 
 
 *********************************************************************************************
@@ -1730,8 +1700,6 @@ DEPENDENCY TREE
  |  |    
  |  +- Laser_num           
  |  |    
- |  +- SCI_Init            
- |  |    
  |  +- Status_Judge        
  |  |  | 
  |  |  +- Calculate_HitBlackNum
@@ -1742,11 +1710,11 @@ DEPENDENCY TREE
  |  |       
  |  +- dajiao              
  |  |  | 
- |  |  +- aabs                
+ |  |  +- abs                 
  |  |       
  |  +- baitou              
  |  |  | 
- |  |  +- aabs                 (see above)
+ |  |  +- abs                  (see above)
  |  |     
  |  +- SpeedCtrl           
  |  |    
@@ -1760,26 +1728,12 @@ DEPENDENCY TREE
     |    
     +- main                 (see above)
        
- _Vector_20          
- | 
- +- Rx_SetDriver        
-    | 
-    +- SCI_RXD             
-    |    
-    +- _CASE_DIRECT_BYTE   
-    |    
-    +- Light_SetDriver     
-    |    
-    +- SCI_SetDriver       
-    |    
-    +- SCISend             
-         
 *********************************************************************************************
 STATISTIC SECTION
 ---------------------------------------------------------------------------------------------
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 2006
+Number of blocks to be downloaded: 6
+Total size of all blocks to be downloaded: 1746
 
