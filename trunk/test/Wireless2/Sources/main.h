@@ -1,8 +1,8 @@
 /*全局变量都定义在这里，方便整理*/
-float Prop1,Prop2,Diff1,Diff2;
-int SpeedMax,SpeedMin;
-char lcd[100];
-char SCIreceive[100];
+float Prop1,Prop2,Diff1,Diff2,SpeedAver;    /*P1,P2,D1,D2值,平均速度*/
+int SpeedMax,SpeedMin,SpeedNow;   /*最大速度,最小速度,当前速度*/
+char lcd[100];                    /*用于LCD显示的字符串*/
+char SCIreceive[100];             /*用于串口显示的字符串*/
 //===============时钟初始化========================//
 void SetBusCLK_40M()
 {   

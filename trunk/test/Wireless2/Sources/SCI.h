@@ -72,7 +72,7 @@ interrupt 20 void Rx_SCI(void)
     result= SCI_RXD();
     switch(result)
     {
-    case 'p':							 //增加P1值
+      case 'p':							 //增加P1值
      Prop1=Prop1+0.2;
      sprintf(SCIreceive,"Proportion1值为:%.2f%.2f%.2f%.2f",Prop1,Prop2,Diff1,Diff2);  
      SCISend_chars(SCIreceive);
@@ -82,6 +82,10 @@ interrupt 20 void Rx_SCI(void)
     SCISend_chars(SCIreceive);
     //LCD_clear();
       break;
+      case 'n':
+      sprintf(SCIreceive,"P1:%.2f P2:%.2f D1:%.2f D2:%.2f\n最大速度:%d\n最小速度:%d\n当前速度:%d\n平均速度:%.2f\n",Prop1,Prop2,Diff1,Diff2,SpeedMax,SpeedMin,SpeedNow,SpeedAver);
+      SCISend_chars(SCIreceive);
+       break;
     }
     EnableInterrupts;
 }
