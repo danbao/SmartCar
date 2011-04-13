@@ -73,12 +73,12 @@ interrupt 20 void Rx_SCI(void)
     switch(result)
     {
       case 'p':							 //增加P1值
-     Prop1=Prop1+0.2;
+       Prop1=Prop1+1;
      sprintf(SCIreceive,"Proportion1值为:%.2f%.2f%.2f%.2f",Prop1,Prop2,Diff1,Diff2);  
-     SCISend_chars(SCIreceive);
+     SCISend_chars(SCIreceive);    
       break;
       case 'c':                          //清屏
-    sprintf(SCIreceive,"Proportion2值为:%d%d",abs(SpeedMin),SpeedMin);            
+   sprintf(SCIreceive,"Proportion2值为:%d%d",abs(SpeedMin),SpeedMin);            
     SCISend_chars(SCIreceive);
     //LCD_clear();
       break;
