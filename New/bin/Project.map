@@ -1,5 +1,5 @@
 *** EVALUATION ***
-PROGRAM "D:\Documents\SmartCar\trunk\New\bin\Project.abs"
+PROGRAM "F:\Smart\trunk\New\bin\Project.abs"
 
 *********************************************************************************************
 TARGET SECTION
@@ -1624,7 +1624,7 @@ UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
 NOT USED PROCEDURES
 main.c.o:
-  Confirm_Light lost_blackline Light_SetDriver SCI_SetDriver 
+  Light_SetDriver SCI_SetDriver Confirm_Light lost_blackline 
 STDLIB.C.o (ansixbf.lib):
   atexit getenv system mblen mbtowc wctomb mbstowcs wcstombs CheckCharWithBase 
   _strtoul strtoul _strtol strtol _strtod strtod _itoa bsearch swap qsort div 
