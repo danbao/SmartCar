@@ -1,4 +1,4 @@
-unsigned int Prop1,Prop2,Diff1,Diff2;
+unsigned float Prop1,Prop2,Diff1,Diff2;
 int SpeedMax,SpeedMin;
 char lcd[100];
 char SCIreceive[100];
@@ -15,3 +15,11 @@ void SetBusCLK_40M()
     while(!(CRGFLG_LOCK==1));	  //when pll is steady ,then use it;
     CLKSEL_PLLSEL =1;		        //engage PLL to system; 
 }     
+//==============延时程序================================//
+void delayms(int ms)    //延时程序。
+{   
+   int ii,jj;
+   if (ms<1) ms=1;
+   for(ii=0;ii<ms;ii++)
+     for(jj=0;jj<3338;jj++);    //40MHz--1ms      
+}
