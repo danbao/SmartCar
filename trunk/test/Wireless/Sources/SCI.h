@@ -75,7 +75,7 @@ interrupt 20 void Rx_SCI(void)
     case 'p':							 //增加P1值
      Prop1=Prop1+5;
      sprintf(SCIreceive,"Proportion1值为:%d",Prop1);  
-    SCISend_chars(SCIreceive);
+     SCISend_chars(SCIreceive);
       break;
       case 'c':                          //清屏
     SCISend_chars("clear");
