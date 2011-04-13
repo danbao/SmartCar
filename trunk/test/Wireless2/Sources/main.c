@@ -4,8 +4,8 @@
 #include <string.h>      //LCD中的strlen要用到
 #include <math.h>        //abs绝对值要用到
 #include "main.h"
-#include "LCD.h"
-#include "SCI.h"
+#include "LCD.h"         
+#include "SCI.h"               
 
 
 
