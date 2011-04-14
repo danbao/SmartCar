@@ -4,9 +4,10 @@
 #define ANGLE_DELTA 30
 #define PWM6_MID 224		
 //===============全局变量定义======================//
-  float YP1=0,YP2=0,YP3=0,YP4=0,YP5=0,YD=0,JP1=0,JP2=0,JP3=0,JP4=0,JP5=0,JP6=0,JD=0,SpeedAver,SpeedMax,SpeedMin,SpeedNow;
-  /*摇头P1,摇头P2,摇头P3,摇头P4,摇头P5,摇头D,打角P1,打角P2,打角P3,打角P4,打角P5,打角P6,打角D
+  float YP1=0.4,YP2=0.5,YP3=0.7,YP4=0.8,YP5=0.9,YD=2.7;
+  float JP1=1.7,JP2=3.5,JP3=4.9,JP4=6.5,JP5=7.8,JD=2.3,SpeedAver,SpeedMax,SpeedMin,SpeedNow;/*摇头P1,摇头P2,摇头P3,摇头P4,摇头P5,摇头D,打角P1,打角P2,打角P3,打角P4,打角P5,打角P6,打角D
   平均速度,最大速度,最小速度,当前速度*/
+  
   char SCIreceive[150];             /*用于无线串口显示的字符串*/  
   int temp_pwm67=PWM67;						//激光摆头舵机初始值
   int temp_pwm01=PWM01;						//转向摆头舵机初始值
@@ -16,16 +17,16 @@
   int q_temp_laser_num[LASER_MAX];       //激光管对应的权值
   int countPIT0=0;
   int position=0;                        
-  int His_ADD_Position[3];                      //步进累加值历史   His_ADD_Position[2]=aabs[1]
+ // int His_ADD_Position[3];                      //步进累加值历史   His_ADD_Position[2]=aabs[1]
   int His_Position[4];                        //历史position  position[3]=position[1]-position[0] position[2]=aabs[position]
   int angle[2]; 
   int Calculate_HitBlackNum(void);
-  int YaoKp ,YaoKd,ZhuanKp,ZhuanKd;
+ // int YaoKp ,YaoKd,ZhuanKp,ZhuanKd;
   byte lost_line_flag=0;
   int ADD_Position; 
   int Diff_Position;
   int GDiff_Position[3];                      //摇头舵机的摆值(由于采样周期不同 舵机差值要设两个)  GDiff_Position[2]=aabs（GD【1】）
-  int YDiff_Position[2];                      //摇头舵机摆值
+  int D_His_Position[3];                      //打角取的当前和历史position  （和摆头取频率不同） 
 //===============时钟初始化========================//
 
 void SetBusCLK_40M()
