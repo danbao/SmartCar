@@ -39,7 +39,7 @@ LCD_write_cizu: 串口输出显示函数(显示字符串)
 输入参数：ch：显示的字符串
 编写日期：20110411
 -----------------------------------------------*/
-void SCISend_chars(const signed char ch[])
+void SCISend_chars(const char ch[])
  {
  int i;
  for(i=0;i<strlen(ch);i++) {
@@ -64,27 +64,63 @@ static void SCI_Init(void)  //SCI
 -----------------------------------------  */         
 #pragma CODE_SEG __NEAR_SEG NON_BANKED 
 interrupt 20 void Rx_SCI(void)
-{
+{	
     char tmp;
     char result;
     DisableInterrupts;
-    tmp = SCI0SR1;                  	 //清除标志
+    tmp = SCI0SR1; 	//清除标志
     result= SCI_RXD();
     switch(result)
     {
-      case 'p':							 //增加P1值
-     sprintf(SCIreceive,"Proportion1值为:%.2f%.2f%.2f%.2f",YP1,YP2,YD,JD);  
+      case 'q':							 //增加P1值
+      YP1=YP1+0.2;
+     sprintf(SCIreceive,"摇头P1值为:%.1f",YP1);  
      SCISend_chars(SCIreceive);    
       break;
-      case 'c':                          //清屏
-   sprintf(SCIreceive,"Proportion2值为:%d%d",aabs(SpeedMin),SpeedMin);            
-    SCISend_chars(SCIreceive);
-    //LCD_clear();
+      case 'a':							 //减小P1值
+      YP1=YP1-0.2;
+     sprintf(SCIreceive,"摇头P1值为:%.1f",YP1);  
+     SCISend_chars(SCIreceive);    
       break;
-      case 'n':
-      sprintf(SCIreceive,"P1:%.2f P2:%.2f D1:%.2f D2:%.2f\n最大速度:%d\n最小速度:%d\n当前速度:%d\n平均速度:%.2f\n",YP1,YP2,YD,JD,SpeedMax,SpeedMin,SpeedNow,SpeedAver);
-      SCISend_chars(SCIreceive);
-       break;
+      case 'w':							 //增加P2值
+      YP2=YP2+0.2;
+     sprintf(SCIreceive,"摇头P2值为:%.1f",YP2);  
+     SCISend_chars(SCIreceive);    
+      break;      
+      case 's':							 //减小P2值
+      YP2=YP2-0.2;
+     sprintf(SCIreceive,"摇头P2值为:%.1f",YP2);  
+     SCISend_chars(SCIreceive);    
+      break;
+      case 'e':							 //增加P3值
+      YP3=YP3+0.2;
+     sprintf(SCIreceive,"摇头P3值为:%.1f",YP3);  
+     SCISend_chars(SCIreceive);    
+      break;
+      case 'd':							 //减小P3值
+      YP3=YP3-0.2;
+     sprintf(SCIreceive,"摇头P3值为:%.1f",YP3);  
+     SCISend_chars(SCIreceive);    
+      break;
+      case 'r':							 //增加P4值
+      YP4=YP4+0.2;
+     sprintf(SCIreceive,"摇头P4值为:%.1f",YP4);  
+     SCISend_chars(SCIreceive);    
+      break;
+      case 'f':							 //减小P4值
+      YP4=YP4-0.2;
+     sprintf(SCIreceive,"摇头P4值为:%.1f",YP4);  
+     SCISend_chars(SCIreceive);    
+      break;
+      case 't':							 //增加P5值
+      YP5=YP5+0.2;
+     sprintf(SCIreceive,"摇头P5值为:%.1f",YP5);  
+     SCISend_chars(SCIreceive);
+      case 'g':							 //减小P5值
+      YP5=YP5-0.2;
+     sprintf(SCIreceive,"摇头P5值为:%.1f",YP5);  
+     SCISend_chars(SCIreceive);      
+      break;
     }
     EnableInterrupts;
 }
