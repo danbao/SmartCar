@@ -1,8 +1,9 @@
 #define LASER_MAX 15          //激光管数量
 #define PWM67 224	
-#define PWM01 1488
+#define PWM01 1478
 #define ANGLE_DELTA 30
-#define PWM6_MID 224		
+#define PWM6_MID 224
+#define Speed 77		
 //===============全局变量定义======================//
   float YP1=0.4,YP2=0.5,YP3=0.7,YP4=0.8,YP5=0.9,YD=2.7;
   float JP1=1.7,JP2=3.5,JP3=4.9,JP4=6.5,JP5=7.8,JD=2.3,SpeedAver,SpeedMax,SpeedMin,SpeedNow;/*摇头P1,摇头P2,摇头P3,摇头P4,摇头P5,摇头D,打角P1,打角P2,打角P3,打角P4,打角P5,打角P6,打角D
@@ -26,7 +27,7 @@
   int ADD_Position; 
   int Diff_Position;
   int GDiff_Position[3];                      //摇头舵机的摆值(由于采样周期不同 舵机差值要设两个)  GDiff_Position[2]=aabs（GD【1】）
-  int D_His_Position[3];                      //打角取的当前和历史position  （和摆头取频率不同） 
+  int J_His_Position[3];                       //打角获取position 采样周期不同
 //===============时钟初始化========================//
 
 void SetBusCLK_40M()
