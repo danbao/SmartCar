@@ -4,7 +4,11 @@
 #define ANGLE_DELTA 30
 #define PWM6_MID 224		
 //===============全局变量定义======================//
-   int temp_pwm67=PWM67;						//激光摆头舵机初始值
+  float YP1=0,YP2=0,YP3=0,YP4=0,YP5=0,YD=0,JP1=0,JP2=0,JP3=0,JP4=0,JP5=0,JP6=0,JD=0,SpeedAver,SpeedMax,SpeedMin,SpeedNow;
+  /*摇头P1,摇头P2,摇头P3,摇头P4,摇头P5,摇头D,打角P1,打角P2,打角P3,打角P4,打角P5,打角P6,打角D
+  平均速度,最大速度,最小速度,当前速度*/
+  char SCIreceive[150];             /*用于无线串口显示的字符串*/  
+  int temp_pwm67=PWM67;						//激光摆头舵机初始值
   int temp_pwm01=PWM01;						//转向摆头舵机初始值
   byte light_temp_laser_array[LASER_MAX];  //当前激光管信息保存数组
   int testcount=1;

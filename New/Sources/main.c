@@ -1,8 +1,10 @@
 #include <hidef.h>      /* common defines and macros */
 #include "derivative.h"      /* derivative-specific definitions */
 #include <MC9S12XS128.h>
+#include <stdio.h>       //sprintf要用到
 #include "math.h"           //abs绝对值要用到
 #include "main.h"           //所有变量的定义都放在main.h文件下了
+#include "SCI.h"             
 #include "dealinfo.h"
 #include "control.h" 
 
@@ -15,6 +17,7 @@ void main(void) {
   SetBusCLK_40M();    //   设置时钟初始化。40MHz.
   PWM_Init();
   LIGHT_Init();
+   SCI_Init();
   delayms(2);
   Laser_num();
   for(i=0;;i++) {
