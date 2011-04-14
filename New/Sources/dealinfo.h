@@ -90,15 +90,15 @@ void  baitou (void) {
     if(His_Position[2]<=1)
     Diff_Position=0;
     else if(His_Position[2]>1&&His_Position[2]<=3)
-    Diff_Position=0.4*His_Position[1]+2.7*(His_Position[1]-His_Position[0]);
+    Diff_Position=0.27*His_Position[1]+3.3*(His_Position[1]-His_Position[0]);
     else if(His_Position[2]>3&&His_Position[2]<=7)
-    Diff_Position=0.5*His_Position[1]+2.7*(His_Position[1]-His_Position[0]);
+    Diff_Position=0.37*His_Position[1]+3.3*(His_Position[1]-His_Position[0]);
     else if(His_Position[2]>7&&His_Position[2]<=10)
-    Diff_Position=0.7*His_Position[1]+2.7*(His_Position[1]-His_Position[0]);
+    Diff_Position=0.44*His_Position[1]+3.3*(His_Position[1]-His_Position[0]);
     else if(His_Position[2]>10&&His_Position[2]<=12)
-    Diff_Position=0.8*His_Position[1]+2.7*(His_Position[1]-His_Position[0]);
+    Diff_Position=0.52*His_Position[1]+3.3*(His_Position[1]-His_Position[0]);
     else if(His_Position[2]>12&&His_Position[2]<=14)
-    Diff_Position=0.9*His_Position[1]+2.7*(His_Position[1]-His_Position[0]);
+    Diff_Position=0.62*His_Position[1]+3.3*(His_Position[1]-His_Position[0]);
     
   /*  else if(His_Position[3]>4&&His_Position[3]<=6)
     Diff_Position=(1+2)*His_Position[2]-(2+2*2)*His_Position[1]+2*His_Position[0];
@@ -119,43 +119,45 @@ void  baitou (void) {
 
 /*=======================打角舵机===========================*/
 //GDiff_Position是存储 摇头舵机差值 传给打角的参数
-//  1488   1778  1198
+//  1482   1772  1192
    
  
 void dajiao(void) {
     
     int ZhuanPwm=0;
     GDiff_Position[1]=PWMDTY67-PWM67;
-    D_His_Position[1]=position;
-    D_His_Position[2]=position;
-    D_His_Position[2]=aabs(D_His_Position[2]);
-    
-    
+    GDiff_Position[2]=PWMDTY67-PWM67;
+    GDiff_Position[2]=aabs(GDiff_Position[2]);
+    His_Position[3]=position;
+    His_Position[3]=aabs(His_Position[3]);
+    J_His_Position[1]=position;
+    J_His_Position[2]=J_His_Position[1]-J_His_Position[0];
    
-    if( D_His_Position[2]<=1)
+    if(GDiff_Position[2]<=7&&His_Position[3]<=1)
     ZhuanPwm=PWM01;
-    else if(D_His_Position[2]>1&&D_His_Position[2]<=3)
-    ZhuanPwm=PWM01-(3*position+1.7*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
-    else if(D_His_Position[2]>3&&D_His_Position[2]<=7)
-    ZhuanPwm=PWM01-(4*position+3.5*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
-    else if(D_His_Position[2]>7&&D_His_Position[2]<=10)
-    ZhuanPwm=PWM01-(5*position+4.9*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
-    else if(D_His_Position[2]>10&&D_His_Position[2]<=12)
-    ZhuanPwm=PWM01-(6*position+6.5*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
-    else if(D_His_Position[2]>12&&D_His_Position[2]<=14)
-    ZhuanPwm=PWM01-(7*position+7.8*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
-    
-    
-    if(ZhuanPwm>1778)
-    ZhuanPwm=1778;
-    else if(ZhuanPwm<1198)
-    ZhuanPwm=1198;
+    else{  
+    if(GDiff_Position[2]<=14)
+    ZhuanPwm=PWM01-(6*position+2.2*GDiff_Position[1])-2.8*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    else if(GDiff_Position[2]>14&&GDiff_Position[2]<=24)
+    ZhuanPwm=PWM01-(8*position+4.5*GDiff_Position[1])-2.8*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    else if(GDiff_Position[2]>24&&GDiff_Position[2]<=40)
+    ZhuanPwm=PWM01-(11*position+6.1*GDiff_Position[1])-2.8*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    else if(GDiff_Position[2]>40&&GDiff_Position[2]<=60)
+    ZhuanPwm=PWM01-(14*position+8.1*GDiff_Position[1])-2.8*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    else if(GDiff_Position[2]>60&&GDiff_Position[2]<=80)
+    ZhuanPwm=PWM01-(17*position+10.1*GDiff_Position[1])-2.8*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    else if(GDiff_Position[2]>80)
+    ZhuanPwm=PWM01-(19*position+12.1*GDiff_Position[1])-2.8*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    }
+    if(ZhuanPwm>1768)
+    ZhuanPwm=1768;
+    else if(ZhuanPwm<1188)
+    ZhuanPwm=1188;
     
     PWMDTY01=ZhuanPwm;
-    D_His_Position[0]=D_His_Position[1]; 
-    GDiff_Position[0]=GDiff_Position[1];
+    GDiff_Position[0]=GDiff_Position[1]; 
+    J_His_Position[0]=J_His_Position[1];
   } // DerectionCtrl
-
 //【type declaration】
 /* ============== 激光管状态枚举类型 LASER_STATUS ================ 
  LEFT_NONE (0) ------ 左空     
@@ -373,5 +375,5 @@ void SCI_SetDriver(int value){
   PWMDTY01 = value; 
 }
 void SpeedCtrl (void) {
-PWMDTY23=75;
+PWMDTY23=Speed;
 }

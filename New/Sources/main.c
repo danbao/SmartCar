@@ -34,7 +34,7 @@ void main(void) {
      CalculateAngle(temp_laserStatus); //得到舵机需要调整的转角 
     dajiao();     
    testcount++;
-  if(testcount%12==0){
+  if(testcount%11==0){
        testcount=1;
    baitou( );
    }
