@@ -84,21 +84,21 @@ void  baitou (void) {
     
     His_Position[1]=position;  
     His_Position[2]=position;
-    His_Position[2]=abs(His_Position[2]); 
+    His_Position[2]=aabs(His_Position[2]); 
     YDiff_Position[1]= Diff_Position;
     
     if(His_Position[2]<=1)
     Diff_Position=0;
     else if(His_Position[2]>1&&His_Position[2]<=3)
-    Diff_Position=(4*His_Position[1])/5+3*(YDiff_Position[1]-YDiff_Position[0])/11;
+    Diff_Position=0.4*His_Position[1]+2.7*(His_Position[1]-His_Position[0]);
     else if(His_Position[2]>3&&His_Position[2]<=7)
-    Diff_Position=(4*His_Position[1])/6+3*(YDiff_Position[1]-YDiff_Position[0])/11;
+    Diff_Position=0.5*His_Position[1]+2.7*(His_Position[1]-His_Position[0]);
     else if(His_Position[2]>7&&His_Position[2]<=10)
-    Diff_Position=(5*His_Position[1])/6+4*(YDiff_Position[1]-YDiff_Position[0])/11;
+    Diff_Position=0.7*His_Position[1]+2.7*(His_Position[1]-His_Position[0]);
     else if(His_Position[2]>10&&His_Position[2]<=12)
-    Diff_Position=(4*His_Position[1])/6+4*(YDiff_Position[1]-YDiff_Position[0])/11;
+    Diff_Position=0.8*His_Position[1]+2.7*(His_Position[1]-His_Position[0]);
     else if(His_Position[2]>12&&His_Position[2]<=14)
-    Diff_Position=(4*His_Position[1])/6+4*(YDiff_Position[1]-YDiff_Position[0])/11;
+    Diff_Position=0.9*His_Position[1]+2.7*(His_Position[1]-His_Position[0]);
     
   /*  else if(His_Position[3]>4&&His_Position[3]<=6)
     Diff_Position=(1+2)*His_Position[2]-(2+2*2)*His_Position[1]+2*His_Position[0];
@@ -127,7 +127,7 @@ void dajiao(void) {
     int ZhuanPwm=0;
     GDiff_Position[1]=PWMDTY67-PWM67;
     GDiff_Position[2]=PWMDTY67-PWM67;
-    GDiff_Position[2]=abs(GDiff_Position[2]);
+    GDiff_Position[2]=aabs(GDiff_Position[2]);
     //His_Position[3]=position;
     //His_Position[3]=abs(His_Position[3]);
     
@@ -138,17 +138,17 @@ void dajiao(void) {
     if(GDiff_Position[2]<=8)
     ZhuanPwm=PWM01;
     else if(GDiff_Position[2]>8&&GDiff_Position[2]<=14)
-    ZhuanPwm=PWM01-(4*position+GDiff_Position[1])-5*(GDiff_Position[1]-GDiff_Position[0])/11;
+    ZhuanPwm=PWM01-(5*position+1.7*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
     else if(GDiff_Position[2]>14&&GDiff_Position[2]<=24)
-    ZhuanPwm=PWM01-(6*position+3*GDiff_Position[1])-5*(GDiff_Position[1]-GDiff_Position[0])/11;
+    ZhuanPwm=PWM01-(7*position+3.5*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
     else if(GDiff_Position[2]>24&&GDiff_Position[2]<=40)
-    ZhuanPwm=PWM01-(8*position+4*GDiff_Position[1])-5*(GDiff_Position[1]-GDiff_Position[0])/11;
+    ZhuanPwm=PWM01-(9*position+4.9*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
     else if(GDiff_Position[2]>40&&GDiff_Position[2]<=60)
-    ZhuanPwm=PWM01-(9*position+5*GDiff_Position[1])-5*(GDiff_Position[1]-GDiff_Position[0])/11;
+    ZhuanPwm=PWM01-(11*position+6.5*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
     else if(GDiff_Position[2]>60&&GDiff_Position[2]<=80)
-    ZhuanPwm=PWM01-(11*position+6*GDiff_Position[1])-5*(GDiff_Position[1]-GDiff_Position[0])/11;
+    ZhuanPwm=PWM01-(13*position+7.8*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
     else if(GDiff_Position[2]>80)
-    ZhuanPwm=PWM01-(11*position+7*GDiff_Position[1])-5*(GDiff_Position[1]-GDiff_Position[0])/11;
+    ZhuanPwm=PWM01-(14*position+7.8*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
     
     if(ZhuanPwm>1778)
     ZhuanPwm=1778;

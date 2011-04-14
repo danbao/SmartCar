@@ -45,6 +45,15 @@ void delayms(int ms)    //延时程序。
      for(jj=0;jj<3338;jj++);    //40MHz--1ms      
 }
 
+//===============aabs=================================//
+int aabs(int num) {
+  if(num>=0)return num;
+  else {
+    num=-num;
+    return num;
+  }
+}
+
  //=====================舵机初始化======================//
 void PWM_Init(void){     		//PWM初始化。其中P4,P5控制电机正反转, P6,P7级联激光管控制舵机。
 
