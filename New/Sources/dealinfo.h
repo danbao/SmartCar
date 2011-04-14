@@ -85,7 +85,7 @@ void  baitou (void) {
     His_Position[1]=position;  
     His_Position[2]=position;
     His_Position[2]=aabs(His_Position[2]); 
-    YDiff_Position[1]= Diff_Position;
+    
     
     if(His_Position[2]<=1)
     Diff_Position=0;
@@ -111,7 +111,7 @@ void  baitou (void) {
     else if(His_Position[3]>12&&His_Position[3]<=14)
     Diff_Position=(1+2)*His_Position[2]-(2+2*2)*His_Position[1]+2*His_Position[0];  */
     
-     YDiff_Position[0]=YDiff_Position[1];
+     
      His_Position[0]=His_Position[1];
      PWMDTY67=PWMDTY67+Diff_Position;
     
@@ -126,29 +126,25 @@ void dajiao(void) {
     
     int ZhuanPwm=0;
     GDiff_Position[1]=PWMDTY67-PWM67;
-    GDiff_Position[2]=PWMDTY67-PWM67;
-    GDiff_Position[2]=aabs(GDiff_Position[2]);
-    //His_Position[3]=position;
-    //His_Position[3]=abs(His_Position[3]);
+    D_His_Position[1]=position;
+    D_His_Position[2]=position;
+    D_His_Position[2]=aabs(D_His_Position[2]);
     
-    //if(His_Position[3]<=1){  
-   // if(GDiff_Position[1]<=6&&GDiff_Position[1]>=-6)
-   // ZhuanPwm=PWM01;           
-   // }
-    if(GDiff_Position[2]<=8)
+    
+   
+    if( D_His_Position[2]<=1)
     ZhuanPwm=PWM01;
-    else if(GDiff_Position[2]>8&&GDiff_Position[2]<=14)
-    ZhuanPwm=PWM01-(5*position+1.7*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
-    else if(GDiff_Position[2]>14&&GDiff_Position[2]<=24)
-    ZhuanPwm=PWM01-(7*position+3.5*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
-    else if(GDiff_Position[2]>24&&GDiff_Position[2]<=40)
-    ZhuanPwm=PWM01-(9*position+4.9*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
-    else if(GDiff_Position[2]>40&&GDiff_Position[2]<=60)
-    ZhuanPwm=PWM01-(11*position+6.5*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
-    else if(GDiff_Position[2]>60&&GDiff_Position[2]<=80)
-    ZhuanPwm=PWM01-(13*position+7.8*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
-    else if(GDiff_Position[2]>80)
-    ZhuanPwm=PWM01-(14*position+7.8*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
+    else if(D_His_Position[2]>1&&D_His_Position[2]<=3)
+    ZhuanPwm=PWM01-(3*position+1.7*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
+    else if(D_His_Position[2]>3&&D_His_Position[2]<=7)
+    ZhuanPwm=PWM01-(4*position+3.5*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
+    else if(D_His_Position[2]>7&&D_His_Position[2]<=10)
+    ZhuanPwm=PWM01-(5*position+4.9*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
+    else if(D_His_Position[2]>10&&D_His_Position[2]<=12)
+    ZhuanPwm=PWM01-(6*position+6.5*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
+    else if(D_His_Position[2]>12&&D_His_Position[2]<=14)
+    ZhuanPwm=PWM01-(7*position+7.8*GDiff_Position[1])-2.3*(GDiff_Position[1]-GDiff_Position[0]);
+    
     
     if(ZhuanPwm>1778)
     ZhuanPwm=1778;
@@ -156,8 +152,8 @@ void dajiao(void) {
     ZhuanPwm=1198;
     
     PWMDTY01=ZhuanPwm;
-    GDiff_Position[0]=GDiff_Position[1]; 
-  
+    D_His_Position[0]=D_His_Position[1]; 
+    GDiff_Position[0]=GDiff_Position[1];
   } // DerectionCtrl
 
 //¡¾type declaration¡¿
