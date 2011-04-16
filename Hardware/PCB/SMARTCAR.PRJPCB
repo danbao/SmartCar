@@ -19,34 +19,6 @@ DefaultPcbPcad=0
 ReorderDocumentsOnCompile=1
 
 [Document1]
-DocumentPath=..\..\..\..\PCB\PCB\LongQiu99Lib\Documents\longqiuPCB.PCBLIB
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-
-[Document2]
-DocumentPath=..\..\..\..\PCB\PCB\LongQiu99Lib\Documents\LongqiuSCH.SCHLIB
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-
-[Document3]
 DocumentPath=mainboard.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -60,8 +32,36 @@ ClassGenCCAutoEnabled=1
 ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
+[Document2]
+DocumentPath=..\Footpoint\Miscellaneous.PCBLIB
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+
+[Document3]
+DocumentPath=..\Footpoint\PCB Footprints.PCBLIB
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+
 [Document4]
-DocumentPath=电机驱动模块.SchDoc
+DocumentPath=..\Footpoint\通用零件.PCBLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -75,7 +75,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
 [Document5]
-DocumentPath=..\Footpoint\PCB Footprints.lib
+DocumentPath=..\Footpoint\longqiu\longqiuPCB.PCBLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -89,7 +89,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
 [Document6]
-DocumentPath=单片机电路.SchDoc
+DocumentPath=..\Footpoint\longqiu\LongqiuSCH.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
