@@ -1,4 +1,12 @@
 [
+BAITOU
+HDR1X3
+激光摆头舵机接口
+
+
+
+]
+[
 C1
 0805
 47uF
@@ -8,7 +16,7 @@ C1
 ]
 [
 C2
-Model Name
+CD4
 47uF
 
 
@@ -47,17 +55,25 @@ CD4
 
 ]
 [
-IR
-HDR1X9
-红外接收电路
+DAJIAO
+HDR1X3
+摆角舵机
 
 
 
 ]
 [
-IRPower
-HDR1X2H
-红外电源模块
+IR
+HDR1X9
+红外模块接口
+
+
+
+]
+[
+LCD
+HDR1X10
+LCD显示接口
 
 
 
@@ -98,6 +114,14 @@ LQ_112_BOARD
 MOTO
 HDR1X3
 电机模块
+
+
+
+]
+[
+MOTOPower
+tongzhu
+电机电源
 
 
 
@@ -150,14 +174,26 @@ C5-1
 LM2940-1-1
 LM2940-2-1
 LM2940-3-1
+MOTOPower-1
 Power-1
 )
 (
 QVCC
 C6-1
-IRPower-1
+IR-2
+LCD-10
 LM2940-3-3
 TestSpeed-2
+)
+(
+PWM4
+DAJIAO-1
+MCU-225
+)
+(
+PWM3
+BAITOU-1
+MCU-227
 )
 (
 NetC1_2
@@ -175,29 +211,19 @@ C5-2
 C6-2
 )
 (
-8
-IR-1
-MCU-310
-)
-(
-7
-IR-2
-MCU-323
-)
-(
-6
+0
 IR-3
-MCU-321
+MCU-309
 )
 (
-5
+1
 IR-4
-MCU-319
+MCU-311
 )
 (
-4
+2
 IR-5
-MCU-317
+MCU-313
 )
 (
 3
@@ -205,19 +231,59 @@ IR-6
 MCU-315
 )
 (
-2
+4
 IR-7
-MCU-313
+MCU-317
 )
 (
-1
+5
 IR-8
-MCU-311
+MCU-319
 )
 (
-0
+6
 IR-9
-MCU-309
+MCU-321
+)
+(
+M4
+LCD-1
+MCU-217
+)
+(
+M3
+LCD-2
+MCU-220
+)
+(
+M2
+LCD-3
+MCU-219
+)
+(
+M1
+LCD-4
+MCU-222
+)
+(
+M0
+LCD-5
+MCU-221
+)
+(
+M5
+LCD-6
+MCU-218
+)
+(
+M6
+LCD-7
+MCU-205
+)
+(
+M7
+LCD-8
+MCU-206
 )
 (
 I/O
@@ -253,9 +319,13 @@ LM2940-1-3
 )
 (
 GND
-IRPower-2
+BAITOU-3
+DAJIAO-3
+IR-1
+LCD-9
 LM2940-2-2
 MCU-328
+MOTOPower-2
 Power-2
 R0-2
 TestSpeed-3

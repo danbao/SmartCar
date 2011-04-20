@@ -1,5 +1,4 @@
-Record=SheetSymbol|SourceDocument=mainboard.SchDoc|Designator=LCD|SchDesignator=LCD|FileName=LCD显示屏.SCHDOC
 Record=SheetSymbol|SourceDocument=mainboard.SchDoc|Designator=MCU|SchDesignator=MCU|FileName=单片机电路.SCHDOC
-Record=SheetSymbol|SourceDocument=mainboard.SchDoc|Designator=receive|SchDesignator=receive|FileName=接收管控制电路.SCHDOC
-Record=SheetSymbol|SourceDocument=mainboard.SchDoc|Designator=send|SchDesignator=send|FileName=发射管电路.SCHDOC
+Record=SheetSymbol|SourceDocument=mainboard.SchDoc|Designator=receive|SchDesignator=receive|FileName=发射控制电路.SCHDOC
+Record=SheetSymbol|SourceDocument=mainboard.SchDoc|Designator=send|SchDesignator=send|FileName=接收电路.SCHDOC
 Record=TopLevelDocument|FileName=mainboard.SchDoc
