@@ -1,0 +1,25 @@
+Removed Pin From Net: NetName=VCC Pin=C3-1
+Removed Pin From Net: NetName=VCC Pin=LM2940-2-1
+Change Component Designator: OldDesignator=R2 NewDesignator=R1
+Added Component: Designator=Diode1(DIO10.46-5.3x2.8)
+Added Component: Designator=Diode2(DIO10.46-5.3x2.8)
+Added Component: Designator=R2(0805)
+Added Component: Designator=R3(0805)
+Added Pin To Net: NetName=VCC Pin=R2-2
+Added Pin To Net: NetName=VCC Pin=R3-2
+Change Net Name : Old Net Name=NetR2_1 New Net Name=NetR1_1
+Added Pin To Net: NetName=BVCC Pin=BAITOU-2
+Added Pin To Net: NetName=BVCC Pin=DAJIAO-2
+Added Pin To Net: NetName=BVCC Pin=Diode1-2
+Added Pin To Net: NetName=BVCC Pin=Diode2-2
+Added Net: Name=BVCC
+Added Pin To Net: NetName=NetDiode1_1 Pin=Diode1-1
+Added Pin To Net: NetName=NetDiode1_1 Pin=R3-1
+Added Net: Name=NetDiode1_1
+Added Pin To Net: NetName=NetDiode2_1 Pin=Diode2-1
+Added Pin To Net: NetName=NetDiode2_1 Pin=R2-1
+Added Net: Name=NetDiode2_1
+Added Member To Class: ClassName=mainboard Member=Component Diode1 Diode 1N5918
+Added Member To Class: ClassName=mainboard Member=Component Diode2 Diode 1N5918
+Added Member To Class: ClassName=mainboard Member=Component R2 6ŷķ
+Added Member To Class: ClassName=mainboard Member=Component R3 6ŷķ
