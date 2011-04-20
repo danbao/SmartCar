@@ -1,0 +1,10 @@
+Output: Protel
+Type  : ProtelNetlist
+From  : Project [SMARTCAR.PRJPCB]
+   Generated File[SMARTCAR.NET]
+
+
+Files Generated   : 1
+Documents Printed : 0
+
+Finished Output Generation At 0:09:24 On 2011/4/20

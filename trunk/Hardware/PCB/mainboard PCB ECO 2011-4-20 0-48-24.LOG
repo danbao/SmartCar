@@ -1,0 +1,4 @@
+Added Component: Designator=MOTOPower(tongzhu)
+Added Pin To Net: NetName=VCC Pin=MOTOPower-1
+Added Pin To Net: NetName=GND Pin=MOTOPower-2
+Added Member To Class: ClassName=mainboard Member=Component MOTOPower 电机电源

@@ -1,7 +1,5 @@
-Record=SheetSymbol|SourceDocument=mainboard.SchDoc|Designator=Infrared|SchDesignator=Infrared|FileName=红外收发控制模块.SCHDOC
 Record=SheetSymbol|SourceDocument=mainboard.SchDoc|Designator=LCD|SchDesignator=LCD|FileName=LCD显示屏.SCHDOC
 Record=SheetSymbol|SourceDocument=mainboard.SchDoc|Designator=MCU|SchDesignator=MCU|FileName=单片机电路.SCHDOC
-Record=SheetSymbol|SourceDocument=mainboard.SchDoc|Designator=MOTO|SchDesignator=MOTO|FileName=电机驱动模块.SCHDOC
 Record=SheetSymbol|SourceDocument=mainboard.SchDoc|Designator=receive|SchDesignator=receive|FileName=接收管控制电路.SCHDOC
 Record=SheetSymbol|SourceDocument=mainboard.SchDoc|Designator=send|SchDesignator=send|FileName=发射管电路.SCHDOC
 Record=TopLevelDocument|FileName=mainboard.SchDoc
