@@ -19,13 +19,13 @@ DefaultPcbPcad=0
 ReorderDocumentsOnCompile=1
 
 [Document1]
-DocumentPath=mainboard.SchDoc
+DocumentPath=moto.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
 AnnotateScope=All
-AnnotateOrder=0
+AnnotateOrder=-1
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
 ClassGenCCAutoEnabled=1
@@ -33,7 +33,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
 [Document2]
-DocumentPath=..\Footpoint\Miscellaneous.PCBLIB
+DocumentPath=..\Footpoint\BTS7960.PCBLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -61,77 +61,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
 [Document4]
-DocumentPath=..\Footpoint\通用零件.PCBLIB
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-
-[Document5]
-DocumentPath=..\Footpoint\longqiu\longqiuPCB.PCBLIB
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-
-[Document6]
-DocumentPath=..\Footpoint\longqiu\LongqiuSCH.SCHLIB
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-
-[Document7]
-DocumentPath=..\Footpoint\BTS7960.PCBLIB
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-
-[Document8]
-DocumentPath=单片机电路.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-
-[Document9]
-DocumentPath=mainboard.PCBDOC
+DocumentPath=moto.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -145,24 +75,26 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
 [GeneratedDocument1]
-DocumentPath=Project Outputs for SMARTCAR\SMARTCAR.NET
+DocumentPath=Project Outputs for MOTO\MOTO.NET
 
 [OutputGroup1]
 Name=Netlist Outputs
 Description=
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintWhat=1
-OutputType1=EDIF
-OutputName1=EDIF for PCB
+OutputType1=ProtelNetlist
+OutputName1=Protel
 OutputDocumentPath1=
 OutputEnabled1=1
 OutputDefault1=0
-OutputType2=MultiWire
-OutputName2=MultiWire
+Configuration1_Name1=OutputConfigurationParameter1
+Configuration1_Item1=NetlistVersion=0|Record=ProtelNetlistView
+OutputType2=VHDL
+OutputName2=VHDL File
 OutputDocumentPath2=
 OutputEnabled2=1
 OutputDefault2=0
-OutputType3=Pcad
-OutputName3=Pcad for PCB
+OutputType3=XSpiceNetlist
+OutputName3=XSpice Netlist
 OutputDocumentPath3=
 OutputEnabled3=1
 OutputDefault3=0
@@ -171,20 +103,18 @@ OutputName4=CUPL Netlist
 OutputDocumentPath4=
 OutputEnabled4=1
 OutputDefault4=0
-OutputType5=ProtelNetlist
-OutputName5=Protel
+OutputType5=EDIF
+OutputName5=EDIF for PCB
 OutputDocumentPath5=
 OutputEnabled5=1
 OutputDefault5=0
-Configuration5_Name1=OutputConfigurationParameter1
-Configuration5_Item1=NetlistVersion=0|Record=ProtelNetlistView
-OutputType6=VHDL
-OutputName6=VHDL File
+OutputType6=MultiWire
+OutputName6=MultiWire
 OutputDocumentPath6=
 OutputEnabled6=1
 OutputDefault6=0
-OutputType7=XSpiceNetlist
-OutputName7=XSpice Netlist
+OutputType7=Pcad
+OutputName7=Pcad for PCB
 OutputDocumentPath7=
 OutputEnabled7=1
 OutputDefault7=0
@@ -323,7 +253,7 @@ Description=
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintWhat=1
 OutputType1=BOM_PartType
 OutputName1=Bill of Materials
-OutputDocumentPath1=D:\DOCUMENTS\SmartCar\trunk\Hardware\PCB\电机驱动模块.SchDoc
+OutputDocumentPath1=
 OutputEnabled1=1
 OutputDefault1=0
 OutputType2=ComponentCrossReference
