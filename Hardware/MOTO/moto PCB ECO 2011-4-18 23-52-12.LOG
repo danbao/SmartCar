@@ -1,9 +1,0 @@
-Removed Pin From Net: NetName=VCC Pin=S2-1
-Removed Pin From Net: NetName=GND Pin=S2-2
-Removed Pin From Net: NetName=MOTO1 Pin=S3-1
-Removed Pin From Net: NetName=MOTO2 Pin=S3-2
-Added Pin To Net: NetName=GND Pin=S2-1
-Added Pin To Net: NetName=VCC Pin=S2-2
-Added Pin To Net: NetName=MOTO2 Pin=S3-1
-Added Pin To Net: NetName=MOTO1 Pin=S3-2
-Added Room: Name=moto
