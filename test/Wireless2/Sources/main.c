@@ -5,7 +5,8 @@
 #include <math.h>        //abs绝对值要用到
 #include "main.h"
 #include "LCD.h"         
-#include "SCI.h"               
+#include "SCI.h" 
+#include "IR.h"               
 
 
 
@@ -16,6 +17,7 @@ void main(void) {
 	EnableInterrupts;
   SetBusCLK_40M();    //   设置时钟初始化。40MHz.
   SCI_Init();
+  AD_Init(); //     AD初始化。
   DDRM = 0X1F;        //启动LCD
 	LCD_start();  //初始化LCD模块 
 	LCD_clear(); //清屏幕 
@@ -29,7 +31,10 @@ void main(void) {
   SpeedNow=345;
   SpeedAver=467.96;
   for(;;) {
-    _FEED_COP(); /* feeds the dog */
+    delayms(100);
+    sprintf(SCIreceive,"AD0值为:%f",ReadATD(0)/51.0);
+    SCISend_chars(SCIreceive);
+  //  _FEED_COP(); /* feeds the dog */
   } /* loop forever */
   /* please make sure that you never leave main */
 }
