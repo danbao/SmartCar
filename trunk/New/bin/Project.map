@@ -1,5 +1,5 @@
 *** EVALUATION ***
-PROGRAM "D:\sm\trunk\New\bin\Project.abs"
+PROGRAM "F:\Smart\trunk\New\bin\Project.abs"
 
 *********************************************************************************************
 TARGET SECTION
@@ -50,7 +50,7 @@ Section Name                    Size  Type     From       To       Segment
 .rodata1                         160     R     0xC14D     0xC1EC   ROM_C000
 NON_BANKED                      2336     R     0xC1ED     0xCB0C   ROM_C000
 .copy                             28     R     0xCB0D     0xCB28   ROM_C000
-.text                           5752     R   0xFE8000   0xFE9677   PAGE_FE
+.text                           5758     R   0xFE8000   0xFE967D   PAGE_FE
 .stack                           256   R/W     0x2000     0x20FF   RAM
 .data                             22   R/W     0x2100     0x2115   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
@@ -350,7 +350,7 @@ NON_BANKED                      2336     R     0xC1ED     0xCB0C   ROM_C000
 .vectSeg292_vect                   2     R     0xFFFE     0xFFFF   .vectSeg292
 
 Summary of section sizes per section type:
-READ_ONLY (R):        21A5 (dec:     8613)
+READ_ONLY (R):        21AB (dec:     8619)
 READ_WRITE (R/W):      1FC (dec:      508)
 NO_INIT (N/I):         168 (dec:      360)
 
@@ -674,10 +674,10 @@ MODULE:                 -- main.c.o --
      Status_Judge                            FE8206      31      49       2   .text       
      Calculate_HitBlackNum                   FE8237      23      35       2   .text       
      baitou                                  FE825A     1C4     452      12   .text       
-     dajiao                                  FE841E     3BD     957      24   .text       
-     CalculateAngle                          FE87DB     23A     570      53   .text       
-     SpeedCtrl                               FE8A15       7       7       2   .text       
-     main                                    FE8A1C      62      98       2   .text       
+     dajiao                                  FE841E     3C3     963      25   .text       
+     CalculateAngle                          FE87E1     23A     570      53   .text       
+     SpeedCtrl                               FE8A1B       7       7       2   .text       
+     main                                    FE8A22      62      98       2   .text       
      Rx_SCI                                    C1ED     221     545      15   NON_BANKED  
 - VARIABLES:
      STRING.....P1.......1f.1                  C14D      10      16       1   .rodata1    
@@ -708,7 +708,7 @@ MODULE:                 -- main.c.o --
      J_His_Position                            21F6       6       6       6   .common     
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
-     Init                                    FE8A7E      29      41       2   .text       
+     Init                                    FE8A84      29      41       2   .text       
      _Startup                                  C000       F      15       0   .init       
 - VARIABLES:
      _startupData                              C00F       6       6       3   .startData  
@@ -716,11 +716,11 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          2100       0       0       1               
 MODULE:                 -- PRINTF.C.o (ansixbf.lib) --
 - PROCEDURES:
-     Ten                                     FE8AA7      F3     243      14   .text       
-     vprintf                                 FE8B9A     A8B    2699     155   .text       
-     _out                                    FE9625       9       9       2   .text       
-     deposit_char                            FE962E       A      10       3   .text       
-     sprintf                                 FE9638      2D      45       4   .text       
+     Ten                                     FE8AAD      F3     243      14   .text       
+     vprintf                                 FE8BA0     A8B    2699     155   .text       
+     _out                                    FE962B       9       9       2   .text       
+     deposit_char                            FE9634       A      10       3   .text       
+     sprintf                                 FE963E      2D      45       4   .text       
 - VARIABLES:
      pow10                                     C019      28      40       4   .rodata     
      pow16                                     C041      20      32       4   .rodata     
@@ -730,7 +730,7 @@ MODULE:                 -- PRINTF.C.o (ansixbf.lib) --
      pbuf                                      2118       7       7      15   .bss        
 MODULE:                 -- STRING.C.o (ansixbf.lib) --
 - PROCEDURES:
-     strlen                                  FE9665      13      19       2   .text       
+     strlen                                  FE966B      13      19       2   .text       
 - VARIABLES:
 MODULE:                 -- DADD.C.o (ansixbf.lib) --
 - PROCEDURES:
@@ -823,7 +823,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   MC9S12XS128.c.o                            360      0      0
-  main.c.o                                   245   3231    162
+  main.c.o                                   245   3237    162
   Start12.c.o                                  0     56      0
   PRINTF.C.o (ansixbf.lib)                     7   3006    308
   STRING.C.o (ansixbf.lib)                     0     19      0
@@ -1852,17 +1852,17 @@ OBJECT LIST SORTED BY ADDRESS
      Status_Judge                            FE8206      31      49       2   .text       
      Calculate_HitBlackNum                   FE8237      23      35       2   .text       
      baitou                                  FE825A     1C4     452      12   .text       
-     dajiao                                  FE841E     3BD     957      24   .text       
-     CalculateAngle                          FE87DB     23A     570      53   .text       
-     SpeedCtrl                               FE8A15       7       7       2   .text       
-     main                                    FE8A1C      62      98       2   .text       
-     Init                                    FE8A7E      29      41       2   .text       
-     Ten                                     FE8AA7      F3     243      14   .text       
-     vprintf                                 FE8B9A     A8B    2699     155   .text       
-     _out                                    FE9625       9       9       2   .text       
-     deposit_char                            FE962E       A      10       3   .text       
-     sprintf                                 FE9638      2D      45       4   .text       
-     strlen                                  FE9665      13      19       2   .text       
+     dajiao                                  FE841E     3C3     963      25   .text       
+     CalculateAngle                          FE87E1     23A     570      53   .text       
+     SpeedCtrl                               FE8A1B       7       7       2   .text       
+     main                                    FE8A22      62      98       2   .text       
+     Init                                    FE8A84      29      41       2   .text       
+     Ten                                     FE8AAD      F3     243      14   .text       
+     vprintf                                 FE8BA0     A8B    2699     155   .text       
+     _out                                    FE962B       9       9       2   .text       
+     deposit_char                            FE9634       A      10       3   .text       
+     sprintf                                 FE963E      2D      45       4   .text       
+     strlen                                  FE966B      13      19       2   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -2248,5 +2248,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 6
-Total size of all blocks to be downloaded: 8613
+Total size of all blocks to be downloaded: 8619
 
