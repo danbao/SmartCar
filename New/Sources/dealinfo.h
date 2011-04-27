@@ -90,15 +90,15 @@ void  baitou (void) {
     if(His_Position[2]<=1)
     Diff_Position=0;
     else if(His_Position[2]>1&&His_Position[2]<=3)
-    Diff_Position=0.27*His_Position[1]+3.3*(His_Position[1]-His_Position[0]);
+    Diff_Position=0.27*His_Position[1]+4.3*(His_Position[1]-His_Position[0]);
     else if(His_Position[2]>3&&His_Position[2]<=7)
-    Diff_Position=0.37*His_Position[1]+3.3*(His_Position[1]-His_Position[0]);
+    Diff_Position=0.37*His_Position[1]+4.3*(His_Position[1]-His_Position[0]);
     else if(His_Position[2]>7&&His_Position[2]<=10)
-    Diff_Position=0.44*His_Position[1]+3.3*(His_Position[1]-His_Position[0]);
+    Diff_Position=0.44*His_Position[1]+4.3*(His_Position[1]-His_Position[0]);
     else if(His_Position[2]>10&&His_Position[2]<=12)
-    Diff_Position=0.52*His_Position[1]+3.3*(His_Position[1]-His_Position[0]);
+    Diff_Position=0.52*His_Position[1]+4.3*(His_Position[1]-His_Position[0]);
     else if(His_Position[2]>12&&His_Position[2]<=14)
-    Diff_Position=0.62*His_Position[1]+3.3*(His_Position[1]-His_Position[0]);
+    Diff_Position=0.62*His_Position[1]+4.3*(His_Position[1]-His_Position[0]);
     
   /*  else if(His_Position[3]>4&&His_Position[3]<=6)
     Diff_Position=(1+2)*His_Position[2]-(2+2*2)*His_Position[1]+2*His_Position[0];
@@ -137,17 +137,17 @@ void dajiao(void) {
     ZhuanPwm=PWM01;
     else{  
     if(GDiff_Position[2]<=14)
-    ZhuanPwm=PWM01-(6*position+2.2*GDiff_Position[1])-2.8*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM01-(6*position+3.2*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
     else if(GDiff_Position[2]>14&&GDiff_Position[2]<=24)
-    ZhuanPwm=PWM01-(8*position+4.5*GDiff_Position[1])-2.8*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM01-(8*position+5.5*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
     else if(GDiff_Position[2]>24&&GDiff_Position[2]<=40)
-    ZhuanPwm=PWM01-(11*position+6.1*GDiff_Position[1])-2.8*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM01-(11*position+7.1*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
     else if(GDiff_Position[2]>40&&GDiff_Position[2]<=60)
-    ZhuanPwm=PWM01-(14*position+8.1*GDiff_Position[1])-2.8*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM01-(14*position+9.1*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
     else if(GDiff_Position[2]>60&&GDiff_Position[2]<=80)
-    ZhuanPwm=PWM01-(17*position+10.1*GDiff_Position[1])-2.8*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM01-(17*position+11.1*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
     else if(GDiff_Position[2]>80)
-    ZhuanPwm=PWM01-(19*position+12.1*GDiff_Position[1])-2.8*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM01-(19*position+13.1*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
     }
     if(ZhuanPwm>1768)
     ZhuanPwm=1768;
