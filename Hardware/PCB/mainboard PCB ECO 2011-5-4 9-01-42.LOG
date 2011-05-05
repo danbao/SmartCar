@@ -1,0 +1,297 @@
+Added Component: Designator=40661(4066)
+Added Component: Designator=40662(4066)
+Added Component: Designator=40663(4066)
+Added Component: Designator=BACKUP(HDR1X3)
+Added Component: Designator=BaiTou(HDR1X3)
+Added Component: Designator=CCG1(0805)
+Added Component: Designator=CDJ1(100UF)
+Added Component: Designator=CDJ2(0805)
+Added Component: Designator=CJ1(3528)
+Added Component: Designator=CJ2(3528)
+Added Component: Designator=CJ3(47UF)
+Added Component: Designator=CJ4(0805)
+Added Component: Designator=CM1(3528)
+Added Component: Designator=CM2(3528)
+Added Component: Designator=CM3(47UF)
+Added Component: Designator=CM4(0805)
+Added Component: Designator=CQ1(3528)
+Added Component: Designator=CQ2(3528)
+Added Component: Designator=CQ3(47UF)
+Added Component: Designator=CQ4(0805)
+Added Component: Designator=Diode1(DO-41)
+Added Component: Designator=Diode2(DO-41)
+Added Component: Designator=IR(HDR1X9)
+Added Component: Designator=LCD(HDR1X10)
+Added Component: Designator=LM-JG(HDR1X3)
+Added Component: Designator=LM-MCU(HDR1X3)
+Added Component: Designator=LM-Other(HDR1X3)
+Added Component: Designator=MCU(LQ_112_BOARD)
+Added Component: Designator=Moto-P(tongzhu)
+Added Component: Designator=MOTO(HDR1X3)
+Added Component: Designator=Power(tongzhu)
+Added Component: Designator=R0(0805)
+Added Component: Designator=R1(0805)
+Added Component: Designator=R2(0805)
+Added Component: Designator=R3(0805)
+Added Component: Designator=RTZ(0805)
+Added Component: Designator=TestSpeed(HDR1X3)
+Added Component: Designator=TIAOZHI(TIAOZHI)
+Added Component: Designator=WireLess-P(HDR1X2)
+Added Component: Designator=ZhuanXian(HDR1X3)
+Added Component: Designator=ZONG20(ZONG20)
+Added Pin To Net: NetName=-1 Pin=40661-2
+Added Net: Name=-1
+Added Pin To Net: NetName=-2 Pin=40661-4
+Added Net: Name=-2
+Added Pin To Net: NetName=-3 Pin=40661-10
+Added Net: Name=-3
+Added Pin To Net: NetName=-4 Pin=40661-8
+Added Net: Name=-4
+Added Pin To Net: NetName=-5 Pin=40662-2
+Added Net: Name=-5
+Added Pin To Net: NetName=-6 Pin=40662-4
+Added Net: Name=-6
+Added Pin To Net: NetName=-7 Pin=40662-10
+Added Net: Name=-7
+Added Pin To Net: NetName=-8 Pin=40662-8
+Added Net: Name=-8
+Added Pin To Net: NetName=-9 Pin=40663-2
+Added Net: Name=-9
+Added Pin To Net: NetName=-10 Pin=40663-4
+Added Net: Name=-10
+Added Pin To Net: NetName=-11 Pin=40663-10
+Added Net: Name=-11
+Added Pin To Net: NetName=-12 Pin=40663-8
+Added Net: Name=-12
+Added Pin To Net: NetName=0 Pin=IR-3
+Added Pin To Net: NetName=0 Pin=MCU-309
+Added Net: Name=0
+Added Pin To Net: NetName=1 Pin=IR-4
+Added Pin To Net: NetName=1 Pin=MCU-311
+Added Net: Name=1
+Added Pin To Net: NetName=2 Pin=IR-5
+Added Pin To Net: NetName=2 Pin=MCU-313
+Added Net: Name=2
+Added Pin To Net: NetName=3 Pin=IR-6
+Added Pin To Net: NetName=3 Pin=MCU-315
+Added Net: Name=3
+Added Pin To Net: NetName=4 Pin=IR-7
+Added Pin To Net: NetName=4 Pin=MCU-317
+Added Net: Name=4
+Added Pin To Net: NetName=5 Pin=IR-8
+Added Pin To Net: NetName=5 Pin=MCU-319
+Added Net: Name=5
+Added Pin To Net: NetName=6 Pin=IR-9
+Added Pin To Net: NetName=6 Pin=MCU-321
+Added Net: Name=6
+Added Pin To Net: NetName=8 Pin=MCU-310
+Added Pin To Net: NetName=8 Pin=ZONG20-10
+Added Net: Name=8
+Added Pin To Net: NetName=9 Pin=MCU-312
+Added Pin To Net: NetName=9 Pin=ZONG20-9
+Added Net: Name=9
+Added Pin To Net: NetName=10 Pin=MCU-314
+Added Pin To Net: NetName=10 Pin=ZONG20-8
+Added Net: Name=10
+Added Pin To Net: NetName=11 Pin=MCU-316
+Added Pin To Net: NetName=11 Pin=ZONG20-7
+Added Net: Name=11
+Added Pin To Net: NetName=A0 Pin=40661-13
+Added Pin To Net: NetName=A0 Pin=MCU-301
+Added Net: Name=A0
+Added Pin To Net: NetName=A1 Pin=40661-5
+Added Pin To Net: NetName=A1 Pin=MCU-302
+Added Net: Name=A1
+Added Pin To Net: NetName=A2 Pin=40661-12
+Added Pin To Net: NetName=A2 Pin=MCU-303
+Added Net: Name=A2
+Added Pin To Net: NetName=A3 Pin=40661-6
+Added Pin To Net: NetName=A3 Pin=MCU-304
+Added Net: Name=A3
+Added Pin To Net: NetName=A4 Pin=40662-13
+Added Pin To Net: NetName=A4 Pin=MCU-305
+Added Net: Name=A4
+Added Pin To Net: NetName=A5 Pin=40662-5
+Added Pin To Net: NetName=A5 Pin=MCU-306
+Added Net: Name=A5
+Added Pin To Net: NetName=A6 Pin=40662-12
+Added Pin To Net: NetName=A6 Pin=MCU-307
+Added Net: Name=A6
+Added Pin To Net: NetName=A7 Pin=40662-6
+Added Pin To Net: NetName=A7 Pin=MCU-308
+Added Net: Name=A7
+Added Pin To Net: NetName=B0 Pin=40663-13
+Added Pin To Net: NetName=B0 Pin=MCU-121
+Added Net: Name=B0
+Added Pin To Net: NetName=B1 Pin=40663-5
+Added Pin To Net: NetName=B1 Pin=MCU-122
+Added Net: Name=B1
+Added Pin To Net: NetName=B2 Pin=40663-12
+Added Pin To Net: NetName=B2 Pin=MCU-123
+Added Net: Name=B2
+Added Pin To Net: NetName=B3 Pin=40663-6
+Added Net: Name=B3
+Added Pin To Net: NetName=B4 Pin=BACKUP-3
+Added Pin To Net: NetName=B4 Pin=MCU-125
+Added Net: Name=B4
+Added Pin To Net: NetName=B5 Pin=BACKUP-2
+Added Pin To Net: NetName=B5 Pin=MCU-126
+Added Net: Name=B5
+Added Pin To Net: NetName=B6 Pin=BACKUP-1
+Added Pin To Net: NetName=B6 Pin=MCU-127
+Added Net: Name=B6
+Added Pin To Net: NetName=B7 Pin=MCU-128
+Added Pin To Net: NetName=B7 Pin=MOTO-1
+Added Net: Name=B7
+Added Pin To Net: NetName=DGND Pin=40661-7
+Added Pin To Net: NetName=DGND Pin=40662-7
+Added Pin To Net: NetName=DGND Pin=40663-7
+Added Pin To Net: NetName=DGND Pin=RTZ-1
+Added Net: Name=DGND
+Added Pin To Net: NetName=DJVCC Pin=BaiTou-2
+Added Pin To Net: NetName=DJVCC Pin=CDJ1-2
+Added Pin To Net: NetName=DJVCC Pin=CDJ2-1
+Added Pin To Net: NetName=DJVCC Pin=Diode1-2
+Added Pin To Net: NetName=DJVCC Pin=Diode2-2
+Added Pin To Net: NetName=DJVCC Pin=ZhuanXian-2
+Added Net: Name=DJVCC
+Added Pin To Net: NetName=FASHEVCC Pin=ZONG20-14
+Added Net: Name=FASHEVCC
+Added Pin To Net: NetName=GND Pin=BaiTou-3
+Added Pin To Net: NetName=GND Pin=IR-1
+Added Pin To Net: NetName=GND Pin=MCU-328
+Added Pin To Net: NetName=GND Pin=Moto-P-2
+Added Pin To Net: NetName=GND Pin=Power-2
+Added Pin To Net: NetName=GND Pin=R0-2
+Added Pin To Net: NetName=GND Pin=R0-2
+Added Pin To Net: NetName=GND Pin=R0-2
+Added Pin To Net: NetName=GND Pin=WireLess-P-2
+Added Pin To Net: NetName=GND Pin=ZhuanXian-3
+Added Net: Name=GND
+Added Pin To Net: NetName=JGND Pin=CJ4-2
+Added Pin To Net: NetName=JGND Pin=LM-JG-2
+Added Pin To Net: NetName=JGND Pin=R0-1
+Added Net: Name=JGND
+Added Pin To Net: NetName=JIESHOUGND Pin=CCG1-2
+Added Pin To Net: NetName=JIESHOUGND Pin=ZONG20-13
+Added Net: Name=JIESHOUGND
+Added Pin To Net: NetName=JIESHOUVCC Pin=CCG1-1
+Added Pin To Net: NetName=JIESHOUVCC Pin=ZONG20-11
+Added Net: Name=JIESHOUVCC
+Added Pin To Net: NetName=JVCC Pin=CJ2-1
+Added Pin To Net: NetName=JVCC Pin=CJ3-1
+Added Pin To Net: NetName=JVCC Pin=CJ4-1
+Added Pin To Net: NetName=JVCC Pin=LM-JG-3
+Added Net: Name=JVCC
+Added Pin To Net: NetName=M0 Pin=LCD-5
+Added Pin To Net: NetName=M0 Pin=MCU-221
+Added Net: Name=M0
+Added Pin To Net: NetName=M1 Pin=LCD-4
+Added Pin To Net: NetName=M1 Pin=MCU-222
+Added Net: Name=M1
+Added Pin To Net: NetName=M2 Pin=LCD-3
+Added Pin To Net: NetName=M2 Pin=MCU-219
+Added Net: Name=M2
+Added Pin To Net: NetName=M3 Pin=LCD-2
+Added Pin To Net: NetName=M3 Pin=MCU-220
+Added Net: Name=M3
+Added Pin To Net: NetName=M4 Pin=LCD-1
+Added Pin To Net: NetName=M4 Pin=MCU-217
+Added Net: Name=M4
+Added Pin To Net: NetName=M5 Pin=LCD-6
+Added Pin To Net: NetName=M5 Pin=MCU-218
+Added Net: Name=M5
+Added Pin To Net: NetName=M6 Pin=LCD-7
+Added Pin To Net: NetName=M6 Pin=MCU-205
+Added Net: Name=M6
+Added Pin To Net: NetName=M7 Pin=LCD-8
+Added Pin To Net: NetName=M7 Pin=MCU-206
+Added Net: Name=M7
+Added Pin To Net: NetName=MGND Pin=CM4-2
+Added Pin To Net: NetName=MGND Pin=LM-MCU-2
+Added Pin To Net: NetName=MGND Pin=R0-1
+Added Net: Name=MGND
+Added Pin To Net: NetName=MVCC Pin=CM2-1
+Added Pin To Net: NetName=MVCC Pin=CM3-1
+Added Pin To Net: NetName=MVCC Pin=CM4-1
+Added Pin To Net: NetName=MVCC Pin=LM-MCU-3
+Added Pin To Net: NetName=MVCC Pin=MCU-327
+Added Pin To Net: NetName=MVCC Pin=WireLess-P-1
+Added Net: Name=MVCC
+Added Pin To Net: NetName=NetCJ1_2 Pin=CJ1-2
+Added Pin To Net: NetName=NetCJ1_2 Pin=CJ2-2
+Added Net: Name=NetCJ1_2
+Added Pin To Net: NetName=NetCJ3_1 Pin=CJ3-1
+Added Pin To Net: NetName=NetCJ3_1 Pin=CJ3-2
+Added Net: Name=NetCJ3_1
+Added Pin To Net: NetName=NetCM1_2 Pin=CM1-2
+Added Pin To Net: NetName=NetCM1_2 Pin=CM2-2
+Added Net: Name=NetCM1_2
+Added Pin To Net: NetName=NetCM3_1 Pin=CM3-1
+Added Pin To Net: NetName=NetCM3_1 Pin=CM3-2
+Added Net: Name=NetCM3_1
+Added Pin To Net: NetName=NetCQ1_2 Pin=CQ1-2
+Added Pin To Net: NetName=NetCQ1_2 Pin=CQ2-2
+Added Net: Name=NetCQ1_2
+Added Pin To Net: NetName=NetCQ3_1 Pin=CQ3-1
+Added Pin To Net: NetName=NetCQ3_1 Pin=CQ3-2
+Added Net: Name=NetCQ3_1
+Added Pin To Net: NetName=NetDiode1_1 Pin=Diode1-1
+Added Pin To Net: NetName=NetDiode1_1 Pin=R2-1
+Added Net: Name=NetDiode1_1
+Added Pin To Net: NetName=NetDiode2_1 Pin=Diode2-1
+Added Pin To Net: NetName=NetDiode2_1 Pin=R3-1
+Added Net: Name=NetDiode2_1
+Added Pin To Net: NetName=NetR1_1 Pin=R1-1
+Added Pin To Net: NetName=NetR1_1 Pin=TestSpeed-1
+Added Net: Name=NetR1_1
+Added Pin To Net: NetName=OUT Pin=40661-1
+Added Pin To Net: NetName=OUT Pin=40661-3
+Added Pin To Net: NetName=OUT Pin=40661-9
+Added Pin To Net: NetName=OUT Pin=40661-11
+Added Pin To Net: NetName=OUT Pin=40662-1
+Added Pin To Net: NetName=OUT Pin=40662-3
+Added Pin To Net: NetName=OUT Pin=40662-9
+Added Pin To Net: NetName=OUT Pin=40662-11
+Added Pin To Net: NetName=OUT Pin=40663-1
+Added Pin To Net: NetName=OUT Pin=40663-3
+Added Pin To Net: NetName=OUT Pin=40663-9
+Added Pin To Net: NetName=OUT Pin=40663-11
+Added Pin To Net: NetName=OUT Pin=RTZ-2
+Added Pin To Net: NetName=OUT Pin=TIAOZHI-1
+Added Net: Name=OUT
+Added Pin To Net: NetName=PWM1 Pin=MCU-103
+Added Pin To Net: NetName=PWM1 Pin=MOTO-2
+Added Net: Name=PWM1
+Added Pin To Net: NetName=PWM2 Pin=MCU-101
+Added Pin To Net: NetName=PWM2 Pin=MOTO-3
+Added Net: Name=PWM2
+Added Pin To Net: NetName=PWM3 Pin=BaiTou-1
+Added Pin To Net: NetName=PWM3 Pin=MCU-227
+Added Net: Name=PWM3
+Added Pin To Net: NetName=PWM4 Pin=MCU-225
+Added Pin To Net: NetName=PWM4 Pin=ZhuanXian-1
+Added Net: Name=PWM4
+Added Pin To Net: NetName=QGND Pin=CQ4-2
+Added Pin To Net: NetName=QGND Pin=LM-Other-2
+Added Pin To Net: NetName=QGND Pin=R0-1
+Added Pin To Net: NetName=QGND Pin=TestSpeed-3
+Added Net: Name=QGND
+Added Pin To Net: NetName=QVCC Pin=CQ2-1
+Added Pin To Net: NetName=QVCC Pin=CQ3-1
+Added Pin To Net: NetName=QVCC Pin=CQ4-1
+Added Pin To Net: NetName=QVCC Pin=IR-2
+Added Pin To Net: NetName=QVCC Pin=LM-Other-3
+Added Pin To Net: NetName=QVCC Pin=TestSpeed-2
+Added Net: Name=QVCC
+Added Pin To Net: NetName=T0 Pin=MCU-109
+Added Pin To Net: NetName=T0 Pin=R1-2
+Added Net: Name=T0
+Added Pin To Net: NetName=VCC Pin=40661-14
+Added Pin To Net: NetName=VCC Pin=40662-14
+Added Pin To Net: NetName=VCC Pin=40663-14
+Added Pin To Net: NetName=VCC Pin=TIAOZHI-2
+Added Net: Name=VCC
+Added Class: Name=Control
+Added Class: Name=mainboard
+Added Class: Name=MCU

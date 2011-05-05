@@ -24,6 +24,20 @@ PowerPortNamesTakePriority=0
 PushECOToAnnotationFile=1
 
 [Document1]
+DocumentPath=发射控制电路.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+
+[Document2]
 DocumentPath=mainboard.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -37,7 +51,7 @@ ClassGenCCAutoEnabled=1
 ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
-[Document2]
+[Document3]
 DocumentPath=..\Footpoint\Miscellaneous.PCBLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -51,7 +65,7 @@ ClassGenCCAutoEnabled=1
 ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
-[Document3]
+[Document4]
 DocumentPath=..\Footpoint\PCB Footprints.PCBLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -65,7 +79,7 @@ ClassGenCCAutoEnabled=1
 ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
-[Document4]
+[Document5]
 DocumentPath=..\Footpoint\通用零件.PCBLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -79,22 +93,8 @@ ClassGenCCAutoEnabled=1
 ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
-[Document5]
-DocumentPath=..\Footpoint\longqiu\longqiuPCB.PCBLIB
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-
 [Document6]
-DocumentPath=..\Footpoint\longqiu\LongqiuSCH.SCHLIB
+DocumentPath=mainLib.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -108,7 +108,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
 [Document7]
-DocumentPath=..\Footpoint\BTS7960.PCBLIB
+DocumentPath=..\Footpoint\longqiu\longqiuPCB.PCBLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -122,7 +122,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
 [Document8]
-DocumentPath=单片机电路.SchDoc
+DocumentPath=..\Footpoint\longqiu\LongqiuSCH.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -136,6 +136,34 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
 [Document9]
+DocumentPath=..\Footpoint\BTS7960.PCBLIB
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+
+[Document10]
+DocumentPath=单片机电路.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+
+[Document11]
 DocumentPath=mainboard.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -148,6 +176,9 @@ DoDatabaseUpdate=1
 ClassGenCCAutoEnabled=1
 ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
+
+[GeneratedDocument1]
+DocumentPath=Project Outputs for SMARTCAR\SMARTCAR.REP
 
 [OutputGroup1]
 Name=Netlist Outputs
@@ -405,12 +436,24 @@ OutputDocumentPath2=
 OutputVariantName2=
 OutputEnabled2=1
 OutputDefault2=0
+Configuration2_Name1=Filter
+Configuration2_Item1=545046300E5446696C74657257726170706572000D46696C7465722E416374697665090F46696C7465722E43726974657269610A04000000000000000000
+Configuration2_Name2=General
+Configuration2_Item2=OpenExported=False|AddToProject=False|ForceFit=False|Database=False|IncludePCBData=False|ShowExportOptions=True|TemplateFilename=BOM Default Template 95.xlt|BatchMode=5|FormWidth=912|FormHeight=644
+Configuration2_Name3=GroupOrder
+Configuration2_Item3=Document=True
+Configuration2_Name4=SortOrder
+Configuration2_Item4=Document=Up|Designator=Up
+Configuration2_Name5=VisibleOrder
+Configuration2_Item5=Comment=100|Description=100|Designator=100|Footprint=100|LibRef=100|Quantity=100
 OutputType3=ReportHierarchy
 OutputName3=Report Project Hierarchy
 OutputDocumentPath3=
 OutputVariantName3=
 OutputEnabled3=1
 OutputDefault3=0
+Configuration3_Name1=OutputConfigurationParameter1
+Configuration3_Item1=Record=ReportHierarchyView|ReportHierarchyMode=0
 OutputType4=SimpleBOM
 OutputName4=Simple BOM
 OutputDocumentPath4=
@@ -423,6 +466,8 @@ OutputDocumentPath5=
 OutputVariantName5=
 OutputEnabled5=1
 OutputDefault5=0
+Configuration5_Name1=OutputConfigurationParameter1
+Configuration5_Item1=NetlistVersion=0|Record=SinglePinNetsView
 
 [OutputGroup7]
 Name=Other Outputs

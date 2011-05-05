@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=DJVCC Pin=CDJ1-2
+Added Pin To Net: NetName=GND Pin=CDJ1-2
+Removed Pin From Net: NetName=DJVCC Pin=CDJ2-1
+Added Pin To Net: NetName=GND Pin=CDJ2-1
+Removed Pin From Net: NetName=ALLVCC Pin=CDJ2-2
+Added Pin To Net: NetName=DJVCC Pin=CDJ2-2

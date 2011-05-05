@@ -1,0 +1,10 @@
+Removed Pin From Net: NetName=QGND Pin=CQ1-2
+Removed Pin From Net: NetName=QGND Pin=CQ2-2
+Removed Pin From Net: NetName=QVCC Pin=CQ5-1
+Removed Pin From Net: NetName=QGND Pin=CQ5-2
+Removed Pin From Net: NetName=QGND Pin=LM-Other-2
+Removed Member From Class: ClassName=mainboard Member=CQ5
+Removed Member From Class: ClassName=mainboard Member=CQ5
+Added Pin To Net: NetName=NetCQ1_2 Pin=CQ1-2
+Added Pin To Net: NetName=NetCQ1_2 Pin=CQ2-2
+Added Net: Name=NetCQ1_2

@@ -1,0 +1,4 @@
+Added Pin To Net: NetName=ALLVCC Pin=SWITCH-3
+Added Pin To Net: NetName=INVCC Pin=SWITCH-1
+Added Pin To Net: NetName=INVCC Pin=SWITCH-2
+Added Net: Name=INVCC
