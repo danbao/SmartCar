@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=JIESHOUVCC Pin=CCG1-1
+Removed Pin From Net: NetName=JIESHOUGND Pin=CCG1-2
+Removed Member From Class: ClassName=mainboard Member=CCG1
+Change Component Designator: OldDesignator=RDJ  NewDesignator=RDJ1

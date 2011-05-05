@@ -1,0 +1,2 @@
+Removed Pin From Net: NetName=GND Pin=MCU-328
+Added Pin To Net: NetName=MGND Pin=MCU-328

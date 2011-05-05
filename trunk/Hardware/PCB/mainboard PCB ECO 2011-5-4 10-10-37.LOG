@@ -1,0 +1,25 @@
+Added Pin To Net: NetName=JVCC Pin=CJ3-1
+Added Pin To Net: NetName=MVCC Pin=CM3-1
+Added Pin To Net: NetName=JGND Pin=R0-1
+Added Pin To Net: NetName=QGND Pin=R0-1
+Added Pin To Net: NetName=GND Pin=R0-2
+Added Pin To Net: NetName=GND Pin=R0-2
+Added Pin To Net: NetName=ALLVCC Pin=C0-1
+Added Pin To Net: NetName=ALLVCC Pin=CDJ1-1
+Added Pin To Net: NetName=ALLVCC Pin=CDJ2-2
+Added Pin To Net: NetName=ALLVCC Pin=CJ1-1
+Added Pin To Net: NetName=ALLVCC Pin=CJ3-2
+Added Pin To Net: NetName=ALLVCC Pin=CM1-1
+Added Pin To Net: NetName=ALLVCC Pin=CM3-2
+Added Pin To Net: NetName=ALLVCC Pin=CQ1-1
+Added Pin To Net: NetName=ALLVCC Pin=CQ3-2
+Added Pin To Net: NetName=ALLVCC Pin=LM-JG-1
+Added Pin To Net: NetName=ALLVCC Pin=LM-MCU-1
+Added Pin To Net: NetName=ALLVCC Pin=LM-Other-1
+Added Pin To Net: NetName=ALLVCC Pin=Moto-P-1
+Added Pin To Net: NetName=ALLVCC Pin=Power-1
+Added Pin To Net: NetName=ALLVCC Pin=R2-2
+Added Pin To Net: NetName=ALLVCC Pin=R3-2
+Added Net: Name=ALLVCC
+Removed Pin From Net: NetName=QVCC Pin=CQ3-1
+Added Pin To Net: NetName=NetCQ3_1 Pin=CQ3-1

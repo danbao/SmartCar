@@ -1,0 +1,21 @@
+Added Component: Designator=ZONG20(ZONG20)
+Added Pin To Net: NetName=-12 Pin=ZONG20-1
+Added Pin To Net: NetName=-11 Pin=ZONG20-2
+Added Pin To Net: NetName=-10 Pin=ZONG20-3
+Added Pin To Net: NetName=-9 Pin=ZONG20-4
+Added Pin To Net: NetName=-8 Pin=ZONG20-5
+Added Pin To Net: NetName=-7 Pin=ZONG20-6
+Added Pin To Net: NetName=11 Pin=ZONG20-7
+Added Pin To Net: NetName=10 Pin=ZONG20-8
+Added Pin To Net: NetName=9 Pin=ZONG20-9
+Added Pin To Net: NetName=8 Pin=ZONG20-10
+Added Pin To Net: NetName=JIESHOUVCC Pin=ZONG20-11
+Added Pin To Net: NetName=JIESHOUGND Pin=ZONG20-13
+Added Pin To Net: NetName=FASHEVCC Pin=ZONG20-14
+Added Pin To Net: NetName=-6 Pin=ZONG20-15
+Added Pin To Net: NetName=-5 Pin=ZONG20-16
+Added Pin To Net: NetName=-4 Pin=ZONG20-17
+Added Pin To Net: NetName=-3 Pin=ZONG20-18
+Added Pin To Net: NetName=-2 Pin=ZONG20-19
+Added Pin To Net: NetName=-1 Pin=ZONG20-20
+Added Member To Class: ClassName=mainboard Member=Component ZONG20 Header 20

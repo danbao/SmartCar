@@ -1,0 +1,12 @@
+Added Pin To Net: NetName=JGND Pin=CJ1-2
+Added Pin To Net: NetName=JGND Pin=CJ2-2
+Added Pin To Net: NetName=JGND Pin=CJ3-1
+Added Pin To Net: NetName=JGND Pin=CJ4-2
+Added Pin To Net: NetName=MGND Pin=CM1-2
+Added Pin To Net: NetName=MGND Pin=CM2-2
+Added Pin To Net: NetName=MGND Pin=CM3-1
+Added Pin To Net: NetName=MGND Pin=CM4-2
+Added Pin To Net: NetName=QGND Pin=CQ1-2
+Added Pin To Net: NetName=QGND Pin=CQ2-2
+Added Pin To Net: NetName=QGND Pin=CQ3-1
+Added Pin To Net: NetName=QGND Pin=CQ4-2

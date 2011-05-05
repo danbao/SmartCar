@@ -1,0 +1,17 @@
+Added Component: Designator=C0(1000UF)
+Added Pin To Net: NetName=GND Pin=C0-2
+Added Pin To Net: NetName=JVCC Pin=CJ3-1
+Added Pin To Net: NetName=MVCC Pin=CM3-1
+Added Pin To Net: NetName=GND Pin=R0-2
+Added Pin To Net: NetName=GND Pin=R0-2
+Added Member To Class: ClassName=mainboard Member=Component C0 BATT
+Removed Pin From Net: NetName=NetCJ3_1 Pin=CJ3-2
+Added Pin To Net: NetName=NetCJ3_1 Pin=CJ3-2
+Removed Pin From Net: NetName=NetCM3_1 Pin=CM3-2
+Added Pin To Net: NetName=NetCM3_1 Pin=CM3-2
+Removed Pin From Net: NetName=QVCC Pin=CQ3-1
+Added Pin To Net: NetName=NetCQ3_1 Pin=CQ3-1
+Removed Pin From Net: NetName=NetCQ3_1 Pin=CQ3-2
+Added Pin To Net: NetName=NetCQ3_1 Pin=CQ3-2
+Removed Pin From Net: NetName=QGND Pin=R0-1
+Added Pin To Net: NetName=JGND Pin=R0-1
