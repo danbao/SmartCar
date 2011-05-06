@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=ALLVCC Pin=L-2
+Removed Pin From Net: NetName=ALLVCC Pin=SWITCH-3
+Added Pin To Net: NetName=AVCC Pin=L-2
+Added Pin To Net: NetName=AVCC Pin=SWITCH-3
+Added Net: Name=AVCC
+Removed Pin From Net: NetName=GND Pin=L-1
+Added Pin To Net: NetName=ALLVCC Pin=L-1

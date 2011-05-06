@@ -1,0 +1,11 @@
+Removed Pin From Net: NetName=OUT Pin=RTZ-2
+Removed Pin From Net: NetName=OUT Pin=TIAOZHI-1
+Added Component: Designator=P1(74LS04)
+Added Pin To Net: NetName=OUT Pin=P1-2
+Added Pin To Net: NetName=JGND Pin=P1-7
+Added Pin To Net: NetName=JVCC Pin=P1-14
+Added Pin To Net: NetName=IN Pin=P1-1
+Added Pin To Net: NetName=IN Pin=RTZ-2
+Added Pin To Net: NetName=IN Pin=TIAOZHI-1
+Added Net: Name=IN
+Added Member To Class: ClassName=Control Member=Component P1 Header 7X2A

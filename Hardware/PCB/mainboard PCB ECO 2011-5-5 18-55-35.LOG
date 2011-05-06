@@ -1,0 +1,7 @@
+Added Pin To Net: NetName=JVCC Pin=ZONG20-11
+Added Pin To Net: NetName=JGND Pin=ZONG20-13
+Added Pin To Net: NetName=JVCC Pin=ZONG20-14
+Removed Pin From Net: NetName=GND Pin=Power-1
+Added Pin To Net: NetName=INVCC Pin=Power-1
+Removed Pin From Net: NetName=INVCC Pin=Power-2
+Added Pin To Net: NetName=GND Pin=Power-2

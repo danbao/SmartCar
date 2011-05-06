@@ -178,6 +178,9 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
 [GeneratedDocument1]
+DocumentPath=ProjectOutputs\Design Rule Check - mainboard.html
+
+[GeneratedDocument2]
 DocumentPath=Project Outputs for SMARTCAR\SMARTCAR.REP
 
 [OutputGroup1]

@@ -1,0 +1,2 @@
+Removed Pin From Net: NetName=MVCC Pin=WireLess-P-1
+Added Pin To Net: NetName=QVCC Pin=WireLess-P-1
