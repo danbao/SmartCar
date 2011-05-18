@@ -27,6 +27,8 @@
    case 2:ATD0CTL5=0x22;break;
    case 3:ATD0CTL5=0x23;break;
    case 4:ATD0CTL5=0x24;break;
+   case 5:ATD0CTL5=0x25;break;
+   case 6:ATD0CTL5=0x26;break;
    }
     while(!ATD0STAT0_SCF);
     ad=ATD0DR0L;
