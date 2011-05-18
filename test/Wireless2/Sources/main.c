@@ -3,11 +3,13 @@
 #include <stdio.h>       //sprintf要用到
 #include <string.h>      //LCD中的strlen要用到
 #include <math.h>        //abs绝对值要用到
+#include <stdlib.h>      //随机数用到
 #include "main.h"
 #include "LCD.h"         
 #include "SCI.h" 
 #include "IR.h"               
-
+int i;
+int jiguang,hongwai,sdj,xdj;
 
 
 
@@ -32,7 +34,11 @@ void main(void) {
   SpeedAver=467.96;
   for(;;) {
     delayms(100);
-    sprintf(SCIreceive,"AD0值为:%f",ReadATD(0)/51.0);
+    jiguang=rand()%1000;
+    hongwai=rand()%100;
+    sdj=rand()%10000;
+    xdj=rand()%10000;
+    sprintf(SCIreceive,"SED%d%d%d%d45678901234567890",jiguang,hongwai,sdj,xdj);
     SCISend_chars(SCIreceive);
   //  _FEED_COP(); /* feeds the dog */
   } /* loop forever */
