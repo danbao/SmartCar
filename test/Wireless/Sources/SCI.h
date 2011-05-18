@@ -58,6 +58,26 @@ static void SCI_Init(void)  //SCI
      SCI0BD=260;                     //设置波特率公式=总线频率/所需要的波特率/16=所要设置的值;
                   
 }
+
+void SendSmartcarInfo(byte temp_laser_array[]) {
+    int i; 
+    int data;
+    char g[20]=" ";
+    for(i=LASER_MAX-1;i>=0;i--)    //发送激光管信息数组
+        {data=temp_laser_array[i]  ;
+            if(data == 0) {
+            SCISend('0');   
+            }
+        else if(data == 1) {
+             SCISend('1'); 
+        }
+        }
+//  SCISend('\n');
+ // sprintf(g,"%u",p);
+  //for(i=0;g[i]!='\0';i++)
+  //SCISend(g[i]);  
+     
+}
  /*---------------------------------------
 SCI中断
 编写日期：200110411
@@ -72,15 +92,14 @@ interrupt 20 void Rx_SCI(void)
     result= SCI_RXD();
     switch(result)
     {
-    case 'p':							 //增加P1值
-     Prop1=Prop1+5;
-     sprintf(SCIreceive,"Proportion1值为:%d",Prop1);  
+    case '1':							 //增加P1值
+     PORTA = 0B00000001;					//点亮第0组(0,6)
+     delayms(30); 
+     light_temp_laser_array[0] = PORTB_PB0;	//接收第0组(0,6)   
+     light_temp_laser_array[6] = PORTB_PB2;
+     sprintf(SCIreceive,"点亮:0和6，B0和B2接收情况:%d %d",light_temp_laser_array[0],light_temp_laser_array[6]);  
      SCISend_chars(SCIreceive);
-      break;
-      case 'c':                          //清屏
-    sprintf(SCIreceive,"Proportion2值为:%d%d",abs(SpeedMin),SpeedMin);            
-    SCISend_chars(SCIreceive);
-    //LCD_clear();
+     PORTA = 0B00000000;
       break;
     }
     EnableInterrupts;

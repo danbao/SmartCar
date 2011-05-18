@@ -8,7 +8,7 @@
 #include "SCI.h" 
 #include "IR.h"               
 
-
+ int i;
 
 
 
@@ -30,9 +30,12 @@ void main(void) {
   SpeedMin=0; 
   SpeedNow=345;
   SpeedAver=467.96;
-  for(;;) {
-    delayms(100);
-    sprintf(SCIreceive,"AD0ֵΪ:%f",ReadATD(0)/51.0);
+  for(i=0;i<=7;i++) {
+    delayms(300);
+    if(i==7){
+      i=0;sprintf(SCIreceive,"AD0ֵΪ:%f/n",ReadATD(0)/51.0);
+    }
+    else sprintf(SCIreceive,"AD%dֵΪ:%f/n",i,ReadATD(i)/51.0);
     SCISend_chars(SCIreceive);
   //  _FEED_COP(); /* feeds the dog */
   } /* loop forever */
