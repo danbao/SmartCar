@@ -4,7 +4,7 @@
       Post: 无
        
 */ 
-/*void SendSmartcarInfo(byte temp_laser_array[]) {
+void SendSmartcarInfo(byte temp_laser_array[]) {
     int i; 
     int data;
     char g[20]=" ";
@@ -22,7 +22,7 @@
   //for(i=0;g[i]!='\0';i++)
   //SCISend(g[i]);  
      
-}       */
+}       
 
 
 /*=====================激光管对应权值======================

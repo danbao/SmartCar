@@ -104,7 +104,7 @@ void PWM_Init(void){     		//PWM初始化。其中P4,P5控制电机正反转, P6,P7级联激光管
 }
 //=====================激光初始化======================//
  void LIGHT_Init(void){ 
-	DDRA = 0B00011111;  //PA0--PA7激光管信号控制 --- 输出 
+	DDRA = 0B00111111;  //PA0--PA7激光管信号控制 --- 输出 
 	DDRB = 0X00;        //PB0--PB8激光管信号采集 --- 输入
  }
  
@@ -112,11 +112,12 @@ void PWM_Init(void){     		//PWM初始化。其中P4,P5控制电机正反转, P6,P7级联激光管
 //=====================激光点亮======================//
 void receive(int send) {
    if(send == 0)   { 
+    PORTA = 0B00000001;
      delayms(1); 
-	    light_temp_laser_array[3] = PORTB_PB1^1;	//接收第4组（3,8,13）  
-        light_temp_laser_array[8] = PORTB_PB2^1;
-        light_temp_laser_array[13] = PORTB_PB4^1;
-        PORTA = 0B00000001;					//点亮第0组（1,6,11）
+	    light_temp_laser_array[0] = PORTB_PB0;	//接收第4组（3,8,13）  
+        light_temp_laser_array[6] = PORTB_PB2;
+
+        					//点亮第0组（1,6,11）
     }   
   
 

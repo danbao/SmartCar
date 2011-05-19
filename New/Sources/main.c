@@ -20,16 +20,16 @@ void main(void) {
    SCI_Init();
   delayms(2);
   Laser_num();
-  for(i=0;;i++) {
-    if(i == 5) 
+  for(i=0;i<=1;i++) {
+    if(i ==1 ) 
     {i = 0;
    
-    //  count++;
-      //     if(count%20==0){  
-      //        count=1; 
-//  SendSmartcarInfo(light_temp_laser_array);
-  //  SCISend('\n');    
-  //          }         
+   count++;
+          if(count%20==0){  
+            count=1; 
+  SendSmartcarInfo(light_temp_laser_array);
+    SCISend('\n');    
+            }         
      temp_laserStatus = Status_Judge();
      CalculateAngle(temp_laserStatus); //得到舵机需要调整的转角 
     dajiao();     

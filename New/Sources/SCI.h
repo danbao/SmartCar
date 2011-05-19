@@ -72,22 +72,22 @@ interrupt 20 void Rx_SCI(void)
     result= SCI_RXD();
     switch(result)
     {
-      case 'q':							 //增加P1值
+      case '1':							 //增加P1值
       YP1=YP1+0.2;
      sprintf(SCIreceive,"摇头P1值为:%.1f",YP1);  
      SCISend_chars(SCIreceive);    
       break;
-      case 'a':							 //减小P1值
+      case '2':							 //减小P1值
       YP1=YP1-0.2;
      sprintf(SCIreceive,"摇头P1值为:%.1f",YP1);  
      SCISend_chars(SCIreceive);    
       break;
-      case 'w':							 //增加P2值
+      case '3':							 //增加P2值
       YP2=YP2+0.2;
      sprintf(SCIreceive,"摇头P2值为:%.1f",YP2);  
      SCISend_chars(SCIreceive);    
       break;      
-      case 's':							 //减小P2值
+      case '4':							 //减小P2值
       YP2=YP2-0.2;
      sprintf(SCIreceive,"摇头P2值为:%.1f",YP2);  
      SCISend_chars(SCIreceive);    
