@@ -78,7 +78,7 @@ interrupt 20 void Rx_SCI(void)
      SCISend_chars(SCIreceive);    
       break;
       case '2':							 //减小P1值
-      YP1=YP1-0.2;
+      YP1=YP1-0.2;    
      sprintf(SCIreceive,"摇头P1值为:%.1f",YP1);  
      SCISend_chars(SCIreceive);    
       break;
