@@ -12,16 +12,16 @@ void main(void) {
   int i;
 
      
-  int temp_laserStatus;           //定义一个数组用来接受 上下舵机值
+ // int temp_laserStatus;           //定义一个数组用来接受 上下舵机值
   EnableInterrupts;
   SetBusCLK_40M();    //   设置时钟初始化。40MHz.
   PWM_Init();
   LIGHT_Init();
-   SCI_Init();
+  SCI_Init();
   delayms(2);
   Laser_num();
-  for(i=0;i<=1;i++) {
-    if(i ==1 ) 
+  for(i=0;i<=6;i++) {
+    if(i ==6 ) 
     {i = 0;
    
    count++;
@@ -30,9 +30,13 @@ void main(void) {
   SendSmartcarInfo(light_temp_laser_array);
     SCISend('\n');    
             }         
-     temp_laserStatus = Status_Judge();
-     CalculateAngle(temp_laserStatus); //得到舵机需要调整的转角 
-    dajiao();     
+     Confirm_Light();
+     Clear_baitou();
+    // Calculate_HitBlackNum();
+     //temp_laserStatus = Status_Judge();
+     
+  //   CalculateAngle(temp_laserStatus); //得到舵机需要调整的转角 
+  //  dajiao();     
    testcount++;
   if(testcount%10==0){
        testcount=1;

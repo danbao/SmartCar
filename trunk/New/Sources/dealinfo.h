@@ -24,52 +24,11 @@ void SendSmartcarInfo(byte temp_laser_array[]) {
      
 }       
 
-
-/*=====================激光管对应权值======================
-LASER_MAX    14   13   12   11  10    9   8   7    6    5    4     3     2        1     0
-对应的权值  -14  -12  -10   -8  -6   -4  -2   0    2    4    6      8     10       12    14
-                                                 
-程序未完成，必须有参数和返回值，需要建立联系！  
-
-==========================================================*/
-
-void Laser_num(void){
-  int i;
-  for(i=0;i<LASER_MAX;i++){
-    q_temp_laser_num[i]=14-2*i;
-  }
-}
-
-/*=====================激光管位置的判定======================
-
-权值公式：  position= ∑（light[i]*lightnum[i]） / blacknum  
-Light[i]为第i个激光的数值 0或1   ight_temp_laser_array[3]
-Lightnum 为表1值   q_temp_laser_num[LASER_MAX]
-blacknum为照黑个数
-                                                          
-==========================================================*/
-int Status_Judge(void) {
-  int i,temp_HitBlackNum,sum=0;
-  temp_HitBlackNum=Calculate_HitBlackNum();
-  for(i=0;i<LASER_MAX;i++){
-    sum=sum+light_temp_laser_array[i]*q_temp_laser_num[i];
-  }
-  position=sum/temp_HitBlackNum;
-  
-  return position;
-    
-}
-
-/*=====================激光管照到黑线的个数======================*/
-
-int Calculate_HitBlackNum(void){
-  int i,HitBlackNum=0;
-  for(i=0;i<LASER_MAX;i++) {
-    if(light_temp_laser_array[i]==1){
-      HitBlackNum++;
-    }
-  }
-  return HitBlackNum;
+/*=====================激光摆头滤波======================*/
+void Clear_baitou(void){
+int clear_position;
+clear_position=position*100;
+JG_clear_position=(JG_clear_position*40+clear_position*100) /140 ;  
 }
   
 /*=====================激光摆头======================*/
@@ -82,7 +41,8 @@ void  baitou (void) {
     
   
     
-    His_Position[1]=position;  
+    
+    His_Position[1]=JG_clear_position;
     His_Position[2]=position;
     His_Position[2]=aabs(His_Position[2]); 
     
@@ -90,15 +50,15 @@ void  baitou (void) {
     if(His_Position[2]<=1)
     Diff_Position=0;
     else if(His_Position[2]>1&&His_Position[2]<=3)
-    Diff_Position=0.27*His_Position[1]+4.3*(His_Position[1]-His_Position[0]);
+    Diff_Position=His_Position[1]/50;//+4.3*(His_Position[1]-His_Position[0]);
     else if(His_Position[2]>3&&His_Position[2]<=7)
-    Diff_Position=0.37*His_Position[1]+4.3*(His_Position[1]-His_Position[0]);
+    Diff_Position=His_Position[1]/50;//+4.3*(His_Position[1]-His_Position[0]);
     else if(His_Position[2]>7&&His_Position[2]<=10)
-    Diff_Position=0.44*His_Position[1]+4.3*(His_Position[1]-His_Position[0]);
+    Diff_Position=His_Position[1]/50;//+4.3*(His_Position[1]-His_Position[0]);
     else if(His_Position[2]>10&&His_Position[2]<=12)
-    Diff_Position=0.52*His_Position[1]+4.3*(His_Position[1]-His_Position[0]);
+    Diff_Position=His_Position[1]/50;//+4.3*(His_Position[1]-His_Position[0]);
     else if(His_Position[2]>12&&His_Position[2]<=14)
-    Diff_Position=0.62*His_Position[1]+4.3*(His_Position[1]-His_Position[0]);
+    Diff_Position=His_Position[1]/50;//+4.3*(His_Position[1]-His_Position[0]);
     
   /*  else if(His_Position[3]>4&&His_Position[3]<=6)
     Diff_Position=(1+2)*His_Position[2]-(2+2*2)*His_Position[1]+2*His_Position[0];
@@ -134,27 +94,27 @@ void dajiao(void) {
     J_His_Position[2]=J_His_Position[1]-J_His_Position[0];
    
     if(GDiff_Position[2]<=7&&His_Position[3]<=1)
-    ZhuanPwm=PWM01;
+    ZhuanPwm=PWM45;
     else{  
     if(GDiff_Position[2]<=14)
-    ZhuanPwm=PWM01-(6*position+3.2*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM45-(6*position+3.2*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
     else if(GDiff_Position[2]>14&&GDiff_Position[2]<=24)
-    ZhuanPwm=PWM01-(8*position+5.5*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM45-(8*position+5.5*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
     else if(GDiff_Position[2]>24&&GDiff_Position[2]<=40)
-    ZhuanPwm=PWM01-(11*position+7.1*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM45-(11*position+7.1*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
     else if(GDiff_Position[2]>40&&GDiff_Position[2]<=60)
-    ZhuanPwm=PWM01-(14*position+9.1*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM45-(14*position+9.1*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
     else if(GDiff_Position[2]>60&&GDiff_Position[2]<=80)
-    ZhuanPwm=PWM01-(17*position+11.1*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM45-(17*position+11.1*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
     else if(GDiff_Position[2]>80)
-    ZhuanPwm=PWM01-(19*position+13.1*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
+    ZhuanPwm=PWM45-(19*position+13.1*GDiff_Position[1])-2.9*(J_His_Position[2]+GDiff_Position[1]-GDiff_Position[0]);
     }
     if(ZhuanPwm>1768)
     ZhuanPwm=1768;
     else if(ZhuanPwm<1188)
     ZhuanPwm=1188;
     
-    PWMDTY01=ZhuanPwm;
+    PWMDTY45=ZhuanPwm;
     GDiff_Position[0]=GDiff_Position[1]; 
     J_His_Position[0]=J_His_Position[1];
   } // DerectionCtrl
@@ -372,8 +332,9 @@ void Light_SetDriver(int value){
   PWMDTY67 = value; 
 }
 void SCI_SetDriver(int value){
-  PWMDTY01 = value; 
+  PWMDTY45 = value; 
 }
 void SpeedCtrl (void) {
-PWMDTY23=Speed;
+PORTB_PB7=1;
+PWMDTY01=Speed;
 }
