@@ -1,29 +1,3 @@
-/* ================= SendSmartcarInfo ====================
-      desc: SCI串口发送当前激光管采集信息
-      pre:  1当前激光管采集数组，2当前激光管状态
-      Post: 无
-       
-*/ 
-void SendSmartcarInfo(byte temp_laser_array[]) {
-    int i; 
-    int data;
-    char g[20]=" ";
-    for(i=LASER_MAX-1;i>=0;i--)    //发送激光管信息数组
-        {data=temp_laser_array[i]  ;
-            if(data == 0) {
-            SCISend('0');   
-            }
-        else if(data == 1) {
-             SCISend('1'); 
-        }
-        }
-//  SCISend('\n');
- // sprintf(g,"%u",p);
-  //for(i=0;g[i]!='\0';i++)
-  //SCISend(g[i]);  
-     
-}       
-
 /*=====================激光摆头滤波======================*/
 void Clear_baitou(void){
 int clear_position;
