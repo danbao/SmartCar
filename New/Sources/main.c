@@ -3,10 +3,10 @@
 #include <MC9S12XS128.h>
 #include <stdio.h>       //sprintf要用到
 #include "math.h"           //abs绝对值要用到
-#include "main.h"           //所有变量的定义都放在main.h文件下了
-#include "SCI.h"             
+#include "main.h"           //所有变量的定义都放在main.h文件下了           
 #include "dealinfo.h"
-#include "control.h" 
+#include "control.h"
+#include "SCI.h"   
 
 void main(void) {
   int i;
@@ -27,8 +27,7 @@ void main(void) {
    count++;
           if(count%20==0){  
             count=1; 
-  SendSmartcarInfo(light_temp_laser_array);
-    SCISend('\n');    
+      TestSMinfo();   
             }         
      Confirm_Light();
      Clear_baitou();
