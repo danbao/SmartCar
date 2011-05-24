@@ -3,6 +3,8 @@
     Update:     2011.04.11
 	说明：串口调用及无线模块
 ----------------------------------------------*/
+char jiguang[3],hongwai[28];
+int sdj,xdj,speed;
 /*--------------------------------------------
 SCI_RXD: 串口接收函数
 编写日期：20110411
@@ -41,10 +43,11 @@ LCD_write_cizu: 串口输出显示函数(显示字符串)
 -----------------------------------------------*/
 void SCISend_chars(const signed char ch[])
  {
- int i;
- for(i=0;i<strlen(ch);i++) {
+ int i=0;
+ do{
  SCISend(ch[i]);
- }
+ i++;
+ }while(ch[i]!='\0');
  SCISend('\n');
  }
  /*---------------------------------------
@@ -58,35 +61,69 @@ static void SCI_Init(void)  //SCI
      SCI0BD=260;                     //设置波特率公式=总线频率/所需要的波特率/16=所要设置的值;
                   
 }
- /*---------------------------------------
-无线串口中断
-编写日期：200110411
+/*---------------------------------------
+激光状态转换为16进制
+编写日期：200110521
 -----------------------------------------  */         
-#pragma CODE_SEG __NEAR_SEG NON_BANKED 
-interrupt 20 void Rx_SCI(void)
-{
-    char tmp;
-    char result;
-    DisableInterrupts;
-    tmp = SCI0SR1;                  	 //清除标志
-    result= SCI_RXD();
-    switch(result)
-    {
-      case 'p':							 //增加P1值
-       Prop1=Prop1+1;
-     sprintf(SCIreceive,"Proportion1值为:%.2f%.2f%.2f%.2f",Prop1,Prop2,Diff1,Diff2);  
-     SCISend_chars(SCIreceive);    
-      break;
-      case 'c':                          //清屏
-   sprintf(SCIreceive,"Proportion2值为:%d%d",abs(SpeedMin),SpeedMin);            
-    SCISend_chars(SCIreceive);
-    //LCD_clear();
-      break;
-      case 'n':
-      sprintf(SCIreceive,"P1:%.2f P2:%.2f D1:%.2f D2:%.2f\n最大速度:%d\n最小速度:%d\n当前速度:%d\n平均速度:%.2f\n",Prop1,Prop2,Diff1,Diff2,SpeedMax,SpeedMin,SpeedNow,SpeedAver);
-      SCISend_chars(SCIreceive);
-       break;
-    }
-    EnableInterrupts;
+void Testjiguang(byte a[12]) 
+{ 
+char b[3]; 
+int i,result = 0,k = 1,j = 0; 
+for(i = 11;i >= 0;i --) 
+{ 
+if(a[11-i] == '1') result += 1 << (k-1); //如果是1，用1*位权 
+if(k == 4 || i == 0) //每四位计算一次结果（result）。 
+//如果到了最高位（i==0）不足四位（比如100 0000），也计算 
+{ 
+switch(result) 
+{ 
+case 10: b[j++]='A';break; //大于等于十转化成字母 
+case 11: b[j++]='B';break; 
+case 12: b[j++]='C';break; 
+case 13: b[j++]='D';break; 
+case 14: b[j++]='E';break; 
+case 15: b[j++]='F';break; 
+default: b[j++]=result + '0';break; 
+} 
+result = 0; //结果清零 
+k = 0; //表示位权的K清零 
+} 
+k ++; // 初始位权为1 
 }
-#pragma CODE_SEG DEFAULT
+for(i = 2;i >= 0;i --) 
+jiguang[2-i]=b[i];
+}
+
+/*---------------------------------------
+红外状态转换为16进制
+编写日期：200110521
+-----------------------------------------  */   
+void Testhongwai(float a[]) {
+int i,tmp;
+char *p;
+p=hongwai;
+for (i=0;i<7;i++)
+{
+		tmp = (int)(a[i]*1000+0.5);	//转换成整型值
+		sprintf(p, "%04d", tmp);//转换成16进制字符串
+		p+=4;
+}   
+}
+/*=====================激光摆头滤波======================*/
+
+void Clear_baitou(void){
+int clear_position;
+clear_position=position*100;
+JG_clear_position=(JG_clear_position*40+clear_position*100) /140 ;  
+}
+
+void TestSMinfo(){
+    sdj=rand()%10000;
+    xdj=rand()%10000;
+	speed=rand()%10000;
+	Testjiguang(light_temp_laser_array);
+//	Testhongwai(IR_temp_laser_array);
+  Clear_baitou();
+    sprintf(SCIreceive,"SED%d",JG_clear_position);
+    SCISend_chars(SCIreceive);
+    }
