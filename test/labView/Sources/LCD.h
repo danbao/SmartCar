@@ -5,8 +5,6 @@
     Update:     2011.04.10
 	说明：LCD显示初始化及相关函数调用
 ----------------------------------------------*/
-#define uchar 	unsigned char
-#define uint 	unsigned int
 #define RST PTM_PTM4      		//复位用B5口   
 #define SCE PTM_PTM3          //片选用B6口
 #define DC PTM_PTM2           //DC用A5口

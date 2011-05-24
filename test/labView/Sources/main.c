@@ -8,9 +8,6 @@
 #include "LCD.h"         
 #include "SCI.h" 
 #include "IR.h"               
-int i;
-int jiguang,hongwai,sdj,xdj,speed;
-
 
 
 
@@ -23,6 +20,7 @@ void main(void) {
   DDRM = 0X1F;        //启动LCD
 	LCD_start();  //初始化LCD模块 
 	LCD_clear(); //清屏幕 
+	
 	LCD_startshow();
 	Prop1=123.45;
   Prop2=-123.45;
@@ -33,15 +31,6 @@ void main(void) {
   SpeedNow=345;
   SpeedAver=467.96;
   for(;;) {
-    delayms(100);
-    jiguang=rand()%1000;
-    hongwai=rand()%100;
-    sdj=rand()%10000;
-    xdj=rand()%10000;
-	speed=rand()%10000;
-    sprintf(SCIreceive,"SED%d%d%d%d%d8901234567890",jiguang,hongwai,sdj,xdj,speed);
-    SCISend_chars(SCIreceive);
-  //  _FEED_COP(); /* feeds the dog */
-  } /* loop forever */
-  /* please make sure that you never leave main */
+  TestSMinfo();
+  }
 }
