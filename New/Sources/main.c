@@ -57,8 +57,8 @@ void main(void)
           if(count%20==0)
           {  
             count=1; 
-    SendSmartcarInfo(light_temp_laser_array);
-             //TestSMinfo();   
+    //SendSmartcarInfo(light_temp_laser_array);
+             TestSMinfo();   
           }         
           Confirm_Light();
           Clear_baitou();
@@ -102,20 +102,17 @@ void interrupt 66 PIT0_ISR(void)
          PITINTE_PINTE0 = 0;
     }  
    if(g_countPIT0 == 0) {  
-         PORTA = 0B00000001;
-     //delayMS(); 
+      PORTA = 0B00000001;
 	    light_temp_laser_array[0] = PORTB_PB0^1;
       light_temp_laser_array[6] = PORTB_PB2^1;
     }
     else if(g_countPIT0 == 1)   { 
-        PORTA = 0B00001000;
-     //delayMS();  
+      PORTA = 0B00001000;
 	    light_temp_laser_array[3] = PORTB_PB1^1;	
-        light_temp_laser_array[9] = PORTB_PB3^1;
+      light_temp_laser_array[9] = PORTB_PB3^1;
     }
     else if(g_countPIT0 == 2)   {    
-        PORTA = 0B00000010;
-     //delayMS();  
+        PORTA = 0B00000010; 
 	    light_temp_laser_array[1] = PORTB_PB0^1;
         light_temp_laser_array[7] = PORTB_PB2^1;
 	   
@@ -145,7 +142,7 @@ void interrupt 66 PIT0_ISR(void)
 	 
         
     } 
-   
+   	Testjiguang(light_temp_laser_array);
     PITTF_PTF0 = 1;//清中断标志位  
 } //PIT0_ISR  
 
