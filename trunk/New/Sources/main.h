@@ -40,6 +40,8 @@
   int g_countPIT0 =0;   //用于PIT组别的点亮次数
 	int	g_temp_laser_array[11]; //用于接受各个激光管点亮后获取的数据
 	int g_temp_pulse;
+	
+	int temp_laser_array[11];
 //===============时钟初始化========================//
 void SetBusCLK_40M()
 {   

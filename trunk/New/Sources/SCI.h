@@ -5,7 +5,6 @@
 ----------------------------------------------*/
 char jiguang[3],hongwai[28];
 int sdj,xdj,speed;
-byte light_laser_array[12]="011000110010";
 /*--------------------------------------------
 SCI_RXD: 串口接收函数
 编写日期：20110411
@@ -115,7 +114,7 @@ void TestSMinfo(){
   //  sdj=rand()%10000;
  //   xdj=rand()%10000;
 //	speed=rand()%10000;
-	Testjiguang(light_laser_array);
+	
 //	Testhongwai(IR_temp_laser_array);
   Clear_baitou();
     sprintf(SCIreceive,"SED%.3s%4d",jiguang,JG_clear_position);
