@@ -84,16 +84,19 @@ void interrupt 66 PIT0_ISR(void)
     }  
    if(g_countPIT0 == 0) {  
       PORTA = 0B00000001;
+   delayMS();
 	    light_temp_laser_array[0] = PORTB_PB0^1;
       light_temp_laser_array[6] = PORTB_PB2^1;
     }
     else if(g_countPIT0 == 1)   { 
       PORTA = 0B00001000;
+     delayMS();
 	    light_temp_laser_array[3] = PORTB_PB1^1;	
       light_temp_laser_array[9] = PORTB_PB3^1;
     }
     else if(g_countPIT0 == 2)   {    
-        PORTA = 0B00000010; 
+        PORTA = 0B00000010;
+    delayMS();
 	    light_temp_laser_array[1] = PORTB_PB0^1;
         light_temp_laser_array[7] = PORTB_PB2^1;
 	   
@@ -101,7 +104,7 @@ void interrupt 66 PIT0_ISR(void)
     }
     else if(g_countPIT0 == 3)   {  
        PORTA = 0B00010000;
-     //delayMS(); 
+     delayMS(); 
 	    light_temp_laser_array[4] = PORTB_PB1^1;
         light_temp_laser_array[10] = PORTB_PB3^1;
 	 
@@ -110,14 +113,14 @@ void interrupt 66 PIT0_ISR(void)
     }
     else if(g_countPIT0 == 4)   {  
        PORTA = 0B00000100;
-     //delayMS();  
+     delayMS();  
 	    light_temp_laser_array[2] = PORTB_PB0^1;
         light_temp_laser_array[8] = PORTB_PB2^1;
    
     }
 	else if(g_countPIT0 == 5)   {  
         PORTA = 0B00100000;
-     //delayMS();  
+     delayMS();  
 	   light_temp_laser_array[5] = PORTB_PB1^1;
      light_temp_laser_array[11] = PORTB_PB3^1;
 	 

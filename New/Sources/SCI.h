@@ -67,14 +67,14 @@ static void SCI_Init(void)  //SCI
 void Testjiguang(byte temp_laser_array[]) 
 { 
     int i; 
-    int data;
-    char g[20]=" ";
+    //int data;
+    //char g[20]=" ";
     for(i=LASER_MAX-1;i>=0;i--)    //发送激光管信息数组
-        {data=temp_laser_array[i]  ;
-            if(data == 0) {
+        {
+            if(temp_laser_array[i] == 0) {
             SCISend('0');   
             }
-        else if(data == 1) {
+        else if(temp_laser_array[i] == 1) {
              SCISend('1'); 
         }  
         }
