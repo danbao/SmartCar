@@ -48,7 +48,6 @@ void SCISend_chars(const signed char ch[])
  SCISend(ch[i]);
  i++;
  }while(ch[i]!='\0');
- SCISend('\n');
  }
  /*---------------------------------------
 SCI_Init: SCI初始化
@@ -65,33 +64,20 @@ static void SCI_Init(void)  //SCI
 激光状态转换为16进制
 编写日期：200110521
 -----------------------------------------  */         
-void Testjiguang(byte a[]) 
+void Testjiguang(byte temp_laser_array[]) 
 { 
-char b[3]; 
-int i,result = 0,k = 1,j = 0; 
-for(i = 11;i >= 0;i --) 
-{ 
-if(a[11-i] == '1') result += 1 << (k-1); //如果是1，用1*位权 
-if(k == 4 || i == 0) //每四位计算一次结果（result）。 
-//如果到了最高位（i==0）不足四位（比如100 0000），也计算 
-{ 
-switch(result) 
-{ 
-case 10: b[j++]='A';break; //大于等于十转化成字母 
-case 11: b[j++]='B';break; 
-case 12: b[j++]='C';break; 
-case 13: b[j++]='D';break; 
-case 14: b[j++]='E';break; 
-case 15: b[j++]='F';break; 
-default: b[j++]=result + '0';break; 
-} 
-result = 0; //结果清零 
-k = 0; //表示位权的K清零 
-} 
-k ++; // 初始位权为1 
-}
-for(i = 2;i >= 0;i --) 
-jiguang[2-i]=b[i];
+    int i; 
+    int data;
+    char g[20]=" ";
+    for(i=LASER_MAX-1;i>=0;i--)    //发送激光管信息数组
+        {data=temp_laser_array[i]  ;
+            if(data == 0) {
+            SCISend('0');   
+            }
+        else if(data == 1) {
+             SCISend('1'); 
+        }
+        }
 }
 
 /*---------------------------------------
@@ -111,12 +97,10 @@ for (i=0;i<7;i++)
 }
 
 void TestSMinfo(){
-  //  sdj=rand()%10000;
- //   xdj=rand()%10000;
-//	speed=rand()%10000;
-	
-//	Testhongwai(IR_temp_laser_array);
-  Clear_baitou();
-    sprintf(SCIreceive,"SED%.3s%4d",jiguang,JG_clear_position);
+	SCISend_chars("SED");
+	Testjiguang(light_temp_laser_array);
+	Clear_baitou();
+    sprintf(SCIreceive,"%4d",JG_clear_position);
     SCISend_chars(SCIreceive);
+	 SCISend('\n');
     }
