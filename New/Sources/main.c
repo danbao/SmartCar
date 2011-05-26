@@ -14,25 +14,6 @@
       Post: 无
        
 */ 
-void SendSmartcarInfo(byte temp_laser_array[]) {
-    int i; 
-    int data;
-    char g[20]=" ";
-    for(i=LASER_MAX-1;i>=0;i--)    //发送激光管信息数组
-        {data=temp_laser_array[i]  ;
-            if(data == 0) {
-            SCISend('0');   
-            }
-        else if(data == 1) {
-             SCISend('1'); 
-        }
-        }
- SCISend('\n');
- // sprintf(g,"%u",p);
-  //for(i=0;g[i]!='\0';i++)
-  //SCISend(g[i]);  
-     
-}
 
 void main(void) 
 {
@@ -53,11 +34,11 @@ void main(void)
   {
     if(PITINTE_PINTE0 == 0) 
     {    //若PIT0采集中断为关,即道路信息采集完成
+
           count++;
           if(count%20==0)
           {  
             count=1; 
-    //SendSmartcarInfo(light_temp_laser_array);
              TestSMinfo();   
           }         
           Confirm_Light();
@@ -142,7 +123,6 @@ void interrupt 66 PIT0_ISR(void)
 	 
         
     } 
-   	Testjiguang(light_temp_laser_array);
     PITTF_PTF0 = 1;//清中断标志位  
 } //PIT0_ISR  
 
