@@ -76,7 +76,7 @@ void Testjiguang(byte temp_laser_array[])
             }
         else if(data == 1) {
              SCISend('1'); 
-        }
+        }  
         }
 }
 
@@ -100,7 +100,7 @@ void TestSMinfo(){
 	SCISend_chars("SED");
 	Testjiguang(light_temp_laser_array);
 	Clear_baitou();
-    sprintf(SCIreceive,"%4d",JG_clear_position);
-    SCISend_chars(SCIreceive);
-	 SCISend('\n');
+  sprintf(SCIreceive,"%4d",JG_clear_position);
+  SCISend_chars(SCIreceive);
+	SCISend('\n');
     }
