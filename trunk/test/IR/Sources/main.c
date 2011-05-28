@@ -30,12 +30,9 @@ void main(void) {
   SpeedMin=0; 
   SpeedNow=345;
   SpeedAver=467.96;
-  for(i=0;i<=7;i++) {
+  for(;;) {
     delayms(300);
-    if(i==7){
-      i=0;sprintf(SCIreceive,"AD0ֵΪ:%f/n",ReadATD(0)/51.0);
-    }
-    else sprintf(SCIreceive,"AD%dֵΪ:%f/n",i,ReadATD(i)/51.0);
+    sprintf(SCIreceive,"ADֵΪ:%.3d  %.3d  %.3d  %.3d  %.3d  %.3d  %.3d",ReadATD(6),ReadATD(5),ReadATD(4),ReadATD(3),ReadATD(2),ReadATD(1),ReadATD(0));
     SCISend_chars(SCIreceive);
   //  _FEED_COP(); /* feeds the dog */
   } /* loop forever */

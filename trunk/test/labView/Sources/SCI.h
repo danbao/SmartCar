@@ -3,7 +3,7 @@
     Update:     2011.04.11
 	说明：串口调用及无线模块
 ----------------------------------------------*/
-char jiguang[3],hongwai[28];
+char jiguang[3],hongwai[14];
 int sdj,xdj,speed;
 /*--------------------------------------------
 SCI_RXD: 串口接收函数
@@ -98,15 +98,15 @@ jiguang[2-i]=b[i];
 红外状态转换为16进制
 编写日期：200110521
 -----------------------------------------  */   
-void Testhongwai(float a[]) {
+void Testhongwai(int a[]) {
 int i,tmp;
 char *p;
 p=hongwai;
 for (i=0;i<7;i++)
-{
-		tmp = (int)(a[i]*1000+0.5);	//转换成整型值
-		sprintf(p, "%04d", tmp);//转换成16进制字符串
-		p+=4;
+
+{   tmp = a[i];	//转换成整型值
+		sprintf(p, "%.2x", tmp);//转换成16进制字符串
+		p+=2;
 }   
 }
 /*=====================激光摆头滤波======================*/
@@ -121,9 +121,11 @@ void TestSMinfo(){
     sdj=rand()%10000;
     xdj=rand()%10000;
 	speed=rand()%10000;
+	position=rand()%100000;
 	Testjiguang(light_temp_laser_array);
-//	Testhongwai(IR_temp_laser_array);
-  Clear_baitou();
-    sprintf(SCIreceive,"SED%d",JG_clear_position);
+	Testhongwai(IR_temp_laser_array);
+  //Clear_baitou();
+    sprintf(SCIreceive,"SED%.3s%.5d%.4d%.4d%.4d%.14s",jiguang,position,sdj,xdj,speed,hongwai);
     SCISend_chars(SCIreceive);
     }
+

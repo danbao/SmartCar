@@ -5,7 +5,7 @@ float Prop1,Prop2,Diff1,Diff2,SpeedAver,SpeedMax,SpeedMin,SpeedNow;    /*P1,P2,D
 char lcd[100];                    /*用于LCD显示的字符串*/
 char SCIreceive[100];             /*用于串口显示的字符串*/
 byte light_temp_laser_array[12]="100001000010";
-float IR_temp_laser_array[7]={0.123,0.234,2.345,3.001,4.043,5.231,1.000};
+int IR_temp_laser_array[7]={100,0,200,0,255,100,150};
 int JG_clear_position;
 int position=-11;
 
