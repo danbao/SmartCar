@@ -3,7 +3,7 @@
     Update:     2011.04.11
 	说明：串口调用及无线模块
 ----------------------------------------------*/
-char jiguang[3],hongwai[14];
+char jiguang[3];
 int sdj,xdj,speed;
 /*--------------------------------------------
 SCI_RXD: 串口接收函数
@@ -94,38 +94,24 @@ for(i = 2;i >= 0;i --)
 jiguang[2-i]=b[i];
 }
 
-/*---------------------------------------
-红外状态转换为16进制
-编写日期：200110521
------------------------------------------  */   
-void Testhongwai(int a[]) {
-int i,tmp;
-char *p;
-p=hongwai;
-for (i=0;i<7;i++)
 
-{   tmp = a[i];	//转换成整型值
-		sprintf(p, "%.2x", tmp);//转换成16进制字符串
-		p+=2;
-}   
-}
 /*=====================激光摆头滤波======================*/
-
 void Clear_baitou(void){
-int clear_position;
+long clear_position;
 clear_position=position*100;
 JG_clear_position=(JG_clear_position*40+clear_position*100) /140 ;  
 }
 
+/*=====================无线发送总参数======================*/
 void TestSMinfo(){
+  int	IR_position[2]={0,10};
     sdj=rand()%10000;
     xdj=rand()%10000;
 	speed=rand()%10000;
 	position=rand()%100000;
 	Testjiguang(light_temp_laser_array);
-	Testhongwai(IR_temp_laser_array);
   //Clear_baitou();
-    sprintf(SCIreceive,"SED%.3s%.5d%.4d%.4d%.4d%.14s",jiguang,position,sdj,xdj,speed,hongwai);
+    (void)sprintf(SCIreceive,"SED%.3s%.5d%.4d%.4d%.4d%.3d%.3d%.3d%.3d%.3d%.3d%.3d%.3dEND",jiguang,position,sdj,xdj,speed,IR_temp_laser_array[0],IR_temp_laser_array[1],IR_temp_laser_array[2],IR_temp_laser_array[3],IR_temp_laser_array[4],IR_temp_laser_array[5],IR_temp_laser_array[6],IR_position[1]+10);
     SCISend_chars(SCIreceive);
     }
 
