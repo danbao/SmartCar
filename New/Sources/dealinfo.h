@@ -51,6 +51,81 @@ void  baitou (void) {
     
 }
 
+
+
+/*================根据标准的position形成预判的趋势==========================
+
+此时已经把position的值作为预判的值存储到temp_position_array[i]
+作为一个预判的标准，显然也不是最准确的，每次就只从趋势里面找出一个点
+来给下面打角舵机作为打角的参数。
+
+BUG：
+比较害怕PWMDTY67在这边没办法用，到时估计要把午餐的函数方法设一下参数， 进行参数传递
+
+=========================================================================*/
+void Form_tendency(void)
+{
+  int i,j;
+  for(j=0;j<10;j++)
+  {
+    for(i=0;i<22;i++) 
+    {
+      if(PWMDTY67 == standard_position_array[i]) 
+      {
+        temp_position_array[j]=PWMDTY67;
+      } 
+      else if((PWMDTY67-standard_position_array[i])>0) 
+      {
+        if((PWMDTY67-standard_position_array[i])>(standard_position_array[i+1]-PWMDTY67))
+          temp_position_array[j]=standard_position_array[i+1];
+      } 
+      else if((PWMDTY67-standard_position_array[i])<0)
+      {
+        if((standard_position_array[i]-PWMDTY67)>(PWMDTY67-standard_position_array[i-1]))
+          temp_position_array[j]=standard_position_array[i-1];
+      }
+    }
+  }
+}
+
+void Tendency_judge(void) {
+  int i,j,temp;
+  temp=temp_position_array[9];
+  for(i=0;i<10;i++) {
+    if(temp_position_array[i]==temp) {
+    //直接把速度，上下舵机都写进来，到时能跑过后，我们在分开。
+    
+    
+    
+                                     }
+    else   ;
+  //    dajiao((temp_position_array[i]+temp)/2);//整幅图只找出一个点，然后进行摆角，替换替换几组后进行调整
+                  
+                   }
+}
+
+void Replace_array(void)
+{
+  int i;
+//这个函数旨在替换趋势的历史数组，就像队列一样逐个替换
+  for(i=9;i>0;i--)
+  {             //保存历史状态
+    temp_position_array[i] =  temp_position_array[i-1];   
+  }
+  temp_position_array[0] = PWMDTY67;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 /*=======================打角舵机===========================*/
 //GDiff_Position是存储 摇头舵机差值 传给打角的参数
 //  1482   1772  1192
@@ -92,223 +167,72 @@ void dajiao(void) {
     GDiff_Position[0]=GDiff_Position[1]; 
     J_His_Position[0]=J_His_Position[1];
   } // DerectionCtrl
-//【type declaration】
-/* ============== 激光管状态枚举类型 LASER_STATUS ================ 
- LEFT_NONE (0) ------ 左空     
-     LEFT0 (1) ------ 左0      LEFT01 (2) ------ 左0左1     
-     LEFT1 (3) ------ 左1      LEFT12 (4) ------ 左1左2
-     LEFT2 (5) ------ 左2      LEFT23 (6) ------ 左2左3    
-     LEFT3 (7) ------ 左3      LEFT34 (8) ------ 左3左4
-     LEFT4 (9) ------ 左4      LEFT45 (10) ------左4左5    
-     LEFT5 (11) ------左5      LEFT56 (12) ------左5左6
-     LEFT6 (13) ------左6      LEFT67 (14) ------左6左7 
- MID7 (15) ------ 中7          
-     RIGHT78 (16) ------右16        RIGHT8 (17) ------右8    
-     RIGHT89 (18) ------右8右9      RIGHT9 (19) ------右9         
-    RIGHT910 (20) ------右9右10    RIGHT10 (21) ------右10    
-   RIGHT1011 (22) ------右10右11   RIGHT11 (23) ------右11        
-   RIGHT1112 (24) ------右11右12   RIGHT12 (25) ------右12    
-   RIGHT1213 (26) ------右12右13   RIGHT13 (27) ------右13        
-   RIGHT1314 (28) ------右13右14   RIGHT14 (29) ------右14 
-  RIGHT_NONE (30) ------右空  
-*/    
 
 
 
-/*=====================计算激光/转向 摆头的角度值======================*/
-//27  23  21  20  18  17 16 14 12 11 10  9  7  1 0
-void CalculateAngle(int i) {
-  // Local Declarations
-  int light_micro_delta0 = 0;   /*激微调0*/    int Steering_micro_delta0 = 10;  /*向微调0*/
-  int light_micro_delta1 = 1;  /*激微调1*/     int Steering_micro_delta1 = 15;  /*向微调0*/
-  int light_micro_delta2 = 1;  /*激微调2*/     int Steering_micro_delta2 = 30;  /*向微调0*/
-  int light_micro_delta3 = 1;  /*激微调3*/     int Steering_micro_delta3 = 50;  /*向微调0*/
-  int light_micro_delta4 = 2;  /*激微调4*/     int Steering_micro_delta4 = 60;  /*向微调0*/
-  int light_micro_delta5 = 2;  /*激微调5*/     int Steering_micro_delta5 = 70;  /*向微调0*/
-  
-  int light_mid_delta0 = 2;  /*激中调0*/       int Steering_mid_delta0 = 80;  /*向中调0*/
-  int light_mid_delta1 = 2; /*激中调1*/        int Steering_mid_delta1 = 90;  /*向中调1*/
-  int light_mid_delta2 = 2; /*激中调2*/        int Steering_mid_delta2 = 100;  /*向中调2*/
-  int light_mid_delta3 = 2; /*激中调3*/        int Steering_mid_delta3 = 110;  /*向中调3*/
-  int light_mid_delta4 = 2; /*激中调4*/        int Steering_mid_delta4 = 120;  /*向中调4*/
-  
-  int light_large_delta0 = 2; /*激大调0*/      int Steering_large_delta0 = 130; /*向大调0*/
-  int light_large_delta1 = 2; /*激大调1*/      int Steering_large_delta1 = 140; /*向大调1*/
-  int light_large_delta2 = 2; /*激大调2*/      int Steering_large_delta2 = 150; /*向大调2*/
-  int light_large_delta3 = 2; /*激大调3*/      int Steering_large_delta3 = 160; /*向大调3*/
+
+
+
+
+//=====================电机速度调节======================//
+
+
+void SpeedCtrl (void) {
+int subspeed;
+subspeed=g_temp_pulse-100;
+PORTB_PB7=1;
+PWMDTY01 = 25;      //占空比10%
+PWMDTY23 = 80;      //占空比50%
  
+/* if ((subspeed<=10)&&(subspeed>=-10));
+else if((subspeed>10)&&(subspeed<=35)) 
+PORTB_PB7=0;
+else if(subspeed>35) 
+    {  
+PORTB_PB7=1;
+PWMDTY01= 80;
+    }
+else if((subspeed<-10)&&(subspeed>=-35)) 
+   {
+PORTB_PB7=1;
+PWMDTY23=PWMDTY23-2*subspeed;
+PWMDTY01= 0; 
+   }
+else if(subspeed<-35)
+   {
   
-  // Statements
-  switch( i ) {
-      case  15:   {
-          angle[0] =light_large_delta3;
-          angle[1] =-Steering_large_delta3;
-          break;
-      }
-      case  14:  {
-          angle[0] =light_large_delta2;  
-          angle[1] =-Steering_large_delta2;
-          break;
-      }
-      case  13:  {
-          angle[0] =light_large_delta1; 
-          angle[1] =-Steering_large_delta1;
-          break;
-      }
-      case  12 : {
-          angle[0] =light_large_delta0;
-          angle[1] =-Steering_large_delta0;
-          break;
-      }
-      case  11:   {
-          angle[0] =light_mid_delta4;
-          angle[1]=-Steering_mid_delta4;
-          break;
-      }
-      case  10:  {
-          angle[0] =light_mid_delta3;
-          angle[1]=-Steering_mid_delta3;
-          break;
-      }
-      case  9:  {
-          angle[0] =light_mid_delta2;
-          angle[1]=-Steering_mid_delta2;
-          break;
-      }
-      case  8: {
-          angle[0] =light_mid_delta1; 
-          angle[1]=-Steering_mid_delta1;
-          break;
-      }
-      case  7:   {
-          angle[0] =light_mid_delta0; 
-          angle[1]=-Steering_mid_delta0;
-          break;
-      }
-      case  6:  {
-          angle[0] =light_micro_delta5; 
-          angle[1]=-Steering_micro_delta5;
-          break;
-      }
-      case  5:  {
-          angle[0] =light_micro_delta4; 
-          angle[1]=-Steering_micro_delta4;
-          break;
-      }
-      case  4: {
-          angle[0] =light_micro_delta3; 
-          angle[1]=-Steering_micro_delta3;
-          break;
-      }
-      case  3:   {
-          angle[0] =light_micro_delta2; 
-          angle[1]=-Steering_micro_delta2;
-          break;
-      }
-      case  2:  {
-          angle[0] =light_micro_delta1; 
-          angle[1]=-Steering_micro_delta1;
-          break;
-      }
-      case  1:   {
-          angle[0] =light_micro_delta0; 
-          angle[1]=-Steering_micro_delta0;
-          break;
-      }
-      case  0:  {
-          angle[0] = 0;
-          angle[1]=0;
-          break;
-      }
-      case  -1:   {
-          angle[0] = -light_micro_delta0; 
-          angle[1]= Steering_micro_delta0;
-          break;
-      }
-      case  -2:  {
-          angle[0] =- light_micro_delta1; 
-          angle[1]= Steering_micro_delta1;
-          break;
-      }                 
-      case  -3:   {
-          angle[0] = -light_micro_delta2; 
-          angle[1]= Steering_micro_delta2;
-          break;
-      }
-      case  -4:  {
-          angle[0] = -light_micro_delta3; 
-          angle[1]= Steering_micro_delta3;
-          break;
-      }
-      case  -5:   {
-          angle[0] = -light_micro_delta4; 
-          angle[1]= Steering_micro_delta4;
-          break;
-      }
-      case  -6:  {
-          angle[0] = -light_micro_delta5; 
-          angle[1]= Steering_micro_delta5;
-          break;
-      }
-      case  -7:  {
-          angle[0] = -light_mid_delta0; 
-          angle[1]= Steering_mid_delta0;
-          break;
-      }
-      case  -8:  {
-          angle[0] =  -light_mid_delta1; 
-          angle[1]= Steering_mid_delta1;
-          break;
-      }
-      case  -9:   {
-          angle[0] =  -light_mid_delta2; 
-          angle[1]= Steering_mid_delta2;
-          break;
-      } 
-      case  -10:  {
-          angle[0] =  -light_mid_delta3; 
-          angle[1]= Steering_mid_delta3;
-          break;
-      }
-      case  -11:   {
-          angle[0] = -light_mid_delta4; 
-          angle[1]= Steering_mid_delta4;
-          break;
-      } 
-      case  -12:  {
-          angle[0] =  -light_large_delta0; 
-          angle[1] = Steering_large_delta0;
-          break;
-      }
-      case  -13: {
-          angle[0] =  -light_large_delta1; 
-          angle[1] = Steering_large_delta1;
-          break;
-      }
-      case  -14:{
-          angle[0] =  -light_large_delta2; 
-          angle[1] = Steering_large_delta2;
-          break;
-      }
-      case  -15:{
-          angle[0] =  -light_large_delta3; 
-          angle[1] = Steering_large_delta3;
-          break;
-      }
-      default: break;
-  }  
-  
-  //return *angle;    
-} //CalculateAngle
+PORTB_PB7=1;
+PWMDTY23=80;
+PWMDTY01= 0;
+   }         */
+}          
 
-//=====================激光摆头舵机改变函数======================//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*=====================激光摆头舵机改变函数======================
 void Light_SetDriver(int value){
   PWMDTY67 = value; 
 }
 void SCI_SetDriver(int value){
   PWMDTY45 = value; 
 }
-void SpeedCtrl (void) {
-PORTB_PB7=1;
-PWMDTY01=Speed;
-}
+
+*/
+
+
