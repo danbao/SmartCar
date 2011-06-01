@@ -13,7 +13,7 @@
  
   char SCIreceive[150];             /*用于无线串口显示的字符串*/  
   int temp_pwm67=PWM67;						//激光摆头舵机初始值
-  int temp_PWM45=PWM45;						//转向摆头舵机初始值
+  int temp_pwm45=PWM45;						//转向摆头舵机初始值
   
   byte light_temp_laser_array[LASER_MAX];  //当前激光管信息保存数组
   uint IR_temp_laser_array[7];             //当前红外信息保存数组

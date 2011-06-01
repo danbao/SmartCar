@@ -1,10 +1,9 @@
 /*--------------------------------------------
     Date:       2011.04.11
-    Update:     2011.04.11
+    Update:     2011.06.02
 	说明：串口调用及无线模块
 ----------------------------------------------*/
-char jiguang[3],hongwai[28];
-int sdj,xdj,speed;
+int test_sdj,test_xdj,test_speed,test_position,test_IR_position;
 /*--------------------------------------------
 SCI_RXD: 串口接收函数
 编写日期：20110411
@@ -61,47 +60,50 @@ static void SCI_Init(void)  //SCI
                   
 }
 /*---------------------------------------
-激光状态转换为16进制
-编写日期：200110521
------------------------------------------  */         
-void Testjiguang(byte temp_laser_array[]) 
-{ 
+发送激光管信息数组
+编写日期：200110602
+-----------------------------------------  */ 
+void Testjiguang(byte temp_laser_array[]) {
     int i; 
-    //int data;
-    //char g[20]=" ";
+    int data;
     for(i=LASER_MAX-1;i>=0;i--)    //发送激光管信息数组
-        {
-            if(temp_laser_array[i] == 0) {
+        {data=temp_laser_array[i]  ;
+            if(data == 0) {
             SCISend('0');   
             }
-        else if(temp_laser_array[i] == 1) {
+        else if(data == 1) {
              SCISend('1'); 
-        }  
         }
-}
+        }   
+}     
+/*---------------------------------------
+发送红外信息数组（不成熟，暂不使用）
+编写日期：200110602
+-----------------------------------------  */  
+/*void TestIR(byte temp_laser_array[]) {
+    int i; 
+    int data;
+    for(i=0;i<=6;i++)    //发送激光管信息数组
+        {data=temp_laser_array[i];
+		SCISend_chars(data);
+        }   
+		data=IR_position[1]+10;
+		SCISend_chars(data);
+}      */
 
 /*---------------------------------------
-红外状态转换为16进制
-编写日期：200110521
------------------------------------------  */   
-void Testhongwai(float a[]) {
-int i,tmp;
-char *p;
-p=hongwai;
-for (i=0;i<7;i++)
-{
-		tmp = (int)(a[i]*1000+0.5);	//转换成整型值
-		sprintf(p, "%04d", tmp);//转换成16进制字符串
-		p+=4;
-}   
-}
-
+无线模块发送总函数
+编写日期：200110602
+-----------------------------------------  */  
 void TestSMinfo(){
-	SCISend_chars("SED");
-	Testjiguang(light_temp_laser_array);
-	Clear_baitou();
-  //sprintf(SCIreceive," %4d ",JG_clear_position);
-  sprintf(SCIreceive," %4d ",g_temp_pulse);
-  SCISend_chars(SCIreceive);
-	SCISend('\n');
-    }
+    test_sdj=temp_pwm67;		//上舵机的值
+    test_xdj=temp_pwm45;		//下舵机的值
+	test_speed=g_temp_pulse;	//速度值
+	test_position=position;		//激光滤波值
+	test_IR_position=IR_position[1]+10;	//红外滤波值
+	SCISend_chars("SED");		//发送标识符
+	Testjiguang(light_temp_laser_array);	//发送激光数组
+   (void)sprintf(SCIreceive,"%.5d%.4d%.4d%.4d%.3d%.3d%.3d%.3d%.3d%.3d%.3d%.3dEND",test_position,test_sdj,test_xdj,test_speed,IR_temp_laser_array[0],IR_temp_laser_array[1],IR_temp_laser_array[2],IR_temp_laser_array[3],IR_temp_laser_array[4],IR_temp_laser_array[5],IR_temp_laser_array[6],test_IR_position);
+   SCISend_chars(SCIreceive);
+   SCISend('\n');
+  }
