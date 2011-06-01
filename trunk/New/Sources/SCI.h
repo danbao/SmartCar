@@ -100,7 +100,8 @@ void TestSMinfo(){
 	SCISend_chars("SED");
 	Testjiguang(light_temp_laser_array);
 	Clear_baitou();
-  sprintf(SCIreceive,"%4d",JG_clear_position);
+  //sprintf(SCIreceive," %4d ",JG_clear_position);
+  sprintf(SCIreceive," %4d ",g_temp_pulse);
   SCISend_chars(SCIreceive);
 	SCISend('\n');
     }

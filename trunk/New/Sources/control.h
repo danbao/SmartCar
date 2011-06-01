@@ -122,6 +122,66 @@ void Status_Judge(void) {
 
 
 
+/*=====================红外管程度值======================
+红外暂时把它分为三档小 中 大  越小离黑线越近
+因为红外本身采集比较连续所以不需要滤波（目前看没有受干扰的情况?
+可以用这个值来给舵机打角 用枚举法 但值可能会比较大 所以可能要减去基准值 
+
+      6   5   4   3   2   1   0
+      6   4   2   0  -2  -4   -6       IR_position[1]=-6+2*i  此次
+                                       IR_position[0]上次
+==========================================================*/
+
+void Level_IR( void)
+{
+  int i,j;
+  
+  IR_blacknun=0;
+  IR_position[1]=0;
+  for(i=0;i<IR_NUM;i++)
+  {
+  if(i==1)
+      { 
+      if(IR_temp_laser_array[1]<=130) 
+          {IR_position[1]=IR_position[1]-4;IR_blacknun++;}
+     else if((IR_temp_laser_array[1]>81)&&(IR_temp_laser_array[1]<=130)) 
+          {IR_position[1]=IR_position[1]-4;IR_blacknun++;}
+        
+      //else if(IR_temp_laser_array[1]>131)IR_Level[1]=100;
+      } 
+  else if(i==2) 
+      {
+      if(IR_temp_laser_array[2]<=160)
+          { IR_position[1]=IR_position[1]-2;IR_blacknun++;}
+       else if((IR_temp_laser_array[2]>81)&&(IR_temp_laser_array[2]<=160))
+          {IR_position[1]=IR_position[1]-2;IR_blacknun++;}
+        
+      //else if(IR_temp_laser_array[2]>161)IR_Level[2]=100;
+      }
+  else{
+      if(IR_temp_laser_array[i]<=170)
+          { IR_position[1]=IR_position[1]+(2*i-6);IR_blacknun++;}
+        
+      else if((IR_temp_laser_array[i]>81)&&(IR_temp_laser_array[i]<=190)) 
+          {IR_position[1]=IR_position[1]+(2*i-6);IR_blacknun++;}
+        
+      //else if(IR_temp_laser_array[i]>191)IR_Level[i]=100;
+      }
+  }
+  if(IR_blacknun==0)IR_position[1]=IR_position[0]*100;
+  else 
+    {
+    IR_position[1]=(IR_position[1]/IR_blacknun); 
+    j=IR_position[1]-IR_position[0] ;
+    if( aabs(j) >2)IR_position[1]=IR_position[0]*100;
+    else {
+      IR_position[0] =IR_position[1];
+      IR_position[1]=IR_position[1]*100;
+      
+          }
+    }
+   
+}
 
 
 
@@ -136,6 +196,28 @@ void Status_Judge(void) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+/*===================测速转换=============================
+double Calculate_speed(double temp_pulse)
+{
+	double a=24,b=76,c=160;//a为编码器的齿轮，b为后轮驱动的齿轮，c为后轮转一圈的距离（毫米）
+	double v;
+	v=temp_pulse*b*c/2000*a;//
+	return v;
+}
+
+*/
 
 /*=====================激光管照到黑线的个数======================
 合并到control 
