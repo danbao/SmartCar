@@ -18,9 +18,7 @@
 
 void main(void) 
 {
-  int i;
 
-     
  // int temp_laserStatus;           //定义一个数组用来接受 上下舵机值
   DisableInterrupts;
   SetBusCLK_40M();    //   设置时钟初始化。40MHz.
@@ -51,10 +49,12 @@ void main(void)
           if(send_count%20==0)
           {  
             send_count=1; 
-             TestSMinfo();   
+             TestSMinfo();//串口无线信息的发送
           }         
-          Confirm_Light();
-          Clear_baitou();
+          Confirm_Light(); //排除误点
+          Clear_baitou();  //position的第一次滤波
+          baitou( ); //先执行摆头舵机，通过计算得出角度，为第二次滤波做准备
+          Form_tendency(); //通过摆头舵机和偏差值得到一个比较准确的趋势
     // Calculate_HitBlackNum();
      //temp_laserStatus = Status_Judge();
      
@@ -64,14 +64,11 @@ void main(void)
           if(delay_count%10==0)
           {
             delay_count=1;
-            baitou( );
+            dajiao();
           }
-
-
-      PITINTE_PINTE0 = 1;    //开PIT0采集中断 
-       PITINTE_PINTE1 = 1;   //开PIT1采集中断  
+          PITINTE_PINTE0 = 1;    //开PIT0采集中断 
+          PITINTE_PINTE1 = 1;   //开PIT1采集中断  
     }
-       
     SpeedCtrl();
     
   }
@@ -94,52 +91,51 @@ void interrupt 66 PIT0_ISR(void)
     g_countPIT0 ++;
     if(g_countPIT0 == 6) 
     {
-         g_countPIT0 = 0;
-         PITINTE_PINTE0 = 0;
+       g_countPIT0 = 0;
+       PITINTE_PINTE0 = 0;
     }  
-   if(g_countPIT0 == 0) {  
+   if(g_countPIT0 == 0) 
+   {  
       PORTA = 0B00000001;
       delayMS();
 	    light_temp_laser_array[0] = PORTB_PB0^1;
       light_temp_laser_array[6] = PORTB_PB2^1;
     }
-    else if(g_countPIT0 == 1)   { 
+    else if(g_countPIT0 == 1)   
+    { 
       PORTA = 0B00001000;
       delayMS();
 	    light_temp_laser_array[3] = PORTB_PB1^1;	
       light_temp_laser_array[9] = PORTB_PB3^1;
     }
-    else if(g_countPIT0 == 2)   {    
-        PORTA = 0B00000010;
+    else if(g_countPIT0 == 2)   
+    {    
+      PORTA = 0B00000010;
       delayMS();
 	    light_temp_laser_array[1] = PORTB_PB0^1;
-        light_temp_laser_array[7] = PORTB_PB2^1;
-	   
-        
+      light_temp_laser_array[7] = PORTB_PB2^1;
     }
-    else if(g_countPIT0 == 3)   {  
-       PORTA = 0B00010000;
-     delayMS(); 
+    else if(g_countPIT0 == 3)   
+    {  
+      PORTA = 0B00010000;
+      delayMS(); 
 	    light_temp_laser_array[4] = PORTB_PB1^1;
-        light_temp_laser_array[10] = PORTB_PB3^1;
-	 
-     
-        
+      light_temp_laser_array[10] = PORTB_PB3^1; 
     }
-    else if(g_countPIT0 == 4)   {  
-       PORTA = 0B00000100;
-     delayMS();  
+    else if(g_countPIT0 == 4)   
+    {  
+      PORTA = 0B00000100;
+      delayMS();  
 	    light_temp_laser_array[2] = PORTB_PB0^1;
-        light_temp_laser_array[8] = PORTB_PB2^1;
+      light_temp_laser_array[8] = PORTB_PB2^1;
    
     }
-	else if(g_countPIT0 == 5)   {  
-        PORTA = 0B00100000;
-     delayMS();  
-	   light_temp_laser_array[5] = PORTB_PB1^1;
-     light_temp_laser_array[11] = PORTB_PB3^1;
-	 
-        
+	else if(g_countPIT0 == 5)   
+	{  
+      PORTA = 0B00100000;
+      delayMS();  
+	    light_temp_laser_array[5] = PORTB_PB1^1;
+      light_temp_laser_array[11] = PORTB_PB3^1;  
     } 
     PITTF_PTF0 = 1;//清中断标志位  
 } //PIT0_ISR  

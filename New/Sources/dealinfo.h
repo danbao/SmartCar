@@ -11,11 +11,7 @@ JG_clear_position=(JG_clear_position*40+clear_position*100) /140 ;
 //Diff_Position是增量pd的 加到pwm上的增量
 void  baitou (void) {
    
-     
-    
-  
-    
-    
+ 
     His_Position[1]=JG_clear_position;
     His_Position[2]=position;
     His_Position[2]=aabs(His_Position[2]); 
@@ -66,10 +62,12 @@ BUG：
 void Form_tendency(void)
 {
   int i,j;
-  for(j=0;j<10;j++)
+  for(j=0;j<10;j++) //数组temp_position_array元素为10个
   {
     for(i=0;i<22;i++) 
     {
+    //在这个循环里面，数组standard_position_array是一个标准数组
+    //根据根据与PWMDTY67的差值比较，把较为靠近的摆角舵机值存入数组temp_position_array
       if(PWMDTY67 == standard_position_array[i]) 
       {
         temp_position_array[j]=PWMDTY67;
@@ -88,20 +86,26 @@ void Form_tendency(void)
   }
 }
 
-void Tendency_judge(void) {
-  int i,j,temp;
+void Tendency_judge(void) 
+{
+//这是对一个趋势的判断，需要考虑两种情况，可能之后会多种，就是直线与非直线。
+  int i,temp;
   temp=temp_position_array[9];
-  for(i=0;i<10;i++) {
-    if(temp_position_array[i]==temp) {
+  for(i=0;i<10;i++) 
+  {
+    if(temp_position_array[i]==temp) 
+    {
     //直接把速度，上下舵机都写进来，到时能跑过后，我们在分开。
     
     
     
-                                     }
+    
+     
+    }
     else   ;
   //    dajiao((temp_position_array[i]+temp)/2);//整幅图只找出一个点，然后进行摆角，替换替换几组后进行调整
                   
-                   }
+  }
 }
 
 void Replace_array(void)
@@ -114,13 +118,6 @@ void Replace_array(void)
   }
   temp_position_array[0] = PWMDTY67;
 }
-
-
-
-
-
-
-
 
 
 
