@@ -1,6 +1,6 @@
 /*--------------------------------------------
     Date:       2011.04.11
-    Update:     2011.04.11
+    Update:     2011.05.31
 	说明：串口调用及无线模块
 ----------------------------------------------*/
 char jiguang[3];
@@ -48,7 +48,6 @@ void SCISend_chars(const signed char ch[])
  SCISend(ch[i]);
  i++;
  }while(ch[i]!='\0');
- SCISend('\n');
  }
  /*---------------------------------------
 SCI_Init: SCI初始化
@@ -64,54 +63,32 @@ static void SCI_Init(void)  //SCI
 /*---------------------------------------
 激光状态转换为16进制
 编写日期：200110521
------------------------------------------  */         
-void Testjiguang(byte a[12]) 
-{ 
-char b[3]; 
-int i,result = 0,k = 1,j = 0; 
-for(i = 11;i >= 0;i --) 
-{ 
-if(a[11-i] == '1') result += 1 << (k-1); //如果是1，用1*位权 
-if(k == 4 || i == 0) //每四位计算一次结果（result）。 
-//如果到了最高位（i==0）不足四位（比如100 0000），也计算 
-{ 
-switch(result) 
-{ 
-case 10: b[j++]='A';break; //大于等于十转化成字母 
-case 11: b[j++]='B';break; 
-case 12: b[j++]='C';break; 
-case 13: b[j++]='D';break; 
-case 14: b[j++]='E';break; 
-case 15: b[j++]='F';break; 
-default: b[j++]=result + '0';break; 
-} 
-result = 0; //结果清零 
-k = 0; //表示位权的K清零 
-} 
-k ++; // 初始位权为1 
-}
-for(i = 2;i >= 0;i --) 
-jiguang[2-i]=b[i];
-}
-
-
-/*=====================激光摆头滤波======================*/
-void Clear_baitou(void){
-long clear_position;
-clear_position=position*100;
-JG_clear_position=(JG_clear_position*40+clear_position*100) /140 ;  
-}
-
+-----------------------------------------  */ 
+void Testjiguang(byte temp_laser_array[]) {
+    int i; 
+    int data;
+    for(i=LASER_MAX-1;i>=0;i--)    //发送激光管信息数组
+        {data=temp_laser_array[i]  ;
+            if(data == 0) {
+            SCISend('0');   
+            }
+        else if(data == 1) {
+             SCISend('1'); 
+        }
+        }   
+}      
 /*=====================无线发送总参数======================*/
 void TestSMinfo(){
   int	IR_position[2]={0,10};
-    sdj=rand()%10000;
-    xdj=rand()%10000;
-	speed=rand()%10000;
-	position=rand()%100000;
+    sdj=99;
+    xdj=99;
+//	speed=g_temp_pulse;
+speed=200;
+	position=99;  
+//	Clear_baitou();
+	SCISend_chars("SED");
 	Testjiguang(light_temp_laser_array);
-  //Clear_baitou();
-    (void)sprintf(SCIreceive,"SED%.3s%.5d%.4d%.4d%.4d%.3d%.3d%.3d%.3d%.3d%.3d%.3d%.3dEND",jiguang,position,sdj,xdj,speed,IR_temp_laser_array[0],IR_temp_laser_array[1],IR_temp_laser_array[2],IR_temp_laser_array[3],IR_temp_laser_array[4],IR_temp_laser_array[5],IR_temp_laser_array[6],IR_position[1]+10);
-    SCISend_chars(SCIreceive);
-    }
-
+   (void)sprintf(SCIreceive,"%.5d%.4d%.4d%.4d%.3d%.3d%.3d%.3d%.3d%.3d%.3d%.3dEND",position,sdj,xdj,speed,IR_temp_laser_array[0],IR_temp_laser_array[1],IR_temp_laser_array[2],IR_temp_laser_array[3],IR_temp_laser_array[4],IR_temp_laser_array[5],IR_temp_laser_array[6],IR_position[1]+10);
+   SCISend_chars(SCIreceive);
+    SCISend('\n');
+  }
