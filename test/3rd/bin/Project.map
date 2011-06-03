@@ -1,5 +1,5 @@
 *** EVALUATION ***
-PROGRAM "D:\Documents\SmartCar\trunk\test\3rd\bin\Project.abs"
+PROGRAM "D:\sm\trunk\test\3rd\bin\Project.abs"
 
 *********************************************************************************************
 TARGET SECTION
@@ -47,7 +47,7 @@ Section Name                    Size  Type     From       To       Segment
 .rodata1                          88     R     0xC0ED     0xC144   ROM_C000
 NON_BANKED                      1268     R     0xC145     0xC638   ROM_C000
 .copy                             10     R     0xC639     0xC642   ROM_C000
-.text                           3155     R   0xFE8000   0xFE8C52   PAGE_FE
+.text                           3184     R   0xFE8000   0xFE8C6F   PAGE_FE
 .stack                           256   R/W     0x2000     0x20FF   RAM
 .data                              4   R/W     0x2100     0x2103   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
@@ -347,7 +347,7 @@ NON_BANKED                      1268     R     0xC145     0xC638   ROM_C000
 .vectSeg292_vect                   2     R     0xFFFE     0xFFFF   .vectSeg292
 
 Summary of section sizes per section type:
-READ_ONLY (R):        129A (dec:     4762)
+READ_ONLY (R):        12B7 (dec:     4791)
 READ_WRITE (R/W):      17D (dec:      381)
 NO_INIT (N/I):         168 (dec:      360)
 
@@ -569,11 +569,11 @@ MODULE:                 -- MC9S12XS128.c.o --
      _VREGAPICL                                 2F2       1       1       0   .abs_section_2f2
      _VREGAPITR                                 2F3       1       1       0   .abs_section_2f3
      _VREGHTTR                                  2F7       1       1       0   .abs_section_2f7
-     _PWME                                      300       1       1       2   .abs_section_300
-     _PWMPOL                                    301       1       1       4   .abs_section_301
+     _PWME                                      300       1       1       5   .abs_section_300
+     _PWMPOL                                    301       1       1       1   .abs_section_301
      _PWMCLK                                    302       1       1       4   .abs_section_302
      _PWMPRCLK                                  303       1       1       1   .abs_section_303
-     _PWMCAE                                    304       1       1       4   .abs_section_304
+     _PWMCAE                                    304       1       1       1   .abs_section_304
      _PWMCTL                                    305       1       1       1   .abs_section_305
      _PWMSCLA                                   308       1       1       1   .abs_section_308
      _PWMSCLB                                   309       1       1       1   .abs_section_309
@@ -586,7 +586,7 @@ MODULE:                 -- MC9S12XS128.c.o --
      _PITTF                                     345       1       1       0   .abs_section_345
      _PITMTLD0                                  346       1       1       0   .abs_section_346
      _PITMTLD1                                  347       1       1       0   .abs_section_347
-     _PORTAB                                      0       2       2       6   .abs_section_0
+     _PORTAB                                      0       2       2       5   .abs_section_0
      _DDRAB                                       2       2       2       2   .abs_section_2
      _PARTID                                     1A       2       2       0   .abs_section_1a
      _DBGTB                                      24       2       2       0   .abs_section_24
@@ -635,16 +635,16 @@ MODULE:                 -- MC9S12XS128.c.o --
      _ATD0DR14                                  2EC       2       2       0   .abs_section_2ec
      _ATD0DR15                                  2EE       2       2       0   .abs_section_2ee
      _VREGAPIR                                  2F4       2       2       0   .abs_section_2f4
-     _PWMCNT01                                  30C       2       2       0   .abs_section_30c
-     _PWMCNT23                                  30E       2       2       0   .abs_section_30e
+     _PWMCNT01                                  30C       2       2       1   .abs_section_30c
+     _PWMCNT23                                  30E       2       2       1   .abs_section_30e
      _PWMCNT45                                  310       2       2       1   .abs_section_310
      _PWMCNT67                                  312       2       2       1   .abs_section_312
-     _PWMPER01                                  314       2       2       0   .abs_section_314
-     _PWMPER23                                  316       2       2       0   .abs_section_316
+     _PWMPER01                                  314       2       2       1   .abs_section_314
+     _PWMPER23                                  316       2       2       1   .abs_section_316
      _PWMPER45                                  318       2       2       1   .abs_section_318
      _PWMPER67                                  31A       2       2       1   .abs_section_31a
-     _PWMDTY01                                  31C       2       2       0   .abs_section_31c
-     _PWMDTY23                                  31E       2       2       0   .abs_section_31e
+     _PWMDTY01                                  31C       2       2       1   .abs_section_31c
+     _PWMDTY23                                  31E       2       2       1   .abs_section_31e
      _PWMDTY45                                  320       2       2       2   .abs_section_320
      _PWMDTY67                                  322       2       2       2   .abs_section_322
      _PITLD0                                    348       2       2       0   .abs_section_348
@@ -658,18 +658,19 @@ MODULE:                 -- MC9S12XS128.c.o --
 MODULE:                 -- main.c.o --
 - PROCEDURES:
      SetBusCLK_40M                           FE8000      1A      26       2   .text       
-     delayms                                 FE801A      25      37       4   .text       
-     LIGHT_Init                              FE803F       8       8       2   .text       
-     PWM_Init                                FE8047      6D     109       2   .text       
-     Light_SetDriver                         FE80B4       4       4       2   .text       
-     SCI_SetDriver                           FE80B8       4       4       6   .text       
-     receive                                 FE80BC      9D     157       3   .text       
-     SCI_RXD                                 FE8159       A      10       2   .text       
-     SCISend                                 FE8163      22      34      10   .text       
-     SCISend_chars                           FE8185      28      40       2   .text       
-     SCI_Init                                FE81AD       D      13       2   .text       
-     SendSmartcarInfo                        FE81BA      3E      62       2   .text       
-     main                                    FE81F8      5B      91       2   .text       
+     delayms                                 FE801A      25      37       2   .text       
+     delayMS                                 FE803F       9       9       2   .text       
+     LIGHT_Init                              FE8048       8       8       2   .text       
+     PWM_Init                                FE8050      73     115       2   .text       
+     Light_SetDriver                         FE80C3       4       4       2   .text       
+     SCI_SetDriver                           FE80C7       4       4       6   .text       
+     receive                                 FE80CB      AB     171       4   .text       
+     SCI_RXD                                 FE8176       A      10       2   .text       
+     SCISend                                 FE8180      22      34      10   .text       
+     SCISend_chars                           FE81A2      28      40       2   .text       
+     SCI_Init                                FE81CA       D      13       2   .text       
+     SendSmartcarInfo                        FE81D7      3E      62       2   .text       
+     main                                    FE8215      5B      91       2   .text       
      Rx_SetDriver                              C145     12E     302       7   NON_BANKED  
 - VARIABLES:
      STRING...............d.2                  C0ED      10      16       1   .rodata1    
@@ -685,7 +686,7 @@ MODULE:                 -- main.c.o --
      light_temp_laser_array                    2171       C      12      13   .common     
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
-     Init                                    FE8253      29      41       2   .text       
+     Init                                    FE8270      29      41       2   .text       
      _Startup                                  C000       F      15       0   .init       
 - VARIABLES:
      _startupData                              C00F       6       6       3   .startData  
@@ -693,11 +694,11 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          2100       0       0       1               
 MODULE:                 -- PRINTF.C.o (ansixb.lib) --
 - PROCEDURES:
-     Ten                                     FE827C      AC     172       5   .text       
-     vprintf                                 FE8328     8D8    2264     121   .text       
-     _out                                    FE8C00       9       9       2   .text       
-     deposit_char                            FE8C09       A      10       3   .text       
-     sprintf                                 FE8C13      2D      45      10   .text       
+     Ten                                     FE8299      AC     172       5   .text       
+     vprintf                                 FE8345     8D8    2264     121   .text       
+     _out                                    FE8C1D       9       9       2   .text       
+     deposit_char                            FE8C26       A      10       3   .text       
+     sprintf                                 FE8C30      2D      45      10   .text       
 - VARIABLES:
      pow10                                     C019      28      40       4   .rodata     
      pow16                                     C041      20      32       4   .rodata     
@@ -707,7 +708,7 @@ MODULE:                 -- PRINTF.C.o (ansixb.lib) --
      pbuf                                      2104       7       7      15   .bss        
 MODULE:                 -- STRING.C.o (ansixb.lib) --
 - PROCEDURES:
-     strlen                                  FE8C40      13      19       2   .text       
+     strlen                                  FE8C5D      13      19       2   .text       
 - VARIABLES:
 MODULE:                 -- FADD.C.o (ansixb.lib) --
 - PROCEDURES:
@@ -773,7 +774,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   MC9S12XS128.c.o                            360      0      0
-  main.c.o                                   118    897     90
+  main.c.o                                   118    926     90
   Start12.c.o                                  0     56      0
   PRINTF.C.o (ansixb.lib)                      7   2500    212
   STRING.C.o (ansixb.lib)                      0     19      0
@@ -791,9 +792,9 @@ MODULE STATISTIC
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  SetBusCLK_40M delayms LIGHT_Init PWM_Init Light_SetDriver SCI_SetDriver 
-  receive SCI_RXD SCISend SCISend_chars SCI_Init SendSmartcarInfo main Init Ten 
-  vprintf _out deposit_char sprintf strlen 
+  SetBusCLK_40M delayms delayMS LIGHT_Init PWM_Init Light_SetDriver 
+  SCI_SetDriver receive SCI_RXD SCISend SCISend_chars SCI_Init SendSmartcarInfo 
+  main Init Ten vprintf _out deposit_char sprintf strlen 
 SECTION: ".data"
   temp_pwm67 temp_pwm45 
 SECTION: ".bss"
@@ -1401,7 +1402,7 @@ SECTION: ".common"
 OBJECT LIST SORTED BY ADDRESS
      Name                                      Addr   hSize   dSize     Ref    Section   RLIB
 ---------------------------------------------------------------------------------------------
-     _PORTAB                                      0       2       2       6   .abs_section_0
+     _PORTAB                                      0       2       2       5   .abs_section_0
      _DDRAB                                       2       2       2       2   .abs_section_2
      _PORTE                                       8       1       1       0   .abs_section_8
      _DDRE                                        9       1       1       0   .abs_section_9
@@ -1655,24 +1656,24 @@ OBJECT LIST SORTED BY ADDRESS
      _VREGAPITR                                 2F3       1       1       0   .abs_section_2f3
      _VREGAPIR                                  2F4       2       2       0   .abs_section_2f4
      _VREGHTTR                                  2F7       1       1       0   .abs_section_2f7
-     _PWME                                      300       1       1       2   .abs_section_300
-     _PWMPOL                                    301       1       1       4   .abs_section_301
+     _PWME                                      300       1       1       5   .abs_section_300
+     _PWMPOL                                    301       1       1       1   .abs_section_301
      _PWMCLK                                    302       1       1       4   .abs_section_302
      _PWMPRCLK                                  303       1       1       1   .abs_section_303
-     _PWMCAE                                    304       1       1       4   .abs_section_304
+     _PWMCAE                                    304       1       1       1   .abs_section_304
      _PWMCTL                                    305       1       1       1   .abs_section_305
      _PWMSCLA                                   308       1       1       1   .abs_section_308
      _PWMSCLB                                   309       1       1       1   .abs_section_309
-     _PWMCNT01                                  30C       2       2       0   .abs_section_30c
-     _PWMCNT23                                  30E       2       2       0   .abs_section_30e
+     _PWMCNT01                                  30C       2       2       1   .abs_section_30c
+     _PWMCNT23                                  30E       2       2       1   .abs_section_30e
      _PWMCNT45                                  310       2       2       1   .abs_section_310
      _PWMCNT67                                  312       2       2       1   .abs_section_312
-     _PWMPER01                                  314       2       2       0   .abs_section_314
-     _PWMPER23                                  316       2       2       0   .abs_section_316
+     _PWMPER01                                  314       2       2       1   .abs_section_314
+     _PWMPER23                                  316       2       2       1   .abs_section_316
      _PWMPER45                                  318       2       2       1   .abs_section_318
      _PWMPER67                                  31A       2       2       1   .abs_section_31a
-     _PWMDTY01                                  31C       2       2       0   .abs_section_31c
-     _PWMDTY23                                  31E       2       2       0   .abs_section_31e
+     _PWMDTY01                                  31C       2       2       1   .abs_section_31c
+     _PWMDTY23                                  31E       2       2       1   .abs_section_31e
      _PWMDTY45                                  320       2       2       2   .abs_section_320
      _PWMDTY67                                  322       2       2       2   .abs_section_322
      _PWMSDN                                    324       1       1       0   .abs_section_324
@@ -1746,25 +1747,26 @@ OBJECT LIST SORTED BY ADDRESS
      UL_PULK                                   C636       3       3       1   NON_BANKED  
      _Vector_20                                FFD6       2       2       0   .abs_section_ffd6
      SetBusCLK_40M                           FE8000      1A      26       2   .text       
-     delayms                                 FE801A      25      37       4   .text       
-     LIGHT_Init                              FE803F       8       8       2   .text       
-     PWM_Init                                FE8047      6D     109       2   .text       
-     Light_SetDriver                         FE80B4       4       4       2   .text       
-     SCI_SetDriver                           FE80B8       4       4       6   .text       
-     receive                                 FE80BC      9D     157       3   .text       
-     SCI_RXD                                 FE8159       A      10       2   .text       
-     SCISend                                 FE8163      22      34      10   .text       
-     SCISend_chars                           FE8185      28      40       2   .text       
-     SCI_Init                                FE81AD       D      13       2   .text       
-     SendSmartcarInfo                        FE81BA      3E      62       2   .text       
-     main                                    FE81F8      5B      91       2   .text       
-     Init                                    FE8253      29      41       2   .text       
-     Ten                                     FE827C      AC     172       5   .text       
-     vprintf                                 FE8328     8D8    2264     121   .text       
-     _out                                    FE8C00       9       9       2   .text       
-     deposit_char                            FE8C09       A      10       3   .text       
-     sprintf                                 FE8C13      2D      45      10   .text       
-     strlen                                  FE8C40      13      19       2   .text       
+     delayms                                 FE801A      25      37       2   .text       
+     delayMS                                 FE803F       9       9       2   .text       
+     LIGHT_Init                              FE8048       8       8       2   .text       
+     PWM_Init                                FE8050      73     115       2   .text       
+     Light_SetDriver                         FE80C3       4       4       2   .text       
+     SCI_SetDriver                           FE80C7       4       4       6   .text       
+     receive                                 FE80CB      AB     171       4   .text       
+     SCI_RXD                                 FE8176       A      10       2   .text       
+     SCISend                                 FE8180      22      34      10   .text       
+     SCISend_chars                           FE81A2      28      40       2   .text       
+     SCI_Init                                FE81CA       D      13       2   .text       
+     SendSmartcarInfo                        FE81D7      3E      62       2   .text       
+     main                                    FE8215      5B      91       2   .text       
+     Init                                    FE8270      29      41       2   .text       
+     Ten                                     FE8299      AC     172       5   .text       
+     vprintf                                 FE8345     8D8    2264     121   .text       
+     _out                                    FE8C1D       9       9       2   .text       
+     deposit_char                            FE8C26       A      10       3   .text       
+     sprintf                                 FE8C30      2D      45      10   .text       
+     strlen                                  FE8C5D      13      19       2   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -1810,10 +1812,10 @@ Filling bytes inserted
  00042100
 ------- ROM-ADDRESS: 0xC63D ---- RAM-ADDRESS: 0x2100 ---- SIZE       2 ---
 Name of initialized Object : temp_pwm67
- 05FB
+ 0E52
 ------- ROM-ADDRESS: 0xC63F ---- RAM-ADDRESS: 0x2102 ---- SIZE       2 ---
 Name of initialized Object : temp_pwm45
- 05C6
+ 0E52
 ------- ROM-ADDRESS: 0xC641 ---- SIZE       2 ---
 Filling bytes inserted
  0000
@@ -1846,12 +1848,13 @@ L_PSHK                    USES L_NEGK
 _Vector_20                USES Rx_SetDriver 
 SetBusCLK_40M             USES _CLKSEL _PLLCTL _SYNR _REFDV _POSTDIV _CRGFLG 
 LIGHT_Init                USES _DDRAB 
-PWM_Init                  USES _PWME _PWMCAE _PWMCNT45 _PWMCNT67 _PWMCTL 
-                                _PWMPRCLK _PWMCLK _PWMSCLA _PWMSCLB _PWMPER45 _PWMPER67 
-                                _PWMDTY45 _PWMDTY67 _PWMPOL 
+PWM_Init                  USES _PWME _PWMCAE _PWMCNT01 _PWMCNT23 _PWMCNT45 
+                                _PWMCNT67 _PWMPOL _PWMCTL _PWMPRCLK _PWMSCLA _PWMSCLB 
+                                _PWMCLK _PWMPER01 _PWMPER23 _PWMPER45 _PWMPER67 
+                                _PWMDTY01 _PWMDTY23 _PWMDTY45 _PWMDTY67 
 Light_SetDriver           USES _PWMDTY67 
 SCI_SetDriver             USES _PWMDTY45 
-receive                   USES _PORTAB light_temp_laser_array receive delayms 
+receive                   USES receive light_temp_laser_array _PORTAB delayMS 
 SCI_RXD                   USES _SCI0SR1 _SCI0DRL 
 SCISend                   USES _SCI0SR1 _SCI0DRL _SCI0DRH 
 SCISend_chars             USES SCISend strlen 
@@ -1895,8 +1898,8 @@ DEPENDENCY TREE
  |  |  
  |  +- receive             
  |     | 
- |     +- delayms              (see above)
- |        
+ |     +- delayMS             
+ |          
  +- _Startup            
     | 
     +- Init                
@@ -2034,5 +2037,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 6
-Total size of all blocks to be downloaded: 4762
+Total size of all blocks to be downloaded: 4791
 

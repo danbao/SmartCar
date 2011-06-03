@@ -2,8 +2,8 @@
 char SCIreceive[100];
 int count;
 byte light_temp_laser_array[LASER_MAX];  //µ±Ç°¼¤¹â¹ÜÐÅÏ¢±£´æÊý×é
-#define PWM67 1531
-#define PWM45 1478
+#define PWM67 3666
+#define PWM45 3666
 
 
   int temp_pwm67=PWM67;						//¼¤¹â°ÚÍ·¶æ»ú³õÊ¼Öµ
@@ -29,66 +29,54 @@ void delayms(int ms)    //ÑÓÊ±³ÌÐò¡£
    for(ii=0;ii<ms;ii++)
      for(jj=0;jj<3338;jj++);    //40MHz--1ms      
 }
+void delayMS()
+{
+int jj;
+     for(jj=0;jj<833;jj++);    //1/6ms     
+}
 //=====================¼¤¹â³õÊ¼»¯======================//
  void LIGHT_Init(void){ 
 	DDRA = 0X3F;      //PA0--PA5¼¤¹â¹ÜÐÅºÅµãÁÁ
 	DDRB = 0X00;      //PB0--PB3¼¤¹â¹ÜÐÅºÅ½ÓÊÕ
  }
  
- //=====================¶æ»ú³õÊ¼»¯======================//
-static void PWM_Init(void){     		//PWM³õÊ¼»¯¡£ÆäÖÐP4,P5¿ØÖÆµç»úÕý·´×ª, P6,P7¼¶Áª¼¤¹â¹Ü¿ØÖÆ¶æ»ú¡£
+ void PWM_Init (void) {   //0519ÔÝÊ±Ð´Íê£¡
+  // Local Declarations
 
-	PWME=0X00;            		//³õÊ¼»¯£¬ÏÈÊÇÍ¨µÀÊ¹ÄÜ½ûÖ¹¡£
-	
-	PWMCAE_CAE4=0;				//×ªÏò°ÚÍ·¶æ»ú¶ÔÆë·½Ê½
-	PWMCAE_CAE5=0;	
-	PWMCAE_CAE6=0;         		//¼¤¹â°ÚÍ·Êý×Ö¶æ»ú¶ÔÆë·½Ê½
-	PWMCAE_CAE7=0;
-	
-	PWMCNT45 = 0;				//45¿Ú¼ÆÊýÆ÷ÇåÁã£
-  PWMCNT67 = 0;				//45¿Ú¼ÆÊýÆ÷ÇåÁã£»»
-  
-  PWMPOL_PPOL4=1;				//×ªÏò°ÚÍ·¶æ»ú¼«ÐÔÑ¡ÔñÉèÖÃ
-	PWMPOL_PPOL5=1;
-	PWMPOL_PPOL6=1;				//¼¤¹â°ÚÍ·Êý×Ö¼«ÐÔÑ¡ÔñÉèÖÃ
-	PWMPOL_PPOL7=1;
-	
-	PWMCTL=0B11000000;            	//¿ØÖÆ¼Ä´æÆ÷£¬45ºÍ67¿Ú¼¶Áª¡£
-  
-  PWMPRCLK=0x11;				//Ô¤·ÖÆµ£¬A,BÊ±ÖÓÎª×ÜÏßµÄ1/2£¬¾ÍÊÇClock AºÍClock B¡£
-	
-	PWMCLK_PCLK4=1;	
-	PWMCLK_PCLK5=1;
-	PWMCLK_PCLK6=1;
-	PWMCLK_PCLK7=1;
-
-	PWMSCLA=10;            		//SAÊ±ÖÓÉèÖÃ,Clock SA=Clock A/(2*PWMSCLA)¡£
-
-	PWMSCLB=10;             	//SBÊ±ÖÓÉèÖÃ,Clock SB=Clock B/(2*PWMSCLB)¡£
-
-	PWMPOL_PPOL4=1;				//×ªÏò°ÚÍ·¶æ»ú¼«ÐÔÑ¡ÔñÉèÖÃ
-	PWMPOL_PPOL5=1;
-	PWMPOL_PPOL6=1;				//¼¤¹â°ÚÍ·Êý×Ö¼«ÐÔÑ¡ÔñÉèÖÃ
-	PWMPOL_PPOL7=1;
-  
-  //PWMCTL = 0B00100000;     //Í¨µÀ23¼¶Áª
-  
-
-	
-  
-  //PWMCNT23 = 0;			//¼ÆÊýÆ÷23ÇåÁã 
-  
-
-	
-//	PWMPER23 = 125;    //ÆµÂÊ 8kHz 
-	PWMPER45=20000;				//1024¡Á1024£¨ÆµÂÊ£©*Clock A/2/PWMSCLB/PWMPER67
-	PWMPER67=20000;				//1024¡Á1024£¨ÆµÂÊ£©*Clock B/2/PWMSCLB/PWMPER67
+  // Statements
+   PWME = 0X00;       //½ûÖ¹PWMÊä³ö  
+   PWMCAE = 0X00;     //×ó¶ÔÆë
+   
+   PWMCNT01 = 0;			//¼ÆÊýÆ÷01ÇåÁã
+   PWMCNT23 = 0;			//¼ÆÊýÆ÷23ÇåÁã
+   PWMCNT45 = 0;			//¼ÆÊýÆ÷45ÇåÁã
+   PWMCNT67 = 0;			//¼ÆÊýÆ÷67ÇåÁã
  
-	PWMDTY45=PWM45;
-	//PWMDTY23 = 0;      //ËÙ¶ÈÎª0£¬¼´¾²Ö¹
-	PWMDTY67=PWM67;				//PWMDTY67/PWMPER67*100%
-  PWME=0xff;  
-}
+   PWMPOL = 0XFF;     //ÏÈÊä³ö¸ßµçÆ½   PWM¼«ÐÔ¼Ä´æÆ÷
+   PWMCTL = 0XF0;     //Í¨µÀ01.23.45.67¼¶Áª  0B11111111   01Õý×ª 23·´×ª
+   PWMPRCLK = 0X21;   //clockA 2·ÖÆµ,clockA=busclock/2=20MHz;CLK B 4·ÖÆµ:10Mhz 
+   PWMSCLA = 4;       //¶Ôclock SA ½øÐÐ2*4=8·ÖÆµ£»pwm clock=clockA/8=2.5MHz;
+   PWMSCLB = 4;       //¶Ôclock SB ½øÐÐ2*4=8·ÖÆµ£»pwm clock=clockB/8=1.25MHz;
+   PWMCLK_PCLK1 = 1;  //Ñ¡Ôñclock SA×öÊ±ÖÓÔ´  01
+   PWMCLK_PCLK3 = 1;  //Ñ¡Ôñclock SB×öÊ±ÖÓÔ´  23
+   PWMCLK_PCLK5 = 1;  //Ñ¡Ôñclock SA×öÊ±ÖÓÔ´  45
+   PWMCLK_PCLK7 = 1;  //Ñ¡Ôñclock SB×öÊ±ÖÓÔ´  67	   
+
+   PWMPER01 = 250;    //ÆµÂÊ 10kHz  ÖÜÆÚ0.1ms
+   PWMPER23 = 125;    //ÆµÂÊ 10kHz  ÖÜÆÚ0.1ms
+   PWMPER45 = 25000;  //ÆµÂÊ 100Hz  ÖÜÆÚ50ms
+   PWMPER67 = 12500;  //ÆµÂÊ 100Hz  ÖÜÆÚ50ms
+   
+   PWMDTY01 = 25;      //Õ¼¿Õ±È10%
+   PWMDTY23 = 62;      //Õ¼¿Õ±È50%
+   PWMDTY45 = 3666;      //ÖÐÖµ
+   PWMDTY67 = 3666;      //ÖÐÖµ
+   PWME_PWME1 = 1;    //Í¨µÀ1Êä³ö,µç»úÕý×ªÊ¹ÄÜ   Õý×ª
+   PWME_PWME3 = 1;    //Í¨µÀ3Êä³ö,µç»ú·´×ªÊ¹ÄÜ 
+   PWME_PWME5 = 1;    //Í¨µÀ5Êä³ö,Ç°ÂÖ¶æ»úÊ¹ÄÜ     
+   PWME_PWME7 = 1;    //Í¨µÀ7Êä³ö,°ÚÍ·¶æ»úÊ¹ÄÜ     
+} //PWMInit
+
 //=====================¼¤¹â°ÚÍ·¶æ»ú¸Ä±äº¯Êý======================//
 void Light_SetDriver(int value){
   PWMDTY67 = value; 
@@ -102,44 +90,57 @@ void SCI_SetDriver(int value){
  void receive(int send) {
    if(send == 0)   { 
     PORTA = 0B00000001;
-     delayms(1); 
-	    light_temp_laser_array[0] = PORTB_PB0;
-        light_temp_laser_array[6] = PORTB_PB2;
+     delayMS(); 
+	    light_temp_laser_array[0] = PORTB_PB0^1;
+      light_temp_laser_array[6] = PORTB_PB2^1;
     }   
   
 
    else if(send == 1)   { 
-    PORTA = 0B00000010;
-     delayms(1); 
-	    light_temp_laser_array[1] = PORTB_PB0;
-        light_temp_laser_array[7] = PORTB_PB2;
+      PORTA = 0B00001000;
+     delayMS();  
+	    light_temp_laser_array[3] = PORTB_PB1^1;	
+        light_temp_laser_array[9] = PORTB_PB3^1;
+	    
+       
         
     }
     
     else if(send ==2)   { 
-    PORTA = 0B00000100;
-     delayms(1); 
-	    light_temp_laser_array[2] = PORTB_PB0;
-        light_temp_laser_array[8] = PORTB_PB2;
+     PORTA = 0B00000010;
+     delayMS();  
+	    light_temp_laser_array[1] = PORTB_PB0^1;
+        light_temp_laser_array[7] = PORTB_PB2^1;
+	   
+    
     } 
     else	if(send == 3)       { 
-    PORTA = 0B00001000;
-     delayms(1); 
-	    light_temp_laser_array[3] = PORTB_PB1;	
-        light_temp_laser_array[9] = PORTB_PB3;
+   PORTA = 0B00010000;
+     delayMS(); 
+	    light_temp_laser_array[4] = PORTB_PB1^1;
+        light_temp_laser_array[10] = PORTB_PB3^1;
+	 
+     
+    
+   
+    
   }
    else if(send == 4)   {
-    PORTA = 0B00010000;
-     delayms(1); 
-	    light_temp_laser_array[4] = PORTB_PB1;
-        light_temp_laser_array[10] = PORTB_PB3;
+        PORTA = 0B00000100;
+     delayMS();  
+	    light_temp_laser_array[2] = PORTB_PB0^1;
+        light_temp_laser_array[8] = PORTB_PB2^1;
+   
+  
+	   
+    
     } 
    else if(send == 5)   {
-    PORTA = 0B00100000;
-     delayms(1); 
-	    light_temp_laser_array[5] = PORTB_PB1;
-        light_temp_laser_array[11] = PORTB_PB3;
+     PORTA = 0B00100000;
+     delayMS();  
+	   light_temp_laser_array[5] = PORTB_PB1^1;
+     light_temp_laser_array[11] = PORTB_PB3^1;
+	 
     }
-   
+    PORTA = 0B00000000;
 } 
-
