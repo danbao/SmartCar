@@ -1,5 +1,5 @@
 *** EVALUATION ***
-PROGRAM "D:\sm\trunk\test\3rd\bin\Project.abs"
+PROGRAM "D:\Documents\SmartCar\trunk\test\3rd\bin\Project.abs"
 
 *********************************************************************************************
 TARGET SECTION
@@ -33,8 +33,8 @@ Entry point: 0xC000 (_Startup)
 _startupData is allocated at 0xC00F and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x2100     125
-  _Copy    *toCopyDownBeg 0xC639
+  _Range   pZeroOut       0x2100     123
+  _Copy    *toCopyDownBeg 0xC68F
 } _startupData;
 
 *********************************************************************************************
@@ -44,10 +44,10 @@ Section Name                    Size  Type     From       To       Segment
 .init                             15     R     0xC000     0xC00E   ROM_C000
 .startData                        10     R     0xC00F     0xC018   ROM_C000
 .rodata                          212     R     0xC019     0xC0EC   ROM_C000
-.rodata1                          88     R     0xC0ED     0xC144   ROM_C000
-NON_BANKED                      1268     R     0xC145     0xC638   ROM_C000
-.copy                             10     R     0xC639     0xC642   ROM_C000
-.text                           3184     R   0xFE8000   0xFE8C6F   PAGE_FE
+.rodata1                         220     R     0xC0ED     0xC1C8   ROM_C000
+NON_BANKED                      1222     R     0xC1C9     0xC68E   ROM_C000
+.copy                             10     R     0xC68F     0xC698   ROM_C000
+.text                           3085     R   0xFE8000   0xFE8C0C   PAGE_FE
 .stack                           256   R/W     0x2000     0x20FF   RAM
 .data                              4   R/W     0x2100     0x2103   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
@@ -343,12 +343,12 @@ NON_BANKED                      1268     R     0xC145     0xC638   ROM_C000
 .abs_section_356                   2   N/I      0x356      0x357   .absSeg290
 .abs_section_ffd6                  2     R     0xFFD6     0xFFD7   .absSeg291
 .bss                               7   R/W     0x2104     0x210A   RAM
-.common                          114   R/W     0x210B     0x217C   RAM
+.common                          112   R/W     0x210B     0x217A   RAM
 .vectSeg292_vect                   2     R     0xFFFE     0xFFFF   .vectSeg292
 
 Summary of section sizes per section type:
-READ_ONLY (R):        12B7 (dec:     4791)
-READ_WRITE (R/W):      17D (dec:      381)
+READ_ONLY (R):        12AA (dec:     4778)
+READ_WRITE (R/W):      17B (dec:      379)
 NO_INIT (N/I):         168 (dec:      360)
 
 *********************************************************************************************
@@ -663,30 +663,33 @@ MODULE:                 -- main.c.o --
      LIGHT_Init                              FE8048       8       8       2   .text       
      PWM_Init                                FE8050      73     115       2   .text       
      Light_SetDriver                         FE80C3       4       4       2   .text       
-     SCI_SetDriver                           FE80C7       4       4       6   .text       
+     SCI_SetDriver                           FE80C7       4       4       2   .text       
      receive                                 FE80CB      AB     171       4   .text       
      SCI_RXD                                 FE8176       A      10       2   .text       
-     SCISend                                 FE8180      22      34      10   .text       
+     SCISend                                 FE8180      22      34       4   .text       
      SCISend_chars                           FE81A2      28      40       2   .text       
      SCI_Init                                FE81CA       D      13       2   .text       
-     SendSmartcarInfo                        FE81D7      3E      62       2   .text       
-     main                                    FE8215      5B      91       2   .text       
-     Rx_SetDriver                              C145     12E     302       7   NON_BANKED  
+     main                                    FE81D7      36      54       2   .text       
+     Rx_SetDriver                              C1C9     100     256       5   NON_BANKED  
 - VARIABLES:
-     STRING...............d.2                  C0ED      10      16       1   .rodata1    
-     STRING...............d.3                  C0FD      10      16       1   .rodata1    
-     STRING...............d.4                  C10D      10      16       1   .rodata1    
-     STRING...............d.5                  C11D      10      16       1   .rodata1    
-     STRING......................6             C12D      18      24       1   .rodata1    
+     STRING...................d.2              C0ED      14      20       1   .rodata1    
+     STRING...................d.3              C101      14      20       1   .rodata1    
+     STRING...................d.4              C115      14      20       1   .rodata1    
+     STRING...................d.5              C129      14      20       1   .rodata1    
+     STRING......................6             C13D      1E      30       1   .rodata1    
+     STRING...................d.7              C15B      14      20       1   .rodata1    
+     STRING...................d.8              C16F      14      20       1   .rodata1    
+     STRING...................d.9              C183      14      20       1   .rodata1    
+     STRING...................d.10             C197      14      20       1   .rodata1    
+     STRING......................11            C1AB      1E      30       1   .rodata1    
      temp_pwm67                                2100       2       2      10   .data       
-     temp_pwm45                                2102       2       2       7   .data       
+     temp_pwm45                                2102       2       2      10   .data       
      _Vector_20                                FFD6       2       2       0   .abs_section_ffd6
-     SCIreceive                                210B      64     100       6   .common     
-     count                                     216F       2       2       3   .common     
-     light_temp_laser_array                    2171       C      12      13   .common     
+     SCIreceive                                210B      64     100       2   .common     
+     light_temp_laser_array                    216F       C      12      12   .common     
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
-     Init                                    FE8270      29      41       2   .text       
+     Init                                    FE820D      29      41       2   .text       
      _Startup                                  C000       F      15       0   .init       
 - VARIABLES:
      _startupData                              C00F       6       6       3   .startData  
@@ -694,11 +697,11 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          2100       0       0       1               
 MODULE:                 -- PRINTF.C.o (ansixb.lib) --
 - PROCEDURES:
-     Ten                                     FE8299      AC     172       5   .text       
-     vprintf                                 FE8345     8D8    2264     121   .text       
-     _out                                    FE8C1D       9       9       2   .text       
-     deposit_char                            FE8C26       A      10       3   .text       
-     sprintf                                 FE8C30      2D      45      10   .text       
+     Ten                                     FE8236      AC     172       5   .text       
+     vprintf                                 FE82E2     8D8    2264     121   .text       
+     _out                                    FE8BBA       9       9       2   .text       
+     deposit_char                            FE8BC3       A      10       3   .text       
+     sprintf                                 FE8BCD      2D      45       2   .text       
 - VARIABLES:
      pow10                                     C019      28      40       4   .rodata     
      pow16                                     C041      20      32       4   .rodata     
@@ -708,65 +711,65 @@ MODULE:                 -- PRINTF.C.o (ansixb.lib) --
      pbuf                                      2104       7       7      15   .bss        
 MODULE:                 -- STRING.C.o (ansixb.lib) --
 - PROCEDURES:
-     strlen                                  FE8C5D      13      19       2   .text       
+     strlen                                  FE8BFA      13      19       2   .text       
 - VARIABLES:
 MODULE:                 -- FADD.C.o (ansixb.lib) --
 - PROCEDURES:
-     F_ADDKL                                   C273      5E      94       1   NON_BANKED  
-     _FADD                                     C2D1      15      21       3   NON_BANKED  
-     _FSUB                                     C2E6      13      19       1   NON_BANKED  
-     _FNEG                                     C2F9       B      11       1   NON_BANKED  
+     F_ADDKL                                   C2C9      5E      94       1   NON_BANKED  
+     _FADD                                     C327      15      21       3   NON_BANKED  
+     _FSUB                                     C33C      13      19       1   NON_BANKED  
+     _FNEG                                     C34F       B      11       1   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- FANSI.C.o (ansixb.lib) --
 - PROCEDURES:
-     F_FREXP                                   C304      1F      31       1   NON_BANKED  
-     frexpf                                    C323      19      25       1   NON_BANKED  
+     F_FREXP                                   C35A      1F      31       1   NON_BANKED  
+     frexpf                                    C379      19      25       1   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- FCMP.C.o (ansixb.lib) --
 - PROCEDURES:
-     _FCMP                                     C33C      26      38       2   NON_BANKED  
+     _FCMP                                     C392      26      38       2   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- FCONV.C.o (ansixb.lib) --
 - PROCEDURES:
-     F_TOLONGK                                 C362      32      50       1   NON_BANKED  
-     F_FRLONGK                                 C394      1E      30       1   NON_BANKED  
-     _FUFLOAT                                  C3B2      12      18       1   NON_BANKED  
-     _FSTRUNC                                  C3C4      11      17       1   NON_BANKED  
-     _FUTRUNC                                  C3D5       3       3       2   NON_BANKED  
+     F_TOLONGK                                 C3B8      32      50       1   NON_BANKED  
+     F_FRLONGK                                 C3EA      1E      30       1   NON_BANKED  
+     _FUFLOAT                                  C408      12      18       1   NON_BANKED  
+     _FSTRUNC                                  C41A      11      17       1   NON_BANKED  
+     _FUTRUNC                                  C42B       3       3       2   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- FMUL.C.o (ansixb.lib) --
 - PROCEDURES:
-     F_MULKL                                   C3D8      57      87       1   NON_BANKED  
-     _FMUL                                     C42F      14      20       7   NON_BANKED  
+     F_MULKL                                   C42E      57      87       1   NON_BANKED  
+     _FMUL                                     C485      14      20       7   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- FREGS.C.o (ansixb.lib) --
 - PROCEDURES:
-     F_PULK                                    C443      15      21       3   NON_BANKED  
-     F_PULL                                    C458      15      21       3   NON_BANKED  
-     F_PSHK                                    C46D      13      19       4   NON_BANKED  
-     F_TLK                                     C480       D      13       1   NON_BANKED  
-     F_XGKL                                    C48D      21      33       2   NON_BANKED  
-     F_CLRK                                    C4AE       B      11       2   NON_BANKED  
-     F_MAXK                                    C4B9       9       9       1   NON_BANKED  
-     F_NORMK                                   C4C2      37      55       3   NON_BANKED  
+     F_PULK                                    C499      15      21       3   NON_BANKED  
+     F_PULL                                    C4AE      15      21       3   NON_BANKED  
+     F_PSHK                                    C4C3      13      19       4   NON_BANKED  
+     F_TLK                                     C4D6       D      13       1   NON_BANKED  
+     F_XGKL                                    C4E3      21      33       2   NON_BANKED  
+     F_CLRK                                    C504       B      11       2   NON_BANKED  
+     F_MAXK                                    C50F       9       9       1   NON_BANKED  
+     F_NORMK                                   C518      37      55       3   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- rtshc12.c.o (ansixb.lib) --
 - PROCEDURES:
-     _BDIVMODS                                 C4F9       B      11       3   NON_BANKED  
-     _LNEG                                     C504       9       9       1   NON_BANKED  
-     _lDivMod                                  C50D      B9     185       2   NON_BANKED  
-     _LDIVU                                    C5C6       E      14       1   NON_BANKED  
-     _NEG_P                                    C5D4       C      12       1   NON_BANKED  
-     _LMODU                                    C5E0      11      17       1   NON_BANKED  
-     _CASE_DIRECT_BYTE                         C5F1       5       5       2   NON_BANKED  
-     _CASE_SEARCH_8                            C5F6      17      23       1   NON_BANKED  
-     _CASE_SEARCH_8_BYTE                       C60D      1A      26       1   NON_BANKED  
+     _BDIVMODS                                 C54F       B      11       3   NON_BANKED  
+     _LNEG                                     C55A       9       9       1   NON_BANKED  
+     _lDivMod                                  C563      B9     185       2   NON_BANKED  
+     _LDIVU                                    C61C       E      14       1   NON_BANKED  
+     _NEG_P                                    C62A       C      12       1   NON_BANKED  
+     _LMODU                                    C636      11      17       1   NON_BANKED  
+     _CASE_DIRECT_BYTE                         C647       5       5       2   NON_BANKED  
+     _CASE_SEARCH_8                            C64C      17      23       1   NON_BANKED  
+     _CASE_SEARCH_8_BYTE                       C663      1A      26       1   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- VREGS.C.o (ansixb.lib) --
 - PROCEDURES:
-     L_NEGK                                    C627       7       7       1   NON_BANKED  
-     L_PSHK                                    C62E       8       8       1   NON_BANKED  
-     UL_PULK                                   C636       3       3       1   NON_BANKED  
+     L_NEGK                                    C67D       7       7       1   NON_BANKED  
+     L_PSHK                                    C684       8       8       1   NON_BANKED  
+     UL_PULK                                   C68C       3       3       1   NON_BANKED  
 - VARIABLES:
 
 *********************************************************************************************
@@ -774,7 +777,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   MC9S12XS128.c.o                            360      0      0
-  main.c.o                                   118    926     90
+  main.c.o                                   116    781    222
   Start12.c.o                                  0     56      0
   PRINTF.C.o (ansixb.lib)                      7   2500    212
   STRING.C.o (ansixb.lib)                      0     19      0
@@ -793,8 +796,8 @@ SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
   SetBusCLK_40M delayms delayMS LIGHT_Init PWM_Init Light_SetDriver 
-  SCI_SetDriver receive SCI_RXD SCISend SCISend_chars SCI_Init SendSmartcarInfo 
-  main Init Ten vprintf _out deposit_char sprintf strlen 
+  SCI_SetDriver receive SCI_RXD SCISend SCISend_chars SCI_Init main Init Ten 
+  vprintf _out deposit_char sprintf strlen 
 SECTION: ".data"
   temp_pwm67 temp_pwm45 
 SECTION: ".bss"
@@ -804,8 +807,11 @@ SECTION: ".init"
 SECTION: ".rodata"
   pow10 pow16 pow8 fpow10 fpow_10 
 SECTION: ".rodata1"
-  STRING...............d.2 STRING...............d.3 STRING...............d.4 
-  STRING...............d.5 STRING......................6 
+  STRING...................d.2 STRING...................d.3 
+  STRING...................d.4 STRING...................d.5 
+  STRING......................6 STRING...................d.7 
+  STRING...................d.8 STRING...................d.9 
+  STRING...................d.10 STRING......................11 
 SECTION: "NON_BANKED"
   Rx_SetDriver F_ADDKL _FADD _FSUB _FNEG F_FREXP frexpf _FCMP F_TOLONGK 
   F_FRLONGK _FUFLOAT _FSTRUNC _FUTRUNC F_MULKL _FMUL F_PULK F_PULL F_PSHK F_TLK 
@@ -1396,7 +1402,7 @@ SECTION: ".abs_section_356"
 SECTION: ".abs_section_ffd6"
   _Vector_20 
 SECTION: ".common"
-  SCIreceive count light_temp_laser_array 
+  SCIreceive light_temp_laser_array 
 
 *********************************************************************************************
 OBJECT LIST SORTED BY ADDRESS
@@ -1694,57 +1700,61 @@ OBJECT LIST SORTED BY ADDRESS
      _PITLD3                                    354       2       2       0   .abs_section_354
      _PITCNT3                                   356       2       2       0   .abs_section_356
      temp_pwm67                                2100       2       2      10   .data       
-     temp_pwm45                                2102       2       2       7   .data       
+     temp_pwm45                                2102       2       2      10   .data       
      pbuf                                      2104       7       7      15   .bss        
-     SCIreceive                                210B      64     100       6   .common     
-     count                                     216F       2       2       3   .common     
-     light_temp_laser_array                    2171       C      12      13   .common     
+     SCIreceive                                210B      64     100       2   .common     
+     light_temp_laser_array                    216F       C      12      12   .common     
      _Startup                                  C000       F      15       0   .init       
      pow10                                     C019      28      40       4   .rodata     
      pow16                                     C041      20      32       4   .rodata     
      pow8                                      C061      2C      44       4   .rodata     
      fpow10                                    C08D      30      48       1   .rodata     
      fpow_10                                   C0BD      30      48       1   .rodata     
-     STRING...............d.2                  C0ED      10      16       1   .rodata1    
-     STRING...............d.3                  C0FD      10      16       1   .rodata1    
-     STRING...............d.4                  C10D      10      16       1   .rodata1    
-     STRING...............d.5                  C11D      10      16       1   .rodata1    
-     STRING......................6             C12D      18      24       1   .rodata1    
-     Rx_SetDriver                              C145     12E     302       7   NON_BANKED  
-     F_ADDKL                                   C273      5E      94       1   NON_BANKED  
-     _FADD                                     C2D1      15      21       3   NON_BANKED  
-     _FSUB                                     C2E6      13      19       1   NON_BANKED  
-     _FNEG                                     C2F9       B      11       1   NON_BANKED  
-     F_FREXP                                   C304      1F      31       1   NON_BANKED  
-     frexpf                                    C323      19      25       1   NON_BANKED  
-     _FCMP                                     C33C      26      38       2   NON_BANKED  
-     F_TOLONGK                                 C362      32      50       1   NON_BANKED  
-     F_FRLONGK                                 C394      1E      30       1   NON_BANKED  
-     _FUFLOAT                                  C3B2      12      18       1   NON_BANKED  
-     _FSTRUNC                                  C3C4      11      17       1   NON_BANKED  
-     _FUTRUNC                                  C3D5       3       3       2   NON_BANKED  
-     F_MULKL                                   C3D8      57      87       1   NON_BANKED  
-     _FMUL                                     C42F      14      20       7   NON_BANKED  
-     F_PULK                                    C443      15      21       3   NON_BANKED  
-     F_PULL                                    C458      15      21       3   NON_BANKED  
-     F_PSHK                                    C46D      13      19       4   NON_BANKED  
-     F_TLK                                     C480       D      13       1   NON_BANKED  
-     F_XGKL                                    C48D      21      33       2   NON_BANKED  
-     F_CLRK                                    C4AE       B      11       2   NON_BANKED  
-     F_MAXK                                    C4B9       9       9       1   NON_BANKED  
-     F_NORMK                                   C4C2      37      55       3   NON_BANKED  
-     _BDIVMODS                                 C4F9       B      11       3   NON_BANKED  
-     _LNEG                                     C504       9       9       1   NON_BANKED  
-     _lDivMod                                  C50D      B9     185       2   NON_BANKED  
-     _LDIVU                                    C5C6       E      14       1   NON_BANKED  
-     _NEG_P                                    C5D4       C      12       1   NON_BANKED  
-     _LMODU                                    C5E0      11      17       1   NON_BANKED  
-     _CASE_DIRECT_BYTE                         C5F1       5       5       2   NON_BANKED  
-     _CASE_SEARCH_8                            C5F6      17      23       1   NON_BANKED  
-     _CASE_SEARCH_8_BYTE                       C60D      1A      26       1   NON_BANKED  
-     L_NEGK                                    C627       7       7       1   NON_BANKED  
-     L_PSHK                                    C62E       8       8       1   NON_BANKED  
-     UL_PULK                                   C636       3       3       1   NON_BANKED  
+     STRING...................d.2              C0ED      14      20       1   .rodata1    
+     STRING...................d.3              C101      14      20       1   .rodata1    
+     STRING...................d.4              C115      14      20       1   .rodata1    
+     STRING...................d.5              C129      14      20       1   .rodata1    
+     STRING......................6             C13D      1E      30       1   .rodata1    
+     STRING...................d.7              C15B      14      20       1   .rodata1    
+     STRING...................d.8              C16F      14      20       1   .rodata1    
+     STRING...................d.9              C183      14      20       1   .rodata1    
+     STRING...................d.10             C197      14      20       1   .rodata1    
+     STRING......................11            C1AB      1E      30       1   .rodata1    
+     Rx_SetDriver                              C1C9     100     256       5   NON_BANKED  
+     F_ADDKL                                   C2C9      5E      94       1   NON_BANKED  
+     _FADD                                     C327      15      21       3   NON_BANKED  
+     _FSUB                                     C33C      13      19       1   NON_BANKED  
+     _FNEG                                     C34F       B      11       1   NON_BANKED  
+     F_FREXP                                   C35A      1F      31       1   NON_BANKED  
+     frexpf                                    C379      19      25       1   NON_BANKED  
+     _FCMP                                     C392      26      38       2   NON_BANKED  
+     F_TOLONGK                                 C3B8      32      50       1   NON_BANKED  
+     F_FRLONGK                                 C3EA      1E      30       1   NON_BANKED  
+     _FUFLOAT                                  C408      12      18       1   NON_BANKED  
+     _FSTRUNC                                  C41A      11      17       1   NON_BANKED  
+     _FUTRUNC                                  C42B       3       3       2   NON_BANKED  
+     F_MULKL                                   C42E      57      87       1   NON_BANKED  
+     _FMUL                                     C485      14      20       7   NON_BANKED  
+     F_PULK                                    C499      15      21       3   NON_BANKED  
+     F_PULL                                    C4AE      15      21       3   NON_BANKED  
+     F_PSHK                                    C4C3      13      19       4   NON_BANKED  
+     F_TLK                                     C4D6       D      13       1   NON_BANKED  
+     F_XGKL                                    C4E3      21      33       2   NON_BANKED  
+     F_CLRK                                    C504       B      11       2   NON_BANKED  
+     F_MAXK                                    C50F       9       9       1   NON_BANKED  
+     F_NORMK                                   C518      37      55       3   NON_BANKED  
+     _BDIVMODS                                 C54F       B      11       3   NON_BANKED  
+     _LNEG                                     C55A       9       9       1   NON_BANKED  
+     _lDivMod                                  C563      B9     185       2   NON_BANKED  
+     _LDIVU                                    C61C       E      14       1   NON_BANKED  
+     _NEG_P                                    C62A       C      12       1   NON_BANKED  
+     _LMODU                                    C636      11      17       1   NON_BANKED  
+     _CASE_DIRECT_BYTE                         C647       5       5       2   NON_BANKED  
+     _CASE_SEARCH_8                            C64C      17      23       1   NON_BANKED  
+     _CASE_SEARCH_8_BYTE                       C663      1A      26       1   NON_BANKED  
+     L_NEGK                                    C67D       7       7       1   NON_BANKED  
+     L_PSHK                                    C684       8       8       1   NON_BANKED  
+     UL_PULK                                   C68C       3       3       1   NON_BANKED  
      _Vector_20                                FFD6       2       2       0   .abs_section_ffd6
      SetBusCLK_40M                           FE8000      1A      26       2   .text       
      delayms                                 FE801A      25      37       2   .text       
@@ -1752,26 +1762,27 @@ OBJECT LIST SORTED BY ADDRESS
      LIGHT_Init                              FE8048       8       8       2   .text       
      PWM_Init                                FE8050      73     115       2   .text       
      Light_SetDriver                         FE80C3       4       4       2   .text       
-     SCI_SetDriver                           FE80C7       4       4       6   .text       
+     SCI_SetDriver                           FE80C7       4       4       2   .text       
      receive                                 FE80CB      AB     171       4   .text       
      SCI_RXD                                 FE8176       A      10       2   .text       
-     SCISend                                 FE8180      22      34      10   .text       
+     SCISend                                 FE8180      22      34       4   .text       
      SCISend_chars                           FE81A2      28      40       2   .text       
      SCI_Init                                FE81CA       D      13       2   .text       
-     SendSmartcarInfo                        FE81D7      3E      62       2   .text       
-     main                                    FE8215      5B      91       2   .text       
-     Init                                    FE8270      29      41       2   .text       
-     Ten                                     FE8299      AC     172       5   .text       
-     vprintf                                 FE8345     8D8    2264     121   .text       
-     _out                                    FE8C1D       9       9       2   .text       
-     deposit_char                            FE8C26       A      10       3   .text       
-     sprintf                                 FE8C30      2D      45      10   .text       
-     strlen                                  FE8C5D      13      19       2   .text       
+     main                                    FE81D7      36      54       2   .text       
+     Init                                    FE820D      29      41       2   .text       
+     Ten                                     FE8236      AC     172       5   .text       
+     vprintf                                 FE82E2     8D8    2264     121   .text       
+     _out                                    FE8BBA       9       9       2   .text       
+     deposit_char                            FE8BC3       A      10       3   .text       
+     sprintf                                 FE8BCD      2D      45       2   .text       
+     strlen                                  FE8BFA      13      19       2   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
 NOT USED PROCEDURES
+main.c.o:
+  SendSmartcarInfo 
 PRINTF.C.o (ansixb.lib):
   set_printf vsprintf 
 STRING.C.o (ansixb.lib):
@@ -1797,6 +1808,8 @@ rtshc12.c.o (ansixb.lib):
 VREGS.C.o (ansixb.lib):
   SL_PULK 
 NOT USED VARIABLES
+main.c.o:
+  count 
 STRING.C.o (ansixb.lib):
   STRING..1 next.2 
 FANSI.C.o (ansixb.lib):
@@ -1807,16 +1820,16 @@ rtshc12.c.o (ansixb.lib):
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC639 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC68F ---- SIZE       4 ---
 Filling bytes inserted
  00042100
-------- ROM-ADDRESS: 0xC63D ---- RAM-ADDRESS: 0x2100 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC693 ---- RAM-ADDRESS: 0x2100 ---- SIZE       2 ---
 Name of initialized Object : temp_pwm67
  0E52
-------- ROM-ADDRESS: 0xC63F ---- RAM-ADDRESS: 0x2102 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC695 ---- RAM-ADDRESS: 0x2102 ---- SIZE       2 ---
 Name of initialized Object : temp_pwm45
  0E52
-------- ROM-ADDRESS: 0xC641 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC697 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1824,11 +1837,14 @@ Filling bytes inserted
 OBJECT-DEPENDENCIES SECTION
 ---------------------------------------------------------------------------------------------
 _Startup                  USES __SEG_END_SSTACK Init main 
-Rx_SetDriver              USES _SCI0SR1 SCI_RXD _CASE_DIRECT_BYTE temp_pwm67 
-                                Rx_SetDriver STRING...............d.2 SCIreceive sprintf 
-                                STRING...............d.3 STRING...............d.4 
-                                STRING...............d.5 STRING......................6 temp_pwm45 
-                                SCI_SetDriver SCISend Light_SetDriver SCISend_chars 
+Rx_SetDriver              USES _SCI0SR1 SCI_RXD _CASE_DIRECT_BYTE Rx_SetDriver 
+                                temp_pwm67 STRING...................d.2 
+                                STRING...................d.3 STRING...................d.4 
+                                STRING...................d.5 STRING......................6 temp_pwm45 
+                                STRING...................d.7 STRING...................d.8 
+                                STRING...................d.9 STRING...................d.10 
+                                STRING......................11 SCIreceive sprintf SCISend_chars 
+                                Light_SetDriver SCI_SetDriver 
 F_ADDKL                   USES F_XGKL F_NORMK 
 _FADD                     USES F_PULK F_PULL F_ADDKL F_PSHK 
 _FSUB                     USES _FADD 
@@ -1859,10 +1875,8 @@ SCI_RXD                   USES _SCI0SR1 _SCI0DRL
 SCISend                   USES _SCI0SR1 _SCI0DRL _SCI0DRH 
 SCISend_chars             USES SCISend strlen 
 SCI_Init                  USES _SCI0ACR2 _SCI0CR2 _SCI0BD 
-SendSmartcarInfo          USES SCISend 
 main                      USES SetBusCLK_40M SCI_Init LIGHT_Init PWM_Init 
-                                delayms count light_temp_laser_array SendSmartcarInfo 
-                                SCISend receive 
+                                delayms receive 
 Init                      USES _startupData 
 Ten                       USES fpow10 fpow_10 Ten _FMUL 
 vprintf                   USES vprintf _CASE_SEARCH_8_BYTE _CASE_DIRECT_BYTE 
@@ -1890,12 +1904,6 @@ DEPENDENCY TREE
  |  |    
  |  +- delayms             
  |  |    
- |  +- SendSmartcarInfo    
- |  |  | 
- |  |  +- SCISend             
- |  |       
- |  +- SCISend              (see above)
- |  |  
  |  +- receive             
  |     | 
  |     +- delayMS             
@@ -2018,24 +2026,22 @@ DEPENDENCY TREE
     |     |     
     |     +- _out                
     |          
-    +- SCI_SetDriver       
-    |    
-    +- SCISend              (see above)
-    |  
+    +- SCISend_chars       
+    |  | 
+    |  +- SCISend             
+    |  |    
+    |  +- strlen              
+    |       
     +- Light_SetDriver     
     |    
-    +- SCISend_chars       
-       | 
-       +- SCISend              (see above)
-       |  
-       +- strlen              
-            
+    +- SCI_SetDriver       
+         
 *********************************************************************************************
 STATISTIC SECTION
 ---------------------------------------------------------------------------------------------
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 6
-Total size of all blocks to be downloaded: 4791
+Number of blocks to be downloaded: 7
+Total size of all blocks to be downloaded: 4778
 
