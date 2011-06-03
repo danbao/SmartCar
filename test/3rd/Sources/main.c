@@ -24,11 +24,10 @@ void main(void) {
     count=1; 
   SendSmartcarInfo(light_temp_laser_array);
     SCISend('\n');    
-    }      
+    }  /*供注释激光串口接收 */ 
      receive(i);
-    } else */receive(i);
+    } else receive(i);
   }
  /* loop forever */
   /* please make sure that you never leave main */
 } 
-}
