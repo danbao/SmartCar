@@ -44,13 +44,8 @@ void main(void)
      
      //if(PITINTE_PINTE1 == 0) 
     // temp_speed=Calculate_speed(g_temp_pulse);
-         
-          send_count++;
-          if(send_count%20==0)
-          {  
-            send_count=1; 
-             TestSMinfo();//串口无线信息的发送
-          }         
+
+             TestSMinfo(30);//串口无线信息的发送       
           Confirm_Light(); //排除误点
           Clear_baitou();  //position的第一次滤波
           baitou( ); //先执行摆头舵机，通过计算得出角度，为第二次滤波做准备
