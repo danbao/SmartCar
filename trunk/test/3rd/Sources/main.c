@@ -19,14 +19,14 @@ void main(void) {
     if(i ==  6 ) 
     {i = 0;
    
-count++;
+/*count++;
     if(count%20==0){  
     count=1; 
   SendSmartcarInfo(light_temp_laser_array);
     SCISend('\n');    
     }      
      receive(i);
-    } else receive(i);
+    } else */receive(i);
   }
  /* loop forever */
   /* please make sure that you never leave main */

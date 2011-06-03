@@ -90,64 +90,64 @@ interrupt 20 void Rx_SetDriver(void)
     result= SCI_RXD();
     switch(result)
     {
-      case 'q':                          //激光摆头舵机向右偏参数
+			case 'q':                          //激光摆头舵机向右偏参数
     temp_pwm67=temp_pwm67+5;
     Light_SetDriver(temp_pwm67);
-    sprintf(SCIreceive,"当前舵机值为:%d",temp_pwm67);  
+    sprintf(SCIreceive,"当前摆头舵机值为:%d",temp_pwm67);  
      SCISend_chars(SCIreceive);   
       break;
             case 'w':                   //激光摆头舵机向左偏参数
         temp_pwm67=temp_pwm67-5;
 		Light_SetDriver(temp_pwm67);
-    sprintf(SCIreceive,"当前舵机值为:%d",temp_pwm67);  
+    sprintf(SCIreceive,"当前摆头舵机值为:%d",temp_pwm67);  
      SCISend_chars(SCIreceive); 
       break;
-	  case 'a':                          //激光摆头舵机向右偏参数
+			case 'a':                          //激光摆头舵机向右偏参数
         temp_pwm67=temp_pwm67+1;
 		Light_SetDriver(temp_pwm67);
-    sprintf(SCIreceive,"当前舵机值为:%d",temp_pwm67);  
+    sprintf(SCIreceive,"当前摆头舵机值为:%d",temp_pwm67);  
      SCISend_chars(SCIreceive); 
       break;
             case 's':                   //激光摆头舵机向左偏参数
         temp_pwm67=temp_pwm67-1;
 		Light_SetDriver(temp_pwm67);
-    sprintf(SCIreceive,"当前舵机值为:%d",temp_pwm67);  
+    sprintf(SCIreceive,"当前摆头舵机值为:%d",temp_pwm67);  
      SCISend_chars(SCIreceive); 
       break;
             case 'z':                      //激光摆头舵机重置
         temp_pwm67=PWM67; 
 		Light_SetDriver(temp_pwm67);
-		sprintf(SCIreceive,"舵机复位当前舵机值为:%d",temp_pwm67);  
+		sprintf(SCIreceive,"摆头舵机复位，当前舵机值为:%d",temp_pwm67);  
      SCISend_chars(SCIreceive); 
       break;
             case 'o':                          //转向摆头舵机向左偏参数 5度档
         temp_pwm45=temp_pwm45+5;
         SCI_SetDriver(temp_pwm45);
-		sprintf(SCIreceive,"舵机复位当前舵机值为:%d",temp_pwm45);  
+		sprintf(SCIreceive,"当前转角舵机值为:%d",temp_pwm45);  
      SCISend_chars(SCIreceive); 
       break;
             case 'p':                         //转向摆头舵机向右偏参数 5度档
         temp_pwm45=temp_pwm45-5;
         SCI_SetDriver(temp_pwm45);
-		sprintf(SCIreceive,"舵机复位当前舵机值为:%d",temp_pwm45);  
+		sprintf(SCIreceive,"当前转角舵机值为:%d",temp_pwm45);  
      SCISend_chars(SCIreceive); 
       break;
             case 'k':                          //转向摆头舵机向左偏参数 5度档
         temp_pwm45=temp_pwm45+1;
         SCI_SetDriver(temp_pwm45);
-		sprintf(SCIreceive,"舵机复位当前舵机值为:%d",temp_pwm45);  
+		sprintf(SCIreceive,"当前转角舵机值为:%d",temp_pwm45);  
      SCISend_chars(SCIreceive); 
       break;
             case 'l':                         //转向摆头舵机向右偏参数 5度档
         temp_pwm45=temp_pwm45-1;
         SCI_SetDriver(temp_pwm45);
-		sprintf(SCIreceive,"舵机复位当前舵机值为:%d",temp_pwm45);  
+		sprintf(SCIreceive,"当前转角舵机值为:%d",temp_pwm45);  
      SCISend_chars(SCIreceive); 
       break;
             case 'm':                      //转向摆头舵机重置
         temp_pwm45=PWM45; 
         SCI_SetDriver(temp_pwm45);
-		sprintf(SCIreceive,"舵机复位当前舵机值为:%d",temp_pwm45);  
+		sprintf(SCIreceive,"转角舵机复位，当前舵机值为:%d",temp_pwm45);  
      SCISend_chars(SCIreceive); 
       break;
     }
