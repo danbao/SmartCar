@@ -31,33 +31,33 @@ void  baitou (void) {
     JG_clear_Pos[1]=JG_clear[1];
     
     
-    if(JG_pos_abs<=100)                             //分三段P 
+    if(JG_pos_abs<=60)                             //分三段P 
     JG_pwm=0;
-    else if(JG_pos_abs>100&&JG_pos_abs<=300) 
+    else if(JG_pos_abs>60&&JG_pos_abs<=300) 
           {
-      JG_pwm=JG_clear_Pos[1]/60;
+      JG_pwm=JG_clear_Pos[1]/50;
           }
     else if(JG_pos_abs>300&&JG_pos_abs<=400) 
           {
       if(position>0)   
-      JG_pwm=JG_clear_Pos[1]/30-5;
+      JG_pwm=JG_clear_Pos[1]/30-4;
       else if(position<0)
-      JG_pwm=JG_clear_Pos[1]/30+5;
+      JG_pwm=JG_clear_Pos[1]/30+4;
       
           }
     else if(JG_pos_abs>400&&JG_pos_abs<=800) 
           {
       if(position>0)    
-      JG_pwm=JG_clear_Pos[1]/15-18;
+      JG_pwm=JG_clear_Pos[1]/15-17;
       else if(position<0)
-      JG_pwm=JG_clear_Pos[1]/15+18;
+      JG_pwm=JG_clear_Pos[1]/15+17;
           }
     else if(JG_pos_abs>800&&JG_pos_abs<=1100)
          {
       if(position>0)   
-      JG_pwm=JG_clear_Pos[1]/10-44;
+      JG_pwm=JG_clear_Pos[1]/10-40;
       else if(position<0)
-      JG_pwm=JG_clear_Pos[1]/10+44;
+      JG_pwm=JG_clear_Pos[1]/10+40;
       
          }
    

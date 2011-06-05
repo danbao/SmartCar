@@ -3,7 +3,8 @@
     Update:     2011.06.02
 	说明：串口调用及无线模块
 ----------------------------------------------*/
-int test_sdj,test_xdj,test_speed,test_position,test_IR_position,test_count=0;
+int test_sdj,test_xdj,test_speed,test_position;
+long test_IR_position;
 /*--------------------------------------------
 SCI_RXD: 串口接收函数
 编写日期：20110411
@@ -97,15 +98,16 @@ void Testjiguang(byte temp_laser_array[]) {
 参数 t：用于循环几次发送一次
 -----------------------------------------  */  
 void TestSMinfo(void){
-   test_count=0; 
    test_sdj=temp_pwm67;		//上舵机的值
     test_xdj=temp_pwm45;		//下舵机的值
 	test_speed=g_temp_pulse;	//速度值
-	test_position=position;		//激光滤波值
-	test_IR_position=IR_position[1]+10;	//红外滤波值
+	test_position=JG_clear[1];		//激光滤波值
+//	test_IR_position=IR_position[1]+10;	//红外滤波值
 	SCISend_chars("SED");		//发送标识符
 	Testjiguang(light_temp_laser_array);	//发送激光数组
-   (void)sprintf(SCIreceive,"%.5d%.4d%.4d%.4d%.3d%.3d%.3d%.3d%.3d%.3d%.3d%.3dEND",test_position,test_sdj,test_xdj,test_speed,IR_temp_laser_array[0],IR_temp_laser_array[1],IR_temp_laser_array[2],IR_temp_laser_array[3],IR_temp_laser_array[4],IR_temp_laser_array[5],IR_temp_laser_array[6],test_IR_position);
+   (void)sprintf(SCIreceive,"%.5d%.4d%.4d%.4dEND",test_position+10000,test_sdj,test_xdj,test_speed);
+   /*%.3d%.3d%.3d%.3d%.3d%.3d%.3d%.3d*/
+   /*,IR_temp_laser_array[0],IR_temp_laser_array[1],IR_temp_laser_array[2],IR_temp_laser_array[3],IR_temp_laser_array[4],IR_temp_laser_array[5],IR_temp_laser_array[6],test_IR_position*/
    SCISend_chars(SCIreceive);
    SCISend('\n');
   }

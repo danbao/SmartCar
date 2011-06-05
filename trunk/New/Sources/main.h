@@ -48,10 +48,10 @@
   void Level_IR( void);               //声明  不懂去掉可不可以
   long IR_clear[2];                   //红外滤波值
   
-  int  delay_JG=1;
+  int  JG_delay=1;
   long JG_clear[2];                      //激光一次迭代滤波 此次和上次
   long JG_clear_Pos[2];                  //存入当前和上一次摆头时的JG_clear 的值
- 
+                             
  void calculate_light(void);
  void Status_Judge(void);
  // int YaoKp ,YaoKd,ZhuanKp,ZhuanKd;
@@ -97,7 +97,7 @@ int jj;
 }
 
 //===============aabs=================================//
-int aabs(int num) {
+long aabs(long num) {
   if(num>=0)return num;
   else {
     num=-num;
