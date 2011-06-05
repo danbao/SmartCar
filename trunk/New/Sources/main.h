@@ -1,6 +1,6 @@
 #define LASER_MAX 12          //激光管数量
 #define IR_NUM 7              //红外观数量
-#define PWM67 1531
+#define PWM67 1881
 #define PWM45 3666
 #define ANGLE_DELTA 30
 #define PWM6_MID 224
@@ -21,8 +21,11 @@
   byte special_flag;
   byte start_flag,cross_flag;          //起跑 十字标志
   
+  int error;
+  
   double temp_speed;
   int delay_count=1;                             //普通延时计数
+  int send_count=1;                              //串口接收延时计数
   int q_temp_laser_num[LASER_MAX];       //激光管对应的权值
   int countPIT0=0;
   int position=0; 
@@ -40,20 +43,21 @@
 //int last_laser_array[20][11];    
 //这个二维数组作为激光管的历史记录
  
-  int IR_position[2];                 //红外位置
+  int IR_position[2];                 //红外位置   红外部分变量都以IR开头
   int IR_blacknun=0;                  //红外黑点
   void Level_IR( void);               //声明  不懂去掉可不可以
   long IR_clear[2];                   //红外滤波值
- 
- int JG_clear_position;
- int His_Position[4];                        //历史position  position[3]=position[1]-position[0] position[2]=aabs[position]
- int angle[2]; 
+  
+  int  delay_JG=1;
+  long JG_clear[2];                      //激光一次迭代滤波 此次和上次
+  long JG_clear_Pos[2];                  //存入当前和上一次摆头时的JG_clear 的值
  
  void calculate_light(void);
  void Status_Judge(void);
  // int YaoKp ,YaoKd,ZhuanKp,ZhuanKd;
  //byte lost_line_flag=0;
  // int ADD_Position; 
+  
   int Diff_Position;
   int GDiff_Position[3];                      //摇头舵机的摆值(由于采样周期不同 舵机差值要设两个)  GDiff_Position[2]=aabs（GD【1】）
   int J_His_Position[3];                       //打角获取position 采样周期不同
@@ -89,7 +93,7 @@ void delayms(int ms)    //延时程序。
 void delayMS()
 {
 int jj;
-     for(jj=0;jj<667;jj++);    //1/6ms     
+     for(jj=0;jj<833;jj++);    //1/6ms     
 }
 
 //===============aabs=================================//
@@ -132,7 +136,7 @@ void PWM_Init (void) {   //0519暂时写完！
    PWMDTY01 = 25;      //占空比10%
    PWMDTY23 = 62;      //占空比50%
    PWMDTY45 = 3666;      //
-   PWMDTY67 = 6200;      //占空比50%
+   PWMDTY67 = 1881;      //占空比50%
    PWME_PWME1 = 1;    //通道1输出,电机正转使能   正转
    PWME_PWME3 = 1;    //通道3输出,电机反转使能 
    PWME_PWME5 = 1;    //通道5输出,前轮舵机使能     
@@ -184,7 +188,7 @@ void PWM_Init (void) {   //0519暂时写完！
 } //PITInit
 
 
-//=====================激光点亮======================//
+/*=====================激光点亮======================
  void receive(int send) {
    if(send == 0)   { 
     PORTA = 0B00000001;
@@ -242,3 +246,4 @@ void PWM_Init (void) {   //0519暂时写完！
     }
    
 } 
+*/

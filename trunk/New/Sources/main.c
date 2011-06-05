@@ -27,8 +27,8 @@ void main(void)
   LIGHT_Init();
   SCI_Init();
   Tect_Speed_Init();    //ECT 捕捉初始
-  AD_Init(); 
-  delayms(2);
+ // AD_Init(); 
+  delayms(4000);
   Laser_num();
   EnableInterrupts;
   for(;;) 
@@ -45,26 +45,36 @@ void main(void)
      //if(PITINTE_PINTE1 == 0) 
     // temp_speed=Calculate_speed(g_temp_pulse);
 
-             TestSMinfo(30);//串口无线信息的发送       
+               
           Confirm_Light(); //排除误点
           Clear_baitou();  //position的第一次滤波
-          baitou( ); //先执行摆头舵机，通过计算得出角度，为第二次滤波做准备
-          Form_tendency(); //通过摆头舵机和偏差值得到一个比较准确的趋势
+         
+        //  Form_tendency(); //通过摆头舵机和偏差值得到一个比较准确的趋势
     // Calculate_HitBlackNum();
      //temp_laserStatus = Status_Judge();
      
   //   CalculateAngle(temp_laserStatus); //得到舵机需要调整的转角 
-  //  dajiao();     
+  //  dajiao();  
+     
+          delay_JG++;
+      if(delay_JG%5==0) 
+        {
+        delay_JG=1;
+        baitou( ); //先执行摆头舵机，通过计算得出角度，为第二次滤波做准备
+       } 
+          
           delay_count++;
           if(delay_count%10==0)
           {
             delay_count=1;
-            dajiao();
+           // dajiao();
           }
           PITINTE_PINTE0 = 1;    //开PIT0采集中断 
           PITINTE_PINTE1 = 1;   //开PIT1采集中断  
     }
-    SpeedCtrl();
+    
+    
+  //  SpeedCtrl();
     
   }
 // _FEED_COP(); /*看门狗，防死循环用的 */
@@ -132,20 +142,19 @@ void interrupt 66 PIT0_ISR(void)
 	    light_temp_laser_array[5] = PORTB_PB1^1;
       light_temp_laser_array[11] = PORTB_PB3^1;  
     } 
+   // PORTA = 0B00000000;
     PITTF_PTF0 = 1;//清中断标志位  
 } //PIT0_ISR  
 
  
-/* ================= PIT1_ISR ====================
+/* ================= PIT1_ISR ==================== 
       desc: PIT周期定时中断，用于测速
       pre:  无
-      Post: 无       
-*/ 
+      Post: 无    */   
+      
  void interrupt 67 PIT1_ISR(void) {
     g_temp_pulse = PACNT;
     PACNT = 0x0000;
     PITTF_PTF1 = 1;//清中断标志位 
     PITINTE_PINTE1 = 0;
  } //PIT1_ISR
-
-

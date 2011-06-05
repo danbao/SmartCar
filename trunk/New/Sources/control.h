@@ -74,14 +74,11 @@ void calculate_light(void){
  changeposition=6-position/2;
  for(i=0;i<LASER_MAX;i++) {
   if (light_temp_laser_array[i]==0) continue;
-  else if ((light_temp_laser_array[i]==1)&&(aabs(i-changeposition)<=3))  
+  else if ((light_temp_laser_array[i]==1))  
   {
   HitBlackNum++;
   }
- else if ((light_temp_laser_array[i]==1)&&(aabs(i-changeposition)>=3))
-  {
-  special_flag++;  //ight_temp_laser_array[i] =0;
-  }
+
    
  }
 

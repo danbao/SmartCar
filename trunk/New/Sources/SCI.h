@@ -96,9 +96,7 @@ void Testjiguang(byte temp_laser_array[]) {
 编写日期：200110602
 参数 t：用于循环几次发送一次
 -----------------------------------------  */  
-void TestSMinfo(int t){
-  if(test_count==t)
-  {  
+void TestSMinfo(void){
    test_count=0; 
    test_sdj=temp_pwm67;		//上舵机的值
     test_xdj=temp_pwm45;		//下舵机的值
@@ -110,6 +108,4 @@ void TestSMinfo(int t){
    (void)sprintf(SCIreceive,"%.5d%.4d%.4d%.4d%.3d%.3d%.3d%.3d%.3d%.3d%.3d%.3dEND",test_position,test_sdj,test_xdj,test_speed,IR_temp_laser_array[0],IR_temp_laser_array[1],IR_temp_laser_array[2],IR_temp_laser_array[3],IR_temp_laser_array[4],IR_temp_laser_array[5],IR_temp_laser_array[6],test_IR_position);
    SCISend_chars(SCIreceive);
    SCISend('\n');
-  } 
-  else   test_count++;
   }
