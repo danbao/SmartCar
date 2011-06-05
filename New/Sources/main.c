@@ -56,10 +56,10 @@ void main(void)
   //   CalculateAngle(temp_laserStatus); //得到舵机需要调整的转角 
   //  dajiao();  
      
-          delay_JG++;
-      if(delay_JG%5==0) 
+          JG_delay++;
+      if(JG_delay%5==0) 
         {
-        delay_JG=1;
+        JG_delay=1;
         baitou( ); //先执行摆头舵机，通过计算得出角度，为第二次滤波做准备
        } 
           
@@ -77,6 +77,7 @@ void main(void)
   //  SpeedCtrl();
     
   }
+  TestSMinfo();
 // _FEED_COP(); /*看门狗，防死循环用的 */
  /* loop forever */
   /* please make sure that you never leave main */
@@ -153,8 +154,9 @@ void interrupt 66 PIT0_ISR(void)
       Post: 无    */   
       
  void interrupt 67 PIT1_ISR(void) {
-    g_temp_pulse = PACNT;
-    PACNT = 0x0000;
+   g_temp_pulse = PACNT;
+   PACNT = 0x0000;
+   TestSMinfo();
     PITTF_PTF1 = 1;//清中断标志位 
     PITINTE_PINTE1 = 0;
  } //PIT1_ISR
