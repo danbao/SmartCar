@@ -1,0 +1,58 @@
+//===============全局变量定义======================//
+  float YP1=0.4,YP2=0.5,YP3=0.7,YP4=0.8,YP5=0.9,YD=2.7;
+  float JP1=1.7,JP2=3.5,JP3=4.9,JP4=6.5,JP5=7.8,JD=2.3,SpeedAver,SpeedMax,SpeedMin,SpeedNow;/*摇头P1,摇头P2,摇头P3,摇头P4,摇头P5,摇头D,打角P1,打角P2,打角P3,打角P4,打角P5,打角P6,打角D
+  平均速度,最大速度,最小速度,当前速度*/
+ 
+  char SCIreceive[150];             /*用于无线串口显示的字符串*/  
+  int temp_pwm67=PWM67;						//激光摆头舵机初始值
+  int temp_pwm45=PWM45;						//转向摆头舵机初始值
+  
+  byte light_temp_laser_array[LASER_MAX];  //当前激光管信息保存数组
+  uint IR_temp_laser_array[7];             //当前红外信息保存数组
+  
+  byte special_flag;
+  byte start_flag,cross_flag;          //起跑 十字标志
+  
+  double temp_speed;
+  int delay_count=1;                             //普通延时计数
+  int send_count=1;                              //串口接收延时计数
+  int q_temp_laser_num[LASER_MAX];       //激光管对应的权值
+  int countPIT0=0;
+  int position=0; 
+  int HitBlackNum; 
+  
+  byte SS_flag;                          //小s标记  1有效
+  byte LS_flag;                         //大S标记   1有效
+  byte Straight_flag;                   //直道标记  非0有效
+  byte turn_flag;                       //弯道标记  非0有效                 
+
+ int standard_position_array[22]={1539,1523,1547,1515,1551,1511,1556,1506,1566,1496,1574,1488,1581,1481,1585,1477,1591,1471,1598,1464,1611,1451}; 
+  //标准position的值
+  int temp_position_array[22];
+  //用于记录position的值，形成预判的趋势 
+//int last_laser_array[20][11];    
+//这个二维数组作为激光管的历史记录
+ 
+  int IR_position[2];                 //红外位置
+  int IR_blacknun=0;                  //红外黑点
+  void Level_IR( void);               //声明  不懂去掉可不可以
+  long IR_clear[2];                   //红外滤波值
+ 
+ int JG_clear_position;
+ int His_Position[4];                        //历史position  position[3]=position[1]-position[0] position[2]=aabs[position]
+ int angle[2]; 
+ 
+ void calculate_light(void);
+ void Status_Judge(void);
+ // int YaoKp ,YaoKd,ZhuanKp,ZhuanKd;
+ //byte lost_line_flag=0;
+ // int ADD_Position; 
+  int Diff_Position;
+  int GDiff_Position[3];                      //摇头舵机的摆值(由于采样周期不同 舵机差值要设两个)  GDiff_Position[2]=aabs（GD【1】）
+  int J_His_Position[3];                       //打角获取position 采样周期不同
+  
+  int g_countPIT0 =0;   //用于PIT组别的点亮次数
+	int	g_temp_laser_array[11]; //用于接受各个激光管点亮后获取的数据
+	int g_temp_pulse;
+	
+	int temp_laser_array[11];
