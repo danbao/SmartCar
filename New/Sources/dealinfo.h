@@ -1,49 +1,74 @@
-/*=====================激光摆头滤波======================*/
+
+
+/*=====================激光摆头滤波======================
+long JG_clear[2];                      //激光一次迭代滤波 此次和上次
+long JG_clear_Pos[2];                  //存入当前和上一次JG_clear 的值
+*/
+ 
+ 
 void Clear_baitou(void){
-int clear_position;
-clear_position=position*100;
-JG_clear_position=(JG_clear_position*40+clear_position*100) /140 ;  
+//int clear_position;
+JG_clear[1]=position*100;
+JG_clear[1]=(JG_clear[0]*40+JG_clear[1]*100) /140 ; 
+JG_clear[0]=JG_clear[1]; 
+
 }
   
-/*=====================激光摆头======================*/
+/*=====================激光摆头======================
+//1881   2591 1171
+LASER_MAX         11  10    9    8    7     6     5    4     3     2        1     0
+对应的权值        11   9    7    5    3     1    -1   -3    -5    -7       -9   -11
+
 //转向舵机：1482 1772 1204   摆头舵机：224+-90
 //0.10712*x^2 + 4.5791*10^(-17)*x + 6.7084
-//Diff_Position是增量pd的 加到pwm上的增量
+//Diff_Position是增量pd的 加到pwm上的增量*/
 void  baitou (void) {
+    int JG_pos_abs=JG_clear[1];
+    int JG_pwm;
+    int JG_pwm_his=PWMDTY67;
+    
+    JG_pos_abs=aabs(JG_pos_abs);
+    JG_clear_Pos[1]=JG_clear[1];
+    
+    
+    if(JG_pos_abs<=100)                             //分三段P 
+    JG_pwm=0;
+    else if(JG_pos_abs>100&&JG_pos_abs<=300) 
+          {
+      JG_pwm=JG_clear_Pos[1]/60;
+          }
+    else if(JG_pos_abs>300&&JG_pos_abs<=400) 
+          {
+      if(position>0)   
+      JG_pwm=JG_clear_Pos[1]/30-5;
+      else if(position<0)
+      JG_pwm=JG_clear_Pos[1]/30+5;
+      
+          }
+    else if(JG_pos_abs>400&&JG_pos_abs<=800) 
+          {
+      if(position>0)    
+      JG_pwm=JG_clear_Pos[1]/15-18;
+      else if(position<0)
+      JG_pwm=JG_clear_Pos[1]/15+18;
+          }
+    else if(JG_pos_abs>800&&JG_pos_abs<=1100)
+         {
+      if(position>0)   
+      JG_pwm=JG_clear_Pos[1]/10-44;
+      else if(position<0)
+      JG_pwm=JG_clear_Pos[1]/10+44;
+      
+         }
    
- 
-    His_Position[1]=JG_clear_position;
-    His_Position[2]=position;
-    His_Position[2]=aabs(His_Position[2]); 
-    
-    
-    if(His_Position[2]<=1)
-    Diff_Position=0;
-    else if(His_Position[2]>1&&His_Position[2]<=3)
-    Diff_Position=His_Position[1]/50;//+4.3*(His_Position[1]-His_Position[0]);
-    else if(His_Position[2]>3&&His_Position[2]<=7)
-    Diff_Position=His_Position[1]/50;//+4.3*(His_Position[1]-His_Position[0]);
-    else if(His_Position[2]>7&&His_Position[2]<=10)
-    Diff_Position=His_Position[1]/50;//+4.3*(His_Position[1]-His_Position[0]);
-    else if(His_Position[2]>10&&His_Position[2]<=12)
-    Diff_Position=His_Position[1]/50;//+4.3*(His_Position[1]-His_Position[0]);
-    else if(His_Position[2]>12&&His_Position[2]<=14)
-    Diff_Position=His_Position[1]/50;//+4.3*(His_Position[1]-His_Position[0]);
-    
-  /*  else if(His_Position[3]>4&&His_Position[3]<=6)
-    Diff_Position=(1+2)*His_Position[2]-(2+2*2)*His_Position[1]+2*His_Position[0];
-    else if(His_Position[3]>6&&His_Position[3]<=8)
-    Diff_Position=(1+2)*His_Position[2]-(2+2*2)*His_Position[1]+2*His_Position[0];
-    else if(His_Position[3]>8&&His_Position[3]<=10)
-    Diff_Position=(1+2)*His_Position[2]-(2+2*2)*His_Position[1]+2*His_Position[0];
-    else if(His_Position[3]>10&&His_Position[3]<=12)
-    Diff_Position=(1+2)*His_Position[2]-(2+2*2)*His_Position[1]+2*His_Position[0];
-    else if(His_Position[3]>12&&His_Position[3]<=14)
-    Diff_Position=(1+2)*His_Position[2]-(2+2*2)*His_Position[1]+2*His_Position[0];  */
-    
-     
-     His_Position[0]=His_Position[1];
-     PWMDTY67=PWMDTY67+Diff_Position;
+       
+     JG_clear_Pos[0]=JG_clear_Pos[1];
+     if(JG_pwm_his+JG_pwm>2591)
+     PWMDTY67=2591;
+     else if(JG_pwm_his+JG_pwm<1171)
+     PWMDTY67=1171;
+     else
+     PWMDTY67=PWMDTY67+JG_pwm;
     
 }
 
@@ -123,7 +148,7 @@ void Replace_array(void)
 
 
 
-/*=======================打角舵机===========================*/
+/*=======================打角舵机===========================
 //GDiff_Position是存储 摇头舵机差值 传给打角的参数
 //  1482   1772  1192
    
@@ -166,7 +191,7 @@ void dajiao(void) {
   } // DerectionCtrl
 
 
-
+*/
 
 
 
@@ -176,18 +201,19 @@ void dajiao(void) {
 
 void SpeedCtrl (void) {
 int subspeed;
-subspeed=g_temp_pulse-100;
-PORTB_PB7=1;
-PWMDTY01 = 25;      //占空比10%
-PWMDTY23 = 80;      //占空比50%
+subspeed=g_temp_pulse-80;
+//PORTB_PB7=1;
+//PWMDTY01 = 25;      //占空比10%
+//PWMDTY23 = 80;      //占空比50%
  
-/* if ((subspeed<=10)&&(subspeed>=-10));
+if ((subspeed<=10)&&(subspeed>=-10));
 else if((subspeed>10)&&(subspeed<=35)) 
 PORTB_PB7=0;
 else if(subspeed>35) 
     {  
 PORTB_PB7=1;
 PWMDTY01= 80;
+PWMDTY23 = 40;
     }
 else if((subspeed<-10)&&(subspeed>=-35)) 
    {
@@ -201,7 +227,7 @@ else if(subspeed<-35)
 PORTB_PB7=1;
 PWMDTY23=80;
 PWMDTY01= 0;
-   }         */
+   }         
 }          
 
 
