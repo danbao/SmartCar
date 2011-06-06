@@ -2,16 +2,23 @@
 #include <MC9S12XS128.h>     /* derivative information */
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>      //随机数用到
 #define uchar 	unsigned char
 #define uint 	unsigned int
+#define LASER_MAX 12          //激光管数量
+byte light_temp_laser_array[12]={1,0,1,0,1,0,1,1,1,0,0,0};
+int IR_temp_laser_array[7]={130,0,200,0,255,100,150};
 #include "LCD.h"
+
 void main(void)
 {
+ // EnableInterrupts;
 	LCD_init();  //初始化LCD模块 
-	LCD_start();
+LCD_start();
+	delay_nms(5000);
   LCD_show();
-  	while(1)
+  for(;;)
   	{	
-    LCD_determine();
-  	}
+  	LCD_determine();
+}
 }
