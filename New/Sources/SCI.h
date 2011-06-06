@@ -3,7 +3,7 @@
     Update:     2011.06.02
 	说明：串口调用及无线模块
 ----------------------------------------------*/
-int test_sdj,test_xdj,test_speed,test_position;
+int test_sdj,test_xdj,test_speed,test_position,test_count;
 long test_IR_position;
 /*--------------------------------------------
 SCI_RXD: 串口接收函数
@@ -98,9 +98,9 @@ void Testjiguang(byte temp_laser_array[]) {
 参数 t：用于循环几次发送一次
 -----------------------------------------  */  
 void TestSMinfo(void){
-   test_sdj=temp_pwm67;		//上舵机的值
-    test_xdj=temp_pwm45;		//下舵机的值
-	test_speed=g_temp_pulse;	//速度值
+   test_sdj=PWMDTY67;		//上舵机的值
+    test_xdj=PWMDTY45;		//下舵机的值
+	test_speed=speed_clera[1];	//速度值
 	test_position=JG_clear[1];		//激光滤波值
 //	test_IR_position=IR_position[1]+10;	//红外滤波值
 	SCISend_chars("SED");		//发送标识符
