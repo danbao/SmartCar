@@ -4,7 +4,7 @@
 #define PWM45 3666
 #define ANGLE_DELTA 30
 #define PWM6_MID 224
-#define Speed 50
+//#define Speed 50
 #define N 5                  //红外滤波权值		
 /*===============全局变量定义======================
 全局变量相关 
@@ -41,7 +41,7 @@
 
   int road_point[6];                      //5点归为一段  假设2.5m/s 5点为1.8cm  road_point[5]为最后点值
   int point_count;                        //5点计数 同时也可作为段判断开始的标志
-  int road_section[40];                   //8段归为一长路  同假设8段为15cm
+  int road_section[48];                   //8段归为一长路  同假设8段为15cm
   int section_flag;                      //8段计数
   
   long General_pos[2];                     //综合偏差 经过两次一阶滤波 扩大100倍  01为第一次  23为第二次  3为最后结果
@@ -54,6 +54,8 @@
 //int last_laser_array[20][11];    
 //这个二维数组作为激光管的历史记录
  
+  int dajiao_Slope[2];                   //打角舵机的两个斜率
+ 
   int IR_position[2];                     //红外位置   红外部分变量都以IR开头
   int IR_blacknun=0;                      //红外黑点
   void Level_IR( void);                   //声明  不懂去掉可不可以
@@ -65,6 +67,7 @@
                              
  // int speed_collect;                     //速度捕捉值
   int speed_clera[2];                    //速度滤波值  最终结果 此次和上次
+  //int speed[48];                          //给
   
   void calculate_light(void);
   void Status_Judge(void);
