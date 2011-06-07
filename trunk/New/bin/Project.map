@@ -46,7 +46,7 @@ Section Name                    Size  Type     From       To       Segment
 .rodata1                          57     R     0xC14D     0xC185   ROM_C000
 NON_BANKED                      1526     R     0xC186     0xC77B   ROM_C000
 .copy                             16     R     0xC77C     0xC78B   ROM_C000
-.text                           4472     R   0xFE8000   0xFE9177   PAGE_FE
+.text                           4511     R   0xFE8000   0xFE919E   PAGE_FE
 .stack                           256   R/W     0x2000     0x20FF   RAM
 .data                             10   R/W     0x2100     0x2109   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
@@ -346,7 +346,7 @@ NON_BANKED                      1526     R     0xC186     0xC77B   ROM_C000
 .vectSeg292_vect                   2     R     0xFFFE     0xFFFF   .vectSeg292
 
 Summary of section sizes per section type:
-READ_ONLY (R):        1908 (dec:     6408)
+READ_ONLY (R):        192F (dec:     6447)
 READ_WRITE (R/W):      1F4 (dec:      500)
 NO_INIT (N/I):         168 (dec:      360)
 
@@ -672,14 +672,15 @@ MODULE:                 -- main.c.o --
      calculate_light                         FE8377      1E      30       4   .text       
      Laser_num                               FE8395      15      21       2   .text       
      Status_Judge                            FE83AA      2E      46       4   .text       
-     SCISend                                 FE83D8      22      34      10   .text       
-     SCISend_chars                           FE83FA      20      32      14   .text       
-     SCI_Init                                FE841A       D      13       2   .text       
-     Testjiguang                             FE8427      3E      62       2   .text       
-     TestIR                                  FE8465      5B      91       2   .text       
-     Testpara                                FE84C0      2D      45       2   .text       
-     TestSMinfo                              FE84ED      28      40       2   .text       
-     main                                    FE8515      7C     124       2   .text       
+     Clear_Speed                             FE83D8      23      35       2   .text       
+     SCISend                                 FE83FB      22      34      10   .text       
+     SCISend_chars                           FE841D      20      32      14   .text       
+     SCI_Init                                FE843D       D      13       2   .text       
+     Testjiguang                             FE844A      3E      62       2   .text       
+     TestIR                                  FE8488      5B      91       2   .text       
+     Testpara                                FE84E3      2D      45       2   .text       
+     TestSMinfo                              FE8510      28      40       2   .text       
+     main                                    FE8538      80     128       2   .text       
      PIT0_ISR                                  C186      12      18       1   NON_BANKED  
 - VARIABLES:
      STRING.SEDJG.1                            C14D       6       6       1   .rodata1    
@@ -707,10 +708,10 @@ MODULE:                 -- main.c.o --
      IR_position                               21E0       4       4       1   .common     
      JG_clear                                  21E4       8       8      14   .common     
      JG_clear_Pos                              21EC       4       4       7   .common     
-     speed_clera                               21F0       4       4       3   .common     
+     speed_clera                               21F0       4       4       8   .common     
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
-     Init                                    FE8591      29      41       2   .text       
+     Init                                    FE85B8      29      41       2   .text       
      _Startup                                  C000       F      15       0   .init       
 - VARIABLES:
      _startupData                              C00F       6       6       3   .startData  
@@ -718,11 +719,11 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          2100       0       0       1               
 MODULE:                 -- PRINTF.C.o (ansixbf.lib) --
 - PROCEDURES:
-     Ten                                     FE85BA      F3     243      14   .text       
-     vprintf                                 FE86AD     A8B    2699     155   .text       
-     _out                                    FE9138       9       9       2   .text       
-     deposit_char                            FE9141       A      10       3   .text       
-     sprintf                                 FE914B      2D      45       6   .text       
+     Ten                                     FE85E1      F3     243      14   .text       
+     vprintf                                 FE86D4     A8B    2699     155   .text       
+     _out                                    FE915F       9       9       2   .text       
+     deposit_char                            FE9168       A      10       3   .text       
+     sprintf                                 FE9172      2D      45       6   .text       
 - VARIABLES:
      pow10                                     C019      28      40       4   .rodata     
      pow16                                     C041      20      32       4   .rodata     
@@ -800,7 +801,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   MC9S12XS128.c.o                            360      0      0
-  main.c.o                                   237   1443     59
+  main.c.o                                   237   1482     59
   Start12.c.o                                  0     56      0
   PRINTF.C.o (ansixbf.lib)                     7   3006    308
   DADD.C.o (ansixbf.lib)                       0    228      0
@@ -819,8 +820,8 @@ SECTION USE IN OBJECT-ALLOCATION SECTION
 SECTION: ".text"
   SetBusCLK_40M delayms aabs PWM_Init Tect_Speed_Init LIGHT_Init PITInit 
   Clear_baitou baitou SpeedCtrl Confirm_Start Confirm_Cross Confirm_Light 
-  calculate_light Laser_num Status_Judge SCISend SCISend_chars SCI_Init 
-  Testjiguang TestIR Testpara TestSMinfo main Init Ten vprintf _out 
+  calculate_light Laser_num Status_Judge Clear_Speed SCISend SCISend_chars 
+  SCI_Init Testjiguang TestIR Testpara TestSMinfo main Init Ten vprintf _out 
   deposit_char sprintf 
 SECTION: ".data"
   temp_pwm67 temp_pwm45 delay_count send_count baitou_delay 
@@ -1741,7 +1742,7 @@ OBJECT LIST SORTED BY ADDRESS
      IR_position                               21E0       4       4       1   .common     
      JG_clear                                  21E4       8       8      14   .common     
      JG_clear_Pos                              21EC       4       4       7   .common     
-     speed_clera                               21F0       4       4       3   .common     
+     speed_clera                               21F0       4       4       8   .common     
      _Startup                                  C000       F      15       0   .init       
      pow10                                     C019      28      40       4   .rodata     
      pow16                                     C041      20      32       4   .rodata     
@@ -1813,20 +1814,21 @@ OBJECT LIST SORTED BY ADDRESS
      calculate_light                         FE8377      1E      30       4   .text       
      Laser_num                               FE8395      15      21       2   .text       
      Status_Judge                            FE83AA      2E      46       4   .text       
-     SCISend                                 FE83D8      22      34      10   .text       
-     SCISend_chars                           FE83FA      20      32      14   .text       
-     SCI_Init                                FE841A       D      13       2   .text       
-     Testjiguang                             FE8427      3E      62       2   .text       
-     TestIR                                  FE8465      5B      91       2   .text       
-     Testpara                                FE84C0      2D      45       2   .text       
-     TestSMinfo                              FE84ED      28      40       2   .text       
-     main                                    FE8515      7C     124       2   .text       
-     Init                                    FE8591      29      41       2   .text       
-     Ten                                     FE85BA      F3     243      14   .text       
-     vprintf                                 FE86AD     A8B    2699     155   .text       
-     _out                                    FE9138       9       9       2   .text       
-     deposit_char                            FE9141       A      10       3   .text       
-     sprintf                                 FE914B      2D      45       6   .text       
+     Clear_Speed                             FE83D8      23      35       2   .text       
+     SCISend                                 FE83FB      22      34      10   .text       
+     SCISend_chars                           FE841D      20      32      14   .text       
+     SCI_Init                                FE843D       D      13       2   .text       
+     Testjiguang                             FE844A      3E      62       2   .text       
+     TestIR                                  FE8488      5B      91       2   .text       
+     Testpara                                FE84E3      2D      45       2   .text       
+     TestSMinfo                              FE8510      28      40       2   .text       
+     main                                    FE8538      80     128       2   .text       
+     Init                                    FE85B8      29      41       2   .text       
+     Ten                                     FE85E1      F3     243      14   .text       
+     vprintf                                 FE86D4     A8B    2699     155   .text       
+     _out                                    FE915F       9       9       2   .text       
+     deposit_char                            FE9168       A      10       3   .text       
+     sprintf                                 FE9172      2D      45       6   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -1834,8 +1836,7 @@ UNUSED-OBJECTS SECTION
 NOT USED PROCEDURES
 main.c.o:
   delayMS Light_Up General_Position Clear_General Collect_Point 
-  Collect_Section Judge_Slope Level_IR Clear_Speed SCI_RXD AD_Init ReadATD 
-  Collect_IR 
+  Collect_Section Judge_Slope Level_IR SCI_RXD AD_Init ReadATD Collect_IR 
 PRINTF.C.o (ansixbf.lib):
   set_printf vsprintf 
 DADD.C.o (ansixbf.lib):
@@ -1950,6 +1951,7 @@ calculate_light           USES light_temp_laser_array HitBlackNum
 Laser_num                 USES q_temp_laser_num 
 Status_Judge              USES HitBlackNum light_temp_laser_array 
                                 q_temp_laser_num position 
+Clear_Speed               USES speed_clera 
 SCISend                   USES _SCI0SR1 _SCI0DRL _SCI0DRH 
 SCISend_chars             USES SCISend 
 SCI_Init                  USES _SCI0ACR2 _SCI0CR2 _SCI0BD 
@@ -1965,7 +1967,7 @@ TestSMinfo                USES light_temp_laser_array Testjiguang temp_pwm67
 main                      USES SetBusCLK_40M PITInit PWM_Init LIGHT_Init 
                                 SCI_Init Tect_Speed_Init delayms Laser_num 
                                 Confirm_Light Clear_baitou delay_count send_count TestSMinfo 
-                                baitou_delay baitou SpeedCtrl 
+                                baitou_delay baitou Clear_Speed SpeedCtrl 
 Init                      USES _startupData 
 Ten                       USES fpow10 fpow_10 Ten _DMUL _COPY 
 vprintf                   USES vprintf _CASE_SEARCH_8_BYTE _CASE_DIRECT_BYTE 
@@ -2165,6 +2167,8 @@ DEPENDENCY TREE
  |  |     | 
  |  |     +- _LNEG                (see above)
  |  |        
+ |  +- Clear_Speed         
+ |  |    
  |  +- SpeedCtrl           
  |       
  +- _Startup            
@@ -2184,5 +2188,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 8
-Total size of all blocks to be downloaded: 6408
+Total size of all blocks to be downloaded: 6447
 
