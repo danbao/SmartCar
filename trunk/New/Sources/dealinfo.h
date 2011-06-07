@@ -175,30 +175,34 @@ for(i=23;i>=0;i--)
 取消斜率 直接用点  
 */
 void Judge_Slope(void){
-//int sub_speed;
+long slop_sum;
 if(speed_clera[1]<=158) 
      {
      dajiao_Slope[0]=road_section[0];
      dajiao_Slope[1]=road_section[23];
-     dajiao_Slope[2]=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     dajiao_Slope[2]=slop_sum;
      } 
 else if((speed_clera[1]>158)&&(speed_clera[1]<=177)) 
      {
      dajiao_Slope[0]=road_section[0];
      dajiao_Slope[1]=road_section[21]; 
-     dajiao_Slope[2]=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     dajiao_Slope[2]=slop_sum;
      } 
 else if((speed_clera[1]>177)&&(speed_clera[1]<=195))      
      {
      dajiao_Slope[0]=road_section[0];
      dajiao_Slope[1]=road_section[19]; 
-     dajiao_Slope[2]=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     dajiao_Slope[2]=slop_sum;
      } 
 else      
      {
      dajiao_Slope[0]=road_section[0];
      dajiao_Slope[1]=road_section[17];
-     dajiao_Slope[2]=(3*dajiao_Slope[0]+dajiao_Slope[1])/4; 
+     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     dajiao_Slope[2]=slop_sum;
      }      
 }
 
@@ -233,68 +237,68 @@ zhuan_abs=aabs(zhuan_abs);
 if(zhuan_abs<=100)
 dj_pwm=0;
 
-else if((zhuan_abs>100)&&zhuan_abs<=1000) 
+else if((zhuan_abs>100)&&(zhuan_abs<=1000)) 
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/50;
+   dj_pwm=zhuan/19-4;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/50; 
+   dj_pwm=zhuan/19+4; 
     }
-else if((zhuan_abs>1000)&&zhuan_abs<=2000)
+else if((zhuan_abs>1000)&&(zhuan_abs<=2000))
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/45-2;
+   dj_pwm=zhuan/17-10;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/45+2; 
+   dj_pwm=zhuan/17+10; 
     }
 
-else if((zhuan_abs>2000)&&zhuan_abs<=3000)
+else if((zhuan_abs>2000)&&(zhuan_abs<=3000))
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/40-7;
+   dj_pwm=zhuan/15-25;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/40+7; 
+   dj_pwm=zhuan/15+25; 
     }
 
-else if((zhuan_abs>3000)&&zhuan_abs<=4000)
+else if((zhuan_abs>3000)&&(zhuan_abs<=4000))
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/35-17;
+   dj_pwm=zhuan/12-75;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/35+17; 
+   dj_pwm=zhuan/12+75; 
     }
 
-else if((zhuan_abs>4000)&&zhuan_abs<=5000) 
+else if((zhuan_abs>4000)&&(zhuan_abs<=5000)) 
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/30-35;
+   dj_pwm=zhuan/10-141;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/30+35; 
+   dj_pwm=zhuan/10+141; 
     }
 
 
-else if((zhuan_abs>5000)&&zhuan_abs<=6000)
-
-    {
-   if(befo_General_pos>0)
-   dj_pwm=zhuan/25-68;
-   else if(befo_General_pos<0)
-   dj_pwm=zhuan/25+68; 
-    }
-
-else if((zhuan_abs>6000))
+else if((zhuan_abs>5000)&&(zhuan_abs<=6000))
 
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/20-120;
+   dj_pwm=zhuan/8-266;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/20+120; 
+   dj_pwm=zhuan/8+266; 
     }
 
-if(dj_pwm>287)
-dj_pwm=287;
-else if(dj_pwm<-287)
-dj_pwm=-287;
+else if(zhuan_abs>6000)
+
+    {
+   if(befo_General_pos>0)
+   dj_pwm=zhuan/6-516;
+   else if(befo_General_pos<0)
+   dj_pwm=zhuan/6+516; 
+    }
+
+if(dj_pwm>700)
+dj_pwm=700;
+else if(dj_pwm<-700)
+dj_pwm=-700;
 
 dj_pwm=dj_pwm+PWM45;
 

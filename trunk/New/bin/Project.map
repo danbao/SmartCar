@@ -36,7 +36,7 @@ Section Name                    Size  Type     From       To       Segment
 .startData                        10     R     0xC00F     0xC018   ROM_C000
 NON_BANKED                       301     R     0xC019     0xC145   ROM_C000
 .copy                             54     R     0xC146     0xC17B   ROM_C000
-.text                           2071     R   0xFE8000   0xFE8816   PAGE_FE
+.text                           2083     R   0xFE8000   0xFE8822   PAGE_FE
 .stack                           256   R/W     0x2000     0x20FF   RAM
 .data                             48   R/W     0x2100     0x212F   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
@@ -336,7 +336,7 @@ NON_BANKED                       301     R     0xC019     0xC145   ROM_C000
 .vectSeg292_vect                   2     R     0xFFFE     0xFFFF   .vectSeg292
 
 Summary of section sizes per section type:
-READ_ONLY (R):         997 (dec:     2455)
+READ_ONLY (R):         9A3 (dec:     2467)
 READ_WRITE (R/W):      1ED (dec:      493)
 NO_INIT (N/I):         168 (dec:      360)
 
@@ -662,17 +662,17 @@ MODULE:                 -- main.c.o --
      Collect_Section                         FE836E      2A      42       2   .text       
      Judge_Slope                             FE8398      52      82       2   .text       
      Clear_General                           FE83EA      4E      78       2   .text       
-     dajiao                                  FE8438     15E     350       4   .text       
-     SpeedCtrl                               FE8596      69     105       2   .text       
-     Confirm_Start                           FE85FF      5A      90       2   .text       
-     Confirm_Cross                           FE8659       D      13       2   .text       
-     Confirm_Light                           FE8666      89     137       2   .text       
-     calculate_light                         FE86EF      1E      30       4   .text       
-     Laser_num                               FE870D      15      21       2   .text       
-     Status_Judge                            FE8722      2E      46       4   .text       
-     Clear_Speed                             FE8750      23      35       2   .text       
-     SCI_Init                                FE8773       D      13       2   .text       
-     main                                    FE8780      6E     110       2   .text       
+     dajiao                                  FE8438     16A     362       2   .text       
+     SpeedCtrl                               FE85A2      69     105       2   .text       
+     Confirm_Start                           FE860B      5A      90       2   .text       
+     Confirm_Cross                           FE8665       D      13       2   .text       
+     Confirm_Light                           FE8672      89     137       2   .text       
+     calculate_light                         FE86FB      1E      30       4   .text       
+     Laser_num                               FE8719      15      21       2   .text       
+     Status_Judge                            FE872E      2E      46       4   .text       
+     Clear_Speed                             FE875C      23      35       2   .text       
+     SCI_Init                                FE877F       D      13       2   .text       
+     main                                    FE878C      6E     110       2   .text       
      PIT0_ISR                                  C019       E      14       1   NON_BANKED  
 - VARIABLES:
      change_JG_DJ_array                        2100      2E      46       1   .data       
@@ -698,7 +698,7 @@ MODULE:                 -- main.c.o --
      speed_clera                               21E9       4       4       9   .common     
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
-     Init                                    FE87EE      29      41       2   .text       
+     Init                                    FE87FA      29      41       2   .text       
      _Startup                                  C000       F      15       0   .init       
 - VARIABLES:
      _startupData                              C00F       6       6       3   .startData  
@@ -718,7 +718,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   MC9S12XS128.c.o                            360      0      0
-  main.c.o                                   237   2044      2
+  main.c.o                                   237   2056      2
   Start12.c.o                                  0     56      0
   rtshc12.c.o (ansixbf.lib)                    0    287      0
   other                                      256     12     54
@@ -1668,18 +1668,18 @@ OBJECT LIST SORTED BY ADDRESS
      Collect_Section                         FE836E      2A      42       2   .text       
      Judge_Slope                             FE8398      52      82       2   .text       
      Clear_General                           FE83EA      4E      78       2   .text       
-     dajiao                                  FE8438     15E     350       4   .text       
-     SpeedCtrl                               FE8596      69     105       2   .text       
-     Confirm_Start                           FE85FF      5A      90       2   .text       
-     Confirm_Cross                           FE8659       D      13       2   .text       
-     Confirm_Light                           FE8666      89     137       2   .text       
-     calculate_light                         FE86EF      1E      30       4   .text       
-     Laser_num                               FE870D      15      21       2   .text       
-     Status_Judge                            FE8722      2E      46       4   .text       
-     Clear_Speed                             FE8750      23      35       2   .text       
-     SCI_Init                                FE8773       D      13       2   .text       
-     main                                    FE8780      6E     110       2   .text       
-     Init                                    FE87EE      29      41       2   .text       
+     dajiao                                  FE8438     16A     362       2   .text       
+     SpeedCtrl                               FE85A2      69     105       2   .text       
+     Confirm_Start                           FE860B      5A      90       2   .text       
+     Confirm_Cross                           FE8665       D      13       2   .text       
+     Confirm_Light                           FE8672      89     137       2   .text       
+     calculate_light                         FE86FB      1E      30       4   .text       
+     Laser_num                               FE8719      15      21       2   .text       
+     Status_Judge                            FE872E      2E      46       4   .text       
+     Clear_Speed                             FE875C      23      35       2   .text       
+     SCI_Init                                FE877F       D      13       2   .text       
+     main                                    FE878C      6E     110       2   .text       
+     Init                                    FE87FA      29      41       2   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -1756,8 +1756,7 @@ Collect_Point             USES point_count befo_General_pos road_point _LDIVS
 Collect_Section           USES point_count road_point road_section 
 Judge_Slope               USES speed_clera road_section dajiao_Slope 
 Clear_General             USES dajiao_Slope General_pos _LMULS16x32 _LDIVS 
-dajiao                    USES General_pos aabs befo_General_pos dajiao 
-                                _PWMDTY45 
+dajiao                    USES General_pos aabs befo_General_pos _PWMDTY45 
 SpeedCtrl                 USES speed_clera _PORTAB _PWMDTY01 _PWMDTY23 
 Confirm_Start             USES light_temp_laser_array 
 Confirm_Cross             USES special_flag 
@@ -1873,5 +1872,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 2455
+Total size of all blocks to be downloaded: 2467
 
