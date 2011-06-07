@@ -185,7 +185,7 @@ void Level_IR( void)
 /*===================速度过滤=============================
 由于编码盘捕捉的有时候也会不稳定
 所以虑一次波既可以平滑 又稳定
-*/
+
 void Clear_Speed(void) {
 long Speed_sum;
 Speed_sum=(40*speed_clera[0]+100*speed_clera[1])/140;
@@ -194,7 +194,7 @@ speed_clera[0]=speed_clera[1];
 }
 
 
-
+*/
 
 
 

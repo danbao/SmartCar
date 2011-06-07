@@ -112,14 +112,16 @@ General_pos[1]=change_JG_DJ_array[num]+baitou_diff*baitou_delay/12;
 }
 
 /*================综合偏差滤波======================
-滤波时再次扩大了十倍   最大成为千位数   即分了千段？  
+滤波时两次扩大了十倍   为了在计算斜率时除以速度值后仍然保留有一定数  
 和激光相似
 */
 void Clear_General(void) {
-long General_sum;
-General_sum=(40*General_pos[0]+100*General_pos[1])/14;
-General_pos[1]=General_sum;
+General_pos[1]=(40*General_pos[0]+100*General_pos[1])/14;
 General_pos[0]=General_pos[1];
+
+//General_pos[3]=General_pos[1];
+//General_pos[3]=(40*General_pos[2]+100*General_pos[3])/14;
+//General_pos[2]=General_pos[3];
 }
 
 /*================收集N点作为坐标的一点======================
@@ -168,7 +170,9 @@ for(i=7;i>=0;i--)
 }
 
 
+/*================N段为一路 这个比较复杂 ======================
 
+*/ 
 
 
 /*================斜率计算======================
@@ -191,13 +195,13 @@ void Judge_Slope(void){
 
 
 
-/*================N段为一路 这个比较复杂 ====================== 
 
 
 
 
 
 
+/*
 
 void Tendency_judge(void) 
 {
@@ -284,29 +288,33 @@ void dajiao(void) {
 
 
 
-//=====================电机速度调节======================//
+/*=====================电机速度调节======================*/
 
 
 void SpeedCtrl (void) {
 int subspeed;
-subspeed=speed_clera[1]-80;
+subspeed=speed_clera[1]-150;
 //PORTB_PB7=1;
 //PWMDTY01 = 25;      //占空比10%
-//PWMDTY23 = 80;      //占空比50%
+//PWMDTY23 = 60;      //占空比50%
  
 if ((subspeed<=10)&&(subspeed>=-10));
 else if((subspeed>10)&&(subspeed<=35)) 
-PORTB_PB7=0;
+    {
+PORTB_PB7=1;
+PWMDTY01= 60;
+PWMDTY23 = 30;
+    }
 else if(subspeed>35) 
     {  
 PORTB_PB7=1;
 PWMDTY01= 80;
-PWMDTY23 = 40;
+PWMDTY23 = 50;
     }
 else if((subspeed<-10)&&(subspeed>=-35)) 
    {
 PORTB_PB7=1;
-PWMDTY23=PWMDTY23-2*subspeed;
+PWMDTY23=PWMDTY23-3*subspeed;
 PWMDTY01= 0; 
    }
 else if(subspeed<-35)
@@ -316,7 +324,10 @@ PORTB_PB7=1;
 PWMDTY23=80;
 PWMDTY01= 0;
    }         
+
+
 }          
+
 
 
 

@@ -3,6 +3,7 @@
     Update:     2011.06.02
 	说明：串口调用及无线模块
 ----------------------------------------------*/
+
 /*--------------------------------------------
 SCI_RXD: 串口接收函数
 编写日期：20110411
@@ -111,7 +112,7 @@ void Testpara(int test_sdj,int test_xdj,int test_speed,int test_position) {
 参数 t：用于循环几次发送一次
 -----------------------------------------  */  
 void TestSMinfo(void){
-	Testjiguang(light_temp_laser_array);	//发送激光数组
-	Testpara(temp_pwm67,temp_pwm45,g_temp_pulse,JG_clear[1]);//发送相关参数
-	TestIR(IR_temp_laser_array,IR_position[1]);
+Testjiguang(light_temp_laser_array);	//发送激光数组
+Testpara(temp_pwm67,temp_pwm45,speed_clera[1],JG_clear[1]);//发送相关参数
+TestIR(IR_temp_laser_array,IR_position[1]);
   }

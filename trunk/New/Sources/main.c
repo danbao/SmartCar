@@ -22,7 +22,7 @@ void main(void)
  // int temp_laserStatus;           //定义一个数组用来接受 上下舵机值
   DisableInterrupts;
   SetBusCLK_40M();    //   设置时钟初始化。40MHz.
- // PITInit();          //PIT初始
+  PITInit();          //PIT初始
   PWM_Init();
   LIGHT_Init();
   SCI_Init();
@@ -33,12 +33,12 @@ void main(void)
   EnableInterrupts;
   for(;;) 
   {
-    Light_Up();         //激光整排点亮
+   // Light_Up();         //激光整排点亮
      
    //  Collect_IR();   //这两个是红外捕捉和判断红外位置 先注释
    //  Level_IR();
-   //if(PITINTE_PINTE1 == 0) 
-
+ //  if(PITINTE_PINTE1 == 0) 
+ //  PITINTE_PINTE1 = 1;   //开PIT1采集中断  
    Confirm_Light(); //排除误点
    Clear_baitou();  //position的第一次滤波
          
@@ -54,26 +54,25 @@ void main(void)
        delay_count=1;
        // dajiao();
       }
-        
-    //   PITINTE_PINTE1 = 1;   //开PIT1采集中断  
-    
-    
+
+     send_count++;
+   if(send_count%20==0) {
+     send_count=1;
+    TestSMinfo();
+   }
+   
    baitou_delay++;
    if(baitou_delay%12==0) 
    {
     baitou_delay=1;
     baitou( ); //先执行摆头舵机，通过计算得出角度，为第二次滤波做准备
-    
-   } 
-  //  SpeedCtrl();
-    
+    } 
+  
+  
+    SpeedCtrl();
+   
   }
-        /*    test_count++;
-          if(delay_count%20==0)
-          {
-            test_count=0;
-          TestSMinfo();
-          }   */
+
           
 // _FEED_COP(); /*看门狗，防死循环用的 */
  /* loop forever */
@@ -82,78 +81,15 @@ void main(void)
 
 
 
-#pragma CODE_SEG NON_BANKED 
-//【interrupt definitions】
-/* ================= PIT0_ISR ====================
-      desc: PIT周期定时中断，用于控制激光传感器分时亮
-      pre:  无
-      Post: 无       
  
-void interrupt 66 PIT0_ISR(void) 
-{
-    for(g_countPIT0=0;g_countPIT0<=5;g_countPIT0++) 
-    {
-      
-   if(g_countPIT0 == 0) 
-   {  
-      PORTA = 0B00000001;
-      delayMS();
-	    light_temp_laser_array[0] = PORTB_PB0^1;
-      light_temp_laser_array[6] = PORTB_PB2^1;
-    }
-    else if(g_countPIT0 == 1)   
-    { 
-      PORTA = 0B00001000;
-      delayMS();
-	    light_temp_laser_array[3] = PORTB_PB1^1;	
-      light_temp_laser_array[9] = PORTB_PB3^1;
-    }
-    else if(g_countPIT0 == 2)   
-    {    
-      PORTA = 0B00000010;
-      delayMS();
-	    light_temp_laser_array[1] = PORTB_PB0^1;
-      light_temp_laser_array[7] = PORTB_PB2^1;
-    }
-    else if(g_countPIT0 == 3)   
-    {  
-      PORTA = 0B00010000;
-      delayMS(); 
-	    light_temp_laser_array[4] = PORTB_PB1^1;
-      light_temp_laser_array[10] = PORTB_PB3^1; 
-    }
-    else if(g_countPIT0 == 4)   
-    {  
-      PORTA = 0B00000100;
-      delayMS();  
-	    light_temp_laser_array[2] = PORTB_PB0^1;
-      light_temp_laser_array[8] = PORTB_PB2^1;
-   
-    }
-	else if(g_countPIT0 == 5)   
-	{  
-      PORTA = 0B00100000;
-      delayMS();  
-	    light_temp_laser_array[5] = PORTB_PB1^1;
-      light_temp_laser_array[11] = PORTB_PB3^1;  
-    } 
-    PORTA = 0B00000000;
-    }
-    g_countPIT0 = 0;
-    PITTF_PTF0 = 1;//清中断标志位
-    PITINTE_PINTE0 = 0;  
-} //PIT0_ISR  
-*/
+#pragma CODE_SEG __NEAR_SEG NON_BANKED
  
-/* ================= PIT1_ISR ==================== 
-      desc: PIT周期定时中断，用于测速
-      pre:  无
-      Post: 无       
-      
- void interrupt 67 PIT1_ISR(void) {
-    speed_clera[1] = PACNT;
-    PACNT = 0x0000;
-    PITTF_PTF1 = 1;//清中断标志位 
-    PITINTE_PINTE1 = 0;
- } //PIT1_ISR
-*/
+void interrupt 66 PIT0_ISR(void){
+DisableInterrupts;   
+speed_clera[1]= PACNT;
+PACNT = 0x0000; 
+PITTF_PTF0 = 1;
+EnableInterrupts; 
+}
+
+#pragma CODE_SEG DEFAULT
