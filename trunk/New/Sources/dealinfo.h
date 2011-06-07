@@ -293,7 +293,7 @@ void dajiao(void) {
 
 void SpeedCtrl (void) {
 int subspeed;
-subspeed=speed_clera[1]-150;
+subspeed=speed_clera[1]-100;
 //PORTB_PB7=1;
 //PWMDTY01 = 25;      //占空比10%
 //PWMDTY23 = 60;      //占空比50%
