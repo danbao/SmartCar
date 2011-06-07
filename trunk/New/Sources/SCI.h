@@ -3,8 +3,6 @@
     Update:     2011.06.02
 	说明：串口调用及无线模块
 ----------------------------------------------*/
-int test_sdj,test_xdj,test_speed,test_position,test_count;
-long test_IR_position;
 /*--------------------------------------------
 SCI_RXD: 串口接收函数
 编写日期：20110411
@@ -67,6 +65,7 @@ static void SCI_Init(void)  //SCI
 void Testjiguang(byte temp_laser_array[]) {
     int i; 
     int data;
+	SCISend_chars("SEDJG");
     for(i=LASER_MAX-1;i>=0;i--)    //发送激光管信息数组
         {data=temp_laser_array[i]  ;
             if(data == 0) {
@@ -75,39 +74,44 @@ void Testjiguang(byte temp_laser_array[]) {
         else if(data == 1) {
              SCISend('1'); 
         }
-        }   
+        } 
+    SCISend_chars("END");
+    SCISend('\n'); 		
 }     
 /*---------------------------------------
 发送红外信息数组（不成熟，暂不使用）
-编写日期：200110602
------------------------------------------  */  
-/*void TestIR(byte temp_laser_array[]) {
+编写日期：200110607
+----------------------------------------- */ 
+void TestIR(uint temp_laser_array[],int Test_IR_position) {
     int i; 
-    int data;
+    char data[5];
+	SCISend_chars("SEDIR");
     for(i=0;i<=6;i++)    //发送激光管信息数组
-        {data=temp_laser_array[i];
+        {  
+    (void)sprintf(data,"%.3d",temp_laser_array[i]);
 		SCISend_chars(data);
-        }   
-		data=IR_position[1]+10;
+        }
+		(void)sprintf(data,"%.2d",Test_IR_position+10);		
 		SCISend_chars(data);
-}      */
-
+		SCISend_chars("END");
+	    SCISend('\n'); 	
+}      
+/*---------------------------------------
+发送相关参数
+编写日期：2001100607
+-----------------------------------------  */ 
+void Testpara(int test_sdj,int test_xdj,int test_speed,int test_position) {
+	(void)sprintf(SCIreceive,"SEDPARA%.5d%.4d%.4d%.4dEND",test_position+10000,test_sdj,test_xdj,test_speed);
+    SCISend_chars(SCIreceive);  
+    SCISend('\n');  
+}  
 /*---------------------------------------
 无线模块发送总函数
 编写日期：200110602
 参数 t：用于循环几次发送一次
 -----------------------------------------  */  
 void TestSMinfo(void){
-   test_sdj=PWMDTY67;		//上舵机的值
-    test_xdj=PWMDTY45;		//下舵机的值
-	test_speed=speed_clera[1];	//速度值
-	test_position=JG_clear[1];		//激光滤波值
-//	test_IR_position=IR_position[1]+10;	//红外滤波值
-	SCISend_chars("SED");		//发送标识符
 	Testjiguang(light_temp_laser_array);	//发送激光数组
-   (void)sprintf(SCIreceive,"%.5d%.4d%.4d%.4dEND",test_position+10000,test_sdj,test_xdj,test_speed);
-   /*%.3d%.3d%.3d%.3d%.3d%.3d%.3d%.3d*/
-   /*,IR_temp_laser_array[0],IR_temp_laser_array[1],IR_temp_laser_array[2],IR_temp_laser_array[3],IR_temp_laser_array[4],IR_temp_laser_array[5],IR_temp_laser_array[6],test_IR_position*/
-   SCISend_chars(SCIreceive);
-   SCISend('\n');
+	Testpara(temp_pwm67,temp_pwm45,g_temp_pulse,JG_clear[1]);//发送相关参数
+	TestIR(IR_temp_laser_array,IR_position[1]);
   }
