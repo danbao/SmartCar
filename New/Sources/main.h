@@ -41,7 +41,7 @@
 
   int road_point[6];                      //5点归为一段  假设2.5m/s 5点为1.8cm  road_point[5]为最后点值
   int point_count;                        //5点计数 同时也可作为段判断开始的标志
-  int road_section[8];                    //8段归为一长路  同假设8段为15cm
+  int road_section[40];                   //8段归为一长路  同假设8段为15cm
   int section_flag;                      //8段计数
   
   long General_pos[2];                     //综合偏差 经过两次一阶滤波 扩大100倍  01为第一次  23为第二次  3为最后结果
@@ -191,7 +191,7 @@ void PWM_Init (void) {   //0519暂时写完！
   PITCE_PCE0 = 1;          //定时器通道0使能    
   PITMUX_PMUX0 = 0;       //定时通道0使用微计数器0     
   PITMTLD0 =200-1;  //设置微计数器0的加载寄存器。8位定时器初值设定。200分频，在40MHzBusClock下，为0.2MHz。即5us.    
-  PITLD0 = 1000-1;    //16位定时器初值设定。4000 -->  20ms     
+  PITLD0 = 1500-1;    //16位定时器初值设定。4000 -->  20ms   1500-->7.5ms  
   PITINTE_PINTE0 = 1;//定时器中断通道0中断使能            
   PITCFLMT_PITE = 1;       //PIT通道使能位
 
