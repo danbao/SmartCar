@@ -44,7 +44,7 @@
   int road_section[8];                    //8段归为一长路  同假设8段为15cm
   int section_flag;                      //8段计数
   
-  int General_pos[2];                     //综合偏差 此次与上次
+  long General_pos[2];                     //综合偏差 经过两次一阶滤波 扩大100倍  01为第一次  23为第二次  3为最后结果
   int change_JG_DJ_array[23]={-103,-90,-80,-73,-62,-52,-46,-36,-24,-18,-10,0,10,18,24,36,46,52,62,73,80,90,103}; 
   //int coordinate
  //int standard_position_array[23]=
@@ -61,7 +61,7 @@
   
   int  baitou_delay=1;                    //摆头延迟  同时用来等分摆头的每次舵机值
   long JG_clear[2];                      //激光一次迭代滤波 此次和上次
-  long JG_clear_Pos[2];                  //存入当前和上一次摆头时的JG_clear 的值
+  int JG_clear_Pos[2];                  //存入当前和上一次摆头时的JG_clear 的值
                              
  // int speed_collect;                     //速度捕捉值
   int speed_clera[2];                    //速度滤波值  最终结果 此次和上次
@@ -178,7 +178,8 @@ void PWM_Init (void) {   //0519暂时写完！
 
 
 
-//=====================PIT初始化======================//
+/*=====================PIT初始化======================
+修改了下 只用pit0*/
  void PITInit (void) {
 //计算公式：time-out period = (PITMTLD + 1) * (PITLD + 1) / fBUS.
 //BUS为总线！！！
@@ -186,23 +187,14 @@ void PWM_Init (void) {   //0519暂时写完！
     // Local Declarations
 
     // Statements
-  /*  PITCFLMT_PITE = 0; //定时中断通道0,1关
-    
-	//PIT0主要激光管的点亮
-    PITCE_PCE0 = 1;    //定时器通道0使能
-    PITMUX_PMUX0 = 0;  //定时0通道0使用微计数器0 
-    PITMTLD0 = 160-1;  //设置微计数器0的加载寄存器。8位定时器初值设定。160分频，在16MHzBusClock下，为0.1MHz。即10us.
-    PITLD0 = 142-1;    //16位定时器初值设定。140  -->  1.4ms 
-    PITINTE_PINTE0 = 1;//定时器中断通道0中断使能
-    
-	PIT0主要测速，所得到的是脉冲值，结合ECT。
-    PITCE_PCE1 = 1;    //定时器通道1使能
-    PITMUX_PMUX1 = 0;  //定时1通道1使用微计数器0
-    PITMTLD1 = 160-1;  //设置微计数器0的加载寄存器。8位定时器初值设定。160分频，在16MHzBusClock下，为0.1MHz。即10us.
-    PITLD1 = 1000-1;   //16位定时器初值设定。1000  -->  10ms
-    PITINTE_PINTE1 = 1;//定时器中断通道1中断使能 
-   
-    PITCFLMT_PITE = 1; //定时器通道0,1使能*/
+    PITCFLMT_PITE = 0;       //PIT通道使能位      
+  PITCE_PCE0 = 1;          //定时器通道0使能    
+  PITMUX_PMUX0 = 0;       //定时通道0使用微计数器0     
+  PITMTLD0 =200-1;  //设置微计数器0的加载寄存器。8位定时器初值设定。200分频，在40MHzBusClock下，为0.2MHz。即5us.    
+  PITLD0 = 2000-1;    //16位定时器初值设定。4000 -->  20ms     
+  PITINTE_PINTE0 = 1;//定时器中断通道0中断使能            
+  PITCFLMT_PITE = 1;       //PIT通道使能位
+
 } //PITInit
 
 
