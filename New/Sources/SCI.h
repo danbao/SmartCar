@@ -92,7 +92,7 @@ void TestIR(uint temp_laser_array[],int Test_IR_position) {
     (void)sprintf(data,"%.3d",temp_laser_array[i]);
 		SCISend_chars(data);
         }
-		(void)sprintf(data,"%.2d",Test_IR_position+10);		
+		(void)sprintf(data,"%.3d",Test_IR_position+10);		
 		SCISend_chars(data);
 		SCISend_chars("END");
 	    SCISend('\n'); 	
@@ -102,7 +102,7 @@ void TestIR(uint temp_laser_array[],int Test_IR_position) {
 ±àÐ´ÈÕÆÚ£º2001100607
 -----------------------------------------  */ 
 void Testpara(int test_sdj,int test_xdj,int test_speed,int test_position) {
-	(void)sprintf(SCIreceive,"SEDPARA%.5d%.4d%.4d%.4dEND",test_position+10000,test_sdj,test_xdj,test_speed);
+	(void)sprintf(SCIreceive,"SEDPR%.5d%.4d%.4d%.4dEND",test_position+10000,test_sdj,test_xdj,test_speed);
     SCISend_chars(SCIreceive);  
     SCISend('\n');  
 }  
