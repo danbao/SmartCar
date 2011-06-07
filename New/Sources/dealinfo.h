@@ -138,8 +138,8 @@ if(point_count==4)
      road_point[4]=General_pos[1];
      for(i=0;i<=4;i++) 
        {
-     point_sum+=road_point[i]*code[i];
-     point_sum=point_sum/sum_code;
+     point_sum+=road_point[i];
+     point_sum=point_sum/5;
         }
      road_point[5]=point_sum;   
      point_count=0;
@@ -162,10 +162,16 @@ int i;
 if(point_count==0)
 for(i=39;i>=0;i--) 
    {
-   if(i==0)
+   if(i==0) 
+      {
+  // speed[0]=speed_clera[1];
    road_section[0]=road_point[5];
-   else
+      }
+   else 
+      { 
    road_section[i]=road_section[i-1];
+  // speed[i]=speed[i-1];
+      }
    }
 }
 
@@ -178,21 +184,122 @@ for(i=39;i>=0;i--)
 速度 假设200为2.5M/S  那么15cm 累加值大概为6*200  
 */
 void Judge_Slope(void){
-
-
+//int sub_speed;
+if(speed_clera[1]<=158) 
+     {
+     dajiao_Slope[0]=road_section[0]-road_section[23];
+     dajiao_Slope[1]=road_section[0]-road_section[47];
+     } 
+else if((speed_clera[1]>158)&&(speed_clera[1]<=177)) 
+     {
+     dajiao_Slope[0]=road_section[0]-road_section[21];
+     dajiao_Slope[1]=road_section[0]-road_section[43]; 
+     } 
+else if((speed_clera[1]>177)&&(speed_clera[1]<=195))      
+     {
+     dajiao_Slope[0]=road_section[0]-road_section[19];
+     dajiao_Slope[1]=road_section[0]-road_section[39]; 
+     } 
+else      
+     {
+     dajiao_Slope[0]=road_section[0]-road_section[17];
+     dajiao_Slope[1]=road_section[0]-road_section[35]; 
+     }      
 }
 
 
-/*================N段为一路 这个比较复杂 ======================
-40段 
-*/ 
+
+
+/*================打角舵机======================
+
+*/
+void dajiao(void){
+int zhuan,zhuan_abs;
+int dj_pwm;
+int code[2]={3,1},sum_code=4;
+
+zhuan=(3*dajiao_Slope[0]+1*dajiao_Slope[1]) /4;
+zhuan_abs=zhuan;
+zhuan_abs=aabs(zhuan_abs);
+
+if(zhuan_abs<=100)
+dj_pwm=0;
+
+else if((zhuan_abs>100)&&zhuan_abs<=1000)
+dj_pwm=zhuan/60;
+
+else if((zhuan_abs>1000)&&zhuan_abs<=2000)
+dj_pwm=zhuan/55;
+
+else if((zhuan_abs>2000)&&zhuan_abs<=3000)
+dj_pwm=zhuan/50;
+
+else if((zhuan_abs>3000)&&zhuan_abs<=4000)
+dj_pwm=zhuan/45;
+
+else if((zhuan_abs>4000)&&zhuan_abs<=5000)
+dj_pwm=zhuan/40;
+
+else if((zhuan_abs>5000)&&zhuan_abs<=6000)
+dj_pwm=zhuan/35;
+
+else if((zhuan_abs>6000))
+dj_pwm=zhuan/30;
+
+if(dj_pwm>287)
+dj_pwm=287;
+else if(dj_pwm<-287)
+dj_pwm=-287;
+
+dj_pwm=dj_pwm+PWM45;
+
+PWMDTY45=dj_pwm;
+}
 
 
 
 
 
 
+/*=====================电机速度调节======================*/
 
+
+void SpeedCtrl (void) {
+int subspeed;
+subspeed=speed_clera[1]-150;
+//PORTB_PB7=1;
+//PWMDTY01 = 25;      //占空比10%
+//PWMDTY23 = 60;      //占空比50%
+ 
+if ((subspeed<=10)&&(subspeed>=-10));
+else if((subspeed>10)&&(subspeed<=35)) 
+    {
+PORTB_PB7=1;
+PWMDTY01= 60;
+PWMDTY23 = 30;
+    }
+else if(subspeed>35) 
+    {  
+PORTB_PB7=1;
+PWMDTY01= 80;
+PWMDTY23 = 50;
+    }
+else if((subspeed<-10)&&(subspeed>=-35)) 
+   {
+PORTB_PB7=1;
+PWMDTY23=PWMDTY23-3*subspeed;
+PWMDTY01= 0; 
+   }
+else if(subspeed<-35)
+   {
+  
+PORTB_PB7=1;
+PWMDTY23=80;
+PWMDTY01= 0;
+   }         
+
+
+}          
 
 
 
@@ -288,45 +395,6 @@ void dajiao(void) {
 
 
 
-/*=====================电机速度调节======================*/
-
-
-void SpeedCtrl (void) {
-int subspeed;
-subspeed=speed_clera[1]-100;
-//PORTB_PB7=1;
-//PWMDTY01 = 25;      //占空比10%
-//PWMDTY23 = 60;      //占空比50%
- 
-if ((subspeed<=10)&&(subspeed>=-10));
-else if((subspeed>10)&&(subspeed<=35)) 
-    {
-PORTB_PB7=1;
-PWMDTY01= 60;
-PWMDTY23 = 30;
-    }
-else if(subspeed>35) 
-    {  
-PORTB_PB7=1;
-PWMDTY01= 80;
-PWMDTY23 = 50;
-    }
-else if((subspeed<-10)&&(subspeed>=-35)) 
-   {
-PORTB_PB7=1;
-PWMDTY23=PWMDTY23-3*subspeed;
-PWMDTY01= 0; 
-   }
-else if(subspeed<-35)
-   {
-  
-PORTB_PB7=1;
-PWMDTY23=80;
-PWMDTY01= 0;
-   }         
-
-
-}          
 
 
 

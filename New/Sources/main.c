@@ -28,46 +28,40 @@ void main(void)
   SCI_Init();
   Tect_Speed_Init();    //ECT 捕捉初始
  // AD_Init(); 
-  delayms(4000);
+  delayms(3200);
   Laser_num();
   EnableInterrupts;
   for(;;) 
   {
-   // Light_Up();         //激光整排点亮
+    Light_Up();         //激光整排点亮
      
    //  Collect_IR();   //这两个是红外捕捉和判断红外位置 先注释
    //  Level_IR();
- //  if(PITINTE_PINTE1 == 0) 
- //  PITINTE_PINTE1 = 1;   //开PIT1采集中断  
    Confirm_Light(); //排除误点
    Clear_baitou();  //position的第一次滤波
-         
-   //  Form_tendency(); //通过摆头舵机和偏差值得到一个比较准确的趋势
-   // Calculate_HitBlackNum();
-   //temp_laserStatus = Status_Judge();
-   //   CalculateAngle(temp_laserStatus); //得到舵机需要调整的转角 
-  //  dajiao();  
+   General_Position();      
+   Clear_General();
+   Collect_Point();
+   Collect_Section();
+   Judge_Slope();
    
-      delay_count++;
-      if(delay_count%50==0)
-      {
-       delay_count=1;
-       // dajiao();
-      }
+   dajiao();
 
-     send_count++;
+   /*send_count++;
    if(send_count%20==0) {
      send_count=1;
     TestSMinfo();
-   }
+   }   */
    
+  
    baitou_delay++;
-   if(baitou_delay%12==0) 
+   if(baitou_delay%11==0) 
    {
     baitou_delay=1;
     baitou( ); //先执行摆头舵机，通过计算得出角度，为第二次滤波做准备
     } 
   
+   
     Clear_Speed();
     SpeedCtrl();
    
@@ -85,11 +79,11 @@ void main(void)
 #pragma CODE_SEG __NEAR_SEG NON_BANKED
  
 void interrupt 66 PIT0_ISR(void){
-DisableInterrupts;   
+//DisableInterrupts;   
 speed_clera[1]= PACNT;
 PACNT = 0x0000; 
 PITTF_PTF0 = 1;
-EnableInterrupts; 
+//EnableInterrupts; 
 }
 
 #pragma CODE_SEG DEFAULT
