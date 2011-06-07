@@ -68,7 +68,7 @@ void main(void)
     baitou( ); //先执行摆头舵机，通过计算得出角度，为第二次滤波做准备
     } 
   
-  
+    Clear_Speed();
     SpeedCtrl();
    
   }

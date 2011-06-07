@@ -1834,7 +1834,8 @@ UNUSED-OBJECTS SECTION
 NOT USED PROCEDURES
 main.c.o:
   delayMS Light_Up General_Position Clear_General Collect_Point 
-  Collect_Section Judge_Slope Level_IR SCI_RXD AD_Init ReadATD Collect_IR 
+  Collect_Section Judge_Slope Level_IR Clear_Speed SCI_RXD AD_Init ReadATD 
+  Collect_IR 
 PRINTF.C.o (ansixbf.lib):
   set_printf vsprintf 
 DADD.C.o (ansixbf.lib):

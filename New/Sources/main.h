@@ -191,7 +191,7 @@ void PWM_Init (void) {   //0519暂时写完！
   PITCE_PCE0 = 1;          //定时器通道0使能    
   PITMUX_PMUX0 = 0;       //定时通道0使用微计数器0     
   PITMTLD0 =200-1;  //设置微计数器0的加载寄存器。8位定时器初值设定。200分频，在40MHzBusClock下，为0.2MHz。即5us.    
-  PITLD0 = 2000-1;    //16位定时器初值设定。4000 -->  20ms     
+  PITLD0 = 1000-1;    //16位定时器初值设定。4000 -->  20ms     
   PITINTE_PINTE0 = 1;//定时器中断通道0中断使能            
   PITCFLMT_PITE = 1;       //PIT通道使能位
 
