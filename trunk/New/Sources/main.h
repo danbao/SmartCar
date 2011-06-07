@@ -32,7 +32,9 @@
   int q_temp_laser_num[LASER_MAX];        //激光管对应的权值
   int countPIT0=0;
   int position=0; 
-  int HitBlackNum; 
+  int HitBlackNum;
+  
+  int baitou_diff; 
   
   byte SS_flag;                           //小s标记  1有效
   byte LS_flag;                           //大S标记   1有效
@@ -44,6 +46,7 @@
   int road_section[48];                   //8段归为一长路  同假设8段为15cm
   int section_flag;                      //8段计数
   
+  int  befo_General_pos;
   long General_pos[2];                     //综合偏差 经过两次一阶滤波 扩大100倍  01为第一次  23为第二次  3为最后结果
   int change_JG_DJ_array[23]={-103,-90,-80,-73,-62,-52,-46,-36,-24,-18,-10,0,10,18,24,36,46,52,62,73,80,90,103}; 
   //int coordinate
@@ -54,7 +57,7 @@
 //int last_laser_array[20][11];    
 //这个二维数组作为激光管的历史记录
  
-  int dajiao_Slope[2];                   //打角舵机的两个斜率
+  int dajiao_Slope[3];                   //打角舵机的两个斜率 2为累加值
  
   int IR_position[2];                     //红外位置   红外部分变量都以IR开头
   int IR_blacknun=0;                      //红外黑点

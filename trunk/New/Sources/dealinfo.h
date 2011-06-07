@@ -106,23 +106,11 @@ BUG：
 void General_Position(void)       
 {
 int num=position+11;    //数组序号偏移代入
-int baitou_diff=PWMDTY67-PWM67;      //摆头执行后的差值 我们把他等分试试 
+ baitou_diff=PWMDTY67-PWM67;      //摆头执行后的差值 我们把他等分试试 
 
-General_pos[1]=change_JG_DJ_array[num]+baitou_diff*baitou_delay/12;
+befo_General_pos=change_JG_DJ_array[num]+baitou_diff;//*baitou_delay/11;
 }
 
-/*================综合偏差滤波======================
-滤波时两次扩大了十倍   为了在计算斜率时除以速度值后仍然保留有一定数  
-和激光相似
-*/
-void Clear_General(void) {
-General_pos[1]=(40*General_pos[0]+100*General_pos[1])/14;
-General_pos[0]=General_pos[1];
-
-//General_pos[3]=General_pos[1];
-//General_pos[3]=(40*General_pos[2]+100*General_pos[3])/14;
-//General_pos[2]=General_pos[3];
-}
 
 /*================收集N点作为坐标的一点======================
 如果实时收集处理量过大 所以多点合为一整点 多整点合为一段 多段和为一路
@@ -135,18 +123,19 @@ long point_sum=0;      //累加过程中最大值会超过32767 因为有正负
 
 if(point_count==4) 
      {
-     road_point[4]=General_pos[1];
+     road_point[4]=befo_General_pos;
      for(i=0;i<=4;i++) 
        {
      point_sum+=road_point[i];
-     point_sum=point_sum/5;
+     
         }
+     point_sum=point_sum/5;
      road_point[5]=point_sum;   
      point_count=0;
      } 
 else
     {
-    road_point[point_count]=General_pos[1];
+    road_point[point_count]=befo_General_pos;
     point_count++;
     }
 }
@@ -160,7 +149,7 @@ else
 void Collect_Section(void){
 int i;
 if(point_count==0)
-for(i=39;i>=0;i--) 
+for(i=23;i>=0;i--) 
    {
    if(i==0) 
       {
@@ -179,72 +168,128 @@ for(i=39;i>=0;i--)
 
 
 
+
 /*================斜率计算======================
 15cm的斜率计算 捕捉速度值放这里面
-速度 假设200为2.5M/S  那么15cm 累加值大概为6*200  
+速度 假设200为2.5M/S  那么15cm 累加值大概为6*200
+取消斜率 直接用点  
 */
 void Judge_Slope(void){
 //int sub_speed;
 if(speed_clera[1]<=158) 
      {
-     dajiao_Slope[0]=road_section[0]-road_section[23];
-     dajiao_Slope[1]=road_section[0]-road_section[47];
+     dajiao_Slope[0]=road_section[0];
+     dajiao_Slope[1]=road_section[23];
+     dajiao_Slope[2]=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
      } 
 else if((speed_clera[1]>158)&&(speed_clera[1]<=177)) 
      {
-     dajiao_Slope[0]=road_section[0]-road_section[21];
-     dajiao_Slope[1]=road_section[0]-road_section[43]; 
+     dajiao_Slope[0]=road_section[0];
+     dajiao_Slope[1]=road_section[21]; 
+     dajiao_Slope[2]=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
      } 
 else if((speed_clera[1]>177)&&(speed_clera[1]<=195))      
      {
-     dajiao_Slope[0]=road_section[0]-road_section[19];
-     dajiao_Slope[1]=road_section[0]-road_section[39]; 
+     dajiao_Slope[0]=road_section[0];
+     dajiao_Slope[1]=road_section[19]; 
+     dajiao_Slope[2]=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
      } 
 else      
      {
-     dajiao_Slope[0]=road_section[0]-road_section[17];
-     dajiao_Slope[1]=road_section[0]-road_section[35]; 
+     dajiao_Slope[0]=road_section[0];
+     dajiao_Slope[1]=road_section[17];
+     dajiao_Slope[2]=(3*dajiao_Slope[0]+dajiao_Slope[1])/4; 
      }      
 }
 
-
-
-
-/*================打角舵机======================
-
+/*================斜率偏差滤波======================
+滤波时两次扩大了十倍   为了在计算斜率时除以速度值后仍然保留有一定数  
+和激光相似
 */
+void Clear_General(void) {
+
+General_pos[1]=dajiao_Slope[2]*10;
+General_pos[1]=(40*General_pos[0]+100*General_pos[1])/140;
+General_pos[0]=General_pos[1];
+
+//General_pos[3]=General_pos[1];
+//General_pos[3]=(40*General_pos[2]+100*General_pos[3])/14;
+//General_pos[2]=General_pos[3];
+}
+
+
+/*================打角舵机======================*/
+
+
 void dajiao(void){
 int zhuan,zhuan_abs;
 int dj_pwm;
-int code[2]={3,1},sum_code=4;
+//int code[2]={3,1},sum_code=4;
 
-zhuan=(3*dajiao_Slope[0]+1*dajiao_Slope[1]) /4;
+zhuan=General_pos[1];
 zhuan_abs=zhuan;
 zhuan_abs=aabs(zhuan_abs);
 
 if(zhuan_abs<=100)
 dj_pwm=0;
 
-else if((zhuan_abs>100)&&zhuan_abs<=1000)
-dj_pwm=zhuan/60;
-
+else if((zhuan_abs>100)&&zhuan_abs<=1000) 
+    {
+   if(befo_General_pos>0)
+   dj_pwm=zhuan/50;
+   else if(befo_General_pos<0)
+   dj_pwm=zhuan/50; 
+    }
 else if((zhuan_abs>1000)&&zhuan_abs<=2000)
-dj_pwm=zhuan/55;
+    {
+   if(befo_General_pos>0)
+   dj_pwm=zhuan/45-2;
+   else if(befo_General_pos<0)
+   dj_pwm=zhuan/45+2; 
+    }
 
 else if((zhuan_abs>2000)&&zhuan_abs<=3000)
-dj_pwm=zhuan/50;
+    {
+   if(befo_General_pos>0)
+   dj_pwm=zhuan/40-7;
+   else if(befo_General_pos<0)
+   dj_pwm=zhuan/40+7; 
+    }
 
 else if((zhuan_abs>3000)&&zhuan_abs<=4000)
-dj_pwm=zhuan/45;
+    {
+   if(befo_General_pos>0)
+   dj_pwm=zhuan/35-17;
+   else if(befo_General_pos<0)
+   dj_pwm=zhuan/35+17; 
+    }
 
-else if((zhuan_abs>4000)&&zhuan_abs<=5000)
-dj_pwm=zhuan/40;
+else if((zhuan_abs>4000)&&zhuan_abs<=5000) 
+    {
+   if(befo_General_pos>0)
+   dj_pwm=zhuan/30-35;
+   else if(befo_General_pos<0)
+   dj_pwm=zhuan/30+35; 
+    }
+
 
 else if((zhuan_abs>5000)&&zhuan_abs<=6000)
-dj_pwm=zhuan/35;
+
+    {
+   if(befo_General_pos>0)
+   dj_pwm=zhuan/25-68;
+   else if(befo_General_pos<0)
+   dj_pwm=zhuan/25+68; 
+    }
 
 else if((zhuan_abs>6000))
-dj_pwm=zhuan/30;
+
+    {
+   if(befo_General_pos>0)
+   dj_pwm=zhuan/20-120;
+   else if(befo_General_pos<0)
+   dj_pwm=zhuan/20+120; 
+    }
 
 if(dj_pwm>287)
 dj_pwm=287;
