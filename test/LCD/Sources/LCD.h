@@ -5,8 +5,10 @@
     Update:     2011.06.06
 	说明：LCD显示初始化及相关函数调用
 ----------------------------------------------*/        
-uint LCD_flag,LCD_para_num=40;  //LCD页标记位,小车参数标记位
+uint LCD_flag,LCD_para_num=40,LCD_module_num=50;  //LCD页标记位,小车关闭模块标记位
 int LCD_para_sdj,LCD_para_xdj;  //上舵机值,下舵机值
+int LCD_module_sdj,LCD_module_xdj;  //上舵机值,下舵机值
+int module_status=1;
 
 #define RST PTM_PTM7      		//复位用M7口   
 #define SCE PTM_PTM6          //片选用M6口
@@ -227,7 +229,23 @@ unsigned char hanzi[]=
 /*--  宋体12;  此字体下对应的点阵为：宽x高=16x16   --*/
 0x90,0x52,0x34,0x10,0xFF,0x10,0x34,0x52,0x80,0x70,0x8F,0x08,0x08,0xF8,0x08,0x00,
 0x82,0x9A,0x56,0x63,0x22,0x52,0x8E,0x00,0x80,0x40,0x33,0x0C,0x33,0x40,0x80,0x00,
-	
+/*--  文字:  关  --*/
+/*--  宋体12;  此字体下对应的点阵为：宽x高=16x16   --*/
+0x00,0x00,0x10,0x11,0x16,0x10,0x10,0xF0,0x10,0x10,0x14,0x13,0x10,0x00,0x00,0x00,
+0x81,0x81,0x41,0x41,0x21,0x11,0x0D,0x03,0x0D,0x11,0x21,0x41,0x41,0x81,0x81,0x00,
+/*--  文字:  闭  --*/
+/*--  宋体12;  此字体下对应的点阵为：宽x高=16x16   --*/
+0x00,0xF8,0x01,0x22,0x20,0x22,0x22,0xA2,0xFA,0x22,0x22,0x22,0x02,0xFE,0x00,0x00,
+0x00,0xFF,0x00,0x08,0x04,0x02,0x11,0x20,0x1F,0x00,0x00,0x40,0x80,0x7F,0x00,0x00,
+/*--  文字:  模  --*/
+/*--  宋体12;  此字体下对应的点阵为：宽x高=16x16   --*/
+0x10,0x10,0xD0,0xFF,0x90,0x14,0xE4,0xAF,0xA4,0xA4,0xA4,0xAF,0xE4,0x04,0x00,0x00,
+0x04,0x03,0x00,0xFF,0x00,0x89,0x4B,0x2A,0x1A,0x0E,0x1A,0x2A,0x4B,0x88,0x80,0x00,
+/*--  文字:  块  --*/
+/*--  宋体12;  此字体下对应的点阵为：宽x高=16x16   --*/
+0x20,0x20,0x20,0xFF,0x20,0x20,0x08,0x08,0x08,0xFF,0x08,0x08,0x08,0xF8,0x00,0x00,
+0x10,0x30,0x10,0x0F,0x88,0x48,0x21,0x11,0x0D,0x03,0x0D,0x11,0x21,0x41,0x81,0x00,
+
 };
 
 
@@ -455,20 +473,20 @@ LCD_start: 显示屏启动时显示"厦门大学嘉庚学院光电一队"
 void LCD_start(void) 
 {
 	LCD_clear();
-	LCD_write_hanzi(0,0,0);   //厦
-	LCD_write_hanzi(5,0,1);   //门
-	LCD_write_hanzi(10,0,2);  //大
-	LCD_write_hanzi(15,0,3);  //学
+	LCD_write_hanzi(1,0,0);   //厦
+	LCD_write_hanzi(6,0,1);   //门
+	LCD_write_hanzi(11,0,2);  //大
+	LCD_write_hanzi(16,0,3);  //学
 	
-	LCD_write_hanzi(0,2,4);   //嘉
-	LCD_write_hanzi(5,2,5);   //庚
-	LCD_write_hanzi(10,2,6);  //学
-	LCD_write_hanzi(15,2,7);  //院
+	LCD_write_hanzi(1,2,4);   //嘉
+	LCD_write_hanzi(6,2,5);   //庚
+	LCD_write_hanzi(11,2,6);  //学
+	LCD_write_hanzi(16,2,7);  //院
 	
-	LCD_write_hanzi(0,4,8);   //光
-	LCD_write_hanzi(5,4,9);   //电
-	LCD_write_hanzi(10,4,10); //谷
-	LCD_write_hanzi(15,4,11); //风
+	LCD_write_hanzi(1,4,8);   //光
+	LCD_write_hanzi(6,4,9);   //电
+	LCD_write_hanzi(11,4,10); //谷
+	LCD_write_hanzi(16,4,11); //风
 	}
 /*---------------------------------------------
 LCD_show: 显示屏显示主界面
@@ -476,27 +494,43 @@ LCD_show: 显示屏显示主界面
 -----------------------------------------------*/
 	void LCD_show(void) {
 	LCD_clear();
-	LCD_write_hanzi(0,0,12);   //小
-	LCD_write_hanzi(5,0,13);   //车
-	LCD_write_hanzi(10,0,14);  //状
-	LCD_write_hanzi(15,0,15);  //态
+	LCD_write_hanzi(1,0,12);   //小
+	LCD_write_hanzi(6,0,13);   //车
+	LCD_write_hanzi(11,0,14);  //状
+	LCD_write_hanzi(16,0,15);  //态
 	
-	LCD_write_hanzi(0,2,16);   //修
-	LCD_write_hanzi(5,2,17);   //改
-	LCD_write_hanzi(10,2,18);  //参
-	LCD_write_hanzi(15,2,19);  //数
+	LCD_write_hanzi(1,2,16);   //修
+	LCD_write_hanzi(6,2,17);   //改
+	LCD_write_hanzi(11,2,18);  //参
+	LCD_write_hanzi(16,2,19);  //数
+	
+	LCD_write_hanzi(1,4,20);   //关
+	LCD_write_hanzi(6,4,21);   //闭
+	LCD_write_hanzi(11,4,22);  //模
+	LCD_write_hanzi(16,4,23);  //块
 	}
-	/*---------------------------------------------
+/*---------------------------------------------
 LCD_para: 显示屏显示修改参数的页面
 编写日期：20110604
 -----------------------------------------------*/
 		void LCD_para(void) {
 			LCD_clear();
 		if(LCD_para_num-40>0)LCD_write_zi(0,LCD_para_num-41,'*');
-    LCD_write_cizu(9,0,"SDJ");
+    LCD_write_cizu(14,0,"SDJ");
     LCD_write_shuzi(40,0,LCD_para_sdj);
-    LCD_write_cizu(9,1,"XDJ");
+    LCD_write_cizu(14,1,"XDJ");
     LCD_write_shuzi(40,1,LCD_para_xdj);
+		}
+		
+/*---------------------------------------------
+LCD_module: 显示屏显示关闭模块的页面
+编写日期：20110608
+-----------------------------------------------*/
+		void LCD_module(void) {
+			LCD_clear();
+		if(LCD_module_num-50>0)LCD_write_zi(0,LCD_module_num-51,'*');
+    LCD_write_cizu(30,0,"SDJ");
+    LCD_write_cizu(30,1,"XDJ");
 		}
 	 
 /*---------------------------------------------
@@ -516,6 +550,30 @@ LCD_status: 显示屏显示小车状态的页面
 	}
 	}
 /*---------------------------------------------
+LCD_module_modify: 修改参数的页面
+参数：name是要改的参数编号,a是要改的值
+编写日期：20110606
+-----------------------------------------------*/
+  void LCD_module_modify(uint name,int a) {
+	LCD_clear();
+	switch(name)
+
+        {
+    case 51:     //启用上舵机
+  	LCD_write_cizu(13,2,"Close SDJ ?"); 
+	  if(a==1)LCD_write_cizu(5,4,"ON ");
+	  else if(a==0) LCD_write_cizu(5,4,"OFF");
+	  LCD_module_sdj=a; 
+    break;
+    case 52:     //启用下舵机
+  	LCD_write_cizu(13,1,"Close XDJ ?"); 
+	  if(a==1)LCD_write_cizu(5,4,"ON ");
+	  else if(a==0) LCD_write_cizu(5,4,"OFF");
+	  LCD_module_xdj=a; 
+    break;
+    } 
+	}
+	/*---------------------------------------------
 LCD_para_modify: 修改参数的页面
 参数：name是要改的参数编号,a是要改的值
 编写日期：20110606
@@ -556,17 +614,21 @@ else if(KEY1==0&&LCD_flag==12)LCD_flag=11;                	/*进入小车状态页面1*/
 else if(KEY2==0&&LCD_flag==12)LCD_flag=12;                	/*进入小车状态页面2*/
 else if(KEY3==0&&LCD_flag==12)LCD_flag=0;                	  /*返回主页面*/	
 	/*  修改参数页面按键设置  */
-else if(KEY1==0&&LCD_flag==2)LCD_flag=LCD_para_num;
-else if(KEY2==0&&LCD_flag==2){LCD_para_num+=1;delay_nms(400);}/*暂未写，功能选择下个值*/
+else if(KEY1==0&&LCD_flag==2){if(LCD_para_num==40)LCD_flag=2;else LCD_flag=LCD_para_num;}
+else if(KEY2==0&&LCD_flag==2){LCD_para_num+=1;delay_nms(400);}/*功能选择下个值*/
 else if(KEY3==0&&LCD_flag==2)LCD_flag=0;	
-	/*  修改参数页面按键设置  */
-else if(KEY1==0&&39<LCD_flag&&LCD_flag<50)temp=1;   /*暂未写，参数值变大*/
-else if(KEY2==0&&39<LCD_flag&&LCD_flag<50)temp=-1;   /*暂未写，参数值变小*/
+	/* 进入修改参数页面按键设置  */
+else if(KEY1==0&&39<LCD_flag&&LCD_flag<50)temp=1;   /*参数值变大*/
+else if(KEY2==0&&39<LCD_flag&&LCD_flag<50)temp=-1;   /*参数值变小*/
 else if(KEY3==0&&39<LCD_flag&&LCD_flag<50){LCD_flag=2;LCD_para_num=40;}	/*返回参数主页面*/
-	/*  第三个页面按键设置，三个按键暂时都是返回主页面  */
-else if(KEY1==0&&LCD_flag==3)LCD_flag=0;
-else if(KEY2==0&&LCD_flag==3)LCD_flag=0;
+	/*  关闭模块页面按键设置  */
+else if(KEY1==0&&LCD_flag==3){if(LCD_module_num==50)LCD_flag=3;else LCD_flag=LCD_module_num;}
+else if(KEY2==0&&LCD_flag==3){LCD_module_num+=1;delay_nms(400);}/*功能选择下个值*/
 else if(KEY3==0&&LCD_flag==3)LCD_flag=0;
+	/* 进入关闭模块页面按键设置  */
+else if(KEY1==0&&49<LCD_flag&&LCD_flag<60)module_status=1;
+else if(KEY2==0&&49<LCD_flag&&LCD_flag<60)module_status=0;
+else if(KEY3==0&&49<LCD_flag&&LCD_flag<60){LCD_flag=3;LCD_module_num=50;module_status=1;}	/*返回参数主页面*/
    result= LCD_flag;
     switch(result)
     {
@@ -583,11 +645,11 @@ else if(KEY3==0&&LCD_flag==3)LCD_flag=0;
   	delay_nms(400);
     break;
     case 2:   /*进入修改参数页面*/
-    LCD_para();						
+    LCD_para();						            
   	delay_nms(400);
     break;
     case 3:   /*进入第三个页面*/
-    LCD_start();							
+    LCD_module();							
   	delay_nms(400);
     break;
     case 41:  //改变上舵机的值,41是上舵机的参数编号,详见 LCD_para_modify参数
@@ -598,6 +660,14 @@ else if(KEY3==0&&LCD_flag==3)LCD_flag=0;
     case 42:  //改变下舵机的值,42是上舵机的参数编号,详见 LCD_para_modify参数
     LCD_para_modify(42,temp);	
     temp=0;					
+  	delay_nms(400);
+    break;
+    case 51:  //启用上舵机,51是上舵机的参数编号,详见 LCD_module_modify参数
+    LCD_module_modify(51,module_status);			
+  	delay_nms(400);
+    break;
+    case 52:  //启用下舵机,52是上舵机的参数编号,详见 LCD_module_modify参数
+    LCD_module_modify(52,module_status);				
   	delay_nms(400);
     break;
     }
