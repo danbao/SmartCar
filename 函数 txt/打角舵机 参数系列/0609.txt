@@ -1,0 +1,79 @@
+void dajiao(void){
+int zhuan,zhuan_abs;
+int dj_pwm;
+//int code[2]={3,1},sum_code=4;
+
+zhuan=General_pos[1];
+zhuan_abs=zhuan;
+zhuan_abs=aabs(zhuan_abs);
+
+if(zhuan_abs<=100)
+dj_pwm=0;
+
+else if((zhuan_abs>100)&&(zhuan_abs<=1000)) 
+    {
+   if(befo_General_pos>0)
+   dj_pwm=zhuan/19-4;
+   else if(befo_General_pos<0)
+   dj_pwm=zhuan/19+4; 
+    }
+else if((zhuan_abs>1000)&&(zhuan_abs<=2000))
+    {
+   if(befo_General_pos>0)
+   dj_pwm=zhuan/17-10;
+   else if(befo_General_pos<0)
+   dj_pwm=zhuan/17+10; 
+    }
+
+else if((zhuan_abs>2000)&&(zhuan_abs<=3000))
+    {
+   if(befo_General_pos>0)
+   dj_pwm=zhuan/15-25;
+   else if(befo_General_pos<0)
+   dj_pwm=zhuan/15+25; 
+    }
+
+else if((zhuan_abs>3000)&&(zhuan_abs<=4000))
+    {
+   if(befo_General_pos>0)
+   dj_pwm=zhuan/12-75;
+   else if(befo_General_pos<0)
+   dj_pwm=zhuan/12+75; 
+    }
+
+else if((zhuan_abs>4000)&&(zhuan_abs<=5000)) 
+    {
+   if(befo_General_pos>0)
+   dj_pwm=zhuan/10-141;
+   else if(befo_General_pos<0)
+   dj_pwm=zhuan/10+141; 
+    }
+
+
+else if((zhuan_abs>5000)&&(zhuan_abs<=6000))
+
+    {
+   if(befo_General_pos>0)
+   dj_pwm=zhuan/8-266;
+   else if(befo_General_pos<0)
+   dj_pwm=zhuan/8+266; 
+    }
+
+else if(zhuan_abs>6000)
+
+    {
+   if(befo_General_pos>0)
+   dj_pwm=zhuan/6-516;
+   else if(befo_General_pos<0)
+   dj_pwm=zhuan/6+516; 
+    }
+
+if(dj_pwm>700)
+dj_pwm=700;
+else if(dj_pwm<-700)
+dj_pwm=-700;
+
+dj_pwm=dj_pwm+PWM45;
+
+PWMDTY45=dj_pwm;
+}
