@@ -25,7 +25,7 @@ void main(void)
   PITInit();          //PIT初始
   PWM_Init();
   LIGHT_Init();
-  SCI_Init();
+ // SCI_Init();
   Tect_Speed_Init();    //ECT 捕捉初始
  // AD_Init(); 
   delayms(3200);
@@ -40,10 +40,10 @@ void main(void)
    Confirm_Light(); //排除误点
    Clear_baitou();  //position的第一次滤波
    General_Position();      
-   Clear_General();
    Collect_Point();
    Collect_Section();
    Judge_Slope();
+   Clear_General();
    
    dajiao();
 
@@ -55,7 +55,7 @@ void main(void)
    
   
    baitou_delay++;
-   if(baitou_delay%11==0) 
+   if(baitou_delay%12==0) 
    {
     baitou_delay=1;
     baitou( ); //先执行摆头舵机，通过计算得出角度，为第二次滤波做准备

@@ -35,36 +35,43 @@ void  baitou (void) {
     JG_pwm=0;
     else if(JG_pos_abs>60&&JG_pos_abs<=300) 
           {
-      JG_pwm=JG_clear_Pos[1]/54;
+      JG_pwm=JG_clear_Pos[1]/50;
           }
     else if(JG_pos_abs>300&&JG_pos_abs<=400) 
           {
       if(position>0)   
-      JG_pwm=JG_clear_Pos[1]/30-4;
+      JG_pwm=JG_clear_Pos[1]/25-6;
       else if(position<0)
-      JG_pwm=JG_clear_Pos[1]/30+4;
+      JG_pwm=JG_clear_Pos[1]/25+6;
       
           }
-    else if(JG_pos_abs>400&&JG_pos_abs<=800) 
+    else if(JG_pos_abs>400&&JG_pos_abs<=600)
           {
       if(position>0)    
-      JG_pwm=JG_clear_Pos[1]/18-13;
+      JG_pwm=JG_clear_Pos[1]/23-7;
       else if(position<0)
-      JG_pwm=JG_clear_Pos[1]/18+13;
+      JG_pwm=JG_clear_Pos[1]/23+7;
           }
-    else if(JG_pos_abs>800&&JG_pos_abs<=1100)
+    else if(JG_pos_abs>600&&JG_pos_abs<=800) 
+          {
+      if(position>0)    
+      JG_pwm=JG_clear_Pos[1]/21-9;
+      else if(position<0)
+      JG_pwm=JG_clear_Pos[1]/21+9;
+          }      
+    else if(JG_pos_abs>800)
          {
       if(position>0)   
-      JG_pwm=JG_clear_Pos[1]/12-35;
+      JG_pwm=JG_clear_Pos[1]/20-11;
       else if(position<0)
-      JG_pwm=JG_clear_Pos[1]/12+35;
+      JG_pwm=JG_clear_Pos[1]/20+11;
       
-         }
+         }                        
    
        
      JG_clear_Pos[0]=JG_clear_Pos[1];
-     if(JG_pwm_his+JG_pwm>2602)
-     PWMDTY67=2602;
+     if(JG_pwm_his+JG_pwm>2800)
+     PWMDTY67=2800;
      else if(JG_pwm_his+JG_pwm<1160)
      PWMDTY67=1160;
      else
@@ -180,28 +187,28 @@ if(speed_clera[1]<=158)
      {
      dajiao_Slope[0]=road_section[0];
      dajiao_Slope[1]=road_section[23];
-     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     slop_sum=(2*dajiao_Slope[0]+dajiao_Slope[1])/3;
      dajiao_Slope[2]=slop_sum;
      } 
 else if((speed_clera[1]>158)&&(speed_clera[1]<=177)) 
      {
      dajiao_Slope[0]=road_section[0];
      dajiao_Slope[1]=road_section[21]; 
-     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     slop_sum=(2*dajiao_Slope[0]+dajiao_Slope[1])/3;
      dajiao_Slope[2]=slop_sum;
      } 
 else if((speed_clera[1]>177)&&(speed_clera[1]<=195))      
      {
      dajiao_Slope[0]=road_section[0];
      dajiao_Slope[1]=road_section[19]; 
-     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     slop_sum=(2*dajiao_Slope[0]+dajiao_Slope[1])/3;
      dajiao_Slope[2]=slop_sum;
      } 
 else      
      {
      dajiao_Slope[0]=road_section[0];
      dajiao_Slope[1]=road_section[17];
-     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     slop_sum=(2*dajiao_Slope[0]+dajiao_Slope[1])/3;
      dajiao_Slope[2]=slop_sum;
      }      
 }
@@ -240,40 +247,40 @@ dj_pwm=0;
 else if((zhuan_abs>100)&&(zhuan_abs<=1000)) 
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/19-4;
+   dj_pwm=zhuan/17-4;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/19+4; 
+   dj_pwm=zhuan/17+4; 
     }
 else if((zhuan_abs>1000)&&(zhuan_abs<=2000))
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/17-10;
+   dj_pwm=zhuan/15-12;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/17+10; 
+   dj_pwm=zhuan/15+12; 
     }
 
 else if((zhuan_abs>2000)&&(zhuan_abs<=3000))
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/15-25;
+   dj_pwm=zhuan/13-32;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/15+25; 
+   dj_pwm=zhuan/13+32; 
     }
 
 else if((zhuan_abs>3000)&&(zhuan_abs<=4000))
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/12-75;
+   dj_pwm=zhuan/11-74;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/12+75; 
+   dj_pwm=zhuan/11+74; 
     }
 
 else if((zhuan_abs>4000)&&(zhuan_abs<=5000)) 
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/10-141;
+   dj_pwm=zhuan/9-155;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/10+141; 
+   dj_pwm=zhuan/9+155; 
     }
 
 
@@ -281,18 +288,18 @@ else if((zhuan_abs>5000)&&(zhuan_abs<=6000))
 
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/8-266;
+   dj_pwm=zhuan/7-314;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/8+266; 
+   dj_pwm=zhuan/7+314; 
     }
 
 else if(zhuan_abs>6000)
 
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/6-516;
+   dj_pwm=zhuan/6-469;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/6+516; 
+   dj_pwm=zhuan/6+469; 
     }
 
 if(dj_pwm>700)

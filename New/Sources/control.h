@@ -46,7 +46,7 @@ void Confirm_Light(){
  if(special_flag<3)
   { 
  if(HitBlackNum==0);
- else if((HitBlackNum>0)&&(HitBlackNum<=3)) 
+ else if((HitBlackNum>0)) //&&(HitBlackNum<=3)
  Status_Judge();
  
    } 
