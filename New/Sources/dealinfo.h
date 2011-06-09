@@ -31,42 +31,42 @@ void  baitou (void) {
     JG_clear_Pos[1]=JG_clear[1];
     
     
-    if(JG_pos_abs<=60)                             //分四段P 
+    if(JG_pos_abs<=70)                             //分四段P 
     JG_pwm=0;
-    else if(JG_pos_abs>60&&JG_pos_abs<=300) 
+    else if(JG_pos_abs>70&&JG_pos_abs<=300) 
           {
       JG_pwm=JG_clear_Pos[1]/50;
           }
     else if(JG_pos_abs>300&&JG_pos_abs<=400) 
           {
       if(position>0)   
-      JG_pwm=JG_clear_Pos[1]/25-6;
+      JG_pwm=JG_clear_Pos[1]/40-1;
       else if(position<0)
-      JG_pwm=JG_clear_Pos[1]/25+6;
+      JG_pwm=JG_clear_Pos[1]/40+1;
       
           }
     else if(JG_pos_abs>400&&JG_pos_abs<=600)
           {
       if(position>0)    
-      JG_pwm=JG_clear_Pos[1]/23-7;
+      JG_pwm=JG_clear_Pos[1]/30-4;
       else if(position<0)
-      JG_pwm=JG_clear_Pos[1]/23+7;
+      JG_pwm=JG_clear_Pos[1]/30+4;
           }
-    else if(JG_pos_abs>600&&JG_pos_abs<=800) 
+    else if(JG_pos_abs>600)// &&JG_pos_abs<=800
           {
       if(position>0)    
-      JG_pwm=JG_clear_Pos[1]/21-9;
+      JG_pwm=JG_clear_Pos[1]/21-12;
       else if(position<0)
-      JG_pwm=JG_clear_Pos[1]/21+9;
+      JG_pwm=JG_clear_Pos[1]/21+12;
           }      
-    else if(JG_pos_abs>800)
+  /*  else if(JG_pos_abs>800)
          {
       if(position>0)   
-      JG_pwm=JG_clear_Pos[1]/20-11;
+      JG_pwm=JG_clear_Pos[1]/21-11;
       else if(position<0)
-      JG_pwm=JG_clear_Pos[1]/20+11;
+      JG_pwm=JG_clear_Pos[1]/21+11;
       
-         }                        
+         }       */                 
    
        
      JG_clear_Pos[0]=JG_clear_Pos[1];
