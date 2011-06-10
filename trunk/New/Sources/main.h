@@ -65,7 +65,7 @@
   long IR_clear[2];                       //红外滤波值
   
   int  baitou_delay=1;                    //摆头延迟  同时用来等分摆头的每次舵机值
-  long JG_clear[2];                      //激光一次迭代滤波 此次和上次
+  long JG_clear[4];                      //激光一次迭代滤波 此次和上次
   int JG_clear_Pos[2];                  //存入当前和上一次摆头时的JG_clear 的值
                              
  // int speed_collect;                     //速度捕捉值
