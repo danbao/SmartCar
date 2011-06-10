@@ -113,6 +113,6 @@ void Testpara(int test_sdj,int test_xdj,int test_speed,int test_position) {
 -----------------------------------------  */  
 void TestSMinfo(void){
 Testjiguang(light_temp_laser_array);	//发送激光数组
-Testpara(temp_pwm67,temp_pwm45,speed_clera[1],JG_clear[1]);//发送相关参数
+Testpara(PWMDTY67,PWMDTY45,speed_clera[1],JG_clear[3]);//发送相关参数
 TestIR(IR_temp_laser_array,IR_position[1]);
   }

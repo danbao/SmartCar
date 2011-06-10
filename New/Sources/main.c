@@ -25,7 +25,7 @@ void main(void)
   PITInit();          //PIT³õÊ¼
   PWM_Init();
   LIGHT_Init();
- // SCI_Init();
+  SCI_Init();
   Tect_Speed_Init();    //ECT ²¶×½³õÊ¼
  // AD_Init(); 
   delayms(3200);
@@ -47,12 +47,12 @@ void main(void)
    
    dajiao();
 
-   /*send_count++;
+  /* send_count++;
    if(send_count%20==0) {
      send_count=1;
-    TestSMinfo();
-   }   */
-   
+    TestSMinfo();  
+   }   
+    */
   
    baitou_delay++;
    if(baitou_delay%12==0) 

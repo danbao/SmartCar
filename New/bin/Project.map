@@ -24,7 +24,7 @@ Entry point: 0xC000 (_Startup)
 _startupData is allocated at 0xC00F and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x2100     237
+  _Range   pZeroOut       0x2100     245
   _Copy    *toCopyDownBeg 0xC146
 } _startupData;
 
@@ -36,7 +36,7 @@ Section Name                    Size  Type     From       To       Segment
 .startData                        10     R     0xC00F     0xC018   ROM_C000
 NON_BANKED                       301     R     0xC019     0xC145   ROM_C000
 .copy                             54     R     0xC146     0xC17B   ROM_C000
-.text                           2052     R   0xFE8000   0xFE8803   PAGE_FE
+.text                           2145     R   0xFE8000   0xFE8860   PAGE_FE
 .stack                           256   R/W     0x2000     0x20FF   RAM
 .data                             48   R/W     0x2100     0x212F   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
@@ -332,12 +332,12 @@ NON_BANKED                       301     R     0xC019     0xC145   ROM_C000
 .abs_section_356                   2   N/I      0x356      0x357   .absSeg290
 .abs_section_ff7a                  2     R     0xFF7A     0xFF7B   .absSeg291
 .bss                               2   R/W     0x2130     0x2131   RAM
-.common                          187   R/W     0x2132     0x21EC   RAM
+.common                          195   R/W     0x2132     0x21F4   RAM
 .vectSeg292_vect                   2     R     0xFFFE     0xFFFF   .vectSeg292
 
 Summary of section sizes per section type:
-READ_ONLY (R):         984 (dec:     2436)
-READ_WRITE (R/W):      1ED (dec:      493)
+READ_ONLY (R):         9E1 (dec:     2529)
+READ_WRITE (R/W):      1F5 (dec:      501)
 NO_INIT (N/I):         168 (dec:      360)
 
 *********************************************************************************************
@@ -410,8 +410,8 @@ MODULE:                 -- MC9S12XS128.c.o --
      _PAFLG                                      61       1       1       0   .abs_section_61
      _OCPD                                       6C       1       1       0   .abs_section_6c
      _PTPSR                                      6E       1       1       0   .abs_section_6e
-     _SCI0ACR2                                   CA       1       1       0   .abs_section_ca
-     _SCI0CR2                                    CB       1       1       0   .abs_section_cb
+     _SCI0ACR2                                   CA       1       1       1   .abs_section_ca
+     _SCI0CR2                                    CB       1       1       1   .abs_section_cb
      _SCI0SR1                                    CC       1       1       0   .abs_section_cc
      _SCI0SR2                                    CD       1       1       0   .abs_section_cd
      _SCI0DRH                                    CE       1       1       0   .abs_section_ce
@@ -589,7 +589,7 @@ MODULE:                 -- MC9S12XS128.c.o --
      _TC6                                        5C       2       2       0   .abs_section_5c
      _TC7                                        5E       2       2       0   .abs_section_5e
      _PACNT                                      62       2       2       3   .abs_section_62
-     _SCI0BD                                     C8       2       2       0   .abs_section_c8
+     _SCI0BD                                     C8       2       2       1   .abs_section_c8
      _SCI1BD                                     D0       2       2       0   .abs_section_d0
      _SPI0DR                                     DC       2       2       0   .abs_section_dc
      _FCCOB                                     10A       2       2       0   .abs_section_10a
@@ -655,23 +655,24 @@ MODULE:                 -- main.c.o --
      LIGHT_Init                              FE80D8       8       8       2   .text       
      PITInit                                 FE80E0      20      32       2   .text       
      Light_Up                                FE8100      C5     197       6   .text       
-     Clear_baitou                            FE81C5      4E      78       2   .text       
-     baitou                                  FE8213      D2     210       2   .text       
-     General_Position                        FE82E5      18      24       2   .text       
-     Collect_Point                           FE82FD      6A     106       2   .text       
-     Collect_Section                         FE8367      2A      42       2   .text       
-     Judge_Slope                             FE8391      4F      79       2   .text       
-     Clear_General                           FE83E0      4E      78       2   .text       
-     dajiao                                  FE842E     16A     362       2   .text       
-     SpeedCtrl                               FE8598      69     105       2   .text       
-     Confirm_Start                           FE8601      5A      90       2   .text       
-     Confirm_Cross                           FE865B       D      13       2   .text       
-     Confirm_Light                           FE8668      85     133       2   .text       
-     calculate_light                         FE86ED      1E      30       4   .text       
-     Laser_num                               FE870B      15      21       2   .text       
-     Status_Judge                            FE8720      2E      46       4   .text       
-     Clear_Speed                             FE874E      23      35       2   .text       
-     main                                    FE8771      6A     106       2   .text       
+     Clear_baitou                            FE81C5      97     151       2   .text       
+     baitou                                  FE825C      D5     213       2   .text       
+     General_Position                        FE8331      18      24       2   .text       
+     Collect_Point                           FE8349      6A     106       2   .text       
+     Collect_Section                         FE83B3      2A      42       2   .text       
+     Judge_Slope                             FE83DD      4F      79       2   .text       
+     Clear_General                           FE842C      4E      78       2   .text       
+     dajiao                                  FE847A     16A     362       2   .text       
+     SpeedCtrl                               FE85E4      69     105       2   .text       
+     Confirm_Start                           FE864D      5A      90       2   .text       
+     Confirm_Cross                           FE86A7       D      13       2   .text       
+     Confirm_Light                           FE86B4      85     133       2   .text       
+     calculate_light                         FE8739      1E      30       4   .text       
+     Laser_num                               FE8757      15      21       2   .text       
+     Status_Judge                            FE876C      2E      46       4   .text       
+     Clear_Speed                             FE879A      23      35       2   .text       
+     SCI_Init                                FE87BD       D      13       2   .text       
+     main                                    FE87CA      6E     110       2   .text       
      PIT0_ISR                                  C019       E      14       1   NON_BANKED  
 - VARIABLES:
      change_JG_DJ_array                        2100      2E      46       1   .data       
@@ -692,12 +693,12 @@ MODULE:                 -- main.c.o --
      befo_General_pos                          21CD       2       2      10   .common     
      General_pos                               21CF       8       8      12   .common     
      dajiao_Slope                              21D7       6       6       6   .common     
-     JG_clear                                  21DD       8       8      13   .common     
-     JG_clear_Pos                              21E5       4       4       7   .common     
-     speed_clera                               21E9       4       4       9   .common     
+     JG_clear                                  21DD      10      16      27   .common     
+     JG_clear_Pos                              21ED       4       4       7   .common     
+     speed_clera                               21F1       4       4       9   .common     
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
-     Init                                    FE87DB      29      41       2   .text       
+     Init                                    FE8838      29      41       2   .text       
      _Startup                                  C000       F      15       0   .init       
 - VARIABLES:
      _startupData                              C00F       6       6       3   .startData  
@@ -706,10 +707,10 @@ MODULE:                 -- Start12.c.o --
 MODULE:                 -- rtshc12.c.o (ansixbf.lib) --
 - PROCEDURES:
      _LNEG                                     C027       9       9       2   NON_BANKED  
-     _LMULS16x32                               C030      1C      28       4   NON_BANKED  
+     _LMULS16x32                               C030      1C      28       6   NON_BANKED  
      _lDivMod                                  C04C      B9     185       2   NON_BANKED  
      _NEG_P                                    C105       C      12       4   NON_BANKED  
-     _LDIVS                                    C111      35      53       3   NON_BANKED  
+     _LDIVS                                    C111      35      53       4   NON_BANKED  
 - VARIABLES:
 
 *********************************************************************************************
@@ -717,7 +718,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   MC9S12XS128.c.o                            360      0      0
-  main.c.o                                   237   2025      2
+  main.c.o                                   245   2118      2
   Start12.c.o                                  0     56      0
   rtshc12.c.o (ansixbf.lib)                    0    287      0
   other                                      256     12     54
@@ -730,7 +731,7 @@ SECTION: ".text"
   PITInit Light_Up Clear_baitou baitou General_Position Collect_Point 
   Collect_Section Judge_Slope Clear_General dajiao SpeedCtrl Confirm_Start 
   Confirm_Cross Confirm_Light calculate_light Laser_num Status_Judge 
-  Clear_Speed main Init 
+  Clear_Speed SCI_Init main Init 
 SECTION: ".data"
   change_JG_DJ_array baitou_delay 
 SECTION: ".bss"
@@ -1403,9 +1404,9 @@ OBJECT LIST SORTED BY ADDRESS
      _PACNT                                      62       2       2       3   .abs_section_62
      _OCPD                                       6C       1       1       0   .abs_section_6c
      _PTPSR                                      6E       1       1       0   .abs_section_6e
-     _SCI0BD                                     C8       2       2       0   .abs_section_c8
-     _SCI0ACR2                                   CA       1       1       0   .abs_section_ca
-     _SCI0CR2                                    CB       1       1       0   .abs_section_cb
+     _SCI0BD                                     C8       2       2       1   .abs_section_c8
+     _SCI0ACR2                                   CA       1       1       1   .abs_section_ca
+     _SCI0CR2                                    CB       1       1       1   .abs_section_cb
      _SCI0SR1                                    CC       1       1       0   .abs_section_cc
      _SCI0SR2                                    CD       1       1       0   .abs_section_cd
      _SCI0DRH                                    CE       1       1       0   .abs_section_ce
@@ -1640,16 +1641,16 @@ OBJECT LIST SORTED BY ADDRESS
      befo_General_pos                          21CD       2       2      10   .common     
      General_pos                               21CF       8       8      12   .common     
      dajiao_Slope                              21D7       6       6       6   .common     
-     JG_clear                                  21DD       8       8      13   .common     
-     JG_clear_Pos                              21E5       4       4       7   .common     
-     speed_clera                               21E9       4       4       9   .common     
+     JG_clear                                  21DD      10      16      27   .common     
+     JG_clear_Pos                              21ED       4       4       7   .common     
+     speed_clera                               21F1       4       4       9   .common     
      _Startup                                  C000       F      15       0   .init       
      PIT0_ISR                                  C019       E      14       1   NON_BANKED  
      _LNEG                                     C027       9       9       2   NON_BANKED  
-     _LMULS16x32                               C030      1C      28       4   NON_BANKED  
+     _LMULS16x32                               C030      1C      28       6   NON_BANKED  
      _lDivMod                                  C04C      B9     185       2   NON_BANKED  
      _NEG_P                                    C105       C      12       4   NON_BANKED  
-     _LDIVS                                    C111      35      53       3   NON_BANKED  
+     _LDIVS                                    C111      35      53       4   NON_BANKED  
      _Vector_66                                FF7A       2       2       0   .abs_section_ff7a
      SetBusCLK_40M                           FE8000      1A      26       2   .text       
      delayms                                 FE801A      25      37       2   .text       
@@ -1660,32 +1661,33 @@ OBJECT LIST SORTED BY ADDRESS
      LIGHT_Init                              FE80D8       8       8       2   .text       
      PITInit                                 FE80E0      20      32       2   .text       
      Light_Up                                FE8100      C5     197       6   .text       
-     Clear_baitou                            FE81C5      4E      78       2   .text       
-     baitou                                  FE8213      D2     210       2   .text       
-     General_Position                        FE82E5      18      24       2   .text       
-     Collect_Point                           FE82FD      6A     106       2   .text       
-     Collect_Section                         FE8367      2A      42       2   .text       
-     Judge_Slope                             FE8391      4F      79       2   .text       
-     Clear_General                           FE83E0      4E      78       2   .text       
-     dajiao                                  FE842E     16A     362       2   .text       
-     SpeedCtrl                               FE8598      69     105       2   .text       
-     Confirm_Start                           FE8601      5A      90       2   .text       
-     Confirm_Cross                           FE865B       D      13       2   .text       
-     Confirm_Light                           FE8668      85     133       2   .text       
-     calculate_light                         FE86ED      1E      30       4   .text       
-     Laser_num                               FE870B      15      21       2   .text       
-     Status_Judge                            FE8720      2E      46       4   .text       
-     Clear_Speed                             FE874E      23      35       2   .text       
-     main                                    FE8771      6A     106       2   .text       
-     Init                                    FE87DB      29      41       2   .text       
+     Clear_baitou                            FE81C5      97     151       2   .text       
+     baitou                                  FE825C      D5     213       2   .text       
+     General_Position                        FE8331      18      24       2   .text       
+     Collect_Point                           FE8349      6A     106       2   .text       
+     Collect_Section                         FE83B3      2A      42       2   .text       
+     Judge_Slope                             FE83DD      4F      79       2   .text       
+     Clear_General                           FE842C      4E      78       2   .text       
+     dajiao                                  FE847A     16A     362       2   .text       
+     SpeedCtrl                               FE85E4      69     105       2   .text       
+     Confirm_Start                           FE864D      5A      90       2   .text       
+     Confirm_Cross                           FE86A7       D      13       2   .text       
+     Confirm_Light                           FE86B4      85     133       2   .text       
+     calculate_light                         FE8739      1E      30       4   .text       
+     Laser_num                               FE8757      15      21       2   .text       
+     Status_Judge                            FE876C      2E      46       4   .text       
+     Clear_Speed                             FE879A      23      35       2   .text       
+     SCI_Init                                FE87BD       D      13       2   .text       
+     main                                    FE87CA      6E     110       2   .text       
+     Init                                    FE8838      29      41       2   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
 NOT USED PROCEDURES
 main.c.o:
-  SCI_RXD SCISend SCISend_chars SCI_Init Testjiguang TestIR Testpara 
-  TestSMinfo AD_Init ReadATD Collect_IR 
+  SCI_RXD SCISend SCISend_chars Testjiguang TestIR Testpara TestSMinfo AD_Init 
+  ReadATD Collect_IR 
 rtshc12.c.o (ansixbf.lib):
   _BSHL _BSHRS _BSHRU _BDIVMODU _BDIVMODS _ISHL _ISHRU _ISHRS _LSHL _LSHRU 
   _LSHRS _LADD _LSUB _LAND _LOR _LXOR _LCMP _LCMP_P _LCMP_PP _LCOM _LINC _LDEC 
@@ -1766,11 +1768,12 @@ Laser_num                 USES q_temp_laser_num
 Status_Judge              USES HitBlackNum light_temp_laser_array 
                                 q_temp_laser_num position 
 Clear_Speed               USES speed_clera 
+SCI_Init                  USES _SCI0ACR2 _SCI0CR2 _SCI0BD 
 main                      USES SetBusCLK_40M PITInit PWM_Init LIGHT_Init 
-                                Tect_Speed_Init delayms Laser_num Light_Up Confirm_Light 
-                                Clear_baitou General_Position Collect_Point Collect_Section 
-                                Judge_Slope Clear_General dajiao baitou_delay baitou 
-                                Clear_Speed SpeedCtrl 
+                                SCI_Init Tect_Speed_Init delayms Laser_num Light_Up 
+                                Confirm_Light Clear_baitou General_Position Collect_Point 
+                                Collect_Section Judge_Slope Clear_General dajiao baitou_delay 
+                                baitou Clear_Speed SpeedCtrl 
 Init                      USES _startupData 
 
 *********************************************************************************************
@@ -1787,6 +1790,8 @@ DEPENDENCY TREE
  |  +- PWM_Init            
  |  |    
  |  +- LIGHT_Init          
+ |  |    
+ |  +- SCI_Init            
  |  |    
  |  +- Tect_Speed_Init     
  |  |    
@@ -1867,5 +1872,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 2436
+Total size of all blocks to be downloaded: 2529
 
