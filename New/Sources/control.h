@@ -44,7 +44,19 @@ void Confirm_Light(){
  calculate_light();
  
 
- if(HitBlackNum==0);
+ if(HitBlackNum==0)
+   {
+   if(right)
+      {
+      position =-12;
+      } 
+   else if(left)
+      {
+      position=12;
+      } 
+   else  if(middle);
+      
+   }
  else if(HitBlackNum>0) 
  Status_Judge();
  
@@ -53,10 +65,10 @@ void Confirm_Light(){
 /*==========================逐个检查 包括计算照黑个数，错误点个数==========*/
 void calculate_light(void){
  int i=0,changeposition;
- changeposition=6-position/2;
+ changeposition=6+position/2;
  for(i=0;i<LASER_MAX;i++) {
   if (light_temp_laser_array[i]==0) continue;
-  else if ((light_temp_laser_array[i]==1))  //&&(aabs(i-changeposition)<=2)
+  else if ((light_temp_laser_array[i]==1)&&(aabs(i-changeposition)<=6)) 
   {
   HitBlackNum++;
   }
@@ -93,7 +105,11 @@ void Status_Judge(void) {
   for(i=0;i<LASER_MAX;i++){
     sum=sum+light_temp_laser_array[i]*q_temp_laser_num[i];
   }
-  position=sum/temp_HitBlackNum;    
+  position=sum/temp_HitBlackNum;
+  
+  if(position>6){left=1;right=0;middle=0;} 
+  else if(position<-6){right=1;left=0;middle=0;} 
+  else {middle=1;right=0;left=0;}
 }
 
 

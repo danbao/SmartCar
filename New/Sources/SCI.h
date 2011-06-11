@@ -3,7 +3,9 @@
     Update:     2011.06.02
 	说明：串口调用及无线模块
 ----------------------------------------------*/
-
+int SCI_i=0;
+int SCI_PWMDTY01,SCI_PWMDTY23;      
+int *SCI_DP;
 /*--------------------------------------------
 SCI_RXD: 串口接收函数
 编写日期：20110411
@@ -115,4 +117,83 @@ void TestSMinfo(void){
 Testjiguang(light_temp_laser_array);	//发送激光数组
 Testpara(PWMDTY67,PWMDTY45,speed_clera[1],JG_clear[3]);//发送相关参数
 TestIR(IR_temp_laser_array,IR_position[1]);
-  }
+}
+/*---------------------------------------
+无线模块接收处理
+编写日期：200110611
+参数  command：填入字符串处理
+-----------------------------------------  */ 
+void SCI_REC_chuli(char a[])
+{
+	char *p;
+	char rectemp[10];
+	switch(a[strlen(a)-1]){
+   	  case '@':{
+	p = strtok(a, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);DP1=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);DP2=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);DP3=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);DP4=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);DP5=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);DP6=*SCI_DP;} 
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);DP7=*SCI_DP;}
+      }
+      break; 
+	case '*':{
+	p = strtok(a, "*");
+	SCI_PWMDTY01=atoi(p); 
+	PWMDTY01=SCI_PWMDTY01;
+	}
+	break;
+	case '%':{
+	p = strtok(a, "%");
+	SCI_PWMDTY23=atoi(p); 
+	PWMDTY23=SCI_PWMDTY23;
+	}
+	break;
+	}
+}
+
+ 	    
+
+/*---------------------------------------
+无线串口中断接收
+编写日期：20110411
+-----------------------------------------*/
+#pragma CODE_SEG __NEAR_SEG NON_BANKED 
+interrupt 20 void Rx_SCI(void)
+{
+    DisableInterrupts;  
+      SCIreceive[SCI_i]=SCI_RXD();
+      switch(SCIreceive[SCI_i]) {
+        case '@': 
+        {
+          SCI_i=0;
+          SCI_REC_chuli(SCIreceive);
+         // SCISend_chars(SCIreceive);
+        }  
+        break;
+        case '*': 
+        {
+          SCI_i=0;
+         SCI_REC_chuli(SCIreceive);
+        } 
+        case '%': 
+        {
+          SCI_i=0;
+        SCI_REC_chuli(SCIreceive);
+        }  
+        break;
+      default:
+        SCI_i++;
+         break; 
+      }
+    EnableInterrupts;
+} 
+#pragma CODE_SEG DEFAULT
