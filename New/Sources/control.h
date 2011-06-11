@@ -43,28 +43,10 @@ void Confirm_Light(){
  
  calculate_light();
  
- if(special_flag<3)
-  { 
+
  if(HitBlackNum==0);
- else if((HitBlackNum>0)) //&&(HitBlackNum<=3)
+ else if(HitBlackNum>0) 
  Status_Judge();
- 
-   } 
- else {
-  Status_Judge();//要调用红外   
-  if((light_temp_laser_array[0]==1)&&(light_temp_laser_array[11]==1))
-   for(i=0;i<=6;i++){
-    calculate_light();
-    
-    start_count+=Confirm_Start();
- 
-    cross_count+=Confirm_Cross();
-    }
-   if(start_count>=4&&cross_count<=1)
-   start_flag=1;
-   else if(cross_count>=4&&start_count<=1)
-   cross_flag=1;
-   }
  
 }
 
@@ -74,17 +56,14 @@ void calculate_light(void){
  changeposition=6-position/2;
  for(i=0;i<LASER_MAX;i++) {
   if (light_temp_laser_array[i]==0) continue;
-  else if ((light_temp_laser_array[i]==1))  
+  else if ((light_temp_laser_array[i]==1))  //&&(aabs(i-changeposition)<=2)
   {
   HitBlackNum++;
   }
-
    
  }
 
 }
-
-
 /*=====================激光管对应权值======================
 LASER_MAX         11  10    9    8    7     6     5    4     3     2        1     0
 对应的权值        11   9    7    5    3      1   -1   -3    -5    -7       -9   -11

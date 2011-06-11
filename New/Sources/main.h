@@ -31,7 +31,9 @@
   int send_count=1;                       //串口接收延时计数
   int q_temp_laser_num[LASER_MAX];        //激光管对应的权值
   int countPIT0=0;
-  int position=0; 
+  int position;                     //位置 
+  
+  byte right,left;                    //中线左右值
   int HitBlackNum;
   
   int baitou_diff; 

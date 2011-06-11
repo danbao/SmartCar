@@ -36,7 +36,7 @@ Section Name                    Size  Type     From       To       Segment
 .startData                        10     R     0xC00F     0xC018   ROM_C000
 NON_BANKED                       301     R     0xC019     0xC145   ROM_C000
 .copy                             54     R     0xC146     0xC17B   ROM_C000
-.text                           2145     R   0xFE8000   0xFE8860   PAGE_FE
+.text                           1987     R   0xFE8000   0xFE87C2   PAGE_FE
 .stack                           256   R/W     0x2000     0x20FF   RAM
 .data                             48   R/W     0x2100     0x212F   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
@@ -331,12 +331,11 @@ NON_BANKED                       301     R     0xC019     0xC145   ROM_C000
 .abs_section_354                   2   N/I      0x354      0x355   .absSeg289
 .abs_section_356                   2   N/I      0x356      0x357   .absSeg290
 .abs_section_ff7a                  2     R     0xFF7A     0xFF7B   .absSeg291
-.bss                               2   R/W     0x2130     0x2131   RAM
-.common                          195   R/W     0x2132     0x21F4   RAM
+.common                          197   R/W     0x2130     0x21F4   RAM
 .vectSeg292_vect                   2     R     0xFFFE     0xFFFF   .vectSeg292
 
 Summary of section sizes per section type:
-READ_ONLY (R):         9E1 (dec:     2529)
+READ_ONLY (R):         943 (dec:     2371)
 READ_WRITE (R/W):      1F5 (dec:      501)
 NO_INIT (N/I):         168 (dec:      360)
 
@@ -656,35 +655,33 @@ MODULE:                 -- main.c.o --
      PITInit                                 FE80E0      20      32       2   .text       
      Light_Up                                FE8100      C5     197       6   .text       
      Clear_baitou                            FE81C5      97     151       2   .text       
-     baitou                                  FE825C      D5     213       2   .text       
-     General_Position                        FE8331      18      24       2   .text       
-     Collect_Point                           FE8349      6A     106       2   .text       
-     Collect_Section                         FE83B3      2A      42       2   .text       
-     Judge_Slope                             FE83DD      4F      79       2   .text       
-     Clear_General                           FE842C      4E      78       2   .text       
-     dajiao                                  FE847A     16A     362       2   .text       
-     SpeedCtrl                               FE85E4      69     105       2   .text       
-     Confirm_Start                           FE864D      5A      90       2   .text       
-     Confirm_Cross                           FE86A7       D      13       2   .text       
-     Confirm_Light                           FE86B4      85     133       2   .text       
-     calculate_light                         FE8739      1E      30       4   .text       
-     Laser_num                               FE8757      15      21       2   .text       
-     Status_Judge                            FE876C      2E      46       4   .text       
-     Clear_Speed                             FE879A      23      35       2   .text       
-     SCI_Init                                FE87BD       D      13       2   .text       
-     main                                    FE87CA      6E     110       2   .text       
+     baitou                                  FE825C     103     259       4   .text       
+     General_Position                        FE835F      18      24       2   .text       
+     Collect_Point                           FE8377      6A     106       2   .text       
+     Collect_Section                         FE83E1      2A      42       2   .text       
+     Judge_Slope                             FE840B      4F      79       2   .text       
+     Clear_General                           FE845A      4E      78       2   .text       
+     dajiao                                  FE84A8     16C     364       2   .text       
+     SpeedCtrl                               FE8614      69     105       2   .text       
+     Confirm_Light                           FE867D      1E      30       2   .text       
+     calculate_light                         FE869B      1E      30       2   .text       
+     Laser_num                               FE86B9      15      21       2   .text       
+     Status_Judge                            FE86CE      2E      46       2   .text       
+     Clear_Speed                             FE86FC      23      35       2   .text       
+     SCI_Init                                FE871F       D      13       2   .text       
+     main                                    FE872C      6E     110       2   .text       
      PIT0_ISR                                  C019       E      14       1   NON_BANKED  
 - VARIABLES:
      change_JG_DJ_array                        2100      2E      46       1   .data       
      baitou_delay                              212E       2       2       3   .data       
-     position                                  2130       2       2       6   .bss        
      _Vector_66                                FF7A       2       2       0   .abs_section_ff7a
-     light_temp_laser_array                    2132       C      12      24   .common     
-     light_count                               213E       2       2       5   .common     
-     special_flag                              2140       1       1       3   .common     
-     start_flag                                2141       1       1       2   .common     
-     cross_flag                                2142       1       1       2   .common     
-     q_temp_laser_num                          2143      18      24       2   .common     
+     light_temp_laser_array                    2130       C      12      14   .common     
+     light_count                               213C       2       2       5   .common     
+     special_flag                              213E       1       1       1   .common     
+     start_flag                                213F       1       1       1   .common     
+     cross_flag                                2140       1       1       1   .common     
+     q_temp_laser_num                          2141      18      24       2   .common     
+     position                                  2159       2       2       7   .common     
      HitBlackNum                               215B       2       2       4   .common     
      baitou_diff                               215D       2       2       1   .common     
      road_point                                215F       C      12       5   .common     
@@ -694,11 +691,11 @@ MODULE:                 -- main.c.o --
      General_pos                               21CF       8       8      12   .common     
      dajiao_Slope                              21D7       6       6       6   .common     
      JG_clear                                  21DD      10      16      27   .common     
-     JG_clear_Pos                              21ED       4       4       7   .common     
+     JG_clear_Pos                              21ED       4       4       8   .common     
      speed_clera                               21F1       4       4       9   .common     
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
-     Init                                    FE8838      29      41       2   .text       
+     Init                                    FE879A      29      41       2   .text       
      _Startup                                  C000       F      15       0   .init       
 - VARIABLES:
      _startupData                              C00F       6       6       3   .startData  
@@ -718,7 +715,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   MC9S12XS128.c.o                            360      0      0
-  main.c.o                                   245   2118      2
+  main.c.o                                   245   1960      2
   Start12.c.o                                  0     56      0
   rtshc12.c.o (ansixbf.lib)                    0    287      0
   other                                      256     12     54
@@ -729,13 +726,10 @@ SECTION USE IN OBJECT-ALLOCATION SECTION
 SECTION: ".text"
   SetBusCLK_40M delayms delayMS aabs PWM_Init Tect_Speed_Init LIGHT_Init 
   PITInit Light_Up Clear_baitou baitou General_Position Collect_Point 
-  Collect_Section Judge_Slope Clear_General dajiao SpeedCtrl Confirm_Start 
-  Confirm_Cross Confirm_Light calculate_light Laser_num Status_Judge 
-  Clear_Speed SCI_Init main Init 
+  Collect_Section Judge_Slope Clear_General dajiao SpeedCtrl Confirm_Light 
+  calculate_light Laser_num Status_Judge Clear_Speed SCI_Init main Init 
 SECTION: ".data"
   change_JG_DJ_array baitou_delay 
-SECTION: ".bss"
-  position 
 SECTION: ".init"
   _Startup 
 SECTION: "NON_BANKED"
@@ -1326,8 +1320,9 @@ SECTION: ".abs_section_ff7a"
   _Vector_66 
 SECTION: ".common"
   light_temp_laser_array light_count special_flag start_flag cross_flag 
-  q_temp_laser_num HitBlackNum baitou_diff road_point point_count road_section 
-  befo_General_pos General_pos dajiao_Slope JG_clear JG_clear_Pos speed_clera 
+  q_temp_laser_num position HitBlackNum baitou_diff road_point point_count 
+  road_section befo_General_pos General_pos dajiao_Slope JG_clear JG_clear_Pos 
+  speed_clera 
 
 *********************************************************************************************
 OBJECT LIST SORTED BY ADDRESS
@@ -1626,13 +1621,13 @@ OBJECT LIST SORTED BY ADDRESS
      _PITCNT3                                   356       2       2       0   .abs_section_356
      change_JG_DJ_array                        2100      2E      46       1   .data       
      baitou_delay                              212E       2       2       3   .data       
-     position                                  2130       2       2       6   .bss        
-     light_temp_laser_array                    2132       C      12      24   .common     
-     light_count                               213E       2       2       5   .common     
-     special_flag                              2140       1       1       3   .common     
-     start_flag                                2141       1       1       2   .common     
-     cross_flag                                2142       1       1       2   .common     
-     q_temp_laser_num                          2143      18      24       2   .common     
+     light_temp_laser_array                    2130       C      12      14   .common     
+     light_count                               213C       2       2       5   .common     
+     special_flag                              213E       1       1       1   .common     
+     start_flag                                213F       1       1       1   .common     
+     cross_flag                                2140       1       1       1   .common     
+     q_temp_laser_num                          2141      18      24       2   .common     
+     position                                  2159       2       2       7   .common     
      HitBlackNum                               215B       2       2       4   .common     
      baitou_diff                               215D       2       2       1   .common     
      road_point                                215F       C      12       5   .common     
@@ -1642,7 +1637,7 @@ OBJECT LIST SORTED BY ADDRESS
      General_pos                               21CF       8       8      12   .common     
      dajiao_Slope                              21D7       6       6       6   .common     
      JG_clear                                  21DD      10      16      27   .common     
-     JG_clear_Pos                              21ED       4       4       7   .common     
+     JG_clear_Pos                              21ED       4       4       8   .common     
      speed_clera                               21F1       4       4       9   .common     
      _Startup                                  C000       F      15       0   .init       
      PIT0_ISR                                  C019       E      14       1   NON_BANKED  
@@ -1662,32 +1657,30 @@ OBJECT LIST SORTED BY ADDRESS
      PITInit                                 FE80E0      20      32       2   .text       
      Light_Up                                FE8100      C5     197       6   .text       
      Clear_baitou                            FE81C5      97     151       2   .text       
-     baitou                                  FE825C      D5     213       2   .text       
-     General_Position                        FE8331      18      24       2   .text       
-     Collect_Point                           FE8349      6A     106       2   .text       
-     Collect_Section                         FE83B3      2A      42       2   .text       
-     Judge_Slope                             FE83DD      4F      79       2   .text       
-     Clear_General                           FE842C      4E      78       2   .text       
-     dajiao                                  FE847A     16A     362       2   .text       
-     SpeedCtrl                               FE85E4      69     105       2   .text       
-     Confirm_Start                           FE864D      5A      90       2   .text       
-     Confirm_Cross                           FE86A7       D      13       2   .text       
-     Confirm_Light                           FE86B4      85     133       2   .text       
-     calculate_light                         FE8739      1E      30       4   .text       
-     Laser_num                               FE8757      15      21       2   .text       
-     Status_Judge                            FE876C      2E      46       4   .text       
-     Clear_Speed                             FE879A      23      35       2   .text       
-     SCI_Init                                FE87BD       D      13       2   .text       
-     main                                    FE87CA      6E     110       2   .text       
-     Init                                    FE8838      29      41       2   .text       
+     baitou                                  FE825C     103     259       4   .text       
+     General_Position                        FE835F      18      24       2   .text       
+     Collect_Point                           FE8377      6A     106       2   .text       
+     Collect_Section                         FE83E1      2A      42       2   .text       
+     Judge_Slope                             FE840B      4F      79       2   .text       
+     Clear_General                           FE845A      4E      78       2   .text       
+     dajiao                                  FE84A8     16C     364       2   .text       
+     SpeedCtrl                               FE8614      69     105       2   .text       
+     Confirm_Light                           FE867D      1E      30       2   .text       
+     calculate_light                         FE869B      1E      30       2   .text       
+     Laser_num                               FE86B9      15      21       2   .text       
+     Status_Judge                            FE86CE      2E      46       2   .text       
+     Clear_Speed                             FE86FC      23      35       2   .text       
+     SCI_Init                                FE871F       D      13       2   .text       
+     main                                    FE872C      6E     110       2   .text       
+     Init                                    FE879A      29      41       2   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
 NOT USED PROCEDURES
 main.c.o:
-  SCI_RXD SCISend SCISend_chars Testjiguang TestIR Testpara TestSMinfo AD_Init 
-  ReadATD Collect_IR 
+  Confirm_Start Confirm_Cross SCI_RXD SCISend SCISend_chars Testjiguang TestIR 
+  Testpara TestSMinfo AD_Init ReadATD Collect_IR 
 rtshc12.c.o (ansixbf.lib):
   _BSHL _BSHRS _BSHRU _BDIVMODU _BDIVMODS _ISHL _ISHRU _ISHRS _LSHL _LSHRU 
   _LSHRS _LADD _LSUB _LAND _LOR _LXOR _LCMP _LCMP_P _LCMP_PP _LCOM _LINC _LDEC 
@@ -1701,8 +1694,8 @@ main.c.o:
   STRING.END.6 STRING.SEDPR..5d..4d..4d..4.7 YP1 YP2 YP3 YP4 YP5 YD JP1 JP2 JP3 
   JP4 JP5 JD temp_pwm67 temp_pwm45 delay_count send_count countPIT0 IR_blacknun 
   SpeedAver SpeedMax SpeedMin SpeedNow SCIreceive IR_temp_laser_array 
-  temp_speed SS_flag LS_flag Straight_flag turn_flag section_flag IR_position 
-  IR_clear g_temp_laser_array temp_laser_array 
+  temp_speed right left SS_flag LS_flag Straight_flag turn_flag section_flag 
+  IR_position IR_clear g_temp_laser_array temp_laser_array 
 rtshc12.c.o (ansixbf.lib):
   _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
 
@@ -1750,6 +1743,7 @@ Light_Up                  USES light_count Light_Up light_temp_laser_array
                                 _PORTAB delayMS 
 Clear_baitou              USES position JG_clear _LMULS16x32 _LDIVS 
 baitou                    USES JG_clear _PWMDTY67 aabs JG_clear_Pos position 
+                                baitou 
 General_Position          USES position _PWMDTY67 baitou_diff 
                                 change_JG_DJ_array befo_General_pos 
 Collect_Point             USES point_count befo_General_pos road_point _LDIVS 
@@ -1758,11 +1752,8 @@ Judge_Slope               USES speed_clera road_section dajiao_Slope
 Clear_General             USES dajiao_Slope General_pos _LMULS16x32 _LDIVS 
 dajiao                    USES General_pos aabs befo_General_pos _PWMDTY45 
 SpeedCtrl                 USES speed_clera _PORTAB _PWMDTY01 _PWMDTY23 
-Confirm_Start             USES light_temp_laser_array 
-Confirm_Cross             USES special_flag 
 Confirm_Light             USES HitBlackNum special_flag start_flag cross_flag 
-                                calculate_light Status_Judge light_temp_laser_array 
-                                Confirm_Start Confirm_Cross 
+                                calculate_light Status_Judge 
 calculate_light           USES light_temp_laser_array HitBlackNum 
 Laser_num                 USES q_temp_laser_num 
 Status_Judge              USES HitBlackNum light_temp_laser_array 
@@ -1808,10 +1799,6 @@ DEPENDENCY TREE
  |  |  +- calculate_light     
  |  |  |    
  |  |  +- Status_Judge        
- |  |  |    
- |  |  +- Confirm_Start       
- |  |  |    
- |  |  +- Confirm_Cross       
  |  |       
  |  +- Clear_baitou        
  |  |  | 
@@ -1872,5 +1859,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 2529
+Total size of all blocks to be downloaded: 2371
 
