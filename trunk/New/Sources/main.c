@@ -1,13 +1,14 @@
 #include <hidef.h>      /* common defines and macros */
 #include "derivative.h"      /* derivative-specific definitions */
-#include <MC9S12XS128.h>
 #include <stdio.h>       //sprintf要用到
-#include "math.h"           //abs绝对值要用到
+#include <string.h>      //LCD中的strlen要用到
+#include <math.h>        //abs绝对值要用到
+#include <stdlib.h>      //随机数用到
 #include "main.h"           //所有变量的定义都放在main.h文件下了           
 #include "dealinfo.h"
-#include "control.h"
-#include "SCI.h" 
+#include "control.h" 
 #include "IR.h" 
+#include "SCI.h"
  
 /* ================= SendSmartcarInfo ====================
       desc: SCI串口发送当前激光管采集信息
@@ -55,7 +56,7 @@ void main(void)
     */
   
    baitou_delay++;
-   if(baitou_delay%12==0) 
+   if(baitou_delay%10==0) 
    {
     baitou_delay=1;
     baitou( ); //先执行摆头舵机，通过计算得出角度，为第二次滤波做准备
@@ -76,14 +77,27 @@ void main(void)
 
 
  
-#pragma CODE_SEG __NEAR_SEG NON_BANKED
+#pragma CODE_SEG NON_BANKED 
+//【interrupt definitions】
+/* ================= PIT0_ISR ====================
+      desc: PIT周期定时中断，用于控制激光传感器分时亮
+      pre:  无
+      Post: 无       
+*/ 
+void interrupt 67 PIT1_ISR(void) {
+    DisableInterrupts; 
+    TestSMinfo(); 
+    PITTF_PTF1 = 1;//清中断标志位 
+    EnableInterrupts; 
+} //PIT0_ISR  
+
  
 void interrupt 66 PIT0_ISR(void){
-//DisableInterrupts;   
+DisableInterrupts;   
 speed_clera[1]= PACNT;
 PACNT = 0x0000; 
 PITTF_PTF0 = 1;
-//EnableInterrupts; 
+EnableInterrupts; 
 }
 
 #pragma CODE_SEG DEFAULT

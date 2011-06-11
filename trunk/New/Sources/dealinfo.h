@@ -8,13 +8,14 @@ long JG_clear_Pos[2];                  //存入当前和上一次JG_clear 的值
  
 void Clear_baitou(void){
 //long JG_sum[2];
+
 JG_clear[1]=position*100;
-JG_clear[1]=(JG_clear[0]*40+JG_clear[1]*100) /140 ; 
+JG_clear[1]=(JG_clear[0]*20+JG_clear[1]*120) /140 ; 
 JG_clear[0]=JG_clear[1]; 
 
-JG_clear[3]=JG_clear[1];
+/*JG_clear[3]=JG_clear[1];
 JG_clear[3]=(JG_clear[2]*30+JG_clear[3]*50)/80;
-JG_clear[2]=JG_clear[3];
+JG_clear[2]=JG_clear[3]; */
 }
 
   
@@ -34,40 +35,40 @@ void  baitou (void) {
     JG_clear_Pos[1]=JG_clear[1];
     
     
-    if(JG_pos_abs<=80)                             //分四段P 
+    if(JG_pos_abs<=100)                             //分四段P 
     JG_pwm=0;
-    else if(JG_pos_abs>80&&JG_pos_abs<=200) 
+    else if(JG_pos_abs>100&&JG_pos_abs<=200) 
           {
-      JG_pwm=JG_clear_Pos[1]/55-1;
+      JG_pwm=(JG_clear_Pos[1]/60-1)+(JG_clear_Pos[1]-JG_clear_Pos[0])/7;
           }
     else if(JG_pos_abs>200&&JG_pos_abs<=400) 
           {
       if(position>0)   
-      JG_pwm=JG_clear_Pos[1]/45-2;
+      JG_pwm=(JG_clear_Pos[1]/54-1)+(JG_clear_Pos[1]-JG_clear_Pos[0])/6;
       else if(position<0)
-      JG_pwm=JG_clear_Pos[1]/45+2;
+      JG_pwm=(JG_clear_Pos[1]/54+1)+(JG_clear_Pos[1]-JG_clear_Pos[0])/6;
       
           }
     else if(JG_pos_abs>400&&JG_pos_abs<=600)
           {
       if(position>0)    
-      JG_pwm=JG_clear_Pos[1]/35-5;
+      JG_pwm=(JG_clear_Pos[1]/48-2)+(JG_clear_Pos[1]-JG_clear_Pos[0])/5;
       else if(position<0)
-      JG_pwm=JG_clear_Pos[1]/35+5;
+      JG_pwm=(JG_clear_Pos[1]/48+2)+(JG_clear_Pos[1]-JG_clear_Pos[0])/5;
           }
     else if(JG_pos_abs>600&&JG_pos_abs<=800) 
           {
       if(position>0)    
-      JG_pwm=JG_clear_Pos[1]/25-12;
+      JG_pwm=(JG_clear_Pos[1]/42-4)+(JG_clear_Pos[1]-JG_clear_Pos[0])/4;
       else if(position<0)
-      JG_pwm=JG_clear_Pos[1]/25+12;
+      JG_pwm=(JG_clear_Pos[1]/42+4)+(JG_clear_Pos[1]-JG_clear_Pos[0])/4;
           }      
     else if(JG_pos_abs>800)
          {
       if(position>0)   
-      JG_pwm=JG_clear_Pos[1]/21-18;
+      JG_pwm=(JG_clear_Pos[1]/36-7)+(JG_clear_Pos[1]-JG_clear_Pos[0])/4;
       else if(position<0)
-      JG_pwm=JG_clear_Pos[1]/21+18;
+      JG_pwm=(JG_clear_Pos[1]/36+7)+(JG_clear_Pos[1]-JG_clear_Pos[0])/4;
       
          }                        
    
@@ -232,58 +233,70 @@ General_pos[0]=General_pos[1];
 }
 
 
-/*================打角舵机======================*/
+/*================打角舵机======================
+int DP1=15,DP2=13,DP3=11,DP4=10,DP5=8,DP6=7,DP7=6;
+*/
 
 
 void dajiao(void){
 int zhuan,zhuan_abs;
 int dj_pwm;
+int sub_p[7];
 //int code[2]={3,1},sum_code=4;
 
 zhuan=General_pos[1];
 zhuan_abs=zhuan;
 zhuan_abs=aabs(zhuan_abs);
 
+sub_p[0]=100/DP1;
+sub_p[1]=1000/DP2-(1000/DP1-sub_p[0]);
+sub_p[2]=2000/DP3-(2000/DP2-sub_p[1]);
+sub_p[3]=3000/DP4-(3000/DP3-sub_p[2]);
+sub_p[4]=4000/DP5-(4000/DP4-sub_p[3]);
+sub_p[5]=5000/DP6-(5000/DP5-sub_p[4]);
+sub_p[6]=6000/DP7-(6000/DP6-sub_p[5]);
+
 if(zhuan_abs<=100)
 dj_pwm=0;
 
 else if((zhuan_abs>100)&&(zhuan_abs<=1000)) 
     {
+    
    if(befo_General_pos>0)
-   dj_pwm=zhuan/16-5;
+   dj_pwm=zhuan/DP1-sub_p[0];
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/16+5; 
+   dj_pwm=zhuan/DP1+sub_p[0]; 
     }
 else if((zhuan_abs>1000)&&(zhuan_abs<=2000))
-    {
+    { 
    if(befo_General_pos>0)
-   dj_pwm=zhuan/14-14;
+   dj_pwm=zhuan/DP2-sub_p[1];
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/14+14; 
+   dj_pwm=zhuan/DP2+sub_p[1]; 
     }
 
 else if((zhuan_abs>2000)&&(zhuan_abs<=3000))
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/12-38;
+   dj_pwm=zhuan/DP3-sub_p[2];
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/12+38; 
+   dj_pwm=zhuan/DP3+sub_p[2]; 
     }
 
 else if((zhuan_abs>3000)&&(zhuan_abs<=4000))
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/10-88;
+   dj_pwm=zhuan/DP4-sub_p[3];
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/10+88; 
+   dj_pwm=zhuan/DP4+sub_p[3]; 
     }
 
 else if((zhuan_abs>4000)&&(zhuan_abs<=5000)) 
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/8-188;
+   dj_pwm=zhuan/DP5-sub_p[4];
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/8+188; 
+   dj_pwm=zhuan/DP5+sub_p[4]; 
     }
 
 
@@ -291,18 +304,18 @@ else if((zhuan_abs>5000)&&(zhuan_abs<=6000))
 
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/7-277;
+   dj_pwm=zhuan/DP6-sub_p[5];
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/7+277; 
+   dj_pwm=zhuan/DP6+sub_p[5]; 
     }
 
 else if(zhuan_abs>6000)
 
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/6-420;
+   dj_pwm=zhuan/DP7-sub_p[6];
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/6+420; 
+   dj_pwm=zhuan/DP7+sub_p[6]; 
     }
 
 if(dj_pwm>700)
@@ -314,6 +327,7 @@ dj_pwm=dj_pwm+PWM45;
 
 PWMDTY45=dj_pwm;
 }
+
 
 
 

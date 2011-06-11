@@ -12,6 +12,7 @@
   float YP1=0.4,YP2=0.5,YP3=0.7,YP4=0.8,YP5=0.9,YD=2.7;
   float JP1=1.7,JP2=3.5,JP3=4.9,JP4=6.5,JP5=7.8,JD=2.3,SpeedAver,SpeedMax,SpeedMin,SpeedNow;/*摇头P1,摇头P2,摇头P3,摇头P4,摇头P5,摇头D,打角P1,打角P2,打角P3,打角P4,打角P5,打角P6,打角D
   平均速度,最大速度,最小速度,当前速度*/
+  int DP1=15,DP2=13,DP3=11,DP4=10,DP5=8,DP6=7,DP7=6;
  
   char SCIreceive[150];                    /*用于无线串口显示的字符串*/  
   int temp_pwm67=PWM67;						         //激光摆头舵机初始值
@@ -33,7 +34,7 @@
   int countPIT0=0;
   int position;                     //位置 
   
-  byte right,left;                    //中线左右值
+  byte right,left,middle;                    //中线左右值
   int HitBlackNum;
   
   int baitou_diff; 
@@ -186,8 +187,7 @@ void PWM_Init (void) {   //0519暂时写完！
 
 
 
-/*=====================PIT初始化======================
-修改了下 只用pit0*/
+/*=====================PIT初始化======================*/
  void PITInit (void) {
 //计算公式：time-out period = (PITMTLD + 1) * (PITLD + 1) / fBUS.
 //BUS为总线！！！
@@ -195,15 +195,22 @@ void PWM_Init (void) {   //0519暂时写完！
     // Local Declarations
 
     // Statements
-    PITCFLMT_PITE = 0;       //PIT通道使能位      
+  PITCFLMT_PITE = 0;       //PIT通道使能位      
   PITCE_PCE0 = 1;          //定时器通道0使能    
   PITMUX_PMUX0 = 0;       //定时通道0使用微计数器0     
   PITMTLD0 =200-1;  //设置微计数器0的加载寄存器。8位定时器初值设定。200分频，在40MHzBusClock下，为0.2MHz。即5us.    
   PITLD0 = 1500-1;    //16位定时器初值设定。4000 -->  20ms   1500-->7.5ms  
   PITINTE_PINTE0 = 1;//定时器中断通道0中断使能            
-  PITCFLMT_PITE = 1;       //PIT通道使能位
+ // PITCFLMT_PITE = 1;       //PIT通道使能位
 
+  PITCE_PCE1 = 1;          //定时器通道0使能    
+  PITMUX_PMUX1 = 1;       //定时通道0使用微计数器0     
+  PITMTLD1 =200-1;  //设置微计数器0的加载寄存器。8位定时器初值设定。200分频，在40MHzBusClock下，为0.2MHz。即5us.    
+  PITLD1 = 4000-1;    //16位定时器初值设定。4000 -->  20ms   1500-->7.5ms  
+  PITINTE_PINTE1 = 1;//定时器中断通道0中断使能            
+  PITCFLMT_PITE = 1;       //PIT通道使能位
 } //PITInit
+
 
 
 
