@@ -1,3 +1,2 @@
-Record=SheetSymbol|SourceDocument=mainboard.SchDoc|Designator=Control|SchDesignator=Control|FileName=发射控制电路.SCHDOC|SymbolType=Normal|RawFileName=发射控制电路.SCHDOC
 Record=SheetSymbol|SourceDocument=mainboard.SchDoc|Designator=MCU|SchDesignator=MCU|FileName=单片机电路.SCHDOC|SymbolType=Normal|RawFileName=单片机电路.SCHDOC
 Record=TopLevelDocument|FileName=mainboard.SchDoc

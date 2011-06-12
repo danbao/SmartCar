@@ -1,0 +1,16 @@
+Added Component: Designator=RP0(0805)
+Added Component: Designator=RP1(0805)
+Added Component: Designator=RP2(0805)
+Added Component: Designator=RP3(0805)
+Added Pin To Net: NetName=QVCC Pin=RP0-1
+Added Pin To Net: NetName=H3 Pin=RP0-2
+Added Pin To Net: NetName=QVCC Pin=RP1-1
+Added Pin To Net: NetName=H2 Pin=RP1-2
+Added Pin To Net: NetName=QVCC Pin=RP2-1
+Added Pin To Net: NetName=H1 Pin=RP2-2
+Added Pin To Net: NetName=QVCC Pin=RP3-1
+Added Pin To Net: NetName=H0 Pin=RP3-2
+Added Member To Class: ClassName=mainboard Member=Component RP0 Res2
+Added Member To Class: ClassName=mainboard Member=Component RP1 Res2
+Added Member To Class: ClassName=mainboard Member=Component RP2 Res2
+Added Member To Class: ClassName=mainboard Member=Component RP3 Res2
