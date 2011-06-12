@@ -1,0 +1,28 @@
+Protel Design System Design Rule Check
+PCB File : D:\protel\µÚÈý´Î\jiguang.PcbDoc
+Date     : 2011/6/12
+Time     : 15:22:43
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Broken-Net Constraint ( (All) )
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=0.254mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.254mm) (Max=1.778mm) (Preferred=0.254mm) (All)
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=0.0254mm) (Max=2.54mm) (All)
+   Violation between Pad Free-0(-25mm,-16.7mm)  Multi-Layer
+   Violation between Pad Free-0(25mm,-16.7mm)  Multi-Layer
+Rule Violations :2
+
+
+Violations Detected : 2
+Time Elapsed        : 00:00:01

@@ -1,0 +1,12 @@
+Removed Pin From Net: NetName=H3 Pin=MCU-501
+Removed Pin From Net: NetName=H2 Pin=MCU-502
+Removed Pin From Net: NetName=H1 Pin=MCU-503
+Removed Pin From Net: NetName=H0 Pin=MCU-504
+Added Pin To Net: NetName=H2 Pin=MCU-401
+Added Pin To Net: NetName=H3 Pin=MCU-402
+Added Pin To Net: NetName=H0 Pin=MCU-403
+Added Pin To Net: NetName=H1 Pin=MCU-404
+Change Net Name : Old Net Name=H0 New Net Name=H4
+Change Net Name : Old Net Name=H1 New Net Name=H5
+Change Net Name : Old Net Name=H2 New Net Name=H6
+Change Net Name : Old Net Name=H3 New Net Name=H7
