@@ -4,8 +4,8 @@
 	说明：串口调用及无线模块
 ----------------------------------------------*/
 int SCI_i=0;
-int SCI_PWMDTY01,SCI_PWMDTY23;      
-int *SCI_DP;
+int *SCI_PWMDTY,*SCI_DP;
+byte test_info_send=1;
 /*--------------------------------------------
 SCI_RXD: 串口接收函数
 编写日期：20110411
@@ -104,8 +104,9 @@ void TestIR(uint temp_laser_array[],int Test_IR_position) {
 编写日期：2001100607
 -----------------------------------------  */ 
 void Testpara(int test_sdj,int test_xdj,int test_speed,int test_position) {
-	(void)sprintf(SCIreceive,"SEDPR%.5d%.4d%.4d%.4dEND",test_position+10000,test_sdj,test_xdj,test_speed);
-    SCISend_chars(SCIreceive);  
+char SCIsenddata[50];
+	(void)sprintf(SCIsenddata,"SEDPR%.5d%.4d%.4d%.4dEND",test_position+10000,test_sdj,test_xdj,test_speed);
+    SCISend_chars(SCIsenddata);  
     SCISend('\n');  
 }  
 /*---------------------------------------
@@ -113,22 +114,24 @@ void Testpara(int test_sdj,int test_xdj,int test_speed,int test_position) {
 编写日期：200110602
 参数 t：用于循环几次发送一次
 -----------------------------------------  */  
-void TestSMinfo(void){
+void TestSMinfo(byte a){
+if(a!=0){
 Testjiguang(light_temp_laser_array);	//发送激光数组
 Testpara(PWMDTY67,PWMDTY45,speed_clera[1],JG_clear[3]);//发送相关参数
 TestIR(IR_temp_laser_array,IR_position[1]);
+}
 }
 /*---------------------------------------
 无线模块接收处理
 编写日期：200110611
 参数  command：填入字符串处理
 -----------------------------------------  */ 
-void SCI_REC_chuli(char a[])
+void SCI_REC_chuli(char a[],int x)
 {
 	char *p;
-	char rectemp[10];
-	switch(a[strlen(a)-1]){
-   	  case '@':{
+	char *q;
+	switch(x){
+  case 1:{
 	p = strtok(a, ";");
 	if(*p!='F'){*SCI_DP=atoi(p);DP1=*SCI_DP;}
 	p = strtok(NULL, ";");
@@ -143,24 +146,33 @@ void SCI_REC_chuli(char a[])
 	if(*p!='F'){*SCI_DP=atoi(p);DP6=*SCI_DP;} 
 	p = strtok(NULL, ";");
 	if(*p!='F'){*SCI_DP=atoi(p);DP7=*SCI_DP;}
-      }
-      break; 
-	case '*':{
-	p = strtok(a, "*");
-	SCI_PWMDTY01=atoi(p); 
-	PWMDTY01=SCI_PWMDTY01;
+  }
+  break; 
+	case 2:{
+	q = strtok(a, ";"); 
+	{
+	  *SCI_PWMDTY=atoi(q); 
+  PWMDTY01=*SCI_PWMDTY;
 	}
-	break;
-	case '%':{
-	p = strtok(a, "%");
-	SCI_PWMDTY23=atoi(p); 
-	PWMDTY23=SCI_PWMDTY23;
+	q = strtok(NULL, ";"); 
+	{
+	  *SCI_PWMDTY=atoi(q);
+	PWMDTY23=*SCI_PWMDTY;
 	}
+	}   
 	break;
 	}
 }
-
- 	    
+/*---------------------------------------
+无线模块返回当前参数值
+编写日期：200110612
+-----------------------------------------  */ 
+void SCI_REC_NOW(){
+char SCIsend[50];
+	(void)sprintf(SCIsend,"SEDNW%.3d%.3d%.3d%.3d%.3d%.3d%.3d%.3d%.3dEND",DP1,DP2,DP3,DP4,DP5,DP6,DP7,PWMDTY01,PWMDTY23);		
+  SCISend_chars(SCIsend);  
+  SCISend('\n');  
+}
 
 /*---------------------------------------
 无线串口中断接收
@@ -169,26 +181,33 @@ void SCI_REC_chuli(char a[])
 #pragma CODE_SEG __NEAR_SEG NON_BANKED 
 interrupt 20 void Rx_SCI(void)
 {
-    DisableInterrupts;  
+    DisableInterrupts; 
+    test_info_send=0; 
       SCIreceive[SCI_i]=SCI_RXD();
       switch(SCIreceive[SCI_i]) {
         case '@': 
         {
           SCI_i=0;
-          SCI_REC_chuli(SCIreceive);
-         // SCISend_chars(SCIreceive);
+          SCI_REC_chuli(SCIreceive,1);
         }  
         break;
-        case '*': 
+        case '$': 
         {
           SCI_i=0;
-         SCI_REC_chuli(SCIreceive);
-        } 
+          SCI_REC_NOW();
+        }  
+        break;
+        case '#': 
+        {
+          SCI_i=0;
+         SCI_REC_chuli(SCIreceive,2);
+        }
+        break;
         case '%': 
         {
           SCI_i=0;
-        SCI_REC_chuli(SCIreceive);
-        }  
+    test_info_send=1; 
+        }
         break;
       default:
         SCI_i++;

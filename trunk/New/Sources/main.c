@@ -86,7 +86,7 @@ void main(void)
 */ 
 void interrupt 67 PIT1_ISR(void) {
     DisableInterrupts; 
-    TestSMinfo(); 
+    TestSMinfo(test_info_send); 
     PITTF_PTF1 = 1;//清中断标志位 
     EnableInterrupts; 
 } //PIT0_ISR  
