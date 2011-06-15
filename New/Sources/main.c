@@ -45,9 +45,10 @@ void main(void)
    Collect_Section();
    Judge_Slope();
    Clear_General();
+   delay_count++;
    
-   dajiao();
-
+    dajiao();
+   
   /* send_count++;
    if(send_count%20==0) {
      send_count=1;
@@ -84,14 +85,7 @@ void main(void)
       pre:  无
       Post: 无       
 */ 
-void interrupt 67 PIT1_ISR(void) {
-    DisableInterrupts; 
-    TestSMinfo(test_info_send); 
-    PITTF_PTF1 = 1;//清中断标志位 
-    EnableInterrupts; 
-} //PIT0_ISR  
 
- 
 void interrupt 66 PIT0_ISR(void){
 DisableInterrupts;   
 speed_clera[1]= PACNT;
