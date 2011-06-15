@@ -367,8 +367,8 @@ else if(subspeed<-35)
    {
   
 PORTB_PB7=1;
-PWMDTY23=80;
-PWMDTY01= 0;
+PWMDTY23=temp_pwm23;
+PWMDTY01=temp_pwm01;
    }         
 
 

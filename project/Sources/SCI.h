@@ -152,12 +152,20 @@ void SCI_REC_chuli(char a[],int x)
 	q = strtok(a, ";"); 
 	{
 	  *SCI_PWMDTY=atoi(q); 
-  PWMDTY01=*SCI_PWMDTY;
+  temp_pwm01=*SCI_PWMDTY;
 	}
 	q = strtok(NULL, ";"); 
 	{
 	  *SCI_PWMDTY=atoi(q);
-	PWMDTY23=*SCI_PWMDTY;
+	temp_pwm23=*SCI_PWMDTY;
+	}
+	}   
+	break;
+	case 3:{
+	q = strtok(a, "&"); 
+	{
+	  *SCI_PWMDTY=atoi(q); 
+  PWMDTY67=*SCI_PWMDTY;
 	}
 	}   
 	break;
@@ -206,7 +214,12 @@ interrupt 20 void Rx_SCI(void)
         case '%': 
         {
           SCI_i=0;
-    test_info_send=1; 
+        test_info_send=1; 
+        }
+        case '&': 
+        {
+          SCI_i=0;
+         SCI_REC_chuli(SCIreceive,3);
         }
         break;
       default:
