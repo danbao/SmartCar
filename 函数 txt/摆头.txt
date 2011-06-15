@@ -1,0 +1,63 @@
+/*=====================激光摆头======================
+//1881   2602 1160
+LASER_MAX         11  10    9    8    7     6     5    4     3     2        1     0
+对应的权值        11   9    7    5    3     1    -1   -3    -5    -7       -9   -11
+分段连接要重合
+*/
+void  baitou (void) {
+    
+    int JG_pos_abs=JG_clear[1];
+    int JG_pwm;
+    int JG_pwm_his=PWMDTY67;
+    
+    JG_pos_abs=aabs(JG_pos_abs);
+    JG_clear_Pos[1]=JG_clear[1];
+    
+    
+    if(JG_pos_abs<=100)                             //分四段P 
+    JG_pwm=0;
+    else if(JG_pos_abs>100&&JG_pos_abs<=200) 
+          {
+      JG_pwm=(JG_clear_Pos[1]/60-1)+(JG_clear_Pos[1]-JG_clear_Pos[0])/7;
+          }
+    else if(JG_pos_abs>200&&JG_pos_abs<=400) 
+          {
+      if(position>0)   
+      JG_pwm=(JG_clear_Pos[1]/54-1)+(JG_clear_Pos[1]-JG_clear_Pos[0])/6;
+      else if(position<0)
+      JG_pwm=(JG_clear_Pos[1]/54+1)+(JG_clear_Pos[1]-JG_clear_Pos[0])/6;
+      
+          }
+    else if(JG_pos_abs>400&&JG_pos_abs<=600)
+          {
+      if(position>0)    
+      JG_pwm=(JG_clear_Pos[1]/48-2)+(JG_clear_Pos[1]-JG_clear_Pos[0])/5;
+      else if(position<0)
+      JG_pwm=(JG_clear_Pos[1]/48+2)+(JG_clear_Pos[1]-JG_clear_Pos[0])/5;
+          }
+    else if(JG_pos_abs>600&&JG_pos_abs<=800) 
+          {
+      if(position>0)    
+      JG_pwm=(JG_clear_Pos[1]/42-4)+(JG_clear_Pos[1]-JG_clear_Pos[0])/4;
+      else if(position<0)
+      JG_pwm=(JG_clear_Pos[1]/42+4)+(JG_clear_Pos[1]-JG_clear_Pos[0])/4;
+          }      
+    else if(JG_pos_abs>800)
+         {
+      if(position>0)   
+      JG_pwm=(JG_clear_Pos[1]/36-7)+(JG_clear_Pos[1]-JG_clear_Pos[0])/4;
+      else if(position<0)
+      JG_pwm=(JG_clear_Pos[1]/36+7)+(JG_clear_Pos[1]-JG_clear_Pos[0])/4;
+      
+         }                        
+   
+       
+     JG_clear_Pos[0]=JG_clear_Pos[1];
+     if(JG_pwm_his+JG_pwm>2881)
+     PWMDTY67=2881;
+     else if(JG_pwm_his+JG_pwm<881)
+     PWMDTY67=881;
+     else
+     PWMDTY67=PWMDTY67+JG_pwm;
+    
+}
