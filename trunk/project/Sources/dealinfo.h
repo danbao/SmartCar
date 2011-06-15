@@ -24,58 +24,51 @@ JG_clear[2]=JG_clear[3]; */
 LASER_MAX         11  10    9    8    7     6     5    4     3     2        1     0
 对应的权值        11   9    7    5    3     1    -1   -3    -5    -7       -9   -11
 分段连接要重合
-int BP1=54,BP2=45,BP3=36,BP4=27,BP5=20;
 */
 void  baitou (void) {
     
     int JG_pos_abs=JG_clear[1];
     int JG_pwm;
     int JG_pwm_his=PWMDTY67;
-    int sub_p[7];
+    
     JG_pos_abs=aabs(JG_pos_abs);
     JG_clear_Pos[1]=JG_clear[1];
     
-sub_p[0]=50/BP1;
-sub_p[1]=200/BP2-(200/BP1-sub_p[0]);
-sub_p[2]=400/BP3-(400/BP2-sub_p[1]);
-sub_p[3]=600/BP4-(600/BP3-sub_p[2]);
-sub_p[4]=800/BP5-(800/BP4-sub_p[3]);
-
     
-    if(JG_pos_abs<=50)                             //分四段P 
+    if(JG_pos_abs<=100)                             //分四段P 
     JG_pwm=0;
-    else if(JG_pos_abs>70&&JG_pos_abs<=200) 
+    else if(JG_pos_abs>100&&JG_pos_abs<=200) 
           {
-      JG_pwm=(JG_clear_Pos[1]/BP1-sub_p[0]);//+(JG_clear_Pos[1]-JG_clear_Pos[0])/7;
+      JG_pwm=(JG_clear_Pos[1]/60-1)+(JG_clear_Pos[1]-JG_clear_Pos[0])/7;
           }
     else if(JG_pos_abs>200&&JG_pos_abs<=400) 
           {
       if(position>0)   
-      JG_pwm=(JG_clear_Pos[1]/BP2-sub_p[1]);//+(JG_clear_Pos[1]-JG_clear_Pos[0])/6;
+      JG_pwm=(JG_clear_Pos[1]/54-1)+(JG_clear_Pos[1]-JG_clear_Pos[0])/6;
       else if(position<0)
-      JG_pwm=(JG_clear_Pos[1]/BP2+sub_p[1]);//+(JG_clear_Pos[1]-JG_clear_Pos[0])/6;
+      JG_pwm=(JG_clear_Pos[1]/54+1)+(JG_clear_Pos[1]-JG_clear_Pos[0])/6;
       
           }
     else if(JG_pos_abs>400&&JG_pos_abs<=600)
           {
       if(position>0)    
-      JG_pwm=(JG_clear_Pos[1]/BP3-sub_p[2]);//+(JG_clear_Pos[1]-JG_clear_Pos[0])/5;
+      JG_pwm=(JG_clear_Pos[1]/48-2)+(JG_clear_Pos[1]-JG_clear_Pos[0])/5;
       else if(position<0)
-      JG_pwm=(JG_clear_Pos[1]/BP3+sub_p[2]);//+(JG_clear_Pos[1]-JG_clear_Pos[0])/5;
+      JG_pwm=(JG_clear_Pos[1]/48+2)+(JG_clear_Pos[1]-JG_clear_Pos[0])/5;
           }
     else if(JG_pos_abs>600&&JG_pos_abs<=800) 
           {
       if(position>0)    
-      JG_pwm=(JG_clear_Pos[1]/BP4-sub_p[3]);//+(JG_clear_Pos[1]-JG_clear_Pos[0])/4;
+      JG_pwm=(JG_clear_Pos[1]/42-4)+(JG_clear_Pos[1]-JG_clear_Pos[0])/4;
       else if(position<0)
-      JG_pwm=(JG_clear_Pos[1]/BP4+sub_p[3]);//+(JG_clear_Pos[1]-JG_clear_Pos[0])/4;
+      JG_pwm=(JG_clear_Pos[1]/42+4)+(JG_clear_Pos[1]-JG_clear_Pos[0])/4;
           }      
     else if(JG_pos_abs>800)
          {
       if(position>0)   
-      JG_pwm=(JG_clear_Pos[1]/BP5-sub_p[4]);//+(JG_clear_Pos[1]-JG_clear_Pos[0])/4;
+      JG_pwm=(JG_clear_Pos[1]/36-7)+(JG_clear_Pos[1]-JG_clear_Pos[0])/4;
       else if(position<0)
-      JG_pwm=(JG_clear_Pos[1]/BP5+sub_p[4]);//+(JG_clear_Pos[1]-JG_clear_Pos[0])/4;
+      JG_pwm=(JG_clear_Pos[1]/36+7)+(JG_clear_Pos[1]-JG_clear_Pos[0])/4;
       
          }                        
    
@@ -167,7 +160,7 @@ else
 void Collect_Section(void){
 int i;
 if(point_count==0)
-for(i=18;i>=0;i--) 
+for(i=23;i>=0;i--) 
    {
    if(i==0) 
       {
@@ -197,29 +190,29 @@ long slop_sum;
 if(speed_clera[1]<=158) 
      {
      dajiao_Slope[0]=road_section[0];
-     dajiao_Slope[1]=road_section[17];
-     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     dajiao_Slope[1]=road_section[19];
+     slop_sum=(2*dajiao_Slope[0]+dajiao_Slope[1])/3;
      dajiao_Slope[2]=slop_sum;
      } 
 else if((speed_clera[1]>158)&&(speed_clera[1]<=177)) 
      {
      dajiao_Slope[0]=road_section[0];
-     dajiao_Slope[1]=road_section[16]; 
-     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     dajiao_Slope[1]=road_section[18]; 
+     slop_sum=(2*dajiao_Slope[0]+dajiao_Slope[1])/3;
      dajiao_Slope[2]=slop_sum;
      } 
 else if((speed_clera[1]>177)&&(speed_clera[1]<=195))      
      {
      dajiao_Slope[0]=road_section[0];
-     dajiao_Slope[1]=road_section[16]; 
-     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     dajiao_Slope[1]=road_section[17]; 
+     slop_sum=(2*dajiao_Slope[0]+dajiao_Slope[1])/3;
      dajiao_Slope[2]=slop_sum;
      } 
 else      
      {
      dajiao_Slope[0]=road_section[0];
-     dajiao_Slope[1]=road_section[15];
-     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     dajiao_Slope[1]=road_section[16];
+     slop_sum=(2*dajiao_Slope[0]+dajiao_Slope[1])/3;
      dajiao_Slope[2]=slop_sum;
      }      
 }
@@ -231,7 +224,7 @@ else
 void Clear_General(void) {
 
 General_pos[1]=dajiao_Slope[2]*10;
-General_pos[1]=(20*General_pos[0]+120*General_pos[1])/140;
+General_pos[1]=(40*General_pos[0]+100*General_pos[1])/140;
 General_pos[0]=General_pos[1];
 
 //General_pos[3]=General_pos[1];
@@ -255,7 +248,7 @@ zhuan=General_pos[1];
 zhuan_abs=zhuan;
 zhuan_abs=aabs(zhuan_abs);
 
-sub_p[0]=60/DP1;
+sub_p[0]=100/DP1;
 sub_p[1]=1000/DP2-(1000/DP1-sub_p[0]);
 sub_p[2]=2000/DP3-(2000/DP2-sub_p[1]);
 sub_p[3]=3000/DP4-(3000/DP3-sub_p[2]);
@@ -263,10 +256,10 @@ sub_p[4]=4000/DP5-(4000/DP4-sub_p[3]);
 sub_p[5]=5000/DP6-(5000/DP5-sub_p[4]);
 sub_p[6]=6000/DP7-(6000/DP6-sub_p[5]);
 
-if(zhuan_abs<=60)
+if(zhuan_abs<=100)
 dj_pwm=0;
 
-else if((zhuan_abs>60)&&(zhuan_abs<=1000)) 
+else if((zhuan_abs>100)&&(zhuan_abs<=1000)) 
     {
     
    if(befo_General_pos>0)
@@ -339,17 +332,19 @@ PWMDTY45=dj_pwm;
 
 
 
+
+
 /*=====================电机速度调节======================*/
 
 
 void SpeedCtrl (void) {
 int subspeed;
 subspeed=speed_clera[1]-150;
-PORTB_PB7=1;
-PWMDTY01 = 25;      //占空比10%     25
-PWMDTY23 = 83;      //占空比50%     60
+//PORTB_PB7=1;
+//PWMDTY01 = 25;      //占空比10%
+//PWMDTY23 = 60;      //占空比50%
  
-/*if ((subspeed<=10)&&(subspeed>=-10));
+if ((subspeed<=10)&&(subspeed>=-10));
 else if((subspeed>10)&&(subspeed<=35)) 
     {
 PORTB_PB7=1;
@@ -376,7 +371,7 @@ PWMDTY23=80;
 PWMDTY01= 0;
    }         
 
-*/
+
 }          
 
 
