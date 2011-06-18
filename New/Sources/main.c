@@ -57,7 +57,7 @@ void main(void)
     */
   
    baitou_delay++;
-   if(baitou_delay%10==0) 
+   if(baitou_delay%9==0) 
    {
     baitou_delay=1;
     baitou( ); //先执行摆头舵机，通过计算得出角度，为第二次滤波做准备
