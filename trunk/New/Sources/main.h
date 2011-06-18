@@ -1,7 +1,7 @@
 #define LASER_MAX 12          //激光管数量
 #define IR_NUM 7              //红外观数量
-#define PWM67 1881
-#define PWM45 3666
+#define PWM67 1845
+#define PWM45 3746
 #define ANGLE_DELTA 30
 #define PWM6_MID 224
 //#define Speed 50
@@ -12,7 +12,8 @@
   float YP1=0.4,YP2=0.5,YP3=0.7,YP4=0.8,YP5=0.9,YD=2.7;
   float JP1=1.7,JP2=3.5,JP3=4.9,JP4=6.5,JP5=7.8,JD=2.3,SpeedAver,SpeedMax,SpeedMin,SpeedNow;/*摇头P1,摇头P2,摇头P3,摇头P4,摇头P5,摇头D,打角P1,打角P2,打角P3,打角P4,打角P5,打角P6,打角D
   平均速度,最大速度,最小速度,当前速度*/
-  int DP1=8,DP2=7,DP3=7,DP4=7,DP5=7,DP6=6,DP7=5;
+  int DP1=2,DP2=3,DP3=3,DP4=3,DP5=2,DP6=2,DP7=2;
+  int DD=200;
   int BP1=54,BP2=45,BP3=36,BP4=27,BP5=20;
   char SCIreceive[150];                    /*用于无线串口显示的字符串*/  
   int temp_pwm67=PWM67;						         //激光摆头舵机初始值
@@ -43,6 +44,7 @@
   byte LS_flag;                           //大S标记   1有效
   byte Straight_flag;                     //直道标记  非0有效
   byte turn_flag;                         //弯道标记  非0有效                 
+  byte first_flag=1;
 
   int road_point[6];                      //5点归为一段  假设2.5m/s 5点为1.8cm  road_point[5]为最后点值
   int point_count;                        //5点计数 同时也可作为段判断开始的标志
@@ -52,6 +54,7 @@
   int  befo_General_pos;
   long General_pos[2];                     //综合偏差 经过两次一阶滤波 扩大100倍  01为第一次  23为第二次  3为最后结果
   int change_JG_DJ_array[23]={-103,-90,-80,-73,-62,-52,-46,-36,-24,-18,-10,0,10,18,24,36,46,52,62,73,80,90,103}; 
+  int cha_pos;
   //int coordinate
  //int standard_position_array[23]=
   //标准position的值
@@ -72,8 +75,8 @@
   int JG_clear_Pos[2];                  //存入当前和上一次摆头时的JG_clear 的值
                              
  // int speed_collect;                     //速度捕捉值
-  int speed_clera[2];                    //速度滤波值  最终结果 此次和上次
-  //int speed[48];                          //给
+  uint speed_clera[2];                    //速度滤波值  最终结果 此次和上次
+  //int speed[20];                          //给
   
   void calculate_light(void);
   void Status_Judge(void);
@@ -158,8 +161,8 @@ void PWM_Init (void) {   //0519暂时写完！
    
    PWMDTY01 = 25;      //占空比10%
    PWMDTY23 = 80;      //占空比50%
-   PWMDTY45 = 3666;      //
-   PWMDTY67 = 1881;      //占空比50%
+   PWMDTY45 = PWM45;      //
+   PWMDTY67 = PWM67;      //占空比50%
    PWME_PWME1 = 1;    //通道1输出,电机正转使能   正转
    PWME_PWME3 = 1;    //通道3输出,电机反转使能 
    PWME_PWME5 = 1;    //通道5输出,前轮舵机使能     

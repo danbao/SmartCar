@@ -81,10 +81,10 @@ sub_p[4]=800/BP5-(800/BP4-sub_p[3]);
    
        
      JG_clear_Pos[0]=JG_clear_Pos[1];
-     if(JG_pwm_his+JG_pwm>2881)
-     PWMDTY67=2881;
-     else if(JG_pwm_his+JG_pwm<881)
-     PWMDTY67=881;
+     if(JG_pwm_his+JG_pwm>2845)
+     PWMDTY67=2845;
+     else if(JG_pwm_his+JG_pwm<845)
+     PWMDTY67=845;
      else
      PWMDTY67=PWMDTY67+JG_pwm;
     
@@ -144,10 +144,10 @@ if(point_count==4)
      road_point[4]=befo_General_pos;
      for(i=0;i<=4;i++) 
        {
-     point_sum+=road_point[i];
+     point_sum+=road_point[i]*code[i];
      
         }
-     point_sum=point_sum/5;
+     point_sum=point_sum/sum_code;
      road_point[5]=point_sum;   
      point_count=0;
      } 
@@ -163,11 +163,20 @@ else
  int road_section[8];              //8段归为一长路  同假设8段为15cm
  int section_count;
  从上往下15cm  0-7
+byte Straight_flag;                     //直道标记  非0有效
+byte turn_flag;                         //弯道标记  非0有效 
 */
 void Collect_Section(void){
 int i;
+int sub_section;
+
+if(first_flag)
+  {
+  
+  }
 if(point_count==0)
-for(i=18;i>=0;i--) 
+{  
+for(i=19;i>=0;i--) 
    {
    if(i==0) 
       {
@@ -180,6 +189,11 @@ for(i=18;i>=0;i--)
   // speed[i]=speed[i-1];
       }
    }
+ }
+sub_section=road_section[0]-road_section[1];
+sub_section=aabs(sub_section);   
+if(sub_section<=10){Straight_flag=1;turn_flag=0;} 
+else Straight_flag=0;turn_flag=1;    
 }
 
 
@@ -194,31 +208,31 @@ for(i=18;i>=0;i--)
 */
 void Judge_Slope(void){
 long slop_sum;
-if(speed_clera[1]<=158) 
+if(speed_clera[1]<=230) 
      {
      dajiao_Slope[0]=road_section[0];
-     dajiao_Slope[1]=road_section[17];
+     dajiao_Slope[1]=road_section[19];
      slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
      dajiao_Slope[2]=slop_sum;
      } 
-else if((speed_clera[1]>158)&&(speed_clera[1]<=177)) 
+else if((speed_clera[1]>230)&&(speed_clera[1]<=270)) 
      {
      dajiao_Slope[0]=road_section[0];
-     dajiao_Slope[1]=road_section[16]; 
+     dajiao_Slope[1]=road_section[18]; 
      slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
      dajiao_Slope[2]=slop_sum;
      } 
-else if((speed_clera[1]>177)&&(speed_clera[1]<=195))      
+else if((speed_clera[1]>270)&&(speed_clera[1]<=310))      
      {
      dajiao_Slope[0]=road_section[0];
-     dajiao_Slope[1]=road_section[16]; 
+     dajiao_Slope[1]=road_section[17]; 
      slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
      dajiao_Slope[2]=slop_sum;
      } 
 else      
      {
      dajiao_Slope[0]=road_section[0];
-     dajiao_Slope[1]=road_section[15];
+     dajiao_Slope[1]=road_section[16];
      slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
      dajiao_Slope[2]=slop_sum;
      }      
@@ -230,8 +244,9 @@ else
 */
 void Clear_General(void) {
 
-General_pos[1]=dajiao_Slope[2]*10;
-General_pos[1]=(20*General_pos[0]+120*General_pos[1])/140;
+General_pos[1]=dajiao_Slope[2]*5;
+General_pos[1]=(5*General_pos[0]+140*General_pos[1])/145;
+cha_pos=General_pos[1]-General_pos[0];
 General_pos[0]=General_pos[1];
 
 //General_pos[3]=General_pos[1];
@@ -249,13 +264,14 @@ void dajiao(void){
 int zhuan,zhuan_abs;
 int dj_pwm;
 int sub_p[7];
+//int speedinfo;
 //int code[2]={3,1},sum_code=4;
 
 zhuan=General_pos[1];
 zhuan_abs=zhuan;
 zhuan_abs=aabs(zhuan_abs);
 
-sub_p[0]=60/DP1;
+sub_p[0]=50/DP1;
 sub_p[1]=1000/DP2-(1000/DP1-sub_p[0]);
 sub_p[2]=2000/DP3-(2000/DP2-sub_p[1]);
 sub_p[3]=3000/DP4-(3000/DP3-sub_p[2]);
@@ -263,47 +279,50 @@ sub_p[4]=4000/DP5-(4000/DP4-sub_p[3]);
 sub_p[5]=5000/DP6-(5000/DP5-sub_p[4]);
 sub_p[6]=6000/DP7-(6000/DP6-sub_p[5]);
 
-if(zhuan_abs<=60)
+
+
+//speedinfo=road_section[0]*speed_clera[1]/200;
+if(zhuan_abs<=50)
 dj_pwm=0;
 
-else if((zhuan_abs>60)&&(zhuan_abs<=1000)) 
+else if((zhuan_abs>50)&&(zhuan_abs<=1000)) 
     {
     
    if(befo_General_pos>0)
-   dj_pwm=zhuan/DP1-sub_p[0];
+   dj_pwm=zhuan/DP1-sub_p[0]+cha_pos*DD;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/DP1+sub_p[0]; 
+   dj_pwm=zhuan/DP1+sub_p[0]+cha_pos*DD; 
     }
 else if((zhuan_abs>1000)&&(zhuan_abs<=2000))
     { 
    if(befo_General_pos>0)
-   dj_pwm=zhuan/DP2-sub_p[1];
+   dj_pwm=zhuan/DP2-sub_p[1]+cha_pos*DD;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/DP2+sub_p[1]; 
+   dj_pwm=zhuan/DP2+sub_p[1]+cha_pos*DD; 
     }
 
 else if((zhuan_abs>2000)&&(zhuan_abs<=3000))
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/DP3-sub_p[2];
+   dj_pwm=zhuan/DP3-sub_p[2]+cha_pos*DD;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/DP3+sub_p[2]; 
+   dj_pwm=zhuan/DP3+sub_p[2]+cha_pos*DD; 
     }
 
 else if((zhuan_abs>3000)&&(zhuan_abs<=4000))
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/DP4-sub_p[3];
+   dj_pwm=zhuan/DP4-sub_p[3]+cha_pos*DD;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/DP4+sub_p[3]; 
+   dj_pwm=zhuan/DP4+sub_p[3]+cha_pos*DD; 
     }
 
 else if((zhuan_abs>4000)&&(zhuan_abs<=5000)) 
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/DP5-sub_p[4];
+   dj_pwm=zhuan/DP5-sub_p[4]+cha_pos*DD;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/DP5+sub_p[4]; 
+   dj_pwm=zhuan/DP5+sub_p[4]+cha_pos*DD; 
     }
 
 
@@ -311,24 +330,24 @@ else if((zhuan_abs>5000)&&(zhuan_abs<=6000))
 
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/DP6-sub_p[5];
+   dj_pwm=zhuan/DP6-sub_p[5]+cha_pos*DD;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/DP6+sub_p[5]; 
+   dj_pwm=zhuan/DP6+sub_p[5]+cha_pos*DD; 
     }
 
 else if(zhuan_abs>6000)
 
     {
    if(befo_General_pos>0)
-   dj_pwm=zhuan/DP7-sub_p[6];
+   dj_pwm=zhuan/DP7-sub_p[6]+cha_pos*DD;
    else if(befo_General_pos<0)
-   dj_pwm=zhuan/DP7+sub_p[6]; 
+   dj_pwm=zhuan/DP7+sub_p[6]+cha_pos*DD; 
     }
 
-if(dj_pwm>700)
-dj_pwm=700;
-else if(dj_pwm<-700)
-dj_pwm=-700;
+if(dj_pwm>740)
+dj_pwm=740;
+else if(dj_pwm<-740)
+dj_pwm=-740;
 
 dj_pwm=dj_pwm+PWM45;
 
@@ -344,7 +363,7 @@ PWMDTY45=dj_pwm;
 
 void SpeedCtrl (void) {
 int subspeed;
-subspeed=speed_clera[1]-150;
+subspeed=speed_clera[1]-225;
 PORTB_PB7=1;
 PWMDTY01 = 25;      //占空比10%     25
 PWMDTY23 = 83;      //占空比50%     60
@@ -353,19 +372,19 @@ PWMDTY23 = 83;      //占空比50%     60
 else if((subspeed>10)&&(subspeed<=35)) 
     {
 PORTB_PB7=1;
-PWMDTY01= 60;
-PWMDTY23 = 30;
+PWMDTY01= 80;
+PWMDTY23 = 27;
     }
 else if(subspeed>35) 
     {  
 PORTB_PB7=1;
 PWMDTY01= 80;
-PWMDTY23 = 50;
+PWMDTY23 = 30;
     }
 else if((subspeed<-10)&&(subspeed>=-35)) 
    {
 PORTB_PB7=1;
-PWMDTY23=PWMDTY23-3*subspeed;
+PWMDTY23=PWMDTY23-subspeed;
 PWMDTY01= 0; 
    }
 else if(subspeed<-35)
@@ -375,8 +394,8 @@ PORTB_PB7=1;
 PWMDTY23=80;
 PWMDTY01= 0;
    }         
-
-*/
+    */
+    
 }          
 
 
