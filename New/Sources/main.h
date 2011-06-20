@@ -1,7 +1,7 @@
 #define LASER_MAX 12          //激光管数量
 #define IR_NUM 7              //红外观数量
 #define PWM67 1845
-#define PWM45 3746
+#define PWM45 3808
 #define ANGLE_DELTA 30
 #define PWM6_MID 224
 //#define Speed 50
@@ -12,8 +12,8 @@
   float YP1=0.4,YP2=0.5,YP3=0.7,YP4=0.8,YP5=0.9,YD=2.7;
   float JP1=1.7,JP2=3.5,JP3=4.9,JP4=6.5,JP5=7.8,JD=2.3,SpeedAver,SpeedMax,SpeedMin,SpeedNow;/*摇头P1,摇头P2,摇头P3,摇头P4,摇头P5,摇头D,打角P1,打角P2,打角P3,打角P4,打角P5,打角P6,打角D
   平均速度,最大速度,最小速度,当前速度*/
-  int DP1=2,DP2=3,DP3=3,DP4=3,DP5=2,DP6=2,DP7=2;
-  int DD=200;
+  int DP1=1,DP2=1,DP3=1,DP4=1,DP5=1,DP6=1,DP7=1;
+  int DD=0;
   int BP1=54,BP2=45,BP3=36,BP4=27,BP5=20;
   char SCIreceive[150];                    /*用于无线串口显示的字符串*/  
   int temp_pwm67=PWM67;						         //激光摆头舵机初始值
@@ -35,6 +35,7 @@
   int countPIT0=0;
   int position;                     //位置 
   
+  byte nothing_flag=0 ;
   byte right,left,middle;                    //中线左右值
   int HitBlackNum;
   
@@ -54,7 +55,7 @@
   int  befo_General_pos;
   long General_pos[2];                     //综合偏差 经过两次一阶滤波 扩大100倍  01为第一次  23为第二次  3为最后结果
   int change_JG_DJ_array[23]={-103,-90,-80,-73,-62,-52,-46,-36,-24,-18,-10,0,10,18,24,36,46,52,62,73,80,90,103}; 
-  int cha_pos;
+  int cha_pos=0;
   //int coordinate
  //int standard_position_array[23]=
   //标准position的值

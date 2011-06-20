@@ -130,113 +130,6 @@ befo_General_pos=change_JG_DJ_array[num]+baitou_diff;//*baitou_delay/11;
 }
 
 
-/*================收集N点作为坐标的一点======================
-如果实时收集处理量过大 所以多点合为一整点 多整点合为一段 多段和为一路
-road_point[5]为最后点值
-*/
-void Collect_Point(void) {
-int i;
-int code[5]={1,2,3,4,5},sum_code=15;   //加权递推平均法效果如何？ 
-long point_sum=0;      //累加过程中最大值会超过32767 因为有正负
-
-if(point_count==4) 
-     {
-     road_point[4]=befo_General_pos;
-     for(i=0;i<=4;i++) 
-       {
-     point_sum+=road_point[i]*code[i];
-     
-        }
-     point_sum=point_sum/sum_code;
-     road_point[5]=point_sum;   
-     point_count=0;
-     } 
-else
-    {
-    road_point[point_count]=befo_General_pos;
-    point_count++;
-    }
-}
-
-/*================N整点为一段 这个循环处理 推箱子======================
-假设2.5  那么我们15cm一段计算第一点到第15cm点的斜率 用来给舵机跑 15cm是为了对舵机延迟的消除
- int road_section[8];              //8段归为一长路  同假设8段为15cm
- int section_count;
- 从上往下15cm  0-7
-byte Straight_flag;                     //直道标记  非0有效
-byte turn_flag;                         //弯道标记  非0有效 
-*/
-void Collect_Section(void){
-int i;
-int sub_section;
-
-if(first_flag)
-  {
-  
-  }
-if(point_count==0)
-{  
-for(i=19;i>=0;i--) 
-   {
-   if(i==0) 
-      {
-  // speed[0]=speed_clera[1];
-   road_section[0]=road_point[5];
-      }
-   else 
-      { 
-   road_section[i]=road_section[i-1];
-  // speed[i]=speed[i-1];
-      }
-   }
- }
-sub_section=road_section[0]-road_section[1];
-sub_section=aabs(sub_section);   
-if(sub_section<=10){Straight_flag=1;turn_flag=0;} 
-else Straight_flag=0;turn_flag=1;    
-}
-
-
-
-
-
-
-/*================斜率计算======================
-15cm的斜率计算 捕捉速度值放这里面
-速度 假设200为2.5M/S  那么15cm 累加值大概为6*200
-取消斜率 直接用点  
-*/
-void Judge_Slope(void){
-long slop_sum;
-if(speed_clera[1]<=230) 
-     {
-     dajiao_Slope[0]=road_section[0];
-     dajiao_Slope[1]=road_section[19];
-     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
-     dajiao_Slope[2]=slop_sum;
-     } 
-else if((speed_clera[1]>230)&&(speed_clera[1]<=270)) 
-     {
-     dajiao_Slope[0]=road_section[0];
-     dajiao_Slope[1]=road_section[18]; 
-     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
-     dajiao_Slope[2]=slop_sum;
-     } 
-else if((speed_clera[1]>270)&&(speed_clera[1]<=310))      
-     {
-     dajiao_Slope[0]=road_section[0];
-     dajiao_Slope[1]=road_section[17]; 
-     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
-     dajiao_Slope[2]=slop_sum;
-     } 
-else      
-     {
-     dajiao_Slope[0]=road_section[0];
-     dajiao_Slope[1]=road_section[16];
-     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
-     dajiao_Slope[2]=slop_sum;
-     }      
-}
 
 /*================斜率偏差滤波======================
 滤波时两次扩大了十倍   为了在计算斜率时除以速度值后仍然保留有一定数  
@@ -244,9 +137,9 @@ else
 */
 void Clear_General(void) {
 
-General_pos[1]=dajiao_Slope[2]*5;
-General_pos[1]=(5*General_pos[0]+140*General_pos[1])/145;
-cha_pos=General_pos[1]-General_pos[0];
+General_pos[1]=befo_General_pos*2;
+General_pos[1]=(10*General_pos[0]+130*General_pos[1])/140;
+//cha_pos=General_pos[1]-General_pos[0];
 General_pos[0]=General_pos[1];
 
 //General_pos[3]=General_pos[1];
@@ -405,6 +298,118 @@ PWMDTY01= 0;
 
 
 
+
+
+/*================收集N点作为坐标的一点======================
+如果实时收集处理量过大 所以多点合为一整点 多整点合为一段 多段和为一路
+road_point[5]为最后点值
+
+void Collect_Point(void) {
+int i;
+int code[5]={1,2,3,4,5},sum_code=15;   //加权递推平均法效果如何？ 
+long point_sum=0;      //累加过程中最大值会超过32767 因为有正负
+
+if(point_count==4) 
+     {
+     road_point[4]=befo_General_pos;
+     for(i=0;i<=4;i++) 
+       {
+     point_sum+=road_point[i]*code[i];
+     
+        }
+     point_sum=point_sum/sum_code;
+     road_point[5]=point_sum;   
+     point_count=0;
+     } 
+else
+    {
+    road_point[point_count]=befo_General_pos;
+    point_count++;
+    }
+}
+*/
+/*================N整点为一段 这个循环处理 推箱子======================
+假设2.5  那么我们15cm一段计算第一点到第15cm点的斜率 用来给舵机跑 15cm是为了对舵机延迟的消除
+ int road_section[8];              //8段归为一长路  同假设8段为15cm
+ int section_count;
+ 从上往下15cm  0-7
+byte Straight_flag;                     //直道标记  非0有效
+byte turn_flag;                         //弯道标记  非0有效 
+
+void Collect_Section(void){
+int i;
+int sub_section;
+
+if(first_flag)
+  {
+  
+  }
+if(point_count==0)
+{  
+for(i=19;i>=0;i--) 
+   {
+   if(i==0) 
+      {
+  // speed[0]=speed_clera[1];
+   road_section[0]=road_point[5];
+      }
+   else 
+      { 
+   road_section[i]=road_section[i-1];
+  // speed[i]=speed[i-1];
+      }
+   }
+ }
+sub_section=road_section[0]-road_section[1];
+sub_section=aabs(sub_section);   
+if(sub_section<=10){Straight_flag=1;turn_flag=0;} 
+else Straight_flag=0;turn_flag=1;    
+}
+
+
+
+*/
+
+
+/*================斜率计算======================
+15cm的斜率计算 捕捉速度值放这里面
+速度 假设200为2.5M/S  那么15cm 累加值大概为6*200
+取消斜率 直接用点  
+
+void Judge_Slope(void){
+long slop_sum;
+if(speed_clera[1]<=230) 
+     {
+     dajiao_Slope[0]=road_section[0];
+     dajiao_Slope[1]=road_section[19];
+     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     dajiao_Slope[2]=slop_sum;
+     } 
+else if((speed_clera[1]>230)&&(speed_clera[1]<=270)) 
+     {
+     dajiao_Slope[0]=road_section[0];
+     dajiao_Slope[1]=road_section[18]; 
+     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     dajiao_Slope[2]=slop_sum;
+     } 
+else if((speed_clera[1]>270)&&(speed_clera[1]<=310))      
+     {
+     dajiao_Slope[0]=road_section[0];
+     dajiao_Slope[1]=road_section[17]; 
+     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     dajiao_Slope[2]=slop_sum;
+     } 
+else      
+     {
+     dajiao_Slope[0]=road_section[0];
+     dajiao_Slope[1]=road_section[16];
+     slop_sum=(3*dajiao_Slope[0]+dajiao_Slope[1])/4;
+     dajiao_Slope[2]=slop_sum;
+     }      
+}
+*/
+
+
 /*
 
 void Tendency_judge(void) 
@@ -440,85 +445,6 @@ void Replace_array(void)
   temp_position_array[0] = PWMDTY67;
 }
 
-
-*/
-
-
-/*=======================打角舵机===========================
-//GDiff_position是存储 摇头舵机差值 传给打角的参数
-//  1482   1772  1192
-   
- 
-void dajiao(void) {
-    
-    int ZhuanPwm=0;
-    GDiff_position[1]=PWMDTY67-PWM67;
-    GDiff_position[2]=PWMDTY67-PWM67;
-    GDiff_position[2]=aabs(GDiff_position[2]);
-    His_position[3]=position;
-    His_position[3]=aabs(His_position[3]);
-    J_His_position[1]=position;
-    J_His_position[2]=J_His_position[1]-J_His_position[0];
-   
-    if(GDiff_position[2]<=7&&His_position[3]<=1)
-    ZhuanPwm=PWM45;
-    else{  
-    if(GDiff_position[2]<=14)
-    ZhuanPwm=PWM45-(6*position+3.2*GDiff_position[1])-2.9*(J_His_position[2]+GDiff_position[1]-GDiff_position[0]);
-    else if(GDiff_position[2]>14&&GDiff_position[2]<=24)
-    ZhuanPwm=PWM45-(8*position+5.5*GDiff_position[1])-2.9*(J_His_position[2]+GDiff_position[1]-GDiff_position[0]);
-    else if(GDiff_position[2]>24&&GDiff_position[2]<=40)
-    ZhuanPwm=PWM45-(11*position+7.1*GDiff_position[1])-2.9*(J_His_position[2]+GDiff_position[1]-GDiff_position[0]);
-    else if(GDiff_position[2]>40&&GDiff_position[2]<=60)
-    ZhuanPwm=PWM45-(14*position+9.1*GDiff_position[1])-2.9*(J_His_position[2]+GDiff_position[1]-GDiff_position[0]);
-    else if(GDiff_position[2]>60&&GDiff_position[2]<=80)
-    ZhuanPwm=PWM45-(17*position+11.1*GDiff_position[1])-2.9*(J_His_position[2]+GDiff_position[1]-GDiff_position[0]);
-    else if(GDiff_position[2]>80)
-    ZhuanPwm=PWM45-(19*position+13.1*GDiff_position[1])-2.9*(J_His_position[2]+GDiff_position[1]-GDiff_position[0]);
-    }
-    if(ZhuanPwm>1768)
-    ZhuanPwm=1768;
-    else if(ZhuanPwm<1188)
-    ZhuanPwm=1188;
-    
-    PWMDTY45=ZhuanPwm;
-    GDiff_position[0]=GDiff_position[1]; 
-    J_His_position[0]=J_His_position[1];
-  } // DerectionCtrl
-
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*=====================激光摆头舵机改变函数======================
-void Light_SetDriver(int value){
-  PWMDTY67 = value; 
-}
-void SCI_SetDriver(int value){
-  PWMDTY45 = value; 
-}
 
 */
 
