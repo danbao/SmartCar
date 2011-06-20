@@ -38,16 +38,38 @@ void main(void)
      
    //  Collect_IR();   //这两个是红外捕捉和判断红外位置 先注释
    //  Level_IR();
+   
    Confirm_Light(); //排除误点
+   if(nothing_flag==0)
+
+  { 
+    //Clear_baitou();  //position的第一次滤波
+    baitou_delay=6;
+    
+   } 
+   else
+   { 
    Clear_baitou();  //position的第一次滤波
+   baitou_delay++;
+   if(baitou_delay%7==0) 
+   {
+    baitou_delay=1;
+    baitou( ); //先执行摆头舵机，通过计算得出角度，为第二次滤波做准备
+    }
+     
+   } 
+   
    General_Position();      
-   Collect_Point();
-   Collect_Section();
-   Judge_Slope();
+  // Collect_Point();
+  // Collect_Section();
+  // Judge_Slope();
    Clear_General();
    delay_count++;
    
-    dajiao();
+   
+   
+   
+   dajiao();
    
   /* send_count++;
    if(send_count%20==0) {
@@ -56,18 +78,15 @@ void main(void)
    }   
     */
   
-   baitou_delay++;
-   if(baitou_delay%9==0) 
-   {
-    baitou_delay=1;
-    baitou( ); //先执行摆头舵机，通过计算得出角度，为第二次滤波做准备
-    } 
+Clear_Speed();
+    SpeedCtrl();  
   
+ }
+    
+ 
    
-    Clear_Speed();
-    SpeedCtrl();
-   
-  }
+  
+  
 
           
 // _FEED_COP(); /*看门狗，防死循环用的 */

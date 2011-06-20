@@ -46,20 +46,13 @@ void Confirm_Light(){
 
  if(HitBlackNum==0)
    {
-   if(right)
-      {
-      position =-12;
-      } 
-   else if(left)
-      {
-      position=12;
-      } 
-   else  if(middle);
-      
+   nothing_flag=0;   
    }
  else if(HitBlackNum>0) 
- Status_Judge();
- 
+  {
+  nothing_flag=1; 
+  Status_Judge();
+  }
 }
 
 /*==========================逐个检查 包括计算照黑个数，错误点个数==========*/
@@ -68,7 +61,7 @@ void calculate_light(void){
  changeposition=6+position/2;
  for(i=0;i<LASER_MAX;i++) {
   if (light_temp_laser_array[i]==0) continue;
-  else if ((light_temp_laser_array[i]==1)&&(aabs(i-changeposition)<=6)) 
+  else if ((light_temp_laser_array[i]==1)) //&&(aabs(i-changeposition)<=6)
   {
   HitBlackNum++;
   }
