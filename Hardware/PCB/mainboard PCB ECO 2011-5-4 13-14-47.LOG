@@ -1,2 +1,0 @@
-Removed Pin From Net: NetName=ALLVCC Pin=Power-1
-Added Pin To Net: NetName=INVCC Pin=Power-1

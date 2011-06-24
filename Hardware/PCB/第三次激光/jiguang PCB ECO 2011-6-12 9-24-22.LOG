@@ -1,4 +1,0 @@
-Removed Pin From Net: NetName=LSVCC Pin=ZONG20-17
-Added Pin To Net: NetName=LSGND Pin=ZONG20-17
-Removed Pin From Net: NetName=LSGND Pin=ZONG20-18
-Added Pin To Net: NetName=LSVCC Pin=ZONG20-18

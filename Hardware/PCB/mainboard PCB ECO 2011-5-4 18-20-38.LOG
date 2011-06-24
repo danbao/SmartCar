@@ -1,3 +1,0 @@
-Change Net Name : Old Net Name=GND New Net Name=MGND
-Removed Pin From Net: NetName=GND Pin=MCU-328
-Added Pin To Net: NetName=GND Pin=MCU-328
