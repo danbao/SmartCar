@@ -3,37 +3,41 @@
 #include <stdio.h>       //sprintf要用到
 #include <string.h>      //LCD中的strlen要用到
 #include <math.h>        //abs绝对值要用到
-#include "main.h"
+#include <stdlib.h>      //随机数用到
+#include "main.h"           //所有变量的定义都放在main.h文件下了  
 #include "LCD.h"         
 #include "SCI.h" 
 #include "IR.h"               
 
- int i;
 
 
-
+//===================采集红外进数组=======================//
+void Collect_IR(void)
+{
+ IR_temp_laser_array[0]=ReadATD(0);
+ delayMS();
+ IR_temp_laser_array[1]=ReadATD(1);
+ delayMS();
+ IR_temp_laser_array[2]=ReadATD(2);
+ delayMS();
+ IR_temp_laser_array[3]=ReadATD(3);
+ delayMS();
+ IR_temp_laser_array[4]=ReadATD(4);
+ delayMS();
+ IR_temp_laser_array[5]=ReadATD(5);
+ delayMS();
+ IR_temp_laser_array[6]=ReadATD(6);
+ 
+}
 
 void main(void) {
 	EnableInterrupts;
-  SetBusCLK_40M();    //   设置时钟初始化。40MHz.
+  Init_PLL();    //   设置时钟初始化。40MHz.
   SCI_Init();
   AD_Init(); //     AD初始化。
-  DDRM = 0X1F;        //启动LCD
-	LCD_start();  //初始化LCD模块 
-	LCD_clear(); //清屏幕 
-	LCD_startshow();
-	Prop1=123.45;
-  Prop2=-123.45;
-  Diff1=-123;
-  Diff2=123;
-  SpeedMax=1234;
-  SpeedMin=0; 
-  SpeedNow=345;
-  SpeedAver=467.96;
   for(;;) {
-    delayms(300);
-    sprintf(SCIreceive,"AD值为:%.3d  %.3d  %.3d  %.3d  %.3d  %.3d  %.3d",ReadATD(6),ReadATD(5),ReadATD(4),ReadATD(3),ReadATD(2),ReadATD(1),ReadATD(0));
-    SCISend_chars(SCIreceive);
+  Collect_IR();
+  TestIR(IR_temp_laser_array,IR_position[1]);
   //  _FEED_COP(); /* feeds the dog */
   } /* loop forever */
   /* please make sure that you never leave main */
