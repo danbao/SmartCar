@@ -44,13 +44,10 @@ void Confirm_Light(){
  calculate_light();
  
 
- if(HitBlackNum==0)
-   {
-   nothing_flag=0;   
-   }
+ if(HitBlackNum==0) ;
+ 
  else if(HitBlackNum>0) 
   {
-  nothing_flag=1; 
   Status_Judge();
   }
 }
