@@ -6,10 +6,14 @@ float Prop1,Prop2,Diff1,Diff2,SpeedAver,SpeedMax,SpeedMin,SpeedNow;    /*P1,P2,D
 char lcd[100];                    /*用于LCD显示的字符串*/
 char SCIreceive[100];             /*用于串口显示的字符串*/
 byte light_temp_laser_array[12]={1,0,1,0,1,0,1,1,1,0,0,0};
-int IR_temp_laser_array[7]={100,0,200,0,255,100,150};
+uint IR_temp_laser_array[7]={100,0,200,0,255,100,150};
 int JG_clear_position;
 int position=-11;
-
+int temp_pwm67=3660;
+int temp_pwm45=3500;
+int speed_clera[2]={11,15};
+int JG_clear[2]={10,9};
+int IR_position[2]={10,9};
 //===============时钟初始化========================//
 void SetBusCLK_40M()
 {   

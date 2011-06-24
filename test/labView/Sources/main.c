@@ -22,15 +22,8 @@ void main(void) {
 	LCD_clear(); //ÇåÆÁÄ» 
 	
 	LCD_startshow();
-	Prop1=123.45;
-  Prop2=-123.45;
-  Diff1=-123;
-  Diff2=123;
-  SpeedMax=1234;
-  SpeedMin=0; 
-  SpeedNow=345;
-  SpeedAver=467.96;
+
   for(;;) {
-  TestSMinfo();
+//  TestSMinfo();
   }
 }
