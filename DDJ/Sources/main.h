@@ -1,9 +1,13 @@
-#define LASER_MAX 12          //激光管数量
+#define LASER_MAX 20          //激光管数量
 #define IR_NUM 7              //红外观数量
-#define PWM67 1845
-#define PWM45 3528
+//#define PWM67 1845
+//#define PWM45 3528
 #define ANGLE_DELTA 30
 #define PWM6_MID 224
+#define PWM01 3808
+#define PWM45 3808
+#define PWM7 30
+#define PWMPE7 60
 //#define Speed 50
 #define N 5                  //红外滤波权值		
 /*===============全局变量定义======================
@@ -17,7 +21,7 @@
   int BP1=55,BP2=47,BP3=35,BP4=26,BP5=20;
   char SCIreceive[150];                    /*用于无线串口显示的字符串*/  
   int temp_pwm67=PWM67;						         //激光摆头舵机初始值
-  int temp_pwm45=PWM45;					         	 //转向摆头舵机初始值
+  int temp_pwm01=PWM01;					         	 //转向摆头舵机初始值
   
   byte light_temp_laser_array[LASER_MAX];  //当前激光管信息保存数组
   uint IR_temp_laser_array[7];             //当前红外信息保存数组
@@ -87,10 +91,10 @@
   void Status_Judge(void);
   
  // int g_countPIT0 =0;   //用于PIT组别的点亮次数
-	int	g_temp_laser_array[11]; //用于接受各个激光管点亮后获取的数据
+	int	g_temp_laser_array[LASER_MAX]; //用于接受各个激光管点亮后获取的数据
 	
 	
-	int temp_laser_array[11];
+	int temp_laser_array[LASER_MAX];
 	
 
 
@@ -144,34 +148,38 @@ void PWM_Init (void) {   //0519暂时写完！
    PWME = 0X00;       //禁止PWM输出  
    PWMCAE = 0X00;     //左对齐
    
-   PWMCNT01 = 0;			//计数器01清零
-   PWMCNT23 = 0;			//计数器23清零
-   PWMCNT45 = 0;			//计数器45清零
-   PWMCNT67 = 0;			//计数器67清零
+   //PWMCNT01 = 0; //计数器01清零
+   //PWMCNT23 = 0; //计数器23清零
+   //PWMCNT01 = 0; //计数器01清零
+   //PWMCNT67 = 0; //计数器67清零
  
    PWMPOL = 0XFF;     //先输出高电平   PWM极性寄存器
-   PWMCTL = 0XF0;     //通道01.23.45.67级联  0B11111111   01正转 23反转
+   PWMCTL = 0X70;     //通道01级联，23级联，45级联
    PWMPRCLK = 0X21;   //clockA 2分频,clockA=busclock/2=20MHz;CLK B 4分频:10Mhz 
    PWMSCLA = 4;       //对clock SA 进行2*4=8分频；pwm clock=clockA/8=2.5MHz;
    PWMSCLB = 4;       //对clock SB 进行2*4=8分频；pwm clock=clockB/8=1.25MHz;
-   PWMCLK_PCLK1 = 1;  //选择clock SA做时钟源  01
-   PWMCLK_PCLK3 = 1;  //选择clock SB做时钟源  23
-   PWMCLK_PCLK5 = 1;  //选择clock SA做时钟源  45
-   PWMCLK_PCLK7 = 1;  //选择clock SB做时钟源  67	   
+   PWMCLK_PCLK1 = 1;  //选择clock SA做时钟源  
+   PWMCLK_PCLK3 = 0;  //选择clock SB做时钟源  
+   PWMCLK_PCLK5 = 1;  //选择clock SA做时钟源  
+   PWMCLK_PCLK6 = 1;  //选择clock B 做时钟源
+   PWMCLK_PCLK7 = 0;  //选择clock B 做时钟源      
 
-   PWMPER01 = 250;    //频率 10kHz  周期0.1ms
-   PWMPER23 = 125;    //频率 10kHz  周期0.1ms
-   PWMPER45 = 25000;  //频率 100Hz  周期50ms
-   PWMPER67 = 12500;  //频率 100Hz  周期50ms
+   PWMPER01 = 25000;    //频率 100Hz  周期10ms
+   PWMPER23 = 625;    //频率 16kHz    周期6.25us
+   PWMPER45 = 25000;  //频率 100Hz    周期10ms
+   PWMPER6 = 78;  //频率 16kHz        周期6.25us
+   PWMPER7 = PWMPE7;  //频率 166kHz   周期602ns
    
-   PWMDTY01 = 25;      //占空比10%
-   PWMDTY23 = 80;      //占空比50%
-   PWMDTY45 = PWM45;      //
-   PWMDTY67 = PWM67;      //占空比50%
-   PWME_PWME1 = 1;    //通道1输出,电机正转使能   正转
-   PWME_PWME3 = 1;    //通道3输出,电机反转使能 
-   PWME_PWME5 = 1;    //通道5输出,前轮舵机使能     
-   PWME_PWME7 = 1;    //通道7输出,摆头舵机使能     
+   PWMDTY01 = PWM01;      //占空比50%  前轮舵机
+   PWMDTY23 = 312;      //占空比50%    电机正转
+   PWMDTY45 = PWM45;      //           摆头舵机
+   PWMDTY6 = 39;      //占空比50%      电机反转
+   PWMDTY7 = PWM7;      //占空比50%    调制管
+   PWME_PWME1 = 1;    //通道1输出,前轮舵机使能  
+   PWME_PWME3 = 1;    //通道3输出,电机正转使能
+   PWME_PWME5 = 1;    //通道5输出,摆头舵机使能     
+   PWME_PWME6 = 1;    //通道6输出,电机反转使能
+   PWME_PWME7 = 1;    //通道7输出,调制管使能    
 } //PWMInit
 
 
@@ -188,8 +196,8 @@ void PWM_Init (void) {   //0519暂时写完！
 
 //=====================激光初始化======================//
  void LIGHT_Init(void){ 
-	DDRA = 0X3F;      //PA0--PA5激光管信号点亮
-	DDRB = 0Xf0;      //PB0--PB3激光管信号接收
+	DDRA = 0X7F;      //PA0--PA5激光管信号点亮
+	DDRB = 0X00;      //PB0--PB3激光管信号接收
  }
 
 
@@ -225,57 +233,72 @@ void PWM_Init (void) {   //0519暂时写完！
 /*=====================激光点亮======================
 最后发现由于用定时中断还是。。所以就换回在主程序中点亮
 */
- void Light_Up(void) {
-   for(light_count=0;light_count<=5;light_count++) 
+   void Light_Up(void) {
+   for(light_count=0;light_count<=6;light_count++) 
    {
     if(light_count == 0)   
-       { 
+    { 
       PORTA = 0B00000001;
       delayMS();
-	    light_temp_laser_array[0] = PORTB_PB0^1;
-      light_temp_laser_array[6] = PORTB_PB2^1;
-       }   
+	    light_temp_laser_array[6] = PORTB_PB4^1;
+      light_temp_laser_array[13] = PORTB_PB2^1;
+      light_temp_laser_array[20] = PORTB_PB0^1;
+    }   
   
     else if(light_count == 1)   
-       { 
-      PORTA = 0B00001000;
-      delayMS();
-	    light_temp_laser_array[3] = PORTB_PB1^1;	
+    {
+      PORTA = 0B00010000;
+      delayMS();  
+	    light_temp_laser_array[2] = PORTB_PB6^1;
       light_temp_laser_array[9] = PORTB_PB3^1;
-       }
+      light_temp_laser_array[16] = PORTB_PB1^1;
+    }
     
     else if(light_count ==2)   
-       { 
+    {
       PORTA = 0B00000010;
       delayMS();
-	    light_temp_laser_array[1] = PORTB_PB0^1;
-      light_temp_laser_array[7] = PORTB_PB2^1;
-       } 
+	    light_temp_laser_array[5] = PORTB_PB5^1;	
+      light_temp_laser_array[12] = PORTB_PB2^1;
+      light_temp_laser_array[19] = PORTB_PB0^1; 
+    } 
     
     else	if(light_count == 3)       
-       { 
-      PORTA = 0B00010000;
-      delayMS(); 
-	    light_temp_laser_array[4] = PORTB_PB1^1;
-      light_temp_laser_array[10] = PORTB_PB3^1; 
-	     }
-   
-   else if(light_count == 4)   
-      {
-      PORTA = 0B00000100;
-      delayMS();  
-	    light_temp_laser_array[2] = PORTB_PB0^1;
-      light_temp_laser_array[8] = PORTB_PB2^1;
-      } 
-      
-   else if(light_count == 5)   
-      {
+    {
       PORTA = 0B00100000;
       delayMS();  
-	    light_temp_laser_array[5] = PORTB_PB1^1;
-      light_temp_laser_array[11] = PORTB_PB3^1;  
-      }
- PORTA = 0B00000000;         //点亮后关闭通道
-   }
-light_count=0;   
+	    light_temp_laser_array[1] = PORTB_PB6^1;
+      light_temp_laser_array[8] = PORTB_PB4^1;
+      light_temp_laser_array[15] = PORTB_PB1^1; 
+	  }
+   
+    else if(light_count == 4)   
+    {
+      PORTA = 0B00000100;
+      delayMS();
+	    light_temp_laser_array[4] = PORTB_PB5^1;
+      light_temp_laser_array[11] = PORTB_PB3^1;
+      light_temp_laser_array[18] = PORTB_PB0^1;  
+    } 
+       
+    else if(light_count == 5)   
+    {
+      PORTA = 0B01000000;
+      delayMS();  
+	    light_temp_laser_array[0] = PORTB_PB6^1;
+      light_temp_laser_array[7] = PORTB_PB4^1;
+      light_temp_laser_array[14] = PORTB_PB2^1; 
+    }
+    
+    else if(light_count == 6)   
+    {
+      PORTA = 0B00001000;
+      delayMS(); 
+	    light_temp_laser_array[3] = PORTB_PB5^1;
+      light_temp_laser_array[10] = PORTB_PB3^1;
+      light_temp_laser_array[17] = PORTB_PB1^1;
+    }   
+    PORTA = 0B00000000;         //点亮后关闭通道
+  }
+  light_count=0;   
 } 

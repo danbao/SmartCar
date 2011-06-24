@@ -48,17 +48,17 @@ void main(void)
     baitou( ); //先执行摆头舵机，通过计算得出角度，为第二次滤波做准备
     } 
    
-   General_Position();      
+   //General_Position();      
   // Collect_Point();
   // Collect_Section();
   // Judge_Slope();
-   Clear_General();
-   delay_count++;
+  // Clear_General();
+  // delay_count++;
    
    
    
    
-   dajiao();
+  // dajiao();
    
   /* send_count++;
    if(send_count%20==0) {
@@ -67,8 +67,8 @@ void main(void)
    }   
     */
   
-Clear_Speed();
-    SpeedCtrl();  
+//Clear_Speed();
+   // SpeedCtrl();  
   
  }
     

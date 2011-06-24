@@ -28,7 +28,7 @@ void  baitou (void) {
     
     int JG_pos_abs=JG_clear[1];
     int JG_pwm;
-    int JG_pwm_his=PWMDTY67;
+    int JG_pwm_his=PWMDTY45;
     int sub_p[7];
     JG_pos_abs=aabs(JG_pos_abs);
     JG_clear_Pos[1]=JG_clear[1];
@@ -83,11 +83,11 @@ sub_p[4]=800/BP5-(800/BP4-sub_p[3]);
        
      JG_clear_Pos[0]=JG_clear_Pos[1];
      if(JG_pwm_his+JG_pwm>2845)
-     PWMDTY67=2845;
+     PWMDTY45=2845;
      else if(JG_pwm_his+JG_pwm<845)
-     PWMDTY67=845;
+     PWMDTY45=845;
      else
-     PWMDTY67=PWMDTY67+JG_pwm;
+     PWMDTY45=PWMDTY45+JG_pwm;
     
 }
 
@@ -103,7 +103,7 @@ sub_p[4]=800/BP5-(800/BP4-sub_p[3]);
 来给下面打角舵机作为打角的参数。
 
 BUG：
-比较害怕PWMDTY67在这边没办法用，到时估计要把午餐的函数方法设一下参数， 进行参数传递
+比较害怕PWMDTY45在这边没办法用，到时估计要把午餐的函数方法设一下参数， 进行参数传递
  int change_JG_DJ_array[23]={-103,-90,-80,-73,-62,-52,-46,-36,-24,-18,-10,0,10,18,24,36,46,52,62,73,80,90,103}; 
  int standard_position_array[23]=
   //标准position的值
@@ -125,7 +125,7 @@ BUG：
 void General_Position(void)       
 {
 int num=position+11;    //数组序号偏移代入
- baitou_diff=PWMDTY67-PWM67;      //摆头执行后的差值 我们把他等分试试 
+ baitou_diff=PWMDTY45-PWM45;      //摆头执行后的差值 我们把他等分试试 
 
 befo_General_pos=change_JG_DJ_array[num]+baitou_diff;//*baitou_delay/11;
 }
@@ -201,8 +201,8 @@ dj_pwm=740;
 else if(dj_pwm<-740)
 dj_pwm=-740;
 
-dj_pwm=dj_pwm+PWM45;
-PWMDTY45=dj_pwm;
+dj_pwm=dj_pwm+PWM01;
+PWMDTY01=dj_pwm;
 }
 
 
@@ -221,8 +221,8 @@ subspeed=speed_clear[1]-225;
 PORTB_PB7=1;
 
 
-PWMDTY01 = 25;      //占空比10%     25
-PWMDTY23 = 85;      //占空比50%     60
+PWMDTY23 = 31;      //占空比10%     25
+PWMDTY6 = 39;      //占空比50%     60
  
 
     
@@ -375,7 +375,7 @@ void Replace_array(void)
   {             //保存历史状态
     temp_position_array[i] =  temp_position_array[i-1];   
   }
-  temp_position_array[0] = PWMDTY67;
+  temp_position_array[0] = PWMDTY45;
 }
 
 
