@@ -22,16 +22,21 @@ else return 0;
 }
 
 
-/*==================排除干扰点============================
+/*==================赛道汇总============================
 i-(7-position/2)>3    排除
 不足：当这种情况连续出现 则认同
 方向标志Direction       
-       */
+byte Straight_flag;                     //直道标记  非0有效
+byte turn_flag;        
+*/
 void Confirm_Light(){
  int i=0;    //changeposition 是position到位置的转换用于推导
  int start_count,cross_count;      //起始和十字计数
-           //其实和十字标志
+ int abs_baitoupwm;
  
+ baitoupwm=General_pos;          
+ abs_baitoupwm=baitoupwm;
+ abs_baitoupwm=aabs(abs_baitoupwm);
  
  HitBlackNum=0;
  special_flag=0;
@@ -39,21 +44,32 @@ void Confirm_Light(){
  start_count=0;
  cross_count=0;
  start_flag=0;
- cross_flag=0;
- 
+ cross_flag=0; 
  calculate_light();
- 
-
- if(HitBlackNum==0)
-   {
-   nothing_flag=0;   
-   }
+ if(HitBlackNum==0);
  else if(HitBlackNum>0) 
   {
-  nothing_flag=1; 
   Status_Judge();
   }
+  
+ 
+ if(abs_baitoupwm>70){turn_flag=1;Straight_flag=0;} 
+ 
+ else 
+  {
+  if(Straight_flag==1) 
+  {turn_flag=0;Straight_flag=1;} 
+  else if((turn_flag==1)&&(abs_baitoupwm>30))
+  {turn_flag=1;Straight_flag=0;} 
+    
+  else if((turn_flag==1)&&(abs_baitoupwm<30)) 
+  {turn_flag=0;Straight_flag=1;} 
+  }   
 }
+
+
+
+
 
 /*==========================逐个检查 包括计算照黑个数，错误点个数==========*/
 void calculate_light(void){
@@ -176,8 +192,8 @@ void Level_IR( void)
 */
 void Clear_Speed(void) {
 //long Speed_sum;
-speed_clera[1]=(40*speed_clera[0]+100*speed_clera[1])/140;
-speed_clera[0]=speed_clera[1];
+speed_clear[1]=(100*speed_clear[0]+40*speed_clear[1])/140;
+speed_clear[0]=speed_clear[1];
 }
 
 

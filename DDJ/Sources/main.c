@@ -40,24 +40,13 @@ void main(void)
    //  Level_IR();
    
    Confirm_Light(); //排除误点
-   //if(nothing_flag==0)
-  
- // { 
-    //Clear_baitou();  //position的第一次滤波
-   // baitou_delay=6;
-    
-  // } 
-  // else
-  // { 
    Clear_baitou();  //position的第一次滤波
    baitou_delay++;
-   if(baitou_delay%8==0) 
+   if(baitou_delay%9==0) 
    {
     baitou_delay=1;
     baitou( ); //先执行摆头舵机，通过计算得出角度，为第二次滤波做准备
-    }
-     
-  // } 
+    } 
    
    General_Position();      
   // Collect_Point();
@@ -107,7 +96,7 @@ Clear_Speed();
 
 void interrupt 66 PIT0_ISR(void){
 DisableInterrupts;   
-speed_clera[1]= PACNT;
+speed_clear[1]= PACNT;
 PACNT = 0x0000; 
 PITTF_PTF0 = 1;
 EnableInterrupts; 

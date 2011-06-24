@@ -1,7 +1,7 @@
 #define LASER_MAX 12          //激光管数量
 #define IR_NUM 7              //红外观数量
 #define PWM67 1845
-#define PWM45 3808
+#define PWM45 3528
 #define ANGLE_DELTA 30
 #define PWM6_MID 224
 //#define Speed 50
@@ -14,7 +14,7 @@
   平均速度,最大速度,最小速度,当前速度*/
   int DP1=1,DP2=1,DP3=1,DP4=1,DP5=1,DP6=1,DP7=1;
   int DD=0;
-  int BP1=58,BP2=47,BP3=38,BP4=29,BP5=22;
+  int BP1=55,BP2=47,BP3=35,BP4=26,BP5=20;
   char SCIreceive[150];                    /*用于无线串口显示的字符串*/  
   int temp_pwm67=PWM67;						         //激光摆头舵机初始值
   int temp_pwm45=PWM45;					         	 //转向摆头舵机初始值
@@ -43,14 +43,16 @@
   
   byte SS_flag;                           //小s标记  1有效
   byte LS_flag;                           //大S标记   1有效
-  byte Straight_flag;                     //直道标记  非0有效
-  byte turn_flag;                         //弯道标记  非0有效                 
+  byte Straight_flag=1;                     //直道标记  非0有效
+  byte turn_flag=0;                         //弯道标记  非0有效                 
   byte first_flag=1;
 
-  int road_point[6];                      //5点归为一段  假设2.5m/s 5点为1.8cm  road_point[5]为最后点值
-  int point_count;                        //5点计数 同时也可作为段判断开始的标志
-  int road_section[20];                   //8段归为一长路  同假设8段为15cm
-  int section_flag;                      //8段计数
+  
+  
+ // int road_point[6];                      //5点归为一段  假设2.5m/s 5点为1.8cm  road_point[5]为最后点值
+ // int point_count;                        //5点计数 同时也可作为段判断开始的标志
+ // int road_section[20];                   //8段归为一长路  同假设8段为15cm
+ // int section_flag;                      //8段计数
   
   int  befo_General_pos;
   float General_pos;                     //综合偏差 经过两次一阶滤波 扩大100倍  01为第一次  23为第二次  3为最后结果
@@ -63,12 +65,14 @@
   //用于记录position的值，形成预判的趋势 
 //int last_laser_array[20][11];    
 //这个二维数组作为激光管的历史记录
+  int baitoupwm;
+  
  
   int dajiao_Slope[3];                   //打角舵机的两个斜率 2为累加值
  
   int IR_position[2];                     //红外位置   红外部分变量都以IR开头
   int IR_blacknun=0;                      //红外黑点
-  void Level_IR( void);                   //声明  不懂去掉可不可以
+  
   long IR_clear[2];                       //红外滤波值
   
   int  baitou_delay=1;                    //摆头延迟  同时用来等分摆头的每次舵机值
@@ -76,7 +80,7 @@
   int JG_clear_Pos[2];                  //存入当前和上一次摆头时的JG_clear 的值
                              
  // int speed_collect;                     //速度捕捉值
-  uint speed_clera[2];                    //速度滤波值  最终结果 此次和上次
+  long speed_clear[2];                    //速度滤波值  最终结果 此次和上次
   //int speed[20];                          //给
   
   void calculate_light(void);
