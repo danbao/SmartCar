@@ -1,8 +1,0 @@
-Added Component: Designator=CQ6(0805)
-Added Component: Designator=CQ7(0805)
-Added Pin To Net: NetName=QVCC Pin=CQ6-1
-Added Pin To Net: NetName=QGND Pin=CQ6-2
-Added Pin To Net: NetName=QGND Pin=CQ7-1
-Added Pin To Net: NetName=QVCC Pin=CQ7-2
-Added Member To Class: ClassName=mainboard Member=Component CQ6 Cap
-Added Member To Class: ClassName=mainboard Member=Component CQ7 Cap

@@ -1,9 +1,0 @@
-Output: Component Cross Reference Report
-Type  : ReportComponents
-From  : Project [SMARTCAR.PRJPCB]
-
-
-Files Generated   : 0
-Documents Printed : 0
-
-Finished Output Generation At 10:14:23 On 2011/5/4
