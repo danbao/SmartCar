@@ -117,7 +117,7 @@ char SCIsenddata[50];
 void TestSMinfo(byte a){
 if(a!=0){
 Testjiguang(light_temp_laser_array);	//发送激光数组
-Testpara(PWMDTY67,PWMDTY45,speed_clera[1],JG_clear[3]);//发送相关参数
+Testpara(PWMDTY67,PWMDTY45,speed_clear[1],JG_clear[3]);//发送相关参数
 TestIR(IR_temp_laser_array,IR_position[1]);
 }
 }

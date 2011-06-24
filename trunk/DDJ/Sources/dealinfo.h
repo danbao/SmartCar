@@ -8,14 +8,12 @@ long JG_clear_Pos[2];                  //存入当前和上一次JG_clear 的值
  
 void Clear_baitou(void){
 //long JG_sum[2];
-
 JG_clear[1]=position*100;
-JG_clear[1]=(JG_clear[0]*20+JG_clear[1]*120) /140 ; 
+JG_clear[1]=(JG_clear[0]*40+JG_clear[1]*100) /140 ; 
 JG_clear[0]=JG_clear[1]; 
-
-/*JG_clear[3]=JG_clear[1];
-JG_clear[3]=(JG_clear[2]*30+JG_clear[3]*50)/80;
-JG_clear[2]=JG_clear[3]; */
+//JG_clear[3]=JG_clear[1];
+//JG_clear[3]=(JG_clear[2]*30+JG_clear[3]*40)/70;
+//JG_clear[2]=JG_clear[3]; 
 }
 
   
@@ -35,19 +33,22 @@ void  baitou (void) {
     JG_pos_abs=aabs(JG_pos_abs);
     JG_clear_Pos[1]=JG_clear[1];
     
-sub_p[0]=60/BP1;
+sub_p[0]=70/BP1;
 sub_p[1]=200/BP2-(200/BP1-sub_p[0]);
 sub_p[2]=400/BP3-(400/BP2-sub_p[1]);
 sub_p[3]=600/BP4-(600/BP3-sub_p[2]);
 sub_p[4]=800/BP5-(800/BP4-sub_p[3]);
-
     
-    if(JG_pos_abs<=60)                             //分四段P 
+    if(JG_pos_abs<=50)                             //分四段P 
     JG_pwm=0;
     else if(JG_pos_abs>70&&JG_pos_abs<=200) 
           {
+      if(position>0)    
       JG_pwm=(JG_clear_Pos[1]/BP1-sub_p[0]);//+(JG_clear_Pos[1]-JG_clear_Pos[0])/7;
+      else if(position<0)
+      JG_pwm=(JG_clear_Pos[1]/BP1+sub_p[0]); 
           }
+   
     else if(JG_pos_abs>200&&JG_pos_abs<=400) 
           {
       if(position>0)   
@@ -160,91 +161,40 @@ void dajiao(void){
 int zhuan,zhuan_abs;
 int dj_pwm;
 int sub_p[7];
-//int speedinfo;
+int speedinfo;
+int changebaitou;
+long speedaffect;
+//int speedaffect;
 //int code[2]={3,1},sum_code=4;
 
+
+
+ changebaitou=baitoupwm/60;
+ speedinfo=speed_clear[1]-60;
+ speedinfo=speedinfo/4;
 zhuan=General_pos;
 zhuan_abs=zhuan;
 zhuan_abs=aabs(zhuan_abs);
 
-/*
-sub_p[0]=50/DP1;
-sub_p[1]=1000/DP2-(1000/DP1-sub_p[0]);
-sub_p[2]=2000/DP3-(2000/DP2-sub_p[1]);
-sub_p[3]=3000/DP4-(3000/DP3-sub_p[2]);
-sub_p[4]=4000/DP5-(4000/DP4-sub_p[3]);
-sub_p[5]=5000/DP6-(5000/DP5-sub_p[4]);
-sub_p[6]=6000/DP7-(6000/DP6-sub_p[5]);
 
 
-
-//speedinfo=road_section[0]*speed_clera[1]/200;
-
-if(zhuan_abs<=50)
-dj_pwm=0;
-
-else if((zhuan_abs>50)&&(zhuan_abs<=1000)) 
-    {
-    
-   if(befo_General_pos>0)
-   dj_pwm=zhuan/DP1-sub_p[0]+cha_pos*DD;
-   else if(befo_General_pos<0)
-   dj_pwm=zhuan/DP1+sub_p[0]+cha_pos*DD; 
-    }
-else if((zhuan_abs>1000)&&(zhuan_abs<=2000))
-    { 
-   if(befo_General_pos>0)
-   dj_pwm=zhuan/DP2-sub_p[1]+cha_pos*DD;
-   else if(befo_General_pos<0)
-   dj_pwm=zhuan/DP2+sub_p[1]+cha_pos*DD; 
-    }
-
-else if((zhuan_abs>2000)&&(zhuan_abs<=3000))
-    {
-   if(befo_General_pos>0)
-   dj_pwm=zhuan/DP3-sub_p[2]+cha_pos*DD;
-   else if(befo_General_pos<0)
-   dj_pwm=zhuan/DP3+sub_p[2]+cha_pos*DD; 
-    }
-
-else if((zhuan_abs>3000)&&(zhuan_abs<=4000))
-    {
-   if(befo_General_pos>0)
-   dj_pwm=zhuan/DP4-sub_p[3]+cha_pos*DD;
-   else if(befo_General_pos<0)
-   dj_pwm=zhuan/DP4+sub_p[3]+cha_pos*DD; 
-    }
-
-else if((zhuan_abs>4000)&&(zhuan_abs<=5000)) 
-    {
-   if(befo_General_pos>0)
-   dj_pwm=zhuan/DP5-sub_p[4]+cha_pos*DD;
-   else if(befo_General_pos<0)
-   dj_pwm=zhuan/DP5+sub_p[4]+cha_pos*DD; 
-    }
-
-
-else if((zhuan_abs>5000)&&(zhuan_abs<=6000))
-
-    {
-   if(befo_General_pos>0)
-   dj_pwm=zhuan/DP6-sub_p[5]+cha_pos*DD;
-   else if(befo_General_pos<0)
-   dj_pwm=zhuan/DP6+sub_p[5]+cha_pos*DD; 
-    }
-
-else if(zhuan_abs>6000)
-
-    {
-   if(befo_General_pos>0)
-   dj_pwm=zhuan/DP7-sub_p[6]+cha_pos*DD;
-   else if(befo_General_pos<0)
-   dj_pwm=zhuan/DP7+sub_p[6]+cha_pos*DD; 
-    }
-*/
-
+if(turn_flag==0)
+dj_pwm=General_pos;
+else 
+  {
+if(speedinfo<=10)
 dj_pwm=General_pos;
 
+else
+   {
+   speedaffect=speedinfo*speedinfo*changebaitou/3;
+   //speedaffect[1]=(speedaffect[0]*100+speedaffect[1]*40)/140;
+   //speedaffect[0]=speedaffect[1];
+   dj_pwm=General_pos+speedaffect;
+   
+   }
+ 
+  } 
 
 if(dj_pwm>740)
 dj_pwm=740;
@@ -252,7 +202,6 @@ else if(dj_pwm<-740)
 dj_pwm=-740;
 
 dj_pwm=dj_pwm+PWM45;
-
 PWMDTY45=dj_pwm;
 }
 
@@ -265,38 +214,17 @@ PWMDTY45=dj_pwm;
 
 void SpeedCtrl (void) {
 int subspeed;
-subspeed=speed_clera[1]-225;
+
+
+subspeed=speed_clear[1]-225;
+
 PORTB_PB7=1;
+
+
 PWMDTY01 = 25;      //占空比10%     25
-PWMDTY23 = 83;      //占空比50%     60
+PWMDTY23 = 85;      //占空比50%     60
  
-/*if ((subspeed<=10)&&(subspeed>=-10));
-else if((subspeed>10)&&(subspeed<=35)) 
-    {
-PORTB_PB7=1;
-PWMDTY01= 80;
-PWMDTY23 = 27;
-    }
-else if(subspeed>35) 
-    {  
-PORTB_PB7=1;
-PWMDTY01= 80;
-PWMDTY23 = 30;
-    }
-else if((subspeed<-10)&&(subspeed>=-35)) 
-   {
-PORTB_PB7=1;
-PWMDTY23=PWMDTY23-subspeed;
-PWMDTY01= 0; 
-   }
-else if(subspeed<-35)
-   {
-  
-PORTB_PB7=1;
-PWMDTY23=80;
-PWMDTY01= 0;
-   }         
-    */
+
     
 }          
 
@@ -369,10 +297,6 @@ for(i=19;i>=0;i--)
       }
    }
  }
-sub_section=road_section[0]-road_section[1];
-sub_section=aabs(sub_section);   
-if(sub_section<=10){Straight_flag=1;turn_flag=0;} 
-else Straight_flag=0;turn_flag=1;    
 }
 
 
