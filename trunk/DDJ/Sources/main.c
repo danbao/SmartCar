@@ -29,7 +29,8 @@ void main(void)
   SCI_Init();
   Tect_Speed_Init();    //ECT 捕捉初始
  // AD_Init(); 
-  delayms(3200);
+  delayms(3000);
+
   Laser_num();
   EnableInterrupts;
   for(;;) 
@@ -40,25 +41,34 @@ void main(void)
    //  Level_IR();
    
    Confirm_Light(); //排除误点
+   if(nothing_flag==1)
+     {
+     // Clear_baitou();  //position的第一次滤波
+      baitou_delay=1;
+     } 
+   
+   else if(nothing_flag==0) 
+   {
    Clear_baitou();  //position的第一次滤波
    baitou_delay++;
-   if(baitou_delay%9==0) 
+   if(baitou_delay%2==0) 
    {
     baitou_delay=1;
     baitou( ); //先执行摆头舵机，通过计算得出角度，为第二次滤波做准备
     } 
+   }
    
-   //General_Position();      
+   General_Position();      
   // Collect_Point();
   // Collect_Section();
   // Judge_Slope();
-  // Clear_General();
+   Clear_General();
   // delay_count++;
    
    
    
    
-  // dajiao();
+   dajiao();
    
   /* send_count++;
    if(send_count%20==0) {
@@ -67,8 +77,8 @@ void main(void)
    }   
     */
   
-//Clear_Speed();
-   // SpeedCtrl();  
+Clear_Speed();
+ SpeedCtrl();  
   
  }
     

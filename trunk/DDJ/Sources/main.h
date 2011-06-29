@@ -1,11 +1,11 @@
-#define LASER_MAX 20          //激光管数量
+#define LASER_MAX 21          //激光管数量
 #define IR_NUM 7              //红外观数量
 //#define PWM67 1845
 //#define PWM45 3528
 #define ANGLE_DELTA 30
 #define PWM6_MID 224
-#define PWM01 3808
-#define PWM45 3808
+#define PWM01 3553
+#define PWM45 3722
 #define PWM7 30
 #define PWMPE7 60
 //#define Speed 50
@@ -18,9 +18,9 @@
   平均速度,最大速度,最小速度,当前速度*/
   int DP1=1,DP2=1,DP3=1,DP4=1,DP5=1,DP6=1,DP7=1;
   int DD=0;
-  int BP1=55,BP2=47,BP3=35,BP4=26,BP5=20;
+  int BP1=80,BP2=65,BP3=69,BP4=76,BP5=80,BP6=85,BP7=85,BP8=85,BP9=85;
   char SCIreceive[150];                    /*用于无线串口显示的字符串*/  
-  int temp_pwm67=PWM67;						         //激光摆头舵机初始值
+  int temp_pwm45=PWM45;						         //激光摆头舵机初始值
   int temp_pwm01=PWM01;					         	 //转向摆头舵机初始值
   
   byte light_temp_laser_array[LASER_MAX];  //当前激光管信息保存数组
@@ -49,6 +49,8 @@
   byte LS_flag;                           //大S标记   1有效
   byte Straight_flag=1;                     //直道标记  非0有效
   byte turn_flag=0;                         //弯道标记  非0有效                 
+  byte Straight_stop;                      //直道入弯的反转
+  byte turn_stop;                          //弯道入直的反转
   byte first_flag=1;
 
   
@@ -60,7 +62,7 @@
   
   int  befo_General_pos;
   float General_pos;                     //综合偏差 经过两次一阶滤波 扩大100倍  01为第一次  23为第二次  3为最后结果
-  int change_JG_DJ_array[23]={-103,-90,-80,-73,-62,-52,-46,-36,-24,-18,-10,0,10,18,24,36,46,52,62,73,80,90,103}; 
+  int change_JG_DJ_array[41]={-252,-222,-208,-195,-185,-176,-154,-145,-136,-126,-99,-87,-67,-52,-42,-35,-26,-17,-11,-6,0,6,11,17,26,35,42,52,67,87,99,126,136,145,154,176,185,195,208,222,252}; 
   int cha_pos=0;
   //int coordinate
  //int standard_position_array[23]=
@@ -71,8 +73,12 @@
 //这个二维数组作为激光管的历史记录
   int baitoupwm;
   
- 
-  int dajiao_Slope[3];                   //打角舵机的两个斜率 2为累加值
+   long speedaffect1;
+   long speedaffect2;
+   long speedaffect3;
+   
+   int speedinfo;
+  //int dajiao_Slope[3];                   //打角舵机的两个斜率 2为累加值
  
   int IR_position[2];                     //红外位置   红外部分变量都以IR开头
   int IR_blacknun=0;                      //红外黑点
@@ -80,7 +86,7 @@
   long IR_clear[2];                       //红外滤波值
   
   int  baitou_delay=1;                    //摆头延迟  同时用来等分摆头的每次舵机值
-  long JG_clear[4];                      //激光一次迭代滤波 此次和上次
+  int JG_clear[4];                      //激光一次迭代滤波 此次和上次
   int JG_clear_Pos[2];                  //存入当前和上一次摆头时的JG_clear 的值
                              
  // int speed_collect;                     //速度捕捉值
@@ -171,9 +177,9 @@ void PWM_Init (void) {   //0519暂时写完！
    PWMPER7 = PWMPE7;  //频率 166kHz   周期602ns
    
    PWMDTY01 = PWM01;      //占空比50%  前轮舵机
-   PWMDTY23 = 312;      //占空比50%    电机正转
+   PWMDTY23 = 400;      //占空比50%    电机正转
    PWMDTY45 = PWM45;      //           摆头舵机
-   PWMDTY6 = 39;      //占空比50%      电机反转
+   PWMDTY6 = 7;      //占空比50%      电机反转
    PWMDTY7 = PWM7;      //占空比50%    调制管
    PWME_PWME1 = 1;    //通道1输出,前轮舵机使能  
    PWME_PWME3 = 1;    //通道3输出,电机正转使能
@@ -197,7 +203,7 @@ void PWM_Init (void) {   //0519暂时写完！
 //=====================激光初始化======================//
  void LIGHT_Init(void){ 
 	DDRA = 0X7F;      //PA0--PA5激光管信号点亮
-	DDRB = 0X00;      //PB0--PB3激光管信号接收
+	DDRB = 0X80;      //PB0--PB3激光管信号接收
  }
 
 
