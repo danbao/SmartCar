@@ -10,14 +10,14 @@ int LCD_para_sdj,LCD_para_xdj;  //上舵机值,下舵机值
 int LCD_module_sdj,LCD_module_xdj;  //上舵机值,下舵机值
 int module_status=1;
 
-#define RST PTM_PTM7      		//复位用M7口   
-#define SCE PTM_PTM6          //片选用M6口
-#define DC PTM_PTM5           //DC用M5口
-#define SDIN PTM_PTM4         //数据用M4口
-#define SCLK PTM_PTM3       	//时钟用M3口
-#define KEY3 PTM_PTM0         //按钮3
-#define KEY2 PTM_PTM1         //按钮2
-#define KEY1 PTM_PTM2         //按钮1
+#define RST PTM_PTM0     		//复位用M7口   
+#define SCE PTM_PTM1          //片选用M6口
+#define DC PTM_PTM2           //DC用M5口
+#define SDIN PTM_PTM3         //数据用M4口
+#define SCLK PTM_PTM4       	//时钟用M3口
+#define KEY3 PTM_PTM5         //按钮3
+#define KEY2 PTM_PTM6         //按钮2
+#define KEY1 PTM_PTM7         //按钮1
 unsigned char lcdx=0,lcdy=0;
 /*
 sbit    \SCE = SCE;  //片选		
@@ -417,7 +417,7 @@ LCD_init: 5110LCD初始化
 -----------------------------------------  */
 void LCD_init(void)
 {
-  DDRM = 0XF8;        //初始化M7~M3口
+  DDRM = 0X1F;        //初始化M7~M3口
 	RST=0;  	
   delay_1ms();
   RST=1;  
@@ -634,41 +634,41 @@ else if(KEY3==0&&49<LCD_flag&&LCD_flag<60){LCD_flag=3;LCD_module_num=50;module_s
     {
     case 0:   	/*进入小车主页面*/
     LCD_show();							
-  	delay_nms(400);
+  	delay_nms(300);
     break;
     case 11:   /*进入小车状态页面1*/
     LCD_status(1);								
-  	delay_nms(400);
+  	delay_nms(300);
     break;
     case 12:  /*进入小车状态页面2*/
     LCD_status(2);						
-  	delay_nms(400);
+  	delay_nms(300);
     break;
     case 2:   /*进入修改参数页面*/
     LCD_para();						            
-  	delay_nms(400);
+  	delay_nms(300);
     break;
     case 3:   /*进入第三个页面*/
     LCD_module();							
-  	delay_nms(400);
+  	delay_nms(300);
     break;
     case 41:  //改变上舵机的值,41是上舵机的参数编号,详见 LCD_para_modify参数
     LCD_para_modify(41,temp);
     temp=0;						
-  	delay_nms(400);
+  	delay_nms(300);
     break;
     case 42:  //改变下舵机的值,42是上舵机的参数编号,详见 LCD_para_modify参数
     LCD_para_modify(42,temp);	
     temp=0;					
-  	delay_nms(400);
+  	delay_nms(300);
     break;
     case 51:  //启用上舵机,51是上舵机的参数编号,详见 LCD_module_modify参数
     LCD_module_modify(51,module_status);			
-  	delay_nms(400);
+  	delay_nms(300);
     break;
     case 52:  //启用下舵机,52是上舵机的参数编号,详见 LCD_module_modify参数
     LCD_module_modify(52,module_status);				
-  	delay_nms(400);
+  	delay_nms(300);
     break;
     }
 }
