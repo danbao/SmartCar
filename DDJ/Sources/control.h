@@ -33,10 +33,14 @@ void Confirm_Light(){
  int i=0;    //changeposition 是position到位置的转换用于推导
  int start_count,cross_count;      //起始和十字计数
  int abs_baitoupwm;
+ int aabs_pos;
  
  baitoupwm=General_pos;          
  abs_baitoupwm=baitoupwm;
  abs_baitoupwm=aabs(abs_baitoupwm);
+ 
+ aabs_pos=position;
+ aabs_pos=aabs(aabs_pos);
  
  HitBlackNum=0;
  special_flag=0;
@@ -46,19 +50,32 @@ void Confirm_Light(){
  start_flag=0;
  cross_flag=0; 
  calculate_light();
- if(HitBlackNum==0);
- else if(HitBlackNum>0) 
+ 
+
+ if(HitBlackNum==0)
+     {
+     nothing_flag=1;
+     //if((aabs_pos<=20)&&(aabs_pos>17))nothing_flag=1;
+     
+     }
+ 
+ else  
   {
+  nothing_flag=0;
   Status_Judge();
   }
   
  
- if(abs_baitoupwm>70){turn_flag=1;Straight_flag=0;} 
+ 
+ if(abs_baitoupwm>80)
+     {
+      turn_flag=1;Straight_flag=0;
+      } 
  
  else 
   {
   if(Straight_flag==1) 
-  {turn_flag=0;Straight_flag=1;} 
+  {turn_flag=0;Straight_flag=1; } 
   else if((turn_flag==1)&&(abs_baitoupwm>30))
   {turn_flag=1;Straight_flag=0;} 
     
@@ -74,11 +91,12 @@ void Confirm_Light(){
 /*==========================逐个检查 包括计算照黑个数，错误点个数==========*/
 void calculate_light(void){
  int i=0,changeposition;
- changeposition=6+position/2;
+ changeposition=10+position/2;
  for(i=0;i<LASER_MAX;i++) {
   if (light_temp_laser_array[i]==0) continue;
-  else if ((light_temp_laser_array[i]==1)) //&&(aabs(i-changeposition)<=6)
+  else if (light_temp_laser_array[i]==1)// &&(aabs(i-changeposition)<=6)
   {
+  
   HitBlackNum++;
   }
    
