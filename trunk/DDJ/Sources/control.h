@@ -35,6 +35,8 @@ void Confirm_Light(){
  int abs_baitoupwm;
  int aabs_pos;
  
+ 
+ 
  baitoupwm=General_pos;          
  abs_baitoupwm=baitoupwm;
  abs_baitoupwm=aabs(abs_baitoupwm);
@@ -51,6 +53,8 @@ void Confirm_Light(){
  cross_flag=0; 
  calculate_light();
  
+
+
 
  if(HitBlackNum==0)
      {
@@ -81,7 +85,11 @@ void Confirm_Light(){
     
   else if((turn_flag==1)&&(abs_baitoupwm<30)) 
   {turn_flag=0;Straight_flag=1;} 
-  }   
+  } 
+  
+  
+  
+ 
 }
 
 

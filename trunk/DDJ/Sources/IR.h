@@ -1,3 +1,7 @@
+byte startingline_flag=0;
+byte crossingline_flag=0;
+int startingline_array_count=0;
+int empty_count=0;
 //=================AD初始化===========================//
 
 
@@ -42,19 +46,61 @@
 //===================采集红外进数组=======================//
 void Collect_IR(void)
 {
- IR_temp_laser_array[0]=ReadATD(0);
- delayMS();
- IR_temp_laser_array[1]=ReadATD(1);
- delayMS();
- IR_temp_laser_array[2]=ReadATD(2);
- delayMS();
- IR_temp_laser_array[3]=ReadATD(3);
- delayMS();
- IR_temp_laser_array[4]=ReadATD(4);
- delayMS();
- IR_temp_laser_array[5]=ReadATD(5);
- delayMS();
- IR_temp_laser_array[6]=ReadATD(6);
- 
+ IR_temp_laser_array[0]=ReadATD(0)/100;
+ IR_temp_laser_array[1]=ReadATD(1)/100;
+ IR_temp_laser_array[2]=ReadATD(2)/100;
+ IR_temp_laser_array[3]=ReadATD(3)/100;
+ IR_temp_laser_array[4]=ReadATD(4)/100;
+ IR_temp_laser_array[5]=ReadATD(5)/100;
+ IR_temp_laser_array[6]=ReadATD(6)/100;
+}
+
+
+/*===========================清空标志位============================
+一旦出现不是连续的组，crossingline_flag和startingline_flag自动清零
+==================================================================*/
+void emptyflag(void)
+{
+  if(empty_count==6) 
+  {
+  if(startingline_array_count>=3&&crossingline_flag==0)
+  {
+   startingline_flag=1;
+	 startingline_array_count=0;
+  }
+  else if( crossingline_flag==1) crossingline_flag=0;
+ empty_count=0;
+  }   
+}
+
+/*=========================特殊情况的判断==========================
+流程图：
+1.  0或1代表T,2代表F;
+2.  flag=0,代表前面扫到的都是F;flag=1,代表前面扫到一个T了,接下去要扫到F才变成flag才变成2;
+flag=2代表前面已经扫到T和F,需要扫到T后startingline_array_count才加加
+==================================================================*/
+void Start_judge(void) 
+{
+int i=0,start_flag=0,start_temp,cross_flag=0;
+start_temp=startingline_array_count;
+for(i=0;i<7;i++) 
+{
+if(IR_temp_laser_array[i]==2&&start_flag==0){continue;}
+else if(IR_temp_laser_array[i]==2&&start_flag==1){start_flag=2;continue;}
+else if(IR_temp_laser_array[i]==2&&start_flag==2){continue;}
+else if(IR_temp_laser_array[i]<2&&start_flag==0) {start_flag=1;continue;} 
+else if(IR_temp_laser_array[i]<2&&start_flag==1){continue;}
+else if(IR_temp_laser_array[i]<2&&start_flag==2){startingline_array_count++;start_flag=0;break;}
+}
+if(start_temp==startingline_array_count)
+{
+for(i=0;i<7;i++) 
+{
+if(IR_temp_laser_array[i]==2)cross_flag++;
+}
+if(cross_flag<4)crossingline_flag=1;
+}
+  empty_count++;
+  emptyflag(); 
 }
 
