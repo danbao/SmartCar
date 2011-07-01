@@ -88,7 +88,9 @@
 	
 	int temp_laser_array[11];
 	
-
+  byte crossing_flag=0;
+  byte startingline_judge=0;
+  int array_count=0;
 
 /*=============== ±÷”≥ı ºªØ========================*/
 void SetBusCLK_40M()
