@@ -51,69 +51,6 @@ void Collect_IR(void)
  IR_temp_laser_array[6]=ReadATD(6)/100;
 }
 
-/*=====================红外管程度值======================
-红外暂时把它分为三档小 中 大  越小离黑线越近
-因为红外本身采集比较连续所以不需要滤波（目前看没有受干扰的情况?
-可以用这个值来给舵机打角 用枚举法 但值可能会比较大 所以可能要减去基准值 
-
-      6   5   4   3   2   1   0
-      6   4   2   0  -2  -4   -6       IR_position[1]=-6+2*i  此次
-                                       IR_position[0]上次
-==========================================================
-
-void Level_IR( void)
-{
-  int i,j;
-  
-  IR_blacknun=0;
-  IR_position[1]=0;
-  for(i=0;i<IR_NUM;i++)
-  {
-  if(i==1)
-      { 
-      if(IR_temp_laser_array[1]<=130) 
-          {IR_position[1]=IR_position[1]-4;IR_blacknun++;}
-     else if((IR_temp_laser_array[1]>81)&&(IR_temp_laser_array[1]<=130)) 
-          {IR_position[1]=IR_position[1]-4;IR_blacknun++;}
-        
-      //else if(IR_temp_laser_array[1]>131)IR_Level[1]=100;
-      } 
-  else if(i==2) 
-      {
-      if(IR_temp_laser_array[2]<=160)
-          { IR_position[1]=IR_position[1]-2;IR_blacknun++;}
-       else if((IR_temp_laser_array[2]>81)&&(IR_temp_laser_array[2]<=160))
-          {IR_position[1]=IR_position[1]-2;IR_blacknun++;}
-        
-      //else if(IR_temp_laser_array[2]>161)IR_Level[2]=100;
-      }
-  else{
-      if(IR_temp_laser_array[i]<=170)
-          { IR_position[1]=IR_position[1]+(2*i-6);IR_blacknun++;}
-        
-      else if((IR_temp_laser_array[i]>81)&&(IR_temp_laser_array[i]<=190)) 
-          {IR_position[1]=IR_position[1]+(2*i-6);IR_blacknun++;}
-        
-      //else if(IR_temp_laser_array[i]>191)IR_Level[i]=100;
-      }
-  }
-  if(IR_blacknun==0)IR_position[1]=IR_position[0]*100;
-  else 
-    {
-    IR_position[1]=(IR_position[1]/IR_blacknun); 
-    j=IR_position[1]-IR_position[0] ;
-    if( aabs(j) >2)IR_position[1]=IR_position[0]*100;
-    else {
-      IR_position[0] =IR_position[1];
-      IR_position[1]=IR_position[1]*100;
-      
-          }
-    }
-   
-}
-
-*/
-
 /*=====================十字交叉线的判断======================
 经过准确地测试，得出了一些阶段性的结论：
 一次红外获取的数组里面有6个0或1的情况下，array_count自增，
@@ -184,10 +121,12 @@ void emptyflag(void)
     if(startingline_array_count>=3)
     {
       startingline_flag=1;
+	  startingline_array_count=0;
     }
     if(crossingline_array_count==1)
     {
       crossingline_flag=1;
+	  crossingline_array_count=0;
     }
     empty_count=0;
   }
