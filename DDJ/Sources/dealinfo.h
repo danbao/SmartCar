@@ -10,19 +10,23 @@ void Clear_baitou(void){
 //long JG_sum[2];
 //JG_clear[3]=JG_clear[1];
 
-JG_clear[1]=position*50;
+//if(YDdelay==0)
+//JG_clear[0]=JG_clear[1];
+
+JG_clear[0]=position*10;
+JG_clear[1]+=JG_clear[0];
+
 //JG_clear[1]=(JG_clear[0]*20+JG_clear[1]*70) /90 ;  
-JG_clear[0]=JG_clear[1];
+
 
 //JG_clear[3]=(JG_clear[2]*30+JG_clear[3]*40)/70;
 //JG_clear[2]=JG_clear[3]; 
 }
 
   
-/*=====================激光摆头======================
-//1881   2602 1160
-LASER_MAX         11  10    9    8    7     6     5    4     3     2        1     0
-对应的权值        11   9    7    5    3     1    -1   -3    -5    -7       -9   -11
+/*=====================激光管对应权值======================
+LASER_MAX     20   19   18   17   16   15  14  13  12  11  10    9    8    7     6     5     4     3    2     1     0
+对应的权值    20   18   16   14   12   10   8   6   4   2   0   -2   -4    -6    -8   -10  -12   -14   -16   -18   -20
 分段连接要重合
 int BP1=54,BP2=45,BP3=36,BP4=27,BP5=20;
 */
@@ -32,19 +36,31 @@ void  baitou (void) {
     int JG_pwm;
     int JG_pwm_his=PWMDTY45;
     int sub_p[9];
-    int Diff_pos;
-    int BD1=4;
-    int BD2=2;
-    byte BD_flag;
+    
+    
+    //int Diff_pos;
+   // byte BD_flag;
+   
+
+   
 JG_pos_abs=aabs(JG_pos_abs);
 JG_clear_Pos[1]=JG_clear[1];
-        
-Diff_pos=JG_clear_Pos[1]-JG_clear[3];
-if((position>0)&&(Diff_pos>0))
+
+
+/*YDdelay++;
+if(YDdelay%200==0||JG_pos_abs>17) 
+{
+YDdelay==0;  
+Diff_pos=JG_clear_Pos[1]-JG_clear[0];
+if((JG_clear_Pos[1]>0)&&(Diff_pos>0))//&&(JG_clear[0]>0)
 BD_flag=1;
-else if((position<0)&&(Diff_pos<0))
+else if((JG_clear_Pos[1]<0)&&(Diff_pos<0))//     &&(JG_clear[0]<0)
 BD_flag=1;
 else BD_flag=0;
+} 
+
+else BD_flag=0;
+*/
 
 sub_p[0]=100/BP1;
 sub_p[1]=200/BP2-(200/BP1-sub_p[0]);
@@ -69,61 +85,61 @@ sub_p[8]=900/BP9-(900/BP8-sub_p[7]);
     else if(JG_pos_abs>200&&JG_pos_abs<=300) 
           {
       if(position>0)   
-      JG_pwm=(JG_clear_Pos[1]/BP2-sub_p[1]);//+BD_flag*Diff_pos/BD1;
+      JG_pwm=(JG_clear_Pos[1]/BP2-sub_p[1]);//+BD_flag*Diff_pos/BD2;
       else if(position<0)
-      JG_pwm=(JG_clear_Pos[1]/BP2+sub_p[1]);//+BD_flag*Diff_pos/BD1;
+      JG_pwm=(JG_clear_Pos[1]/BP2+sub_p[1]);//+BD_flag*Diff_pos/BD2;
       
           }
     else if(JG_pos_abs>300&&JG_pos_abs<=400) 
           {
       if(position>0)   
-      JG_pwm=(JG_clear_Pos[1]/BP3-sub_p[2]);//+BD_flag*Diff_pos/BD1;
+      JG_pwm=(JG_clear_Pos[1]/BP3-sub_p[2]);//+BD_flag*Diff_pos/BD3;
       else if(position<0)
-      JG_pwm=(JG_clear_Pos[1]/BP3+sub_p[2]);//+BD_flag*Diff_pos/BD1;
+      JG_pwm=(JG_clear_Pos[1]/BP3+sub_p[2]);//+BD_flag*Diff_pos/BD3;
           }      
     else if(JG_pos_abs>400&&JG_pos_abs<=500)
           {
       if(position>0)    
-      JG_pwm=(JG_clear_Pos[1]/BP4-sub_p[3]);//+BD_flag*Diff_pos/BD2;
+      JG_pwm=(JG_clear_Pos[1]/BP4-sub_p[3]);//+BD_flag*Diff_pos/BD4;
       else if(position<0)
-      JG_pwm=(JG_clear_Pos[1]/BP4+sub_p[3]);//+BD_flag*Diff_pos/BD2;
+      JG_pwm=(JG_clear_Pos[1]/BP4+sub_p[3]);//+BD_flag*Diff_pos/BD4;
           }
     else if(JG_pos_abs>500&&JG_pos_abs<=600)
           {
       if(position>0)    
-      JG_pwm=(JG_clear_Pos[1]/BP5-sub_p[4]);//+BD_flag*Diff_pos/BD2;
+      JG_pwm=(JG_clear_Pos[1]/BP5-sub_p[4]);//+BD_flag*Diff_pos/BD5;
       else if(position<0)
-      JG_pwm=(JG_clear_Pos[1]/BP5+sub_p[4]);//+BD_flag*Diff_pos/BD2;
+      JG_pwm=(JG_clear_Pos[1]/BP5+sub_p[4]);//+BD_flag*Diff_pos/BD5;
           }
     
     else if(JG_pos_abs>600&&JG_pos_abs<=700)
           {
       if(position>0)    
-      JG_pwm=(JG_clear_Pos[1]/BP6-sub_p[5]);//+BD_flag*Diff_pos/BD2;
+      JG_pwm=(JG_clear_Pos[1]/BP6-sub_p[5]);//+BD_flag*Diff_pos/BD6;
       else if(position<0)
-      JG_pwm=(JG_clear_Pos[1]/BP6+sub_p[5]);//+BD_flag*Diff_pos/BD2;
+      JG_pwm=(JG_clear_Pos[1]/BP6+sub_p[5]);//+BD_flag*Diff_pos/BD6;
           }
     
     else if(JG_pos_abs>700&&JG_pos_abs<=800)
           {
       if(position>0)    
-      JG_pwm=(JG_clear_Pos[1]/BP7-sub_p[6]);//+BD_flag*Diff_pos/BD2;
+      JG_pwm=(JG_clear_Pos[1]/BP7-sub_p[6]);//+BD_flag*Diff_pos/BD7;
       else if(position<0)
-      JG_pwm=(JG_clear_Pos[1]/BP7+sub_p[6]);//+BD_flag*Diff_pos/BD2;
+      JG_pwm=(JG_clear_Pos[1]/BP7+sub_p[6]);//+BD_flag*Diff_pos/BD7;
           }                  
     else if(JG_pos_abs>800&&JG_pos_abs<=900) 
           {
       if(position>0)    
-      JG_pwm=(JG_clear_Pos[1]/BP8-sub_p[7]);//+BD_flag*Diff_pos/BD2;
+      JG_pwm=(JG_clear_Pos[1]/BP8-sub_p[7]);//+BD_flag*Diff_pos/BD8;
       else if(position<0)
-      JG_pwm=(JG_clear_Pos[1]/BP8+sub_p[7]);//+BD_flag*Diff_pos/BD2;
+      JG_pwm=(JG_clear_Pos[1]/BP8+sub_p[7]);//+BD_flag*Diff_pos/BD8;
           }      
     else if(JG_pos_abs>900)
          {
       if(position>0)   
-      JG_pwm=(JG_clear_Pos[1]/BP9-sub_p[8]);//+BD_flag*Diff_pos/BD2;
+      JG_pwm=(JG_clear_Pos[1]/BP9-sub_p[8]);//+BD_flag*Diff_pos/BD9;
       else if(position<0)
-      JG_pwm=(JG_clear_Pos[1]/BP9+sub_p[8]);//+BD_flag*Diff_pos/BD2;
+      JG_pwm=(JG_clear_Pos[1]/BP9+sub_p[8]);//+BD_flag*Diff_pos/BD9;
       
          }                        
    
@@ -273,12 +289,22 @@ PWMDTY01=dj_pwm;
 /*=====================电机速度调节======================*/
 
 
-void SpeedCtrl (void) {
+void SpeedCtrl (byte a) {
 int subspeed;
 int changebaitou;
 int okspeed;
 
 
+
+
+
+if(a==1)
+{
+  PWMDTY23 = 0;      //占空比50%    电机正转
+  PWMDTY6 = 0;      //占空比50%      电机反转 
+}
+else
+{
 PWMDTY23 = 500;      //正转固定
 PORTB_PB7=1;
 
@@ -300,7 +326,7 @@ else if(Straight_flag==0)
    Straight_stop=1;
    turn_stop=0;
    
-   if(subspeed>10)PWMDTY6=61;
+   if(subspeed>10){PWMDTY6=70;PWMDTY23 =100;}
    
    else  turn_stop=1;
       
@@ -309,18 +335,13 @@ else if(Straight_flag==0)
    if(turn_stop==1) 
      {
      if(subspeed>10)
-     PWMDTY6=30;
+     PWMDTY6=40;
      
      else PWMDTY6 = 7;
      }
-  
+}
 
 
-
-
- 
-
-    
 }          
 
 

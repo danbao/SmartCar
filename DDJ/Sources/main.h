@@ -18,7 +18,8 @@
   平均速度,最大速度,最小速度,当前速度*/
   int DP1=1,DP2=1,DP3=1,DP4=1,DP5=1,DP6=1,DP7=1;
   int DD=0;
-  int BP1=80,BP2=65,BP3=69,BP4=76,BP5=80,BP6=85,BP7=85,BP8=85,BP9=85;
+  int BP1=60,BP2=30,BP3=28,BP4=25,BP5=22,BP6=18,BP7=15,BP8=12,BP9=11;
+  //int BD1=200,BD2=40,BD3=24,BD4=18,BD5=16,BD6=14,BD7=12,BD8=10,BD9=8;
   char SCIreceive[150];                    /*用于无线串口显示的字符串*/  
   int temp_pwm45=PWM45;						         //激光摆头舵机初始值
   int temp_pwm01=PWM01;					         	 //转向摆头舵机初始值
@@ -41,6 +42,7 @@
   
   byte nothing_flag=0 ;
   byte right,left,middle;                    //中线左右值
+  
   int HitBlackNum;
   
   int baitou_diff; 
@@ -52,9 +54,8 @@
   byte Straight_stop;                      //直道入弯的反转
   byte turn_stop;                          //弯道入直的反转
   byte first_flag=1;
-
-  
-  
+  byte YDdelay=1;
+  byte diansha_falg=0;                     //点刹标志
  // int road_point[6];                      //5点归为一段  假设2.5m/s 5点为1.8cm  road_point[5]为最后点值
  // int point_count;                        //5点计数 同时也可作为段判断开始的标志
  // int road_section[20];                   //8段归为一长路  同假设8段为15cm
