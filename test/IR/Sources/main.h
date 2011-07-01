@@ -65,12 +65,7 @@
 //这个二维数组作为激光管的历史记录
  
   int dajiao_Slope[3];                   //打角舵机的两个斜率 2为累加值
- 
-  int IR_position[2];                     //红外位置   红外部分变量都以IR开头
-  int IR_blacknun=0;                      //红外黑点
-  void Level_IR( void);                   //声明  不懂去掉可不可以
-  long IR_clear[2];                       //红外滤波值
-  
+
   int  baitou_delay=1;                    //摆头延迟  同时用来等分摆头的每次舵机值
   long JG_clear[4];                      //激光一次迭代滤波 此次和上次
   int JG_clear_Pos[2];                  //存入当前和上一次摆头时的JG_clear 的值
@@ -84,15 +79,7 @@
   
  // int g_countPIT0 =0;   //用于PIT组别的点亮次数
 	int	g_temp_laser_array[11]; //用于接受各个激光管点亮后获取的数据
-	
-	
 	int temp_laser_array[11];
-	
-  byte crossingline_flag=0;
-  byte startingline_flag=0;
-  int crossingline_array_count=0;
-  int startingline_array_count=0;
-  int empty_count=0;
 
 /*===============时钟初始化========================*/
 void SetBusCLK_40M()
