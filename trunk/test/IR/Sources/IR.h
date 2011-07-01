@@ -146,8 +146,8 @@ void Specialline_judge(void)
     {
       dot2_count++;//2点为特殊的点
       if(IR_temp_laser_array[i-1]==0||IR_temp_laser_array[i-1]==1)
-        if(IR_temp_laser_array[i+1]==0||IR_temp_laser_array[i+1]==1)
-          if(dot2_count>=2) 
+        if(IR_temp_laser_array[i+1]==0||IR_temp_laser_array[i+1]==1||IR_temp_laser_array[i+1]==2)
+          if(dot2_count>=2) //起跑判断
           { 
             startingline_array_count++;//如果真的要写在判断函数里面,array_count一定要设置为全局变量
           }
@@ -156,7 +156,7 @@ void Specialline_judge(void)
     {
       if(IR_temp_laser_array[i]==0||IR_temp_laser_array[i]==1)
         dot12_count++;
-      if(dot12_count>=5)
+      if(dot12_count>5)  //十字交叉判断
         crossingline_array_count++;
     }
       
