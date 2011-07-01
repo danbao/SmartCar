@@ -124,7 +124,7 @@ void Level_IR( void)
       dot_count    为每次获取的数组里面符合条件的点数    
                     这个为局部变量，在每次执行完之后就释放掉内存
                     每次执行Startingline_judge都初始化，从0开始
-========================================================*/
+========================================================
 void Crossing_judge(void)
 {
   int i,dot_count=0;
@@ -139,7 +139,7 @@ void Crossing_judge(void)
   {
     crossing_flag =1;
   }
-｝
+｝*/
 
 /*=====================起跑线的判断======================
 经过准确地测试，得出了一些阶段性的结论：
@@ -151,7 +151,7 @@ void Crossing_judge(void)
       dot_count    为每次获取的数组里面符合条件的点数    
                     这个为局部变量，在每次执行完之后就释放掉内存
                     每次执行Startingline_judge都初始化，从0开始
-========================================================*/
+========================================================
 void Startingline_judge(void)
 {
   int i,dot_count=0;
@@ -172,6 +172,25 @@ void Startingline_judge(void)
   {
     startingline_flag=1;
   }
+}*/
+
+/*===========================清空标志位============================
+一旦出现不是连续的组，crossingline_flag和startingline_flag自动清零
+==================================================================*/
+void emptyflag(void)
+{
+  if(empty_count==5) 
+  {
+    if(startingline_array_count>=3)
+    {
+      startingline_flag=1;
+    }
+    if(crossingline_array_count==1)
+    {
+      crossingline_flag=1;
+    }
+    empty_count=0;
+  }
 }
 
 /*=========================特殊情况的判断==========================
@@ -188,8 +207,8 @@ void Specialline_judge(void)
     {
       dot2_count++;//2点为特殊的点
       if(IR_temp_laser_array[i-1]==0||IR_temp_laser_array[i-1]==1)
-        if(IR_temp_laser_array[i+1]==0||IR_teen s,mp_laser_array[i+1]==1)
-          if(dot2_array>=2) 
+        if(IR_temp_laser_array[i+1]==0||IR_temp_laser_array[i+1]==1)
+          if(dot2_count>=2) 
           { 
             startingline_array_count++;//如果真的要写在判断函数里面,array_count一定要设置为全局变量
           }
@@ -197,18 +216,13 @@ void Specialline_judge(void)
     else 
     {
       if(IR_temp_laser_array[i]==0||IR_temp_laser_array[i]==1)
-        dot12_array++;
-      if(dot12_array>=5)
+        dot12_count++;
+      if(dot12_count>=5)
         crossingline_array_count++;
     }
       
   }
-  if(startingline_array_count>=3)
-  {
-    startingline_flag=1;
-  }
-  if(crossingline_array_count==1)
-  {
-    crossingline_flag=1;
-  }
+  empty_count++;
+  emptyflag();
 }  
+
