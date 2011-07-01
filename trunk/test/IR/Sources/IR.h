@@ -174,5 +174,41 @@ void Startingline_judge(void)
   }
 }
 
-
-
+/*=========================特殊情况的判断==========================
+流程图：
+1、先判断每次红外获取的数组，统计特殊点（0、1、2）的点数（dot_array）
+2、再根据十字交叉和起跑线的特点进行判断，一个if-else语句。
+==================================================================*/
+void Specialline_judge(void) 
+{
+  int i,dot2_count=0,dot12_count=0;
+  for(i=0;i<7;i++)
+  {
+    if(IR_temp_laser_array[i]==2) 
+    {
+      dot2_count++;//2点为特殊的点
+      if(IR_temp_laser_array[i-1]==0||IR_temp_laser_array[i-1]==1)
+        if(IR_temp_laser_array[i+1]==0||IR_teen s,mp_laser_array[i+1]==1)
+          if(dot2_array>=2) 
+          { 
+            startingline_array_count++;//如果真的要写在判断函数里面,array_count一定要设置为全局变量
+          }
+    } 
+    else 
+    {
+      if(IR_temp_laser_array[i]==0||IR_temp_laser_array[i]==1)
+        dot12_array++;
+      if(dot12_array>=5)
+        crossingline_array_count++;
+    }
+      
+  }
+  if(startingline_array_count>=3)
+  {
+    startingline_flag=1;
+  }
+  if(crossingline_array_count==1)
+  {
+    crossingline_flag=1;
+  }
+}  
