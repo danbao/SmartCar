@@ -37,9 +37,19 @@ void main(void)
    // Light_Up();         //激光整排点亮
      
     Collect_IR();   //这两个是红外捕捉和判断红外位置 先注释
+    Specialline_judge();
+     if(startingline_flag==1&&crossingline_flag==0) {
+     SCISend_chars("这是起跑线!");
+     startingline_flag=0;
+     crossingline_flag=0;
+     SCISend('\n'); 
+     }
+     else if(crossingline_flag==1) {
+      SCISend_chars("这是十字交叉!");
+     crossingline_flag=0;
+     SCISend('\n'); 
+     }
     TestIR(IR_temp_laser_array);
-  //  Level_IR();
-   
  //  Confirm_Light(); //排除误点
    
     
