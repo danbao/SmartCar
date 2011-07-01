@@ -7,9 +7,8 @@
 #include "main.h"           //所有变量的定义都放在main.h文件下了           
 //#include "dealinfo.h"
 //#include "control.h" 
-#include "IR.h" 
 #include "SCI.h"
- 
+#include "IR.h"  
 /* ================= SendSmartcarInfo ====================
       desc: SCI串口发送当前激光管采集信息
       pre:  1当前激光管采集数组，2当前激光管状态
@@ -37,21 +36,9 @@ void main(void)
    // Light_Up();         //激光整排点亮
      
     Collect_IR();   //这两个是红外捕捉和判断红外位置 先注释
-    Specialline_judge();
-     if(startingline_flag==1&&crossingline_flag==0) {
-     SCISend_chars("这是起跑线!");
-     startingline_flag=0;
-     crossingline_flag=0;
-     SCISend('\n'); 
-     }
-     else if(crossingline_flag==1) {
-      SCISend_chars("这是十字交叉!");
-     crossingline_flag=0;
-     SCISend('\n'); 
-     }
+    Cross_judge();          
     TestIR(IR_temp_laser_array);
- //  Confirm_Light(); //排除误点
-   
+
     
   // Clear_baitou();  //position的第一次滤波
  //  baitou_delay++;
@@ -100,10 +87,10 @@ void main(void)
 
 
 
-/* 
-#pragma CODE_SEG NON_BANKED 
+ 
+/*#pragma CODE_SEG NON_BANKED 
 //【interrupt definitions】
-/* ================= PIT0_ISR ====================
+ ================= PIT0_ISR ====================
       desc: PIT周期定时中断，用于控制激光传感器分时亮
       pre:  无
       Post: 无       

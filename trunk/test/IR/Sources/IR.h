@@ -1,3 +1,6 @@
+byte startingline_flag=0;
+int startingline_array_count=0;
+int empty_count=0;
 //=================AD初始化===========================//
 
 
@@ -51,65 +54,6 @@ void Collect_IR(void)
  IR_temp_laser_array[6]=ReadATD(6)/100;
 }
 
-/*=====================十字交叉线的判断======================
-经过准确地测试，得出了一些阶段性的结论：
-一次红外获取的数组里面有6个0或1的情况下，array_count自增，
-直到等于6时，就判断此为十字交叉线
-
-参数：i 为数组的个数
-      array_count   为数组数    设置为全局变量
-      dot_count    为每次获取的数组里面符合条件的点数    
-                    这个为局部变量，在每次执行完之后就释放掉内存
-                    每次执行Startingline_judge都初始化，从0开始
-========================================================
-void Crossing_judge(void)
-{
-  int i,dot_count=0;
-  for(i=0;i<7;i++)
-  {
-    if(IR_temp_laser_array[i]==0||IR_temp_laser_array[i]==1)
-      dot_count++;
-    if(dot_count == 6)//这个估计要加在程序的整个过程中，每次判断一组，要有大于等于3次判断
-      array_count++;
-  }
-  if(array_count == 3) 
-  {
-    crossing_flag =1;
-  }
-｝*/
-
-/*=====================起跑线的判断======================
-经过准确地测试，得出了一些阶段性的结论：
-一次红外获取的数组里面有2个2的情况下，array_count自增，
-直到等于3时，就判断此为起跑线
-
-参数：i 为数组的个数
-      array_count   为数组数    设置为全局变量
-      dot_count    为每次获取的数组里面符合条件的点数    
-                    这个为局部变量，在每次执行完之后就释放掉内存
-                    每次执行Startingline_judge都初始化，从0开始
-========================================================
-void Startingline_judge(void)
-{
-  int i,dot_count=0;
-  for(i=0;i<7;i++)
-  {
-    if(IR_temp_laser_array[i]==2) 
-    {
-      dot_count++;
-      if(IR_temp_laser_array[i-1]==0||IR_temp_laser_array[i-1]==1)
-        if(IR_temp_laser_array[i+1]==0||IR_temp_laser_array[i+1]==1)
-          if(dot_array>=2) 
-          { 
-            array_count++;//如果真的要写在判断函数里面,array_count一定要设置为全局变量
-          }
-    }
-  }
-  if(array_count>=3)
-  {
-    startingline_flag=1;
-  }
-}*/
 
 /*===========================清空标志位============================
 一旦出现不是连续的组，crossingline_flag和startingline_flag自动清零
@@ -118,15 +62,13 @@ void emptyflag(void)
 {
   if(empty_count==5) 
   {
-    if(startingline_array_count>=3)
+    if(startingline_array_count>=2)
     {
-      startingline_flag=1;
+     startingline_flag=1;
+     SCISend_chars("这是起跑线!");
+     startingline_flag=0;
+     SCISend('\n');
 	  startingline_array_count=0;
-    }
-    if(crossingline_array_count==1)
-    {
-      crossingline_flag=1;
-	  crossingline_array_count=0;
     }
     empty_count=0;
   }
@@ -134,35 +76,23 @@ void emptyflag(void)
 
 /*=========================特殊情况的判断==========================
 流程图：
-1、先判断每次红外获取的数组，统计特殊点（0、1、2）的点数（dot_array）
-2、再根据十字交叉和起跑线的特点进行判断，一个if-else语句。
+1.  0或1代表T,2代表F;
+2.  flag=0,代表前面扫到的都是F;flag=1,代表前面扫到一个T了,接下去要扫到F才变成flag才变成2;
+flag=2代表前面已经扫到T和F,需要扫到T后startingline_array_count才加加
 ==================================================================*/
-void Specialline_judge(void) 
+void Cross_judge(void) 
 {
-  int i,dot2_count=0,dot12_count=0;
-  for(i=0;i<7;i++)
-  {
-    if(IR_temp_laser_array[i]==2) 
-    {
-      dot2_count++;//2点为特殊的点
-      if(IR_temp_laser_array[i-1]==0||IR_temp_laser_array[i-1]==1)
-        if(IR_temp_laser_array[i+1]==0||IR_temp_laser_array[i+1]==1||IR_temp_laser_array[i+1]==2)
-          if(IR_temp_laser_array[i+2]==2||IR_temp_laser_array[i+3]==2||IR_temp_laser_array[i+4]==2)
-            if(dot2_count>=2||dot_count<=5) //起跑判断
-            { 
-              startingline_array_count++;//如果真的要写在判断函数里面,array_count一定要设置为全局变量
-            }
-    } 
-    else 
-    {
-      if(IR_temp_laser_array[i]==0||IR_temp_laser_array[i]==1)
-        dot12_count++;
-      if(dot12_count>5)  //十字交叉判断
-        crossingline_array_count++;
-    }
-      
-  }
+  int i=0,cross_flag=0;
+for(i=0;i<7;i++) 
+{
+if(IR_temp_laser_array[i]==2&&cross_flag==0){continue;}
+else if(IR_temp_laser_array[i]==2&&cross_flag==1){cross_flag=2;continue;}
+else if(IR_temp_laser_array[i]==2&&cross_flag==2){continue;}
+else if(IR_temp_laser_array[i]<2&&cross_flag==0) {cross_flag=1;continue;} 
+else if(IR_temp_laser_array[i]<2&&cross_flag==1){continue;}
+else if(IR_temp_laser_array[i]<2&&cross_flag==2){startingline_array_count++;cross_flag=0;break;}
+
+}
   empty_count++;
   emptyflag();
 }  
-
