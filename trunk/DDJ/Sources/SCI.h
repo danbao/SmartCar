@@ -165,6 +165,8 @@ void SCI_REC_chuli(char a[],int x)
 	if(*p!='F'){*SCI_DP=atoi(p);BP8=*SCI_DP;}
 	p = strtok(NULL, ";");
 	if(*p!='F'){*SCI_DP=atoi(p);BP9=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BP10=*SCI_DP;}
   }
   break; 
 	case 2:{
@@ -188,7 +190,7 @@ void SCI_REC_chuli(char a[],int x)
 -----------------------------------------  */ 
 void SCI_REC_NOW(){
 char SCIsend[80];
-	(void)sprintf(SCIsend,"SEDNW%.3d%.3d%.3d%.3d%.3d%.3d%.3d%.4d%.4d%.2d%.2d%.2d%.2d%.2d%.2d%.2d%.2d%.2dEND",DP1,DP2,DP3,DP4,DP5,DP6,DP7,PWMDTY01,PWMDTY45,BP1,BP2,BP3,BP4,BP5,BP6,BP7,BP8,BP9);		
+	(void)sprintf(SCIsend,"SEDNW%.3d%.3d%.3d%.3d%.3d%.3d%.3d%.4d%.4d%.2d%.2d%.2d%.2d%.2d%.2d%.2d%.2d%.2d%.2dEND",DP1,DP2,DP3,DP4,DP5,DP6,DP7,PWMDTY01,PWMDTY45,BP1,BP2,BP3,BP4,BP5,BP6,BP7,BP8,BP9,BP10);		
   SCISend_chars(SCIsend);  
   SCISend('\n');  
 }
