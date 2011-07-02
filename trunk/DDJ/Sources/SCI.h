@@ -85,17 +85,15 @@ void Testjiguang(byte temp_laser_array[]) {
 发送红外信息数组（不成熟，暂不使用）
 编写日期：200110607
 ----------------------------------------- */ 
-void TestIR(byte temp_laser_array[],int Test_IR_position) {
+void TestIR(byte temp_laser_array[]) {
     int i; 
     char data[5];
 	SCISend_chars("SEDIR");
     for(i=0;i<=6;i++)    //发送激光管信息数组
         {  
-    (void)sprintf(data,"%.3d",temp_laser_array[i]);
+    (void)sprintf(data,"%.1d",temp_laser_array[i]);
 		SCISend_chars(data);
         }
-		(void)sprintf(data,"%.3d",Test_IR_position+10);		
-		SCISend_chars(data);
 		SCISend_chars("END");
 	    SCISend('\n'); 	
 }      
@@ -118,7 +116,7 @@ void TestSMinfo(byte a){
 if(a!=0){
 Testjiguang(light_temp_laser_array);	//发送激光数组
 Testpara(PWMDTY67,PWMDTY45,speed_clear[1],JG_clear[3]);//发送相关参数
-TestIR(IR_temp_laser_array,1);
+TestIR(IR_temp_laser_array);
 }
 }
 /*---------------------------------------
@@ -148,6 +146,27 @@ void SCI_REC_chuli(char a[],int x)
 	if(*p!='F'){*SCI_DP=atoi(p);DP7=*SCI_DP;}
   }
   break; 
+  case 3:{
+	p = strtok(a, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BP1=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BP2=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BP3=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BP4=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BP5=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BP6=*SCI_DP;} 
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BP7=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BP8=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BP9=*SCI_DP;}
+  }
+  break; 
 	case 2:{
 	q = strtok(a, ";"); 
 	{
@@ -168,8 +187,8 @@ void SCI_REC_chuli(char a[],int x)
 编写日期：200110612
 -----------------------------------------  */ 
 void SCI_REC_NOW(){
-char SCIsend[50];
-	(void)sprintf(SCIsend,"SEDNW%.3d%.3d%.3d%.3d%.3d%.3d%.3d%.3d%.3dEND",DP1,DP2,DP3,DP4,DP5,DP6,DP7,PWMDTY01,PWMDTY23);		
+char SCIsend[80];
+	(void)sprintf(SCIsend,"SEDNW%.3d%.3d%.3d%.3d%.3d%.3d%.3d%.4d%.4d%.2d%.2d%.2d%.2d%.2d%.2d%.2d%.2d%.2dEND",DP1,DP2,DP3,DP4,DP5,DP6,DP7,PWMDTY01,PWMDTY45,BP1,BP2,BP3,BP4,BP5,BP6,BP7,BP8,BP9);		
   SCISend_chars(SCIsend);  
   SCISend('\n');  
 }
@@ -182,13 +201,19 @@ char SCIsend[50];
 interrupt 20 void Rx_SCI(void)
 {
     DisableInterrupts; 
-    test_info_send=0; 
+      	test_info_send=0;
       SCIreceive[SCI_i]=SCI_RXD();
       switch(SCIreceive[SCI_i]) {
         case '@': 
         {
           SCI_i=0;
           SCI_REC_chuli(SCIreceive,1);
+        }  
+        break;
+        case '&': 
+        {
+          SCI_i=0;
+          SCI_REC_chuli(SCIreceive,3);
         }  
         break;
         case '$': 
@@ -206,7 +231,7 @@ interrupt 20 void Rx_SCI(void)
         case '%': 
         {
           SCI_i=0;
-    test_info_send=1; 
+      test_info_send=1; 
         }
         break;
       default:

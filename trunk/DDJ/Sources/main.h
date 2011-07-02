@@ -164,7 +164,7 @@ void PWM_Init (void) {   //0519暂时写完！
    PWMPOL = 0XFF;     //先输出高电平   PWM极性寄存器
    PWMCTL = 0X70;     //通道01级联，23级联，45级联
    PWMPRCLK = 0X21;   //clockA 2分频,clockA=busclock/2=20MHz;CLK B 4分频:10Mhz 
-   PWMSCLA = 4;       //对clock SA 进行2*4=8分频；pwm clock=clockA/8=2.5MHz;
+   PWMSCLA = 8;       //对clock SA 进行2*8=16分频；pwm clock=clockA/16=1.25MHz;
    PWMSCLB = 4;       //对clock SB 进行2*4=8分频；pwm clock=clockB/8=1.25MHz;
    PWMCLK_PCLK1 = 1;  //选择clock SA做时钟源  
    PWMCLK_PCLK3 = 0;  //选择clock SB做时钟源  
@@ -174,7 +174,7 @@ void PWM_Init (void) {   //0519暂时写完！
 
    PWMPER01 = 25000;    //频率 100Hz  周期10ms
    PWMPER23 = 625;    //频率 16kHz    周期6.25us
-   PWMPER45 = 25000;  //频率 100Hz    周期10ms
+   PWMPER45 = 12500;  //频率 50Hz    周期10ms
    PWMPER6 = 78;  //频率 16kHz        周期6.25us
    PWMPER7 = PWMPE7;  //频率 166kHz   周期602ns
    
