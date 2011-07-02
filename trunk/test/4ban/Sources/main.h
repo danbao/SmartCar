@@ -2,11 +2,13 @@
 char SCIreceive[100];
 int count;
 byte light_temp_laser_array[LASER_MAX];  //当前激光管信息保存数组
-#define PWM01 3808
-#define PWM45 3808
+#define PWM01 1968
+#define PWM45 1603
 #define PWM7 30
 #define PWMPE7 60
 
+  int temp_pwm45=PWM45;						//激光摆头舵机初始值
+  int temp_pwm01=PWM01;
   int light_count;	
 //===============时钟初始化========================//
 void SetBusCLK_40M(void)
@@ -32,13 +34,13 @@ void PWM_Init (void) {   //0519暂时写完！
    
    //PWMCNT01 = 0; //计数器01清零
    //PWMCNT23 = 0; //计数器23清零
-   //PWMCNT45 = 0; //计数器45清零
+   //PWMCNT01 = 0; //计数器01清零
    //PWMCNT67 = 0; //计数器67清零
  
    PWMPOL = 0XFF;     //先输出高电平   PWM极性寄存器
    PWMCTL = 0X70;     //通道01级联，23级联，45级联
    PWMPRCLK = 0X21;   //clockA 2分频,clockA=busclock/2=20MHz;CLK B 4分频:10Mhz 
-   PWMSCLA = 4;       //对clock SA 进行2*4=8分频；pwm clock=clockA/8=2.5MHz;
+   PWMSCLA = 8;       //对clock SA 进行2*8=16分频；pwm clock=clockA/16=1.25MHz;
    PWMSCLB = 4;       //对clock SB 进行2*4=8分频；pwm clock=clockB/8=1.25MHz;
    PWMCLK_PCLK1 = 1;  //选择clock SA做时钟源  
    PWMCLK_PCLK3 = 0;  //选择clock SB做时钟源  
@@ -46,17 +48,17 @@ void PWM_Init (void) {   //0519暂时写完！
    PWMCLK_PCLK6 = 1;  //选择clock B 做时钟源
    PWMCLK_PCLK7 = 0;  //选择clock B 做时钟源      
 
-   PWMPER01 = 25000;    //频率 100Hz  周期0.1ms
-   PWMPER23 = 625;    //频率 16kHz  
-   PWMPER45 = 25000;  //频率 100Hz  
-   PWMPER6 = 78;  //频率 16kHz  
-   PWMPER7 = PWMPE7;  //频率 166kHz  
+   PWMPER01 = 12500;    //频率 100Hz  周期10ms
+   PWMPER23 = 625;    //频率 16kHz    周期6.25us
+   PWMPER45 = 25000;  //频率 50Hz    周期10ms
+   PWMPER6 = 78;  //频率 16kHz        周期6.25us
+   PWMPER7 = 60;  //频率 166kHz   周期602ns
    
-   PWMDTY01 = PWM01;      //占空比50%
-   PWMDTY23 = 312;      //占空比50%
-   PWMDTY45 = PWM45;      //
-   PWMDTY6 = 39;      //占空比50%
-   PWMDTY7 = PWM7;      //占空比50%
+   PWMDTY01 = PWM01;      //占空比50%  前轮舵机
+   PWMDTY23 = 400;      //占空比50%    电机正转
+   PWMDTY45 = PWM45;      //           摆头舵机
+   PWMDTY6 = 7;      //占空比50%      电机反转
+   PWMDTY7 = 30;      //占空比50%    调制管
    PWME_PWME1 = 1;    //通道1输出,前轮舵机使能  
    PWME_PWME3 = 1;    //通道3输出,电机正转使能
    PWME_PWME5 = 1;    //通道5输出,摆头舵机使能     
@@ -84,6 +86,13 @@ int jj;
 	DDRB = 0X00;      //PB0--PB3激光管信号接收
  }
 
+//=====================激光摆头舵机改变函数======================//
+void Light_SetDriver(int value){
+  PWMDTY45 = value; 
+}
+void SCI_SetDriver(int value){
+  PWMDTY01 = value; 
+}
 
   void Light_Up(void) {
    for(light_count=0;light_count<=6;light_count++) 
