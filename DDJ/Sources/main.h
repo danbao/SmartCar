@@ -25,7 +25,6 @@
   int temp_pwm01=PWM01;					         	 //转向摆头舵机初始值
   
   byte light_temp_laser_array[LASER_MAX];  //当前激光管信息保存数组
-  uint IR_temp_laser_array[7];             //当前红外信息保存数组
   int  light_count;                        //激光点亮延迟
   
   byte special_flag;
@@ -39,6 +38,13 @@
   int q_temp_laser_num[LASER_MAX];        //激光管对应的权值
   int countPIT0=0;
   int position;                     //位置 
+  
+  //红外
+  byte IR_temp_laser_array[7];             //当前红外信息保存数组
+  byte IR_process_array[7]={2,2,2,2,2,2,2}; 
+  byte startingline_flag=0;
+  //byte crossingline_flag=0;
+  byte empty_count=0;
   
   byte nothing_flag=0 ;
   byte right,left,middle;                    //中线左右值
@@ -80,11 +86,6 @@
    
    int speedinfo;
   //int dajiao_Slope[3];                   //打角舵机的两个斜率 2为累加值
- 
-  int IR_position[2];                     //红外位置   红外部分变量都以IR开头
-  int IR_blacknun=0;                      //红外黑点
-  
-  long IR_clear[2];                       //红外滤波值
   
   int  baitou_delay=1;                    //摆头延迟  同时用来等分摆头的每次舵机值
   int JG_clear[4];                      //激光一次迭代滤波 此次和上次
@@ -222,19 +223,17 @@ void PWM_Init (void) {   //0519暂时写完！
   PITCE_PCE0 = 1;          //定时器通道0使能    
   PITMUX_PMUX0 = 0;       //定时通道0使用微计数器0     
   PITMTLD0 =200-1;  //设置微计数器0的加载寄存器。8位定时器初值设定。200分频，在40MHzBusClock下，为0.2MHz。即5us.    
-  PITLD0 = 1500-1;    //16位定时器初值设定。4000 -->  20ms   1500-->7.5ms  
+  PITLD0 = 340-1;    //16位定时器初值设定。4000 -->  20ms   1500-->7.5ms  
   PITINTE_PINTE0 = 1;//定时器中断通道0中断使能            
-  PITCFLMT_PITE = 1;       //PIT通道使能位
+ // PITCFLMT_PITE = 1;       //PIT通道使能位
 
-/*  PITCE_PCE1 = 1;          //定时器通道0使能    
+  PITCE_PCE1 = 1;          //定时器通道0使能    
   PITMUX_PMUX1 = 1;       //定时通道0使用微计数器0     
   PITMTLD1 =200-1;  //设置微计数器0的加载寄存器。8位定时器初值设定。200分频，在40MHzBusClock下，为0.2MHz。即5us.    
-  PITLD1 = 4000-1;    //16位定时器初值设定。4000 -->  20ms   1500-->7.5ms  
+  PITLD1 = 1500-1;    //16位定时器初值设定。4000 -->  20ms   1500-->7.5ms  
   PITINTE_PINTE1 = 1;//定时器中断通道0中断使能            
-  PITCFLMT_PITE = 1;       //PIT通道使能位          */
+  PITCFLMT_PITE = 1;       //PIT通道使能位
 } //PITInit
-
-
 
 
 /*=====================激光点亮======================

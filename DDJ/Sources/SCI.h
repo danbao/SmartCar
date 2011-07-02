@@ -85,7 +85,7 @@ void Testjiguang(byte temp_laser_array[]) {
 发送红外信息数组（不成熟，暂不使用）
 编写日期：200110607
 ----------------------------------------- */ 
-void TestIR(uint temp_laser_array[],int Test_IR_position) {
+void TestIR(byte temp_laser_array[],int Test_IR_position) {
     int i; 
     char data[5];
 	SCISend_chars("SEDIR");
@@ -118,7 +118,7 @@ void TestSMinfo(byte a){
 if(a!=0){
 Testjiguang(light_temp_laser_array);	//发送激光数组
 Testpara(PWMDTY67,PWMDTY45,speed_clear[1],JG_clear[3]);//发送相关参数
-TestIR(IR_temp_laser_array,IR_position[1]);
+TestIR(IR_temp_laser_array,1);
 }
 }
 /*---------------------------------------
