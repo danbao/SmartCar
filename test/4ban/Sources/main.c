@@ -21,8 +21,7 @@ void main(void) {
     count++;
     if(count%10==0){  
    count=1; 
-   SendSmartcarInfo(light_temp_laser_array);
-  SCISend('\n');    
+   //SendSmartcarInfo(light_temp_laser_array);   
   }             
    
     }

@@ -3,9 +3,6 @@
     Update:     2011.04.11
 	说明：串口调用及无线模块
 ----------------------------------------------*/
-int SCI_i=0;
-int *SCI_PWMDTY;
-byte *SCI_PWM7;
 /*--------------------------------------------
 SCI_RXD: 串口接收函数
 编写日期：20110411
@@ -65,7 +62,6 @@ static void SCI_Init(void)  //SCI
 void SendSmartcarInfo(byte temp_laser_array[]) {
     int i; 
     int data;
-    char g[20]=" ";
     for(i=LASER_MAX-1;i>=0;i--)    //发送激光管信息数组
         {data=temp_laser_array[i]  ;
             if(data == 0) {
@@ -75,99 +71,81 @@ void SendSmartcarInfo(byte temp_laser_array[]) {
              SCISend('1'); 
         }
         }
-//  SCISend('\n');
- // sprintf(g,"%u",p);
-  //for(i=0;g[i]!='\0';i++)
-  //SCISend(g[i]);  
-     
+SCISend('\n');     
 }
+ #pragma CODE_SEG __NEAR_SEG NON_BANKED 
+//===================摆头舵机中断================//
 
-void SCI_chuli(char a[],char x)
+interrupt 20 void Rx_SetDriver(void)
 {
-	char *q;
-	char SCIsend[50];
-	switch(x){ 
-	case 'X':{
-	q = strtok(a, "X"); 
-	{
-	  *SCI_PWMDTY=atoi(q); 
-  PWMDTY01=*SCI_PWMDTY;
-  (void)sprintf(SCIsend,"当前摆头舵机值为:%d",PWMDTY01);  
-  SCISend_chars(SCIsend);
-	}
-	}   
-	break;
-	case 'S':{
-	q = strtok(a, "S"); 
-	{
-  *SCI_PWMDTY=atoi(q); 
-  PWMDTY45=*SCI_PWMDTY;
-  (void)sprintf(SCIsend,"当前转角舵机值为:%d",PWMDTY45);  
-  SCISend_chars(SCIsend); 
-	}
-	}   
-	break;
-	case 'P':{
-	q = strtok(a, "P"); 
-	{
-	*SCI_PWM7=(byte)atoi(q); 
-  PWMPER7=*SCI_PWM7;
-  (void)sprintf(SCIsend,"P7口的频率为:%d",PWMPER7);  
-  SCISend_chars(SCIsend);
-	}
-	}   
-	break;
-	case 'Z':{
-	q = strtok(a, "Z"); 
-	{
-	*SCI_PWM7=(byte)atoi(q); 
-  PWMDTY7=*SCI_PWM7;
-  (void)sprintf(SCIsend,"P7口的占空比为:%d",PWMDTY7);  
-  SCISend_chars(SCIsend);
-	}
-	}   
-	break;
-}
-}
-/*---------------------------------------
-无线串口中断接收
-编写日期：20110411
------------------------------------------*/
-#pragma CODE_SEG __NEAR_SEG NON_BANKED 
-interrupt 20 void Rx_SCI(void)
-{
+    char tmp;
+    char result;
     DisableInterrupts;
-      SCIreceive[SCI_i]=SCI_RXD();
-      switch(SCIreceive[SCI_i]) {
-        case 'S': 
-        {
-        SCI_chuli(SCIreceive,'S');
-        SCI_i=0; 
-        }  
-        break;
-        case 'X': 
-        {
-        SCI_chuli(SCIreceive,'X');
-        SCI_i=0; 
-        }  
-        break;
-        case 'P': 
-        {
-
-        SCI_chuli(SCIreceive,'P');
-        SCI_i=0;
-        }
-        break;
-        case 'Z': 
-        {
-        SCI_chuli(SCIreceive,'Z');
-        SCI_i=0;
-        }
-        break;
-      default:
-        SCI_i++;
-        break; 
-      }
+    tmp = SCI0SR1;                   //清除标志
+    result= SCI_RXD();
+    switch(result)
+    {
+			case 'q':                          //激光摆头舵机向右偏参数
+    temp_pwm45=temp_pwm45+5;
+    Light_SetDriver(temp_pwm45);
+    (void)sprintf(SCIreceive,"当前摆头舵机值为:%d",temp_pwm45);  
+     SCISend_chars(SCIreceive);   
+      break;
+            case 'w':                   //激光摆头舵机向左偏参数
+        temp_pwm45=temp_pwm45-5;
+		Light_SetDriver(temp_pwm45);
+    (void)sprintf(SCIreceive,"当前摆头舵机值为:%d",temp_pwm45);  
+     SCISend_chars(SCIreceive); 
+      break;
+			case 'a':                          //激光摆头舵机向右偏参数
+        temp_pwm45=temp_pwm45+1;
+		Light_SetDriver(temp_pwm45);
+    (void)sprintf(SCIreceive,"当前摆头舵机值为:%d",temp_pwm45);  
+     SCISend_chars(SCIreceive); 
+      break;
+            case 's':                   //激光摆头舵机向左偏参数
+        temp_pwm45=temp_pwm45-1;
+		Light_SetDriver(temp_pwm45);
+    (void)sprintf(SCIreceive,"当前摆头舵机值为:%d",temp_pwm45);  
+     SCISend_chars(SCIreceive); 
+      break;
+            case 'z':                      //激光摆头舵机重置
+        temp_pwm45=PWM45; 
+		Light_SetDriver(temp_pwm45);
+	(void)sprintf(SCIreceive,"摆头舵机复位，当前舵机值为:%d",temp_pwm45);  
+     SCISend_chars(SCIreceive); 
+      break;
+            case 'o':                          //转向摆头舵机向左偏参数 5度档
+        temp_pwm01=temp_pwm01+4;
+        SCI_SetDriver(temp_pwm01);
+		(void)sprintf(SCIreceive,"当前转角舵机值为:%d",temp_pwm01);  
+     SCISend_chars(SCIreceive); 
+      break;
+            case 'p':                         //转向摆头舵机向右偏参数 5度档
+        temp_pwm01=temp_pwm01-4;
+        SCI_SetDriver(temp_pwm01);
+		(void)sprintf(SCIreceive,"当前转角舵机值为:%d",temp_pwm01);  
+     SCISend_chars(SCIreceive); 
+      break;
+            case 'k':                          //转向摆头舵机向左偏参数 5度档
+        temp_pwm01=temp_pwm01+1;
+        SCI_SetDriver(temp_pwm01);
+		(void)sprintf(SCIreceive,"当前转角舵机值为:%d",temp_pwm01);  
+     SCISend_chars(SCIreceive); 
+      break;
+            case 'l':                         //转向摆头舵机向右偏参数 5度档
+        temp_pwm01=temp_pwm01-1;
+        SCI_SetDriver(temp_pwm01);
+		(void)sprintf(SCIreceive,"当前转角舵机值为:%d",temp_pwm01);  
+     SCISend_chars(SCIreceive); 
+      break;
+            case 'm':                      //转向摆头舵机重置
+        temp_pwm01=PWM01; 
+        SCI_SetDriver(temp_pwm01);
+		(void)sprintf(SCIreceive,"转角舵机复位，当前舵机值为:%d",temp_pwm01);  
+     SCISend_chars(SCIreceive); 
+      break;
+    }
     EnableInterrupts;
-} 
+}
 #pragma CODE_SEG DEFAULT
