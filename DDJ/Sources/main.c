@@ -80,7 +80,7 @@ void interrupt 66 PIT0_ISR(void) {
    {
    Clear_baitou();  //position的第一次滤波
    baitou_delay++;
-   if(baitou_delay%6==0) 
+   if(baitou_delay%2==0) 
    {
     baitou_delay=1;
     baitou( ); //先执行摆头舵机，通过计算得出角度，为第二次滤波做准备
@@ -105,7 +105,8 @@ void interrupt 66 PIT0_ISR(void) {
   
 Clear_Speed();
 SpeedCtrl(startingline_flag); 
-  EnableInterrupts; 
+
+EnableInterrupts; 
    
 }   
  

@@ -37,7 +37,7 @@ void Confirm_Light(){
  
  
  
- baitoupwm=General_pos;          
+ baitoupwm=befo_General_pos;          
  abs_baitoupwm=baitoupwm;
  abs_baitoupwm=aabs(abs_baitoupwm);
  
@@ -71,7 +71,7 @@ void Confirm_Light(){
   
  
  
- if(abs_baitoupwm>80)
+ if(abs_baitoupwm>40)
      {
       turn_flag=1;Straight_flag=0;
       } 
@@ -80,10 +80,10 @@ void Confirm_Light(){
   {
   if(Straight_flag==1) 
   {turn_flag=0;Straight_flag=1; } 
-  else if((turn_flag==1)&&(abs_baitoupwm>30))
+  else if((turn_flag==1)&&(abs_baitoupwm>20))
   {turn_flag=1;Straight_flag=0;} 
     
-  else if((turn_flag==1)&&(abs_baitoupwm<30)) 
+  else if((turn_flag==1)&&(abs_baitoupwm<20)) 
   {turn_flag=0;Straight_flag=1;} 
   } 
   
