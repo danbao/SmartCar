@@ -37,6 +37,11 @@ void main(void)
  Collect_IR();   //∫ÏÕ‚ªÒ»°
 // Test_IR(IR_temp_laser_array);
 // TestCross_judge();
+   send_count++;
+   if(send_count%20==0) {
+     send_count=1;
+    TestSMinfo(test_info_send);  
+   }   
  }
     
  
@@ -95,12 +100,7 @@ void interrupt 66 PIT0_ISR(void) {
    
    dajiao();
    
-  /* send_count++;
-   if(send_count%20==0) {
-     send_count=1;
-    TestSMinfo();  
-   }   
-    */
+
     
   
 Clear_Speed();
