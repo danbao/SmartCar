@@ -34,6 +34,35 @@ void main(void)
   EnableInterrupts;
   for(;;) 
   {
+ Collect_IR();   //红外获取
+// Test_IR(IR_temp_laser_array);
+// TestCross_judge();
+ }
+    
+ 
+   
+  
+  
+
+          
+// _FEED_COP(); /*看门狗，防死循环用的 */
+ /* loop forever */
+  /* please make sure that you never leave main */
+}
+
+
+
+ 
+#pragma CODE_SEG NON_BANKED 
+//【interrupt definitions】
+/* ================= PIT0_ISR ====================
+      desc: PIT周期定时中断，用于控制激光传感器分时亮
+      pre:  无
+      Post: 无       
+*/ 
+void interrupt 66 PIT0_ISR(void) {
+    DisableInterrupts; 
+   PITCE_PCE0=0;PITCE_PCE0=1; 
     Light_Up();         //激光整排点亮   
    Confirm_Light(); //排除误点
    if(nothing_flag==1)
@@ -75,40 +104,16 @@ void main(void)
     
   
 Clear_Speed();
- Collect_IR();   //红外获取
- Start_judge();  //判断起跑线
- SpeedCtrl(startingline_flag);  
- 
- }
-    
- 
+SpeedCtrl(startingline_flag); 
+  EnableInterrupts; 
    
-  
-  
-
-          
-// _FEED_COP(); /*看门狗，防死循环用的 */
- /* loop forever */
-  /* please make sure that you never leave main */
-}
-
-
-
+}   
  
-#pragma CODE_SEG NON_BANKED 
-//【interrupt definitions】
-/* ================= PIT0_ISR ====================
-      desc: PIT周期定时中断，用于控制激光传感器分时亮
-      pre:  无
-      Post: 无       
-*/ 
-
-void interrupt 66 PIT0_ISR(void){
-DisableInterrupts;   
+void interrupt 67 PIT1_ISR(void){
+PITCE_PCE1=0;PITCE_PCE1=1;
 speed_clear[1]= PACNT;
 PACNT = 0x0000; 
-PITTF_PTF0 = 1;
-EnableInterrupts; 
-}
+
+}//PIT0_ISR
 
 #pragma CODE_SEG DEFAULT
