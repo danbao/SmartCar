@@ -4,8 +4,8 @@
 //#define PWM45 3528
 #define ANGLE_DELTA 30
 #define PWM6_MID 224
-#define PWM01 3553
-#define PWM45 3722
+#define PWM01 1968
+#define PWM45 1603
 #define PWM7 30
 #define PWMPE7 60
 //#define Speed 50
@@ -18,7 +18,7 @@
   平均速度,最大速度,最小速度,当前速度*/
   int DP1=1,DP2=1,DP3=1,DP4=1,DP5=1,DP6=1,DP7=1;
   int DD=0;
-  int BP1=60,BP2=30,BP3=28,BP4=25,BP5=22,BP6=18,BP7=15,BP8=12,BP9=11;
+  int BP1=60,BP2=30,BP3=28,BP4=25,BP5=22,BP6=18,BP7=15,BP8=12,BP9=11,BP10;
   //int BD1=200,BD2=40,BD3=24,BD4=18,BD5=16,BD6=14,BD7=12,BD8=10,BD9=8;
   char SCIreceive[150];                    /*用于无线串口显示的字符串*/  
   int temp_pwm45=PWM45;						         //激光摆头舵机初始值
@@ -69,7 +69,7 @@
   
   int  befo_General_pos;
   float General_pos;                     //综合偏差 经过两次一阶滤波 扩大100倍  01为第一次  23为第二次  3为最后结果
-  int change_JG_DJ_array[41]={-252,-222,-208,-195,-185,-176,-154,-145,-136,-126,-99,-87,-67,-52,-42,-35,-26,-17,-11,-6,0,6,11,17,26,35,42,52,67,87,99,126,136,145,154,176,185,195,208,222,252}; 
+  int change_JG_DJ_array[41]={141,131,119,115,109,103,96,89,83,78,71,66,56,53,46,41,35,30,18,6,0,-6,-18,-30,-35,-41,-46,-53,-56,-66,-71,-78,-83,-89,-96,-103,-109,-115,-119,-131,-141}; 
   int cha_pos=0;
   //int coordinate
  //int standard_position_array[23]=
