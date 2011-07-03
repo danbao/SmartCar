@@ -168,6 +168,29 @@ void SCI_REC_chuli(char a[],int x)
 	p = strtok(NULL, ";");
 	if(*p!='F'){*SCI_DP=atoi(p);BP10=*SCI_DP;}
   }
+  break;
+  case 4:{
+	p = strtok(a, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BD1=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BD2=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BD3=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BD4=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BD5=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BD6=*SCI_DP;} 
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BD7=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BD8=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BD9=*SCI_DP;}
+	p = strtok(NULL, ";");
+	if(*p!='F'){*SCI_DP=atoi(p);BD10=*SCI_DP;}
+  }
   break; 
 	case 2:{
 	q = strtok(a, ";"); 
@@ -190,9 +213,19 @@ void SCI_REC_chuli(char a[],int x)
 -----------------------------------------  */ 
 void SCI_REC_NOW(){
 char SCIsend[80];
-	(void)sprintf(SCIsend,"SEDNW%.3d%.3d%.3d%.3d%.3d%.3d%.3d%.4d%.4d%.2d%.2d%.2d%.2d%.2d%.2d%.2d%.2d%.2d%.2dEND",DP1,DP2,DP3,DP4,DP5,DP6,DP7,PWMDTY01,PWMDTY45,BP1,BP2,BP3,BP4,BP5,BP6,BP7,BP8,BP9,BP10);		
-  SCISend_chars(SCIsend);  
+/*	(void)sprintf(SCIsend,"DP值:%.3d %.3d %.3d %.3d %.3d %.3d %.3d",DP1,DP2,DP3,DP4,DP5,DP6,DP7);		
+  SCISend_chars(SCIsend);*/
   SCISend('\n');  
+  (void)sprintf(SCIsend,"BP值:%.2d %.2d %.2d %.2d %.2d %.2d %.2d %.2d %.2d %.2d",BP1,BP2,BP3,BP4,BP5,BP6,BP7,BP8,BP9,BP10);		
+  SCISend_chars(SCIsend);
+  SCISend('\n');  
+  (void)sprintf(SCIsend,"BD值:%.3d %.3d %.3d %.3d %.3d %.3d %.3d %.3d %.3d %.3d",BD1,BD2,BD3,BD4,BD5,BD6,BD7,BD8,BD9,BD10);		
+  SCISend_chars(SCIsend);
+  SCISend('\n');  
+  (void)sprintf(SCIsend,"舵机值:%.4d%.4d",PWMDTY01,PWMDTY45);		
+  SCISend_chars(SCIsend);
+  SCISend('\n');  
+  SCISend('\n');   
 }
 
 /*---------------------------------------
@@ -209,25 +242,31 @@ interrupt 20 void Rx_SCI(void)
         case '@': 
         {
           SCI_i=0;
-          SCI_REC_chuli(SCIreceive,1);
+          SCI_REC_chuli(SCIreceive,1);  //调节DP
         }  
         break;
         case '&': 
         {
           SCI_i=0;
-          SCI_REC_chuli(SCIreceive,3);
+          SCI_REC_chuli(SCIreceive,3); //调节BP
+        }  
+        break;
+        case '!': 
+        {
+          SCI_i=0;
+          SCI_REC_chuli(SCIreceive,4); //调节BD
         }  
         break;
         case '$': 
         {
           SCI_i=0;
-          SCI_REC_NOW();
+          SCI_REC_NOW();               //反馈回值
         }  
         break;
         case '#': 
         {
           SCI_i=0;
-         SCI_REC_chuli(SCIreceive,2);
+         SCI_REC_chuli(SCIreceive,2);   //调节上下舵机值
         }
         break;
         case '%': 

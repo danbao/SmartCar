@@ -4,7 +4,7 @@
 //#define PWM45 3528
 #define ANGLE_DELTA 30
 #define PWM6_MID 224
-#define PWM01 1968
+#define PWM01 1972
 #define PWM45 1603
 #define PWM7 30
 #define PWMPE7 60
@@ -18,8 +18,8 @@
   平均速度,最大速度,最小速度,当前速度*/
   int DP1=1,DP2=1,DP3=1,DP4=1,DP5=1,DP6=1,DP7=1;
   int DD=0;
-  int BP1=21,BP2=35,BP3=30,BP4=30,BP5=30,BP6=30,BP7=30,BP8=30,BP9=30,BP10=30;
-  //int BD1=200,BD2=40,BD3=24,BD4=18,BD5=16,BD6=14,BD7=12,BD8=10,BD9=8;
+  int BP1=20,BP2=35,BP3=35,BP4=35,BP5=35,BP6=35,BP7=35,BP8=35,BP9=25,BP10=25;
+  int BD1=100,BD2=100,BD3=70,BD4=50,BD5=30,BD6=30,BD7=30,BD8=30,BD9=20,BD10=20;
   char SCIreceive[150];                    /*用于无线串口显示的字符串*/  
   int temp_pwm45=PWM45;						         //激光摆头舵机初始值
   int temp_pwm01=PWM01;					         	 //转向摆头舵机初始值
@@ -181,7 +181,7 @@ void PWM_Init (void) {   //0519暂时写完！
    PWMPER7 = PWMPE7;  //频率 166kHz   周期602ns
    
    PWMDTY01 = PWM01;      //占空比50%  前轮舵机
-   PWMDTY23 = 400;      //占空比50%    电机正转
+   PWMDTY23 = 500;      //占空比50%    电机正转
    PWMDTY45 = PWM45;      //           摆头舵机
    PWMDTY6 = 7;      //占空比50%      电机反转
    PWMDTY7 = PWM7;      //占空比50%    调制管
