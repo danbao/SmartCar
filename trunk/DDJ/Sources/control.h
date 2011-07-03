@@ -72,7 +72,8 @@ void Confirm_Light(){
  
  
  if(abs_baitoupwm>40)
-     {
+     { 
+      if(Straight_flag)diansha_falg=1; 
       turn_flag=1;Straight_flag=0;
       } 
  
@@ -81,10 +82,9 @@ void Confirm_Light(){
   if(Straight_flag==1) 
   {turn_flag=0;Straight_flag=1; } 
   else if((turn_flag==1)&&(abs_baitoupwm>20))
-  {turn_flag=1;Straight_flag=0;} 
-    
-  else if((turn_flag==1)&&(abs_baitoupwm<20)) 
-  {turn_flag=0;Straight_flag=1;} 
+  {turn_flag=1;Straight_flag=0;}  
+  else if((turn_flag==1)&&(abs_baitoupwm<=20)) 
+  {turn_flag=0;Straight_flag=1;diansha_falg=0;} 
   } 
   
   
@@ -218,7 +218,7 @@ void Level_IR( void)
 */
 void Clear_Speed(void) {
 //long Speed_sum;
-speed_clear[1]=(100*speed_clear[0]+40*speed_clear[1])/140;
+speed_clear[1]=(60*speed_clear[0]+20*speed_clear[1])/80;
 speed_clear[0]=speed_clear[1];
 }
 
