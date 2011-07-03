@@ -10,8 +10,8 @@ void Clear_baitou(void){
 //long JG_sum[2];
 //JG_clear[3]=JG_clear[1];
 
-//if(YDdelay==0)
-//JG_clear[0]=JG_clear[1];
+if(YDdelay==0)
+JG_clear[0]=JG_clear[1];
 
 JG_clear[1]=position*10;
 
@@ -37,8 +37,8 @@ void  baitou (void) {
     int sub_p[10];
     
     
-    //int Diff_pos;
-   // byte BD_flag;
+    int Diff_pos;
+    byte BD_flag;
    
 
    
@@ -46,20 +46,20 @@ JG_pos_abs=aabs(JG_pos_abs);
 JG_clear_Pos[1]=JG_clear[1];
 
 
-/*YDdelay++;
-if(YDdelay%200==0||JG_pos_abs>17) 
+YDdelay++;
+if(YDdelay%10==0||JG_pos_abs>17) 
 {
-YDdelay==0;  
+YDdelay=0;  
 Diff_pos=JG_clear_Pos[1]-JG_clear[0];
 if((JG_clear_Pos[1]>0)&&(Diff_pos>0))//&&(JG_clear[0]>0)
 BD_flag=1;
-else if((JG_clear_Pos[1]<0)&&(Diff_pos<0))//     &&(JG_clear[0]<0)
+else if((JG_clear_Pos[1]<0)&&(Diff_pos<0))// &&(JG_clear[0]<0)    
 BD_flag=1;
-else BD_flag=0;
+else BD_flag=1;
 } 
 
 else BD_flag=0;
-*/
+
 
 sub_p[0]=10/BP1;
 sub_p[1]=20/BP2-(20/BP1-sub_p[0]);
@@ -77,78 +77,78 @@ sub_p[9]=180/BP10-(180/BP9-sub_p[8]);
     else if(JG_pos_abs>10&&JG_pos_abs<=20) 
           {
       if(position>0)    
-      JG_pwm=-(JG_clear_Pos[1]/BP1-sub_p[0]);//+BD_flag*Diff_pos/BD1;
+      JG_pwm=-(JG_clear_Pos[1]/BP1-sub_p[0]+BD_flag*Diff_pos/BD1);
       else if(position<0)
-      JG_pwm=-(JG_clear_Pos[1]/BP1+sub_p[0]);//+BD_flag*Diff_pos/BD1; 
+      JG_pwm=-(JG_clear_Pos[1]/BP1+sub_p[0]+BD_flag*Diff_pos/BD1); 
           }
    
     else if(JG_pos_abs>20&&JG_pos_abs<=40) 
           {
       if(position>0)   
-      JG_pwm=-(JG_clear_Pos[1]/BP2-sub_p[1]);//+BD_flag*Diff_pos/BD2;
+      JG_pwm=-(JG_clear_Pos[1]/BP2-sub_p[1]+BD_flag*Diff_pos/BD2);
       else if(position<0)
-      JG_pwm=-(JG_clear_Pos[1]/BP2+sub_p[1]);//+BD_flag*Diff_pos/BD2;
+      JG_pwm=-(JG_clear_Pos[1]/BP2+sub_p[1]+BD_flag*Diff_pos/BD2);
       
           }
     else if(JG_pos_abs>40&&JG_pos_abs<=60) 
           {
       if(position>0)   
-      JG_pwm=-(JG_clear_Pos[1]/BP3-sub_p[2]);//+BD_flag*Diff_pos/BD3;
+      JG_pwm=-(JG_clear_Pos[1]/BP3-sub_p[2]+BD_flag*Diff_pos/BD3);
       else if(position<0)
-      JG_pwm=-(JG_clear_Pos[1]/BP3+sub_p[2]);//+BD_flag*Diff_pos/BD3;
+      JG_pwm=-(JG_clear_Pos[1]/BP3+sub_p[2]+BD_flag*Diff_pos/BD3);
           }      
     else if(JG_pos_abs>60&&JG_pos_abs<=80)
           {
       if(position>0)    
-      JG_pwm=-(JG_clear_Pos[1]/BP4-sub_p[3]);//+BD_flag*Diff_pos/BD4;
+      JG_pwm=-(JG_clear_Pos[1]/BP4-sub_p[3]+BD_flag*Diff_pos/BD4);
       else if(position<0)
-      JG_pwm=-(JG_clear_Pos[1]/BP4+sub_p[3]);//+BD_flag*Diff_pos/BD4;
+      JG_pwm=-(JG_clear_Pos[1]/BP4+sub_p[3]+BD_flag*Diff_pos/BD4);
           }
     else if(JG_pos_abs>80&&JG_pos_abs<=100)
           {
       if(position>0)    
-      JG_pwm=-(JG_clear_Pos[1]/BP5-sub_p[4]);//+BD_flag*Diff_pos/BD5;
+      JG_pwm=-(JG_clear_Pos[1]/BP5-sub_p[4]+BD_flag*Diff_pos/BD5);
       else if(position<0)
-      JG_pwm=-(JG_clear_Pos[1]/BP5+sub_p[4]);//+BD_flag*Diff_pos/BD5;
+      JG_pwm=-(JG_clear_Pos[1]/BP5+sub_p[4]+BD_flag*Diff_pos/BD5);
           }
     
     else if(JG_pos_abs>100&&JG_pos_abs<=120)
           {
       if(position>0)    
-      JG_pwm=-(JG_clear_Pos[1]/BP6-sub_p[5]);//+BD_flag*Diff_pos/BD6;
+      JG_pwm=-(JG_clear_Pos[1]/BP6-sub_p[5]+BD_flag*Diff_pos/BD6);
       else if(position<0)
-      JG_pwm=-(JG_clear_Pos[1]/BP6+sub_p[5]);//+BD_flag*Diff_pos/BD6;
+      JG_pwm=-(JG_clear_Pos[1]/BP6+sub_p[5]+BD_flag*Diff_pos/BD6);
           }
     
     else if(JG_pos_abs>120&&JG_pos_abs<=140)
           {
       if(position>0)    
-      JG_pwm=-(JG_clear_Pos[1]/BP7-sub_p[6]);//+BD_flag*Diff_pos/BD7;
+      JG_pwm=-(JG_clear_Pos[1]/BP7-sub_p[6]+BD_flag*Diff_pos/BD7);
       else if(position<0)
-      JG_pwm=-(JG_clear_Pos[1]/BP7+sub_p[6]);//+BD_flag*Diff_pos/BD7;
+      JG_pwm=-(JG_clear_Pos[1]/BP7+sub_p[6]+BD_flag*Diff_pos/BD7);
           }                  
     else if(JG_pos_abs>140&&JG_pos_abs<=160) 
           {
       if(position>0)    
-      JG_pwm=-(JG_clear_Pos[1]/BP8-sub_p[7]);//+BD_flag*Diff_pos/BD8;
+      JG_pwm=-(JG_clear_Pos[1]/BP8-sub_p[7]+BD_flag*Diff_pos/BD8);
       else if(position<0)
-      JG_pwm=-(JG_clear_Pos[1]/BP8+sub_p[7]);//+BD_flag*Diff_pos/BD8;
+      JG_pwm=-(JG_clear_Pos[1]/BP8+sub_p[7]+BD_flag*Diff_pos/BD8);
           }      
     else if(JG_pos_abs>160&&JG_pos_abs<=180)
          {
       if(position>0)   
-      JG_pwm=-(JG_clear_Pos[1]/BP9-sub_p[8]);//+BD_flag*Diff_pos/BD9;
+      JG_pwm=-(JG_clear_Pos[1]/BP9-sub_p[8]+BD_flag*Diff_pos/BD9);
       else if(position<0)
-      JG_pwm=-(JG_clear_Pos[1]/BP9+sub_p[8]);//+BD_flag*Diff_pos/BD9;
+      JG_pwm=-(JG_clear_Pos[1]/BP9+sub_p[8]+BD_flag*Diff_pos/BD9);
       
          }   
          
     else if(JG_pos_abs>180)
          {
       if(position>0)   
-      JG_pwm=-(JG_clear_Pos[1]/BP10-sub_p[9]);//+BD_flag*Diff_pos/BD9;
+      JG_pwm=-(JG_clear_Pos[1]/BP10-sub_p[9]+BD_flag*Diff_pos/BD10);
       else if(position<0)
-      JG_pwm=-(JG_clear_Pos[1]/BP10+sub_p[9]);//+BD_flag*Diff_pos/BD9;
+      JG_pwm=-(JG_clear_Pos[1]/BP10+sub_p[9]+BD_flag*Diff_pos/BD10);
       
          }                             
    
@@ -243,16 +243,16 @@ int dj_pwm;
 //int code[2]={3,1},sum_code=4;
 
 
- changebaitou=baitoupwm/15;      //摆头占空比 除
+ changebaitou=baitoupwm/20;      //摆头占空比 除
  speedinfo=speed_clear[1]-110;    //基准的速度 如果小于它就不执行速度加入转角
 
  
  if(speedinfo>=5)
  {
- speedinfo=speedinfo/3;
+ speedinfo=speedinfo/4;
  speedaffect1=speedinfo*speedinfo;
  speedaffect2=speedaffect1*changebaitou;
- speedaffect3=speedaffect2/90;
+ speedaffect3=speedaffect2/115;
  
 //speedaffect=speedinfo*speedinfo*changebaitou/48; 
  //speedaffect[1]=(10*speedaffect[0]+60*speedaffect[1])/70;
@@ -286,10 +286,10 @@ else
 
        
 
-if(dj_pwm>780)
-dj_pwm=780;
-else if(dj_pwm<-780)
-dj_pwm=-780;
+if(dj_pwm>315)
+dj_pwm=315;
+else if(dj_pwm<-315)
+dj_pwm=-315;
 
 dj_pwm=dj_pwm+PWM01;
 PWMDTY01=dj_pwm;
@@ -319,15 +319,15 @@ if(a==1)
 
 else
 {
-PWMDTY23 = 500;      //正转固定
+PWMDTY23 = 550;      //正转固定
 PORTB_PB7=1;
 
 
 
 changebaitou=baitoupwm/10;  //速度调节分70段
 
-if(changebaitou>0)okspeed=-2*changebaitou+320;
-else  okspeed=2*changebaitou+320;                    //弯道 偏移和速度的一个假象的关系 没有验证过
+if(changebaitou>0)okspeed=-2*changebaitou+340;
+else  okspeed=2*changebaitou+340;                    //弯道 偏移和速度的一个假象的关系 没有验证过
 
 
 subspeed=speed_clear[1]-okspeed;                   //当前速度与可行速度关系
@@ -341,16 +341,24 @@ if(Straight_flag==1)
    
 else if(Straight_flag==0)                            //弯道
    {
-   
-    if(diansha_count%diansha_num==0)
-    {diansha_count=0;diansha_falg=0;  }
+    if(subspeed<10);
     
-    if(diansha_falg) 
-    {PWMDTY6=70;PWMDTY23 =10;diansha_count++;} 
-    else  {PWMDTY23 = 500; PWMDTY6=7;}
-   }
+      else{
+      
+      if(diansha_count%diansha_num==0)
+      {diansha_count=0;diansha_falg=0;  }
+    
+      if(diansha_falg) 
+      {PWMDTY6=70;PWMDTY23 =10;diansha_count++;} 
+     
+      else  {PWMDTY23 = 550; PWMDTY6=7;}
+          }
 
-}
+   }
+ 
+ }
+
+
 }          
 
 
