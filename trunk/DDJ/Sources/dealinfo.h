@@ -297,8 +297,6 @@ PWMDTY01=dj_pwm;
 
 
 
-
-
 /*=====================电机速度调节======================*/
 
 
@@ -306,28 +304,26 @@ void SpeedCtrl (byte a) {
 int subspeed;
 int changebaitou;
 int okspeed;
-
-
-
-
-
 if(a==1)
 {
-  PWMDTY23 = 0;      //占空比50%    电机正转
-  PWMDTY6 = 0;      //占空比50%      电机反转 
+  PORTB_PB7=0;
 }
-
+else if(a==2){
+ PORTB_PB7=1;
+ PWMDTY23 = 500; 
+ PWMDTY6=7;
+}
 else
 {
-PWMDTY23 = 550;      //正转固定
+PWMDTY23 = 500;      //正转固定
 PORTB_PB7=1;
 
 
 
 changebaitou=baitoupwm/10;  //速度调节分70段
 
-if(changebaitou>0)okspeed=-2*changebaitou+340;
-else  okspeed=2*changebaitou+340;                    //弯道 偏移和速度的一个假象的关系 没有验证过
+if(changebaitou>0)okspeed=-2*changebaitou+320;
+else  okspeed=2*changebaitou+320;                    //弯道 偏移和速度的一个假象的关系 没有验证过
 
 
 subspeed=speed_clear[1]-okspeed;                   //当前速度与可行速度关系
@@ -341,30 +337,17 @@ if(Straight_flag==1)
    
 else if(Straight_flag==0)                            //弯道
    {
-    if(subspeed<10);
+   
+    if(diansha_count%diansha_num==0)
+    {diansha_count=0;diansha_falg=0;  }
     
-      else{
-      
-      if(diansha_count%diansha_num==0)
-      {diansha_count=0;diansha_falg=0;  }
-    
-      if(diansha_falg) 
-      {PWMDTY6=70;PWMDTY23 =10;diansha_count++;} 
-     
-      else  {PWMDTY23 = 550; PWMDTY6=7;}
-          }
-
+    if(diansha_falg) 
+    {PWMDTY6=70;PWMDTY23 =10;diansha_count++;} 
+    else  {PWMDTY23 = 500; PWMDTY6=7;}
    }
- 
- }
 
-
-}          
-
-
-
-
-
+}
+}
 
 
 

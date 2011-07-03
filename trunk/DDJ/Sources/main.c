@@ -34,9 +34,8 @@ void main(void)
   EnableInterrupts;
   for(;;) 
   {
- Collect_IR();   //ºìÍâ»ñÈ¡
-// Test_IR(IR_temp_laser_array);
 // TestCross_judge();
+// Test_IR(IR_temp_laser_array);
    /*send_count++;
    if(send_count%20==0) {
      send_count=1;
