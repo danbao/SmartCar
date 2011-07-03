@@ -63,7 +63,7 @@
   byte YDdelay=1;
   byte diansha_falg=0;                     //点刹标志
   byte diansha_count;                      //点刹计数
-  
+  byte diansha_num;                        //点刹时间 利用入弯时的速度 来进行点刹时间
  // int road_point[6];                      //5点归为一段  假设2.5m/s 5点为1.8cm  road_point[5]为最后点值
  // int point_count;                        //5点计数 同时也可作为段判断开始的标志
  // int road_section[20];                   //8段归为一长路  同假设8段为15cm

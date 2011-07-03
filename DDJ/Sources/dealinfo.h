@@ -243,7 +243,7 @@ int dj_pwm;
 //int code[2]={3,1},sum_code=4;
 
 
- changebaitou=baitoupwm/10;      //摆头占空比 除
+ changebaitou=baitoupwm/15;      //摆头占空比 除
  speedinfo=speed_clear[1]-110;    //基准的速度 如果小于它就不执行速度加入转角
 
  
@@ -327,22 +327,22 @@ PORTB_PB7=1;
 changebaitou=baitoupwm/10;  //速度调节分70段
 
 if(changebaitou>0)okspeed=-2*changebaitou+320;
-else  okspeed=2*changebaitou+320;
+else  okspeed=2*changebaitou+320;                    //弯道 偏移和速度的一个假象的关系 没有验证过
 
 
-subspeed=speed_clear[1]-okspeed;
+subspeed=speed_clear[1]-okspeed;                   //当前速度与可行速度关系
 
 
 
 if(Straight_flag==1)
    {
-   PWMDTY6 = 7;      //占空比50%     60
+   PWMDTY6 = 7;      //占空比50%     60              //直线加速恒占空比
    } 
    
-else if(Straight_flag==0)
+else if(Straight_flag==0)                            //弯道
    {
    
-    if(diansha_count%35==0)
+    if(diansha_count%diansha_num==0)
     {diansha_count=0;diansha_falg=0;  }
     
     if(diansha_falg) 
