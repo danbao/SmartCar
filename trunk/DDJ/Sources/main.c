@@ -37,11 +37,11 @@ void main(void)
  Collect_IR();   //红外获取
 // Test_IR(IR_temp_laser_array);
 // TestCross_judge();
-   send_count++;
+   /*send_count++;
    if(send_count%20==0) {
      send_count=1;
     TestSMinfo(test_info_send);  
-   }   
+   }  */ 
  }
     
  
@@ -66,7 +66,7 @@ void main(void)
       Post: 无       
 */ 
 void interrupt 66 PIT0_ISR(void) {
-    DisableInterrupts; 
+   DisableInterrupts; 
    PITCE_PCE0=0;PITCE_PCE0=1; 
     Light_Up();         //激光整排点亮   
    Confirm_Light(); //排除误点
@@ -75,7 +75,6 @@ void interrupt 66 PIT0_ISR(void) {
       //Clear_baitou();  //position的第一次滤波
      // baitou_delay=9;
      } 
-   
    else if(nothing_flag==0) 
    {
    Clear_baitou();  //position的第一次滤波
@@ -87,17 +86,12 @@ void interrupt 66 PIT0_ISR(void) {
     JG_clear[1]=0;
     } 
    }
-   
    General_Position();      
   // Collect_Point();
   // Collect_Section();
   // Judge_Slope();
    Clear_General();
   // delay_count++;
-   
-   
-   
-   
    dajiao();
    
 
