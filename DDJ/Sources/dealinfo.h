@@ -14,7 +14,6 @@ void Clear_baitou(void){
 //JG_clear[0]=JG_clear[1];
 
 JG_clear[1]=position*10;
-JG_clear[1]+=JG_clear[0];
 
 //JG_clear[1]=(JG_clear[0]*20+JG_clear[1]*70) /90 ;  
 
@@ -250,16 +249,20 @@ int dj_pwm;
  
  if(speedinfo>=5)
  {
- speedinfo=speedinfo/4;
+ speedinfo=speedinfo/3;
  speedaffect1=speedinfo*speedinfo;
  speedaffect2=speedaffect1*changebaitou;
- speedaffect3=speedaffect2/111;
+ speedaffect3=speedaffect2/90;
+ 
 //speedaffect=speedinfo*speedinfo*changebaitou/48; 
  //speedaffect[1]=(10*speedaffect[0]+60*speedaffect[1])/70;
  //speedaffect[1]=speedaffect[1];
  }
-// abs_affect=speedaffect[1];
- //abs_affect=aabs(abs_affect); 
+ 
+
+ 
+ 
+
 
 
 if(turn_flag==0)
@@ -313,10 +316,13 @@ if(a==1)
   PWMDTY23 = 0;      //占空比50%    电机正转
   PWMDTY6 = 0;      //占空比50%      电机反转 
 }
+
 else
 {
 PWMDTY23 = 500;      //正转固定
 PORTB_PB7=1;
+
+
 
 changebaitou=baitoupwm/10;  //速度调节分70段
 
@@ -335,25 +341,16 @@ if(Straight_flag==1)
    
 else if(Straight_flag==0)
    {
-   Straight_stop=1;
-   turn_stop=0;
    
-   if(subspeed>10){PWMDTY6=70;PWMDTY23 =100;}
-   
-   else  turn_stop=1;
-      
+    if(diansha_count%35==0)
+    {diansha_count=0;diansha_falg=0;  }
+    
+    if(diansha_falg) 
+    {PWMDTY6=70;PWMDTY23 =10;diansha_count++;} 
+    else  {PWMDTY23 = 500; PWMDTY6=7;}
    }
-   
-   if(turn_stop==1) 
-     {
-     if(subspeed>10)
-     PWMDTY6=40;
-     
-     else PWMDTY6 = 7;
-     }
+
 }
-
-
 }          
 
 

@@ -18,7 +18,7 @@
   平均速度,最大速度,最小速度,当前速度*/
   int DP1=1,DP2=1,DP3=1,DP4=1,DP5=1,DP6=1,DP7=1;
   int DD=0;
-  int BP1=60,BP2=30,BP3=30,BP4=30,BP5=30,BP6=30,BP7=30,BP8=30,BP9=30,BP10=30;
+  int BP1=21,BP2=35,BP3=30,BP4=30,BP5=30,BP6=30,BP7=30,BP8=30,BP9=30,BP10=30;
   //int BD1=200,BD2=40,BD3=24,BD4=18,BD5=16,BD6=14,BD7=12,BD8=10,BD9=8;
   char SCIreceive[150];                    /*用于无线串口显示的字符串*/  
   int temp_pwm45=PWM45;						         //激光摆头舵机初始值
@@ -62,13 +62,15 @@
   byte first_flag=1;
   byte YDdelay=1;
   byte diansha_falg=0;                     //点刹标志
+  byte diansha_count;                      //点刹计数
+  
  // int road_point[6];                      //5点归为一段  假设2.5m/s 5点为1.8cm  road_point[5]为最后点值
  // int point_count;                        //5点计数 同时也可作为段判断开始的标志
  // int road_section[20];                   //8段归为一长路  同假设8段为15cm
  // int section_flag;                      //8段计数
   
-  int  befo_General_pos;
-  float General_pos;                     //综合偏差 经过两次一阶滤波 扩大100倍  01为第一次  23为第二次  3为最后结果
+  int  befo_General_pos;                  //舵机的综合偏差
+  float General_pos;                     //模型
   int change_JG_DJ_array[41]={141,131,119,115,109,103,96,89,83,78,71,66,56,53,46,41,35,30,18,6,0,-6,-18,-30,-35,-41,-46,-53,-56,-66,-71,-78,-83,-89,-96,-103,-109,-115,-119,-131,-141}; 
   int cha_pos=0;
   //int coordinate
