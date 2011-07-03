@@ -71,9 +71,11 @@ void Confirm_Light(){
   
  
  
- if(abs_baitoupwm>40)
+ if(abs_baitoupwm>35)
      { 
-      if(Straight_flag)diansha_falg=1; 
+      if(Straight_flag)
+      {diansha_falg=1;diansha_num=speed_clear[1]/10;diansha_num=aabs(diansha_num);}             //第一次检测到弯道 标定点刹开始  点刹时间为速度除以10
+     
       turn_flag=1;Straight_flag=0;
       } 
  
@@ -84,7 +86,7 @@ void Confirm_Light(){
   else if((turn_flag==1)&&(abs_baitoupwm>20))
   {turn_flag=1;Straight_flag=0;}  
   else if((turn_flag==1)&&(abs_baitoupwm<=20)) 
-  {turn_flag=0;Straight_flag=1;diansha_falg=0;} 
+  {turn_flag=0;Straight_flag=1;diansha_falg=0;}        //出弯补足角度 以防 还没完全出弯就转角就变小
   } 
   
   
