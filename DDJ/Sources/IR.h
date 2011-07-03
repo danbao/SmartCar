@@ -88,11 +88,11 @@ else {
 如果为黑线则十字交叉位标记位为1(一般只有十字交叉或过弯道会出现这种情况),如果十字交叉位标记位没变,且
 2,3,4的红外其中有白色的,则进行十字交叉判断,判断方法为看累加值是否会出现黑白黑的方法,如果出现就是起跑线,
 起跑线位标记位为1,然后用红外累计值全满处理方法处理标记位
-*.
 */ 
 
 void TestCross_judge(void) {
 int i=0,start_flag=0,cross_flag=0,judge_flag=0;
+  Collect_IR();   //红外获取
   TestCross_process();
 if(empty_count%10==0){
 for(i=0;i<7;i++) 
@@ -115,6 +115,42 @@ else if(IR_process_array[i]<2&&start_flag==2){startingline_flag=1;start_flag=0;b
 }
 Linefull_process(startingline_flag);
 Linefull_process(crossingline_flag);
+}
+
+/* ===================红外上坡到方法=======================
+*.
+*/ 
+void IR_Ramp(byte a){
+int i,IR_rampjudge_flag=0;
+ Collect_IR();   //红外获取
+if(a){
+for(i=0;i<7;i++) 
+{
+if(IR_process_array[i]<3&&i<5){IR_rampjudge_flag=1;break;}//情况一,如果是2,3,4的红外扫到的话,居中走
+else if(IR_process_array[i]<2&&i>4){IR_rampjudge_flag=2;break;}//情况二,如果是5,6扫到的话向左拐一点点,然后摆正
+else if(IR_process_array[i]<2&&i<2){IR_rampjudge_flag=3;break;}//情况三,如果是0,1扫到的话向右拐一点点,然后摆正
+else IR_rampjudge_flag=1; 
+}
+switch(IR_rampjudge_flag){
+  case 1:{
+  PWMDTY01 = PWM01;      //舵机居中
+  SpeedCtrl(2);
+  }
+  break;
+  case 2:{
+  PWMDTY01 = PWM01+20;      //舵机左拐一点点
+  SpeedCtrl(2);
+  PWMDTY01 = PWM01;      //舵机居中
+  }
+  break;
+  case 3:{
+  PWMDTY01 = PWM01-20;      //舵机居中
+  SpeedCtrl(2);
+  PWMDTY01 = PWM01;      //舵机居中
+  }
+  break;
+}
+}
 }
 
 /*---------------------------------------

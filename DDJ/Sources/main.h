@@ -43,7 +43,7 @@
   byte IR_temp_laser_array[7];             //当前红外信息保存数组
   byte IR_process_array[7]={2,2,2,2,2,2,2}; 
   byte startingline_flag=0;
-  //byte crossingline_flag=0;
+  byte crossingline_flag=0;
   byte empty_count=0;
   
   byte nothing_flag=0 ;
