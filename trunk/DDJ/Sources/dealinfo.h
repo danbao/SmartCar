@@ -244,7 +244,7 @@ int dj_pwm;
 
 
  changebaitou=baitoupwm/20;      //摆头占空比 除
- speedinfo=speed_clear[1]-110;    //基准的速度 如果小于它就不执行速度加入转角
+ speedinfo=speed_clear[1]-120;    //基准的速度 如果小于它就不执行速度加入转角
 
  
  if(speedinfo>=5)
@@ -252,7 +252,7 @@ int dj_pwm;
  speedinfo=speedinfo/4;
  speedaffect1=speedinfo*speedinfo;
  speedaffect2=speedaffect1*changebaitou;
- speedaffect3=speedaffect2/115;
+ speedaffect3=speedaffect2/250;
  
 //speedaffect=speedinfo*speedinfo*changebaitou/48; 
  //speedaffect[1]=(10*speedaffect[0]+60*speedaffect[1])/70;
@@ -310,20 +310,20 @@ if(a==1)
 }
 else if(a==2){
  PORTB_PB7=1;
- PWMDTY23 = 500; 
+ PWMDTY23 = 550; 
  PWMDTY6=7;
 }
 else
 {
-PWMDTY23 = 500;      //正转固定
+PWMDTY23 = 550;      //正转固定
 PORTB_PB7=1;
 
 
 
 changebaitou=baitoupwm/10;  //速度调节分70段
 
-if(changebaitou>0)okspeed=-2*changebaitou+320;
-else  okspeed=2*changebaitou+320;                    //弯道 偏移和速度的一个假象的关系 没有验证过
+if(changebaitou>0)okspeed=-2*changebaitou+350;
+else  okspeed=2*changebaitou+350;                    //弯道 偏移和速度的一个假象的关系 没有验证过
 
 
 subspeed=speed_clear[1]-okspeed;                   //当前速度与可行速度关系
@@ -343,7 +343,7 @@ else if(Straight_flag==0)                            //弯道
     
     if(diansha_falg) 
     {PWMDTY6=70;PWMDTY23 =10;diansha_count++;} 
-    else  {PWMDTY23 = 500; PWMDTY6=7;}
+    else  {PWMDTY23 = 550; PWMDTY6=7;}
    }
 
 }
