@@ -1,5 +1,5 @@
 *** EVALUATION ***
-PROGRAM "D:\Documents\SmartCar\trunk\DDJ\bin\Project.abs"
+PROGRAM "D:\sm\trunk\DDJ\bin\Project.abs"
 
 *********************************************************************************************
 TARGET SECTION
@@ -2187,13 +2187,13 @@ Filling bytes inserted
  00
 ------- ROM-ADDRESS: 0xC6FD ---- RAM-ADDRESS: 0x211F ---- SIZE       1 ---
 Name of initialized Object : BP9:1
- 19
+ 1B
 ------- ROM-ADDRESS: 0xC6FE ---- SIZE       1 ---
 Filling bytes inserted
  00
 ------- ROM-ADDRESS: 0xC6FF ---- RAM-ADDRESS: 0x2121 ---- SIZE       1 ---
 Name of initialized Object : BP10:1
- 19
+ 1B
 ------- ROM-ADDRESS: 0xC700 ---- SIZE       1 ---
 Filling bytes inserted
  00
@@ -2223,37 +2223,37 @@ Filling bytes inserted
  00
 ------- ROM-ADDRESS: 0xC709 ---- RAM-ADDRESS: 0x212B ---- SIZE       1 ---
 Name of initialized Object : BD5:1
- 1E
+ 23
 ------- ROM-ADDRESS: 0xC70A ---- SIZE       1 ---
 Filling bytes inserted
  00
 ------- ROM-ADDRESS: 0xC70B ---- RAM-ADDRESS: 0x212D ---- SIZE       1 ---
 Name of initialized Object : BD6:1
- 1E
+ 22
 ------- ROM-ADDRESS: 0xC70C ---- SIZE       1 ---
 Filling bytes inserted
  00
 ------- ROM-ADDRESS: 0xC70D ---- RAM-ADDRESS: 0x212F ---- SIZE       1 ---
 Name of initialized Object : BD7:1
- 1E
+ 22
 ------- ROM-ADDRESS: 0xC70E ---- SIZE       1 ---
 Filling bytes inserted
  00
 ------- ROM-ADDRESS: 0xC70F ---- RAM-ADDRESS: 0x2131 ---- SIZE       1 ---
 Name of initialized Object : BD8:1
- 1E
+ 22
 ------- ROM-ADDRESS: 0xC710 ---- SIZE       1 ---
 Filling bytes inserted
  00
 ------- ROM-ADDRESS: 0xC711 ---- RAM-ADDRESS: 0x2133 ---- SIZE       1 ---
 Name of initialized Object : BD9:1
- 14
+ 19
 ------- ROM-ADDRESS: 0xC712 ---- SIZE       1 ---
 Filling bytes inserted
  00
 ------- ROM-ADDRESS: 0xC713 ---- RAM-ADDRESS: 0x2135 ---- SIZE       1 ---
 Name of initialized Object : BD10:1
- 14
+ 19
 ------- ROM-ADDRESS: 0xC714 ---- RAM-ADDRESS: 0x2136 ---- SIZE       1 ---
 Name of initialized Object : Straight_flag
  01

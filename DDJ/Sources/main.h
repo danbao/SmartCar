@@ -18,8 +18,8 @@
   平均速度,最大速度,最小速度,当前速度*/
   int DP1=1,DP2=1,DP3=1,DP4=1,DP5=1,DP6=1,DP7=1;
   int DD=0;
-  int BP1=20,BP2=35,BP3=35,BP4=35,BP5=35,BP6=35,BP7=35,BP8=35,BP9=25,BP10=25;
-  int BD1=100,BD2=100,BD3=70,BD4=50,BD5=30,BD6=30,BD7=30,BD8=30,BD9=20,BD10=20;
+  int BP1=20,BP2=35,BP3=35,BP4=35,BP5=35,BP6=35,BP7=35,BP8=35,BP9=27,BP10=27;
+  int BD1=100,BD2=100,BD3=70,BD4=50,BD5=35,BD6=34,BD7=34,BD8=34,BD9=25,BD10=25;
   char SCIreceive[150];                    /*用于无线串口显示的字符串*/  
   int temp_pwm45=PWM45;						         //激光摆头舵机初始值
   int temp_pwm01=PWM01;					         	 //转向摆头舵机初始值
