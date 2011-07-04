@@ -133,17 +133,20 @@ else IR_rampjudge_flag=1;
 }
 switch(IR_rampjudge_flag){
   case 1:{
-  PWMDTY01 = PWM01;      //舵机居中
+  PWMDTY45 = PWM45;      //上舵机居中
+  PWMDTY01 = PWM01;      //下舵机居中
   SpeedCtrl(2);
   }
   break;
   case 2:{
+  PWMDTY45 = PWM45;      //上舵机居中
   PWMDTY01 = PWM01+20;      //舵机左拐一点点
   SpeedCtrl(2);
   PWMDTY01 = PWM01;      //舵机居中
   }
   break;
   case 3:{
+  PWMDTY45 = PWM45;      //上舵机居中
   PWMDTY01 = PWM01-20;      //舵机居中
   SpeedCtrl(2);
   PWMDTY01 = PWM01;      //舵机居中
