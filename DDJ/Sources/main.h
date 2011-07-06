@@ -60,6 +60,9 @@
   byte Straight_stop;                      //直道入弯的反转
   byte turn_stop;                          //弯道入直的反转
   byte first_flag=1;
+  //byte slope_flag=0;
+  //int quanyi=0;
+  
   byte YDdelay=1;
   byte diansha_falg=0;                     //点刹标志
   byte diansha_count;                      //点刹计数
