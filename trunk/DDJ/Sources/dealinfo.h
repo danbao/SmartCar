@@ -244,15 +244,15 @@ int dj_pwm;
 
 
  changebaitou=baitoupwm/20;      //摆头占空比 除
- speedinfo=speed_clear[1]-120;    //基准的速度 如果小于它就不执行速度加入转角
+ speedinfo=speed_clear[1]-130;    //基准的速度 如果小于它就不执行速度加入转角
 
  
  if(speedinfo>=5)
  {
- speedinfo=speedinfo/4;
+ speedinfo=speedinfo/20;
  speedaffect1=speedinfo*speedinfo;
  speedaffect2=speedaffect1*changebaitou;
- speedaffect3=speedaffect2/250;
+ speedaffect3=speedaffect2/60;
  
 //speedaffect=speedinfo*speedinfo*changebaitou/48; 
  //speedaffect[1]=(10*speedaffect[0]+60*speedaffect[1])/70;
@@ -265,7 +265,7 @@ int dj_pwm;
 
 
 
-if(turn_flag==0)
+if(turn_flag==0||slope_flag)
    {
    dj_pwm=General_pos;
    }
@@ -320,10 +320,10 @@ PORTB_PB7=1;
 
 
 
-changebaitou=baitoupwm/10;  //速度调节分70段
+changebaitou=baitoupwm/20;  //速度调节分70段
 
-if(changebaitou>0)okspeed=-2*changebaitou+350;
-else  okspeed=2*changebaitou+350;                    //弯道 偏移和速度的一个假象的关系 没有验证过
+if(changebaitou>0)okspeed=-2*changebaitou+320;
+else  okspeed=2*changebaitou+320;                    //弯道 偏移和速度的一个假象的关系 没有验证过
 
 
 subspeed=speed_clear[1]-okspeed;                   //当前速度与可行速度关系
@@ -495,6 +495,27 @@ void Replace_array(void)
 }
 
 
-*/
 
+
+
+
+//坡道的判断
+void Slope_judge(void) 
+{
+  int i;
+  for(i=0;i<LASER_MAX;i++) 
+  {
+    if(light_temp_laser_array[LASER_MAX]==1)
+    {
+      quanyi++; 
+    }
+  }
+  if(quanyi ==15)
+  {
+    slope_flag=1;
+  }
+}
+    
+  
+*/
 
