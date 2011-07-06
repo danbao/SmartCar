@@ -265,7 +265,7 @@ int dj_pwm;
 
 
 
-if(turn_flag==0||slope_flag)
+if(turn_flag==0)
    {
    dj_pwm=General_pos;
    }
