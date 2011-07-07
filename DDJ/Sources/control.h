@@ -1,25 +1,53 @@
 /*==========================起跑检测=======================*/
-int Confirm_Start(void){
-int left=0,right=0,middle=0;
-if ((light_temp_laser_array[0]==1)&&(light_temp_laser_array[1]==1))
- right=1;
-if ((light_temp_laser_array[10]==1)&&(light_temp_laser_array[11]==1))
- left=1;
-if ((light_temp_laser_array[3]==1||light_temp_laser_array[4]==1)&&light_temp_laser_array[7]==1||light_temp_laser_array[8]==1)
- middle=1;
+void Confirm_Start(void){
+int leftside=0,rightside=0,middleleft=0,middleright=0,middleside=0;
+int leftnum=0,rightnum=0,middleleftnum=0,middlerightnum=0,middlesidenum=0;
 
-if(right&&left&&middle) 
-  return 1;
-else return 0;
+leftnum=error[0]+error[1]+error[2]+error[3]+error[4] ;
+rightnum=error[16]+error[17]+error[18]+error[19]+error[20];
+middleleftnum=error[12]+error[13];
+middlerightnum=error[7]+error[8];
+middlesidenum=error[9]+error[10]+error[11]+error[12];
+
+
+if (leftnum>=4)
+ leftside=1;
+if (rightnum>=4)
+ rightside=1;
+
+if (middleleftnum<=1)
+middleleft=1;
+
+if(middlerightnum<=1) 
+middleright=1;
+
+if(middlesidenum>=2)
+middleside=1 ;
+
+if((leftside&&rightside)&&(middleleft&&middleright)&&middleside)
+start_flag=1;
+else start_flag= 0;
+
+
 }
 
 
-/*==========================十字检测=====================*/
-int Confirm_Cross(void){
-if(special_flag>=5)
-return 1;
-else return 0;
+/*==========================十字检测=====================
+void Confirm_Cross(void){
+int i=0,black;
+  for(i=0;i<LASER_MAX;i++)
+    {  
+  if (error[i]==0) continue;
+  else if (error[i]==1)
+  black++; 
+    }
+ 
+
+if(black>=20)cross_flag= 1;
+else cross_flag= 0;
 }
+
+*/
 
 
 /*==================赛道汇总============================
@@ -28,10 +56,14 @@ i-(7-position/2)>3    排除
 方向标志Direction       
 byte Straight_flag;                     //直道标记  非0有效
 byte turn_flag;        
+byte really_special_flag=0;                //开启 起跑或者十字 也有可能是坡道
+byte maybe_special_flag=0;                 //开启可能的特殊  为坡道
+byte start_flag=0,cross_flag=0;             //起跑 十字标志
+byte slope_flag=0;
 */
+
 void Confirm_Light(){
- int i=0;    //changeposition 是position到位置的转换用于推导
- int start_count,cross_count;      //起始和十字计数
+ int i=0,j=0;    //changeposition 是position到位置的转换用于推导
  int abs_baitoupwm;
  int aabs_pos;
  
@@ -45,36 +77,118 @@ void Confirm_Light(){
  aabs_pos=aabs(aabs_pos);
  
  HitBlackNum=0;
- special_flag=0;
- 
- start_count=0;
- cross_count=0;
- start_flag=0;
- cross_flag=0; 
- calculate_light();
+
  
 
+ 
+
+if( start_flag==1);
+
+if(slope_flag==1)
+{
+calculate_light();
+
+if(HitBlackNum==21)
+position=0;
+
+else if(HitBlackNum<=4)
+slope_flag=0;
+
+} 
 
 
+  
+
+if(maybe_special_flag==1)
+{
+
+ if(maybe_slope_flag==0)
+  {
+  
+   calculate_light();
+
+   if(HitBlackNum<=3) 
+   {
+    for(j=0;j<LASER_MAX;j++)
+    error[j]=error[j]|light_temp_laser_array[j];
+    Confirm_Start();
+
+    maybe_special_flag=0;
+
+    for(j=0;j<LASER_MAX;j++)
+    error[j]=0;
+    }
+
+  else if(HitBlackNum<21)
+   {
+   for(j=0;j<LASER_MAX;j++)
+   error[j]=error[j]|light_temp_laser_array[j];
+   } 
+   
+   else if(HitBlackNum==21)
+   { 
+   maybe_slope_flag=1;
+   }
+
+ }
+ 
+
+ else if(maybe_slope_flag==1)
+   {
+        
+     calculate_light();
+     if(HitBlackNum==21)
+     slope_flag=1;
+    // special_count++;
+
+    /*  else 
+     {
+      slope_flag=0;special_count=0;maybe_special_flag==0;maybe_slope_flag==0;
+     } */
+      
+ // if(special_count>=5)
+  
+  else  slope_flag=0;
+  
+  maybe_special_flag=0;
+  maybe_slope_flag=0; 
+   }  
+
+}
+
+
+           
+
+
+else 
+{
+ calculate_light(); 
  if(HitBlackNum==0)
      {
      nothing_flag=1;
-     //if((aabs_pos<=20)&&(aabs_pos>17))nothing_flag=1;
-     
      }
  
- else  
+ else  if(HitBlackNum<=5) 
   {
   nothing_flag=0;
   Status_Judge();
-  }
-  
+  } 
  
+else 
+  {
+   maybe_special_flag=1;  //
+   if (light_temp_laser_array[9]+light_temp_laser_array[10]+light_temp_laser_array[11]>=2)
+   position=0;
+  }
+ 
+}
+
+
  
  if(abs_baitoupwm>60)
      { 
       if(Straight_flag)
-      {diansha_falg=1;diansha_num=speed_clear[1]/15;diansha_num=aabs(diansha_num);}             //第一次检测到弯道 标定点刹开始  点刹时间为速度除以10
+      {diansha_falg=1;diansha_num=speed_clear[1]/9;diansha_num=aabs(diansha_num);}             //第一次检测到弯道 标定点刹开始  点刹时间为速度除以10
      
       turn_flag=1;Straight_flag=0;
       } 
@@ -102,6 +216,9 @@ void Confirm_Light(){
 void calculate_light(void){
  int i=0,changeposition;
  changeposition=10+position/2;
+ 
+ His_HitBlackNum=HitBlackNum;
+ 
  for(i=0;i<LASER_MAX;i++) {
   if (light_temp_laser_array[i]==0) continue;
   else if (light_temp_laser_array[i]==1)// &&(aabs(i-changeposition)<=6)
@@ -113,6 +230,7 @@ void calculate_light(void){
  }
 
 }
+
 /*=====================激光管对应权值======================
 LASER_MAX     20   19   18   17   16   15  14  13  12  11  10    9    8    7     6     5     4     3    2     1     0
 对应的权值    20   18   16   14   12   10   8   6   4   2   0   -2   -4    -6    -8   -10  -12   -14   -16   -18   -20
@@ -221,7 +339,7 @@ void Level_IR( void)
 void Clear_Speed(void) {
 //long Speed_sum;
 //speed_clear[1]=(60*speed_clear[0]+20*speed_clear[1])/80;
-//speed_clear[0]=speed_clear[1];
+speed_clear[0]=speed_clear[1];
 }
 
 

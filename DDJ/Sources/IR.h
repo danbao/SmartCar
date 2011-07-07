@@ -55,7 +55,7 @@ void Collect_IR(void)
 *.红外累加值复位
 *.十字交叉位标记位复位
 *.红外累加值计数复位      
-*/ 
+ 
 void Linefull_process(byte a){
 int i=0;
 if(a==1){
@@ -66,6 +66,8 @@ crossingline_flag=0;
 empty_count=0; 
 }
 }
+*/
+
 
 /* ===================红外采集的值初步处理方法=======================
 *.红外临时值与累加值与,临时值如果该为为黑则累计值为黑
@@ -88,7 +90,7 @@ else {
 如果为黑线则十字交叉位标记位为1(一般只有十字交叉或过弯道会出现这种情况),如果十字交叉位标记位没变,且
 2,3,4的红外其中有白色的,则进行十字交叉判断,判断方法为看累加值是否会出现黑白黑的方法,如果出现就是起跑线,
 起跑线位标记位为1,然后用红外累计值全满处理方法处理标记位
-*/ 
+ 
 
 void TestCross_judge(void) {
 int i=0,start_flag=0,cross_flag=0,judge_flag=0;
@@ -116,6 +118,8 @@ else if(IR_process_array[i]<2&&start_flag==2){startingline_flag=1;start_flag=0;b
 Linefull_process(startingline_flag);
 Linefull_process(crossingline_flag);
 }
+*/
+
 
 /* ===================红外上坡到方法=======================
 *.

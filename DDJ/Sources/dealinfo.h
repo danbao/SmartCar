@@ -47,15 +47,16 @@ JG_clear_Pos[1]=JG_clear[1];
 
 
 YDdelay++;
-if(YDdelay%10==0||JG_pos_abs>17) 
+if(YDdelay%10==0) //||JG_pos_abs>17
 {
 YDdelay=0;  
 Diff_pos=JG_clear_Pos[1]-JG_clear[0];
-if((JG_clear_Pos[1]>0)&&(Diff_pos>0))//&&(JG_clear[0]>0)
+/*if((JG_clear_Pos[1]>0)&&(Diff_pos>0))//&&(JG_clear[0]>0)
 BD_flag=1;
 else if((JG_clear_Pos[1]<0)&&(Diff_pos<0))// &&(JG_clear[0]<0)    
 BD_flag=1;
-else BD_flag=1;
+else BD_flag=1; */
+BD_flag=1;
 } 
 
 else BD_flag=0;
@@ -252,7 +253,7 @@ int dj_pwm;
  speedinfo=speedinfo/20;
  speedaffect1=speedinfo*speedinfo;
  speedaffect2=speedaffect1*changebaitou;
- speedaffect3=speedaffect2/60;
+ speedaffect3=speedaffect2/160;
  
 //speedaffect=speedinfo*speedinfo*changebaitou/48; 
  //speedaffect[1]=(10*speedaffect[0]+60*speedaffect[1])/70;
@@ -286,10 +287,10 @@ else
 
        
 
-if(dj_pwm>315)
-dj_pwm=315;
-else if(dj_pwm<-315)
-dj_pwm=-315;
+if(dj_pwm>272)
+dj_pwm=272;
+else if(dj_pwm<-272)
+dj_pwm=-272;
 
 dj_pwm=dj_pwm+PWM01;
 PWMDTY01=dj_pwm;
@@ -307,12 +308,19 @@ int okspeed;
 if(a==1)
 {
   PORTB_PB7=0;
+  PWMDTY23 = 0; 
+  PWMDTY6=0;
+ 
 }
+
 else if(a==2){
  PORTB_PB7=1;
  PWMDTY23 = 550; 
  PWMDTY6=7;
-}
+} 
+
+ 
+
 else
 {
 PWMDTY23 = 550;      //正转固定
@@ -322,8 +330,8 @@ PORTB_PB7=1;
 
 changebaitou=baitoupwm/20;  //速度调节分70段
 
-if(changebaitou>0)okspeed=-2*changebaitou+320;
-else  okspeed=2*changebaitou+320;                    //弯道 偏移和速度的一个假象的关系 没有验证过
+if(changebaitou>0)okspeed=-2*changebaitou+310;
+else  okspeed=2*changebaitou+310;                    //弯道 偏移和速度的一个假象的关系 没有验证过
 
 
 subspeed=speed_clear[1]-okspeed;                   //当前速度与可行速度关系

@@ -18,8 +18,8 @@
   平均速度,最大速度,最小速度,当前速度*/
   int DP1=1,DP2=1,DP3=1,DP4=1,DP5=1,DP6=1,DP7=1;
   int DD=0;
-  int BP1=20,BP2=35,BP3=35,BP4=35,BP5=35,BP6=35,BP7=35,BP8=35,BP9=27,BP10=27;
-  int BD1=100,BD2=100,BD3=70,BD4=50,BD5=35,BD6=34,BD7=34,BD8=34,BD9=25,BD10=25;
+  int BP1=20,BP2=35,BP3=35,BP4=35,BP5=35,BP6=35,BP7=35,BP8=35,BP9=25,BP10=25;
+  int BD1=250,BD2=200,BD3=70,BD4=50,BD5=35,BD6=32,BD7=32,BD8=32,BD9=25,BD10=25;
   char SCIreceive[150];                    /*用于无线串口显示的字符串*/  
   int temp_pwm45=PWM45;						         //激光摆头舵机初始值
   int temp_pwm01=PWM01;					         	 //转向摆头舵机初始值
@@ -27,9 +27,13 @@
   byte light_temp_laser_array[LASER_MAX];  //当前激光管信息保存数组
   int  light_count;                        //激光点亮延迟
   
-  byte special_flag;
-  byte start_flag,cross_flag;             //起跑 十字标志
-  
+  byte maybe_slope_flag=0;                //开启 起跑或者十字 也有可能是坡道
+  byte maybe_special_flag=0;                 //开启可能的特殊  为坡道
+  byte start_flag=0,cross_flag=0;             //起跑 十字标志
+  byte slope_flag=0;                         //坡道 标识 
+  int special_count=0;                         //25mm 4571 编码值
+ 
+  byte error[LASER_MAX];
   //int error;
   
   double temp_speed;
@@ -42,14 +46,13 @@
   //红外
   byte IR_temp_laser_array[7];             //当前红外信息保存数组
   byte IR_process_array[7]={2,2,2,2,2,2,2}; 
-  byte startingline_flag=0;
-  byte crossingline_flag=0;
   byte empty_count=0;
   
   byte nothing_flag=0 ;
   byte right,left,middle;                    //中线左右值
   
   int HitBlackNum;
+  int His_HitBlackNum;
   
   int baitou_diff; 
   
@@ -60,7 +63,7 @@
   byte Straight_stop;                      //直道入弯的反转
   byte turn_stop;                          //弯道入直的反转
   byte first_flag=1;
-  //byte slope_flag=0;
+  
   //int quanyi=0;
   
   byte YDdelay=1;
