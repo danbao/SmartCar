@@ -27,7 +27,7 @@ void main(void)
   LIGHT_Init();
   SCI_Init();
   Tect_Speed_Init();    //ECT 捕捉初始
-  AD_Init(); 
+  //AD_Init(); 
   delayms(3000);
 
   Laser_num();
@@ -67,14 +67,16 @@ void main(void)
 void interrupt 66 PIT0_ISR(void) {
    DisableInterrupts; 
    PITCE_PCE0=0;PITCE_PCE0=1; 
-    Light_Up();         //激光整排点亮   
+   Light_Up();         //激光整排点亮   
    Confirm_Light(); //排除误点
    if(nothing_flag==1)
      {
       //Clear_baitou();  //position的第一次滤波
      // baitou_delay=9;
      } 
-   else if(nothing_flag==0) 
+   
+  
+   else if(nothing_flag==0&&maybe_special_flag==0) 
    {
    Clear_baitou();  //position的第一次滤波
    baitou_delay++;
@@ -85,6 +87,8 @@ void interrupt 66 PIT0_ISR(void) {
     JG_clear[1]=0;
     } 
    }
+   
+   
    General_Position();      
   // Collect_Point();
   // Collect_Section();
@@ -97,7 +101,7 @@ void interrupt 66 PIT0_ISR(void) {
     
   
 Clear_Speed();
-SpeedCtrl(startingline_flag); 
+SpeedCtrl(start_flag); 
 
 EnableInterrupts; 
    
