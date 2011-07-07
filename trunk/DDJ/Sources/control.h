@@ -1,54 +1,53 @@
 /*==========================起跑检测=======================*/
-void Confirm_Start(void){
-int leftside=0,rightside=0,middleleft=0,middleright=0,middleside=0;
-int leftnum=0,rightnum=0,middleleftnum=0,middlerightnum=0,middlesidenum=0;
+void Confirm_Start(void)
+{
+  int leftside=0,rightside=0,middleleft=0,middleright=0,middleside=0;
+  int leftnum=0,rightnum=0,middleleftnum=0,middlerightnum=0,middlesidenum=0;
 
-leftnum=error[0]+error[1]+error[2]+error[3]+error[4] ;
-rightnum=error[16]+error[17]+error[18]+error[19]+error[20];
-middleleftnum=error[12]+error[13];
-middlerightnum=error[7]+error[8];
-middlesidenum=error[9]+error[10]+error[11]+error[12];
-
-
-if (leftnum>=4)
- leftside=1;
-if (rightnum>=4)
- rightside=1;
-
-if (middleleftnum<=1)
-middleleft=1;
-
-if(middlerightnum<=1) 
-middleright=1;
-
-if(middlesidenum>=2)
-middleside=1 ;
-
-if((leftside&&rightside)&&(middleleft&&middleright)&&middleside)
-start_flag=1;
-else start_flag= 0;
+  leftnum=error[0]+error[1]+error[2]+error[3]+error[4] ;
+  rightnum=error[16]+error[17]+error[18]+error[19]+error[20];
+  middleleftnum=error[12]+error[13];
+  middlerightnum=error[7]+error[8];
+  middlesidenum=error[9]+error[10]+error[11]+error[12];
 
 
+  if (leftnum>=4)
+   leftside=1;
+  if (rightnum>=4)
+   rightside=1;
+
+  if (middleleftnum<=1)
+  middleleft=1;
+
+  if(middlerightnum<=1) 
+  middleright=1;
+
+  if(middlesidenum>=2)
+  middleside=1 ;
+
+  if((leftside&&rightside)&&(middleleft&&middleright)&&middleside)
+  start_flag=1;
+  else start_flag= 0;
 }
 
-
 /*==========================十字检测=====================
-void Confirm_Cross(void){
-int i=0,black;
+void Confirm_Cross(void)
+{
+  int i=0,black;
   for(i=0;i<LASER_MAX;i++)
-    {  
-  if (error[i]==0) continue;
+  {  
+    if (error[i]==0) 
+      continue;
   else if (error[i]==1)
-  black++; 
-    }
- 
-
-if(black>=20)cross_flag= 1;
-else cross_flag= 0;
+    black++; 
+  }
+  if(black>=20)
+    cross_flag= 1;
+  else 
+    cross_flag= 0;
 }
 
 */
-
 
 /*==================赛道汇总============================
 i-(7-position/2)>3    排除
@@ -60,175 +59,147 @@ byte really_special_flag=0;                //开启 起跑或者十字 也有可能是坡道
 byte maybe_special_flag=0;                 //开启可能的特殊  为坡道
 byte start_flag=0,cross_flag=0;             //起跑 十字标志
 byte slope_flag=0;
-*/
+========================================================*/
 
-void Confirm_Light(){
- int i=0,j=0;    //changeposition 是position到位置的转换用于推导
- int abs_baitoupwm;
- int aabs_pos;
- 
- 
- 
- baitoupwm=befo_General_pos;          
- abs_baitoupwm=baitoupwm;
- abs_baitoupwm=aabs(abs_baitoupwm);
- 
- aabs_pos=position;
- aabs_pos=aabs(aabs_pos);
- 
- HitBlackNum=0;
-
- 
-
- 
-
-if( start_flag==1);
-
-if(slope_flag==1)
+void Confirm_Light()
 {
-calculate_light();
-
-if(HitBlackNum==21)
-position=0;
-
-else if(HitBlackNum<=4)
-slope_flag=0;
-
-} 
-
-
-  
-
-if(maybe_special_flag==1)
-{
-
- if(maybe_slope_flag==0)
-  {
-  
-   calculate_light();
-
-   if(HitBlackNum<=3) 
-   {
-    for(j=0;j<LASER_MAX;j++)
-    error[j]=error[j]|light_temp_laser_array[j];
-    Confirm_Start();
-
-    maybe_special_flag=0;
-
-    for(j=0;j<LASER_MAX;j++)
-    error[j]=0;
-    }
-
-  else if(HitBlackNum<21)
-   {
-   for(j=0;j<LASER_MAX;j++)
-   error[j]=error[j]|light_temp_laser_array[j];
-   } 
+  int i=0,j=0;    //changeposition 是position到位置的转换用于推导
+  int abs_baitoupwm;
+  int aabs_pos;
    
-   else if(HitBlackNum==21)
-   { 
-   maybe_slope_flag=1;
-   }
 
- }
- 
-
- else if(maybe_slope_flag==1)
-   {
-        
-     calculate_light();
-     if(HitBlackNum==21)
-     slope_flag=1;
-    // special_count++;
-
-    /*  else 
-     {
-      slope_flag=0;special_count=0;maybe_special_flag==0;maybe_slope_flag==0;
-     } */
-      
- // if(special_count>=5)
-  
-  else  slope_flag=0;
-  
-  maybe_special_flag=0;
-  maybe_slope_flag=0; 
-   }  
-
-}
+  baitoupwm=befo_General_pos;          
+  abs_baitoupwm=baitoupwm;
+  abs_baitoupwm=aabs(abs_baitoupwm);
+   
+  aabs_pos=position;
+  aabs_pos=aabs(aabs_pos);
+   
+  HitBlackNum=0;
 
 
-           
+  if(start_flag==1);
 
-
-else 
-{
- calculate_light(); 
- if(HitBlackNum==0)
-     {
-     nothing_flag=1;
-     }
- 
- else  if(HitBlackNum<=5) 
+  if(slope_flag==1)
   {
-  nothing_flag=0;
-  Status_Judge();
+    calculate_light();
+
+    if(HitBlackNum==21)
+      position=0;
+
+    else if(HitBlackNum<=4)
+      slope_flag=0;
+
   } 
- 
-else 
+
+  if(maybe_special_flag==1)
   {
-   maybe_special_flag=1;  //
-   if (light_temp_laser_array[9]+light_temp_laser_array[10]+light_temp_laser_array[11]>=2)
-   position=0;
-  }
- 
-}
+    if(maybe_slope_flag==0)
+    {
+      calculate_light();
+      if(HitBlackNum<=3) 
+      {
+        for(j=0;j<LASER_MAX;j++)
+          error[j]=error[j]|light_temp_laser_array[j];
+        Confirm_Start();
 
+        maybe_special_flag=0;
 
- 
- if(abs_baitoupwm>60)
-     { 
-      if(Straight_flag)
-      {diansha_falg=1;diansha_num=speed_clear[1]/9;diansha_num=aabs(diansha_num);}             //第一次检测到弯道 标定点刹开始  点刹时间为速度除以10
-     
-      turn_flag=1;Straight_flag=0;
+        for(j=0;j<LASER_MAX;j++)
+          error[j]=0;
+      }
+
+      else if(HitBlackNum<21)
+      {
+        for(j=0;j<LASER_MAX;j++)
+        error[j]=error[j]|light_temp_laser_array[j];
       } 
- 
- else 
-  {
-  if(Straight_flag==1) 
-  {turn_flag=0;Straight_flag=1; } 
-  else if((turn_flag==1)&&(abs_baitoupwm>5))
-  {turn_flag=1;Straight_flag=0;}  
-  else if((turn_flag==1)&&(abs_baitoupwm<=5)) 
-  {turn_flag=0;Straight_flag=1;diansha_falg=0;}        //出弯补足角度 以防 还没完全出弯就转角就变小
-  } 
-  
-  
-  
- 
+       
+      else if(HitBlackNum==21)
+      { 
+        maybe_slope_flag=1;
+      }
+    }
+    else if(maybe_slope_flag==1)
+    {
+      calculate_light();
+      if(HitBlackNum==21)
+        slope_flag=1;
+        // special_count++;
+
+        /*  else 
+         {
+          slope_flag=0;special_count=0;maybe_special_flag==0;maybe_slope_flag==0;
+         } */
+          
+     // if(special_count>=5)
+      else  
+        slope_flag=0;
+      maybe_special_flag=0;
+      maybe_slope_flag=0; 
+     }  
+   }
+   else 
+   {
+     calculate_light(); 
+     if(HitBlackNum==0)
+     {
+        nothing_flag=1;
+     }
+     else if(HitBlackNum<=5) 
+     {
+        nothing_flag=0;
+        Status_Judge();
+     } 
+     else 
+     {
+        maybe_special_flag=1;  //
+        if (light_temp_laser_array[9]+light_temp_laser_array[10]+light_temp_laser_array[11]>=2)
+          position=0;
+     }
+    }
+    if(abs_baitoupwm>60)
+    { 
+      if(Straight_flag)
+      {
+        diansha_falg=1;diansha_num=speed_clear[1]/9;diansha_num=aabs(diansha_num);
+      }             //第一次检测到弯道 标定点刹开始  点刹时间为速度除以10
+         
+      turn_flag=1;Straight_flag=0;
+    } 
+    else 
+    {
+      if(Straight_flag==1) 
+      {
+        turn_flag=0;Straight_flag=1; 
+      } 
+      else if((turn_flag==1)&&(abs_baitoupwm>5))
+      {
+        turn_flag=1;Straight_flag=0;
+      }  
+      else if((turn_flag==1)&&(abs_baitoupwm<=5)) 
+      {
+        turn_flag=0;Straight_flag=1;diansha_falg=0;
+      }        //出弯补足角度 以防 还没完全出弯就转角就变小
+    } 
 }
-
-
-
-
 
 /*==========================逐个检查 包括计算照黑个数，错误点个数==========*/
-void calculate_light(void){
- int i=0,changeposition;
- changeposition=10+position/2;
- 
- His_HitBlackNum=HitBlackNum;
- 
- for(i=0;i<LASER_MAX;i++) {
-  if (light_temp_laser_array[i]==0) continue;
-  else if (light_temp_laser_array[i]==1)// &&(aabs(i-changeposition)<=6)
-  {
-  
-  HitBlackNum++;
-  }
+void calculate_light(void)
+{
+  int i=0,changeposition;
+  changeposition=10+position/2;
+  His_HitBlackNum=HitBlackNum;
    
- }
-
+  for(i=0;i<LASER_MAX;i++) 
+  {
+    if (light_temp_laser_array[i]==0) 
+      continue;
+    else if (light_temp_laser_array[i]==1)// &&(aabs(i-changeposition)<=6)
+    {
+      HitBlackNum++;
+    }
+  }
 }
 
 /*=====================激光管对应权值======================
@@ -239,9 +210,11 @@ LASER_MAX     20   19   18   17   16   15  14  13  12  11  10    9    8    7    
 
 ==========================================================*/
 
-void Laser_num(void){
+void Laser_num(void)
+{
   int i;
-  for(i=0;i<=LASER_MAX;i++){
+  for(i=0;i<=LASER_MAX;i++)
+  {
     q_temp_laser_num[i]=-20+2*i;
   }
 }
@@ -254,20 +227,35 @@ Lightnum 为表1值   q_temp_laser_num[LASER_MAX]
 blacknum为照黑个数
                                                           
 ==========================================================*/
-void Status_Judge(void) {
+void Status_Judge(void)
+{
   int i,temp_HitBlackNum,sum=0;
   temp_HitBlackNum=HitBlackNum;
-  for(i=0;i<LASER_MAX;i++){
+  for(i=0;i<LASER_MAX;i++)
+  {
     sum=sum+light_temp_laser_array[i]*q_temp_laser_num[i];
   }
   position=sum/temp_HitBlackNum;
   
-  if(position>6){left=1;right=0;middle=0;} 
-  else if(position<-6){right=1;left=0;middle=0;} 
-  else {middle=1;right=0;left=0;}
+  if(position>6)
+  {
+    left=1;
+    right=0;
+    middle=0;
+  } 
+  else if(position<-6)
+  {
+    right=1;
+    left=0;
+    middle=0;
+  } 
+  else 
+  {
+    middle=1;
+    right=0;
+    left=0;
+  }
 }
-
-
 
 /*=====================红外管程度值======================
 红外暂时把它分为三档小 中 大  越小离黑线越近
@@ -336,27 +324,12 @@ void Level_IR( void)
 由于编码盘捕捉的有时候也会不稳定
 所以虑一次波既可以平滑 又稳定
 */
-void Clear_Speed(void) {
-//long Speed_sum;
-//speed_clear[1]=(60*speed_clear[0]+20*speed_clear[1])/80;
-speed_clear[0]=speed_clear[1];
+void Clear_Speed(void) 
+{
+  //long Speed_sum;
+  //speed_clear[1]=(60*speed_clear[0]+20*speed_clear[1])/80;
+  speed_clear[0]=speed_clear[1];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -374,11 +347,14 @@ double Calculate_speed(double temp_pulse)
 /*=====================激光管照到黑线的个数======================
 合并到control 
 
-void Calculate_HitBlackNum(){
+void Calculate_HitBlackNum()
+{
   int i;
   HitBlackNum=0;
-  for(i=0;i<LASER_MAX;i++) {
-    if(light_temp_laser_array[i]==1){
+  for(i=0;i<LASER_MAX;i++) 
+  {
+    if(light_temp_laser_array[i]==1)
+    {
       HitBlackNum++;
     }
   }
@@ -386,18 +362,19 @@ void Calculate_HitBlackNum(){
 }
 */
 
-
 /*======================lost_blackline();======================
-void lost_blackline(void){
+void lost_blackline(void)
+{
   int HitBlackNum;
   lost_line_flag=0;
-  if(HitBlackNum) {
-  if (14-aabs(His_Position[2])<=3&&(aabs(His_Position[2]-position))<=2)
+  if(HitBlackNum) 
+  {
+    if (14-aabs(His_Position[2])<=3&&(aabs(His_Position[2]-position))<=2)
       lost_line_flag=0; 
-   else if(14-aabs(His_Position[2])<=3&&aabs(His_Position[2]+position)<=11)
-   lost_line_flag=1;
+    else if(14-aabs(His_Position[2])<=3&&aabs(His_Position[2]+position)<=11)
+      lost_line_flag=1;
   } 
   else  
-  lost_line_flag=1; 
+    lost_line_flag=1; 
 }
 */
