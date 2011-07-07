@@ -15,16 +15,6 @@ FILE SECTION
 MC9S12XS128.c.o                         Model: SMALL,         Lang: ANSI-C
 main.c.o                                Model: SMALL,         Lang: ANSI-C
 Start12.c.o                             Model: SMALL,         Lang: ANSI-C
-PRINTF.C.o (ansixsf.lib)                Model: SMALL,         Lang: ANSI-C
-STRING.C.o (ansixsf.lib)                Model: SMALL,         Lang: ANSI-C
-DADD.C.o (ansixsf.lib)                  Model: SMALL,         Lang: ANSI-C
-DANSI.C.o (ansixsf.lib)                 Model: SMALL,         Lang: ANSI-C
-DCMP.C.o (ansixsf.lib)                  Model: SMALL,         Lang: ANSI-C
-DCONV.C.o (ansixsf.lib)                 Model: SMALL,         Lang: ANSI-C
-DMUL.C.o (ansixsf.lib)                  Model: SMALL,         Lang: ANSI-C
-DREGS.C.o (ansixsf.lib)                 Model: SMALL,         Lang: ANSI-C
-rtshc12.c.o (ansixsf.lib)               Model: SMALL,         Lang: ANSI-C
-VREGS.C.o (ansixsf.lib)                 Model: SMALL,         Lang: ANSI-C
 
 *********************************************************************************************
 STARTUP SECTION
@@ -33,8 +23,8 @@ Entry point: 0xC029 (_Startup)
 _startupData is allocated at 0xC031 and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x2100     1293
-  _Copy    *toCopyDownBeg 0xDA1C
+  _Range   pZeroOut       0x2100     477
+  _Copy    *toCopyDownBeg 0xC20F
 } _startupData;
 
 *********************************************************************************************
@@ -43,12 +33,10 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             49     R     0xC000     0xC030   ROM_C000
 .startData                        10     R     0xC031     0xC03A   ROM_C000
-.rodata                          308     R     0xC03B     0xC16E   ROM_C000
-.rodata1                         106     R     0xC16F     0xC1D8   ROM_C000
-.text                           4784     R     0xC1D9     0xD488   ROM_C000
-.copy                           1275     R     0xDA1C     0xDF16   ROM_C000
+.text                            468     R     0xC03B     0xC20E   ROM_C000
+.copy                            474     R     0xC20F     0xC3E8   ROM_C000
 .stack                           256   R/W     0x2000     0x20FF   RAM
-.data                           1275   R/W     0x2100     0x25FA   RAM
+.data                            475   R/W     0x2100     0x22DA   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
 .abs_section_b                     1   N/I        0xB        0xB   .absSeg2
@@ -340,14 +328,12 @@ Section Name                    Size  Type     From       To       Segment
 .abs_section_352                   2   N/I      0x352      0x353   .absSeg288
 .abs_section_354                   2   N/I      0x354      0x355   .absSeg289
 .abs_section_356                   2   N/I      0x356      0x357   .absSeg290
-.bss                               8   R/W     0x25FB     0x2602   RAM
-.common                           10   R/W     0x2603     0x260C   RAM
-RUNTIME                         1427     R     0xD489     0xDA1B   ROM_C000
+.bss                               2   R/W     0x22DB     0x22DC   RAM
 .vectSeg291_vect                   2     R     0xFFFE     0xFFFF   .vectSeg291
 
 Summary of section sizes per section type:
-READ_ONLY (R):        1F19 (dec:     7961)
-READ_WRITE (R/W):      60D (dec:     1549)
+READ_ONLY (R):         3EB (dec:     1003)
+READ_WRITE (R/W):      2DD (dec:      733)
 NO_INIT (N/I):         168 (dec:      360)
 
 *********************************************************************************************
@@ -530,7 +516,7 @@ MODULE:                 -- MC9S12XS128.c.o --
      _PERS                                      24C       1       1       0   .abs_section_24c
      _PPSS                                      24D       1       1       0   .abs_section_24d
      _WOMS                                      24E       1       1       0   .abs_section_24e
-     _PTM                                       250       1       1      33   .abs_section_250
+     _PTM                                       250       1       1      29   .abs_section_250
      _PTIM                                      251       1       1       0   .abs_section_251
      _DDRM                                      252       1       1       1   .abs_section_252
      _RDRM                                      253       1       1       0   .abs_section_253
@@ -546,9 +532,9 @@ MODULE:                 -- MC9S12XS128.c.o --
      _PPSP                                      25D       1       1       0   .abs_section_25d
      _PIEP                                      25E       1       1       0   .abs_section_25e
      _PIFP                                      25F       1       1       0   .abs_section_25f
-     _PTH                                       260       1       1       0   .abs_section_260
+     _PTH                                       260       1       1       2   .abs_section_260
      _PTIH                                      261       1       1       0   .abs_section_261
-     _DDRH                                      262       1       1       0   .abs_section_262
+     _DDRH                                      262       1       1       1   .abs_section_262
      _RDRH                                      263       1       1       0   .abs_section_263
      _PERH                                      264       1       1       0   .abs_section_264
      _PPSH                                      265       1       1       0   .abs_section_265
@@ -656,59 +642,20 @@ MODULE:                 -- MC9S12XS128.c.o --
      _PITCNT3                                   356       2       2       0   .abs_section_356
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     delay_1ms                                 C1D9       9       9       2   .text       
-     delay_nms                                 C1E2      10      16       3   .text       
-     LCD_write_byte                            C1F2      44      68       7   .text       
-     LCD_set_XY                                C236      11      17       4   .text       
-     LCD_clear                                 C247      2A      42       8   .text       
-     LCD_position                              C271      23      35       1   .text       
-     LCD_write_zi                              C294      34      52       4   .text       
-     LCD_write_cizu                            C2C8      4D      77      14   .text       
-     LCD_write_shuzi                           C315      1E      30       3   .text       
-     LCD_write_hanzi                           C333      47      71      24   .text       
-     LCD_init                                  C37A      30      48       1   .text       
-     LCD_jiguang                               C3AA      49      73       1   .text       
-     LCD_hongwai                               C3F3      54      84       1   .text       
-     LCD_start                                 C447      82     130       1   .text       
-     LCD_show                                  C4C9      87     135       2   .text       
-     LCD_para                                  C550      4B      75       2   .text       
-     LCD_module                                C59B      33      51       1   .text       
-     LCD_status                                C5CE      23      35       1   .text       
-     LCD_module_modify                         C5F1      78     120       1   .text       
-     LCD_para_modify                           C669      51      81       1   .text       
-     LCD_determine                             C6BA     1FA     506      19   .text       
-     main                                      C8B4      14      20       1   .text       
+     delay_1ms                                 C03B       9       9       2   .text       
+     delay_nms                                 C044      10      16       2   .text       
+     LCD_write_byte                            C054      44      68       6   .text       
+     LCD_set_XY                                C098      11      17       2   .text       
+     LCD_clear                                 C0A9      2A      42       2   .text       
+     LCD_write_zi                              C0D3      34      52       1   .text       
+     LCD_init                                  C107      34      52       1   .text       
+     LCD_checkkey                              C13B      16      22       4   .text       
+     LCD_keyscan                               C151      97     151       1   .text       
+     main                                      C1E8      27      39       1   .text       
 - VARIABLES:
-     STRING..d.1                               C16F       3       3       1   .rodata1    
-     STRING.JG.status.2                        C172       A      10       1   .rodata1    
-     STRING.HW.status.3                        C17C       A      10       1   .rodata1    
-     STRING...3d.4                             C186       5       5       1   .rodata1    
-     STRING.SDJ.5                              C18B       4       4       1   .rodata1    
-     STRING.XDJ.6                              C18F       4       4       1   .rodata1    
-     STRING.SDJ.7                              C193       4       4       1   .rodata1    
-     STRING.XDJ.8                              C197       4       4       1   .rodata1    
-     STRING.Close.SDJ...9                      C19B       C      12       1   .rodata1    
-     STRING.ON..10                             C1A7       4       4       1   .rodata1    
-     STRING.OFF.11                             C1AB       4       4       1   .rodata1    
-     STRING.Close.XDJ...12                     C1AF       C      12       1   .rodata1    
-     STRING.ON..13                             C1BB       4       4       1   .rodata1    
-     STRING.OFF.14                             C1BF       4       4       1   .rodata1    
-     STRING.Modify.SDJ.15                      C1C3       B      11       1   .rodata1    
-     STRING.Modify.XDJ.16                      C1CE       B      11       1   .rodata1    
-     light_temp_laser_array                    2100       C      12       1   .data       
-     IR_temp_laser_array                       210C       E      14       1   .data       
-     LCD_para_num                              211A       2       2       5   .data       
-     LCD_module_num                            211C       2       2       5   .data       
-     module_status                             211E       2       2       3   .data       
-     data                                      2120     1DB     475       1   .data       
-     hanzi                                     22FB     300     768       1   .data       
-     lcdx                                      25FB       1       1       2   .bss        
-     lcdy                                      25FC       1       1       2   .bss        
-     LCD_flag                                  2603       2       2      14   .common     
-     LCD_para_sdj                              2605       2       2       4   .common     
-     LCD_para_xdj                              2607       2       2       4   .common     
-     LCD_module_sdj                            2609       2       2       1   .common     
-     LCD_module_xdj                            260B       2       2       1   .common     
+     data                                      2100     1DB     475       1   .data       
+     lcdx                                      22DB       1       1       1   .bss        
+     lcdy                                      22DC       1       1       1   .bss        
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
      Init                                      C000      29      41       1   .init       
@@ -717,129 +664,28 @@ MODULE:                 -- Start12.c.o --
      _startupData                              C031       6       6       3   .startData  
 - LABELS:
      __SEG_END_SSTACK                          2100       0       0       1               
-MODULE:                 -- PRINTF.C.o (ansixsf.lib) --
-- PROCEDURES:
-     Ten                                       C8C8      F3     243       9   .text       
-     vprintf                                   C9BB     A81    2689     143   .text       
-     _out                                      D43C       9       9      13   .text       
-     deposit_char                              D445       A      10       1   .text       
-     sprintf                                   D44F      27      39       2   .text       
-- VARIABLES:
-     pow10                                     C03B      28      40       4   .rodata     
-     pow16                                     C063      20      32       4   .rodata     
-     pow8                                      C083      2C      44       4   .rodata     
-     fpow10                                    C0AF      60      96       1   .rodata     
-     fpow_10                                   C10F      60      96       1   .rodata     
-     pbuf                                      25FD       6       6      14   .bss        
-MODULE:                 -- STRING.C.o (ansixsf.lib) --
-- PROCEDURES:
-     strlen                                    D476      13      19       1   .text       
-- VARIABLES:
-MODULE:                 -- DADD.C.o (ansixsf.lib) --
-- PROCEDURES:
-     D_ADDKL                                   D489      A6     166       1   RUNTIME     
-     _DADD                                     D52F      11      17       3   RUNTIME     
-     _DSUB                                     D540      19      25       1   RUNTIME     
-     _DNEG                                     D559      14      20       1   RUNTIME     
-- VARIABLES:
-MODULE:                 -- DANSI.C.o (ansixsf.lib) --
-- PROCEDURES:
-     D_FREXP                                   D56D      20      32       1   RUNTIME     
-     frexp                                     D58D      1F      31       1   RUNTIME     
-- VARIABLES:
-MODULE:                 -- DCMP.C.o (ansixsf.lib) --
-- PROCEDURES:
-     _DCMP                                     D5AC      30      48       2   RUNTIME     
-- VARIABLES:
-MODULE:                 -- DCONV.C.o (ansixsf.lib) --
-- PROCEDURES:
-     D_TOLONGK                                 D5DC      31      49       1   RUNTIME     
-     D_FRLONGK                                 D60D      18      24       1   RUNTIME     
-     _DUFLOAT                                  D625      14      20       2   RUNTIME     
-     _DSTRUNC                                  D639      19      25       1   RUNTIME     
-     _DUTRUNC                                  D652       3       3       6   RUNTIME     
-     D_PSHK_UNARY                              D655      1E      30       1   RUNTIME     
-     D_CLRK_UNARY                              D673       D      13       2   RUNTIME     
-     D_MAXK_UNARY                              D680       A      10       1   RUNTIME     
-     D_NORMK_UNARY                             D68A      53      83       1   RUNTIME     
-- VARIABLES:
-MODULE:                 -- DMUL.C.o (ansixsf.lib) --
-- PROCEDURES:
-     D_MULKL                                   D6DD      89     137       1   RUNTIME     
-     _DMUL                                     D766      11      17       7   RUNTIME     
-- VARIABLES:
-MODULE:                 -- DREGS.C.o (ansixsf.lib) --
-- PROCEDURES:
-     D_PULK                                    D777      29      41       3   RUNTIME     
-     D_PULL                                    D7A0      25      37       3   RUNTIME     
-     D_PSHK                                    D7C5      23      35       2   RUNTIME     
-     D_STAL                                    D7E8      2A      42       1   RUNTIME     
-     D_XGKL                                    D812      39      57       2   RUNTIME     
-     D_CLRK                                    D84B      13      19       3   RUNTIME     
-     D_MAXK                                    D85E       A      10       1   RUNTIME     
-     D_NORMK                                   D868      77     119       4   RUNTIME     
-- VARIABLES:
-MODULE:                 -- rtshc12.c.o (ansixsf.lib) --
-- PROCEDURES:
-     _LNEG                                     D8DF       9       9       1   RUNTIME     
-     _lDivMod                                  D8E8      B9     185       2   RUNTIME     
-     _LDIVU                                    D9A1       E      14       1   RUNTIME     
-     _NEG_P                                    D9AF       C      12       1   RUNTIME     
-     _LMODU                                    D9BB      11      17       1   RUNTIME     
-     _COPY                                     D9CC       8       8       4   RUNTIME     
-     _CASE_DIRECT_BYTE                         D9D4       5       5       2   RUNTIME     
-     _CASE_SEARCH_8                            D9D9      17      23       1   RUNTIME     
-     _CASE_SEARCH_8_BYTE                       D9F0      1A      26       2   RUNTIME     
-- VARIABLES:
-MODULE:                 -- VREGS.C.o (ansixsf.lib) --
-- PROCEDURES:
-     L_NEGK                                    DA0A       7       7       1   RUNTIME     
-     L_PSHK                                    DA11       8       8       1   RUNTIME     
-     UL_PULK                                   DA19       3       3       1   RUNTIME     
-- VARIABLES:
 
 *********************************************************************************************
 MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   MC9S12XS128.c.o                            360      0      0
-  main.c.o                                  1287   1775    106
+  main.c.o                                   477    468      0
   Start12.c.o                                  0     49      0
-  PRINTF.C.o (ansixsf.lib)                     6   2990    308
-  STRING.C.o (ansixsf.lib)                     0     19      0
-  DADD.C.o (ansixsf.lib)                       0    228      0
-  DANSI.C.o (ansixsf.lib)                      0     63      0
-  DCMP.C.o (ansixsf.lib)                       0     48      0
-  DCONV.C.o (ansixsf.lib)                      0    257      0
-  DMUL.C.o (ansixsf.lib)                       0    154      0
-  DREGS.C.o (ansixsf.lib)                      0    360      0
-  rtshc12.c.o (ansixsf.lib)                    0    299      0
-  VREGS.C.o (ansixsf.lib)                      0     18      0
-  other                                      256     12   1275
+  other                                      256     12    474
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  delay_1ms delay_nms LCD_write_byte LCD_set_XY LCD_clear LCD_position 
-  LCD_write_zi LCD_write_cizu LCD_write_shuzi LCD_write_hanzi LCD_init 
-  LCD_jiguang LCD_hongwai LCD_start LCD_show LCD_para LCD_module LCD_status 
-  LCD_module_modify LCD_para_modify LCD_determine main Ten vprintf _out 
-  deposit_char sprintf strlen 
+  delay_1ms delay_nms LCD_write_byte LCD_set_XY LCD_clear LCD_write_zi 
+  LCD_init LCD_checkkey LCD_keyscan main 
 SECTION: ".data"
-  light_temp_laser_array IR_temp_laser_array LCD_para_num LCD_module_num 
-  module_status data hanzi 
+  data 
 SECTION: ".bss"
-  lcdx lcdy pbuf 
+  lcdx lcdy 
 SECTION: ".init"
   Init _Startup 
-SECTION: ".rodata"
-  pow10 pow16 pow8 fpow10 fpow_10 
-SECTION: ".rodata1"
-  STRING..d.1 STRING.JG.status.2 STRING.HW.status.3 STRING...3d.4 STRING.SDJ.5 
-  STRING.XDJ.6 STRING.SDJ.7 STRING.XDJ.8 STRING.Close.SDJ...9 STRING.ON..10 
-  STRING.OFF.11 STRING.Close.XDJ...12 STRING.ON..13 STRING.OFF.14 
-  STRING.Modify.SDJ.15 STRING.Modify.XDJ.16 
 SECTION: ".abs_section_8"
   _PORTE 
 SECTION: ".abs_section_9"
@@ -1422,14 +1268,6 @@ SECTION: ".abs_section_354"
   _PITLD3 
 SECTION: ".abs_section_356"
   _PITCNT3 
-SECTION: ".common"
-  LCD_flag LCD_para_sdj LCD_para_xdj LCD_module_sdj LCD_module_xdj 
-SECTION: "RUNTIME"
-  D_ADDKL _DADD _DSUB _DNEG D_FREXP frexp _DCMP D_TOLONGK D_FRLONGK _DUFLOAT 
-  _DSTRUNC _DUTRUNC D_PSHK_UNARY D_CLRK_UNARY D_MAXK_UNARY D_NORMK_UNARY 
-  D_MULKL _DMUL D_PULK D_PULL D_PSHK D_STAL D_XGKL D_CLRK D_MAXK D_NORMK _LNEG 
-  _lDivMod _LDIVU _NEG_P _LMODU _COPY _CASE_DIRECT_BYTE _CASE_SEARCH_8 
-  _CASE_SEARCH_8_BYTE L_NEGK L_PSHK UL_PULK 
 
 *********************************************************************************************
 OBJECT LIST SORTED BY ADDRESS
@@ -1623,7 +1461,7 @@ OBJECT LIST SORTED BY ADDRESS
      _PERS                                      24C       1       1       0   .abs_section_24c
      _PPSS                                      24D       1       1       0   .abs_section_24d
      _WOMS                                      24E       1       1       0   .abs_section_24e
-     _PTM                                       250       1       1      33   .abs_section_250
+     _PTM                                       250       1       1      29   .abs_section_250
      _PTIM                                      251       1       1       0   .abs_section_251
      _DDRM                                      252       1       1       1   .abs_section_252
      _RDRM                                      253       1       1       0   .abs_section_253
@@ -1639,9 +1477,9 @@ OBJECT LIST SORTED BY ADDRESS
      _PPSP                                      25D       1       1       0   .abs_section_25d
      _PIEP                                      25E       1       1       0   .abs_section_25e
      _PIFP                                      25F       1       1       0   .abs_section_25f
-     _PTH                                       260       1       1       0   .abs_section_260
+     _PTH                                       260       1       1       2   .abs_section_260
      _PTIH                                      261       1       1       0   .abs_section_261
-     _DDRH                                      262       1       1       0   .abs_section_262
+     _DDRH                                      262       1       1       1   .abs_section_262
      _RDRH                                      263       1       1       0   .abs_section_263
      _PERH                                      264       1       1       0   .abs_section_264
      _PPSH                                      265       1       1       0   .abs_section_265
@@ -1726,184 +1564,41 @@ OBJECT LIST SORTED BY ADDRESS
      _PITCNT2                                   352       2       2       0   .abs_section_352
      _PITLD3                                    354       2       2       0   .abs_section_354
      _PITCNT3                                   356       2       2       0   .abs_section_356
-     light_temp_laser_array                    2100       C      12       1   .data       
-     IR_temp_laser_array                       210C       E      14       1   .data       
-     LCD_para_num                              211A       2       2       5   .data       
-     LCD_module_num                            211C       2       2       5   .data       
-     module_status                             211E       2       2       3   .data       
-     data                                      2120     1DB     475       1   .data       
-     hanzi                                     22FB     300     768       1   .data       
-     lcdx                                      25FB       1       1       2   .bss        
-     lcdy                                      25FC       1       1       2   .bss        
-     pbuf                                      25FD       6       6      14   .bss        
-     LCD_flag                                  2603       2       2      14   .common     
-     LCD_para_sdj                              2605       2       2       4   .common     
-     LCD_para_xdj                              2607       2       2       4   .common     
-     LCD_module_sdj                            2609       2       2       1   .common     
-     LCD_module_xdj                            260B       2       2       1   .common     
+     data                                      2100     1DB     475       1   .data       
+     lcdx                                      22DB       1       1       1   .bss        
+     lcdy                                      22DC       1       1       1   .bss        
      Init                                      C000      29      41       1   .init       
      _Startup                                  C029       8       8       0   .init       
-     pow10                                     C03B      28      40       4   .rodata     
-     pow16                                     C063      20      32       4   .rodata     
-     pow8                                      C083      2C      44       4   .rodata     
-     fpow10                                    C0AF      60      96       1   .rodata     
-     fpow_10                                   C10F      60      96       1   .rodata     
-     STRING..d.1                               C16F       3       3       1   .rodata1    
-     STRING.JG.status.2                        C172       A      10       1   .rodata1    
-     STRING.HW.status.3                        C17C       A      10       1   .rodata1    
-     STRING...3d.4                             C186       5       5       1   .rodata1    
-     STRING.SDJ.5                              C18B       4       4       1   .rodata1    
-     STRING.XDJ.6                              C18F       4       4       1   .rodata1    
-     STRING.SDJ.7                              C193       4       4       1   .rodata1    
-     STRING.XDJ.8                              C197       4       4       1   .rodata1    
-     STRING.Close.SDJ...9                      C19B       C      12       1   .rodata1    
-     STRING.ON..10                             C1A7       4       4       1   .rodata1    
-     STRING.OFF.11                             C1AB       4       4       1   .rodata1    
-     STRING.Close.XDJ...12                     C1AF       C      12       1   .rodata1    
-     STRING.ON..13                             C1BB       4       4       1   .rodata1    
-     STRING.OFF.14                             C1BF       4       4       1   .rodata1    
-     STRING.Modify.SDJ.15                      C1C3       B      11       1   .rodata1    
-     STRING.Modify.XDJ.16                      C1CE       B      11       1   .rodata1    
-     delay_1ms                                 C1D9       9       9       2   .text       
-     delay_nms                                 C1E2      10      16       3   .text       
-     LCD_write_byte                            C1F2      44      68       7   .text       
-     LCD_set_XY                                C236      11      17       4   .text       
-     LCD_clear                                 C247      2A      42       8   .text       
-     LCD_position                              C271      23      35       1   .text       
-     LCD_write_zi                              C294      34      52       4   .text       
-     LCD_write_cizu                            C2C8      4D      77      14   .text       
-     LCD_write_shuzi                           C315      1E      30       3   .text       
-     LCD_write_hanzi                           C333      47      71      24   .text       
-     LCD_init                                  C37A      30      48       1   .text       
-     LCD_jiguang                               C3AA      49      73       1   .text       
-     LCD_hongwai                               C3F3      54      84       1   .text       
-     LCD_start                                 C447      82     130       1   .text       
-     LCD_show                                  C4C9      87     135       2   .text       
-     LCD_para                                  C550      4B      75       2   .text       
-     LCD_module                                C59B      33      51       1   .text       
-     LCD_status                                C5CE      23      35       1   .text       
-     LCD_module_modify                         C5F1      78     120       1   .text       
-     LCD_para_modify                           C669      51      81       1   .text       
-     LCD_determine                             C6BA     1FA     506      19   .text       
-     main                                      C8B4      14      20       1   .text       
-     Ten                                       C8C8      F3     243       9   .text       
-     vprintf                                   C9BB     A81    2689     143   .text       
-     _out                                      D43C       9       9      13   .text       
-     deposit_char                              D445       A      10       1   .text       
-     sprintf                                   D44F      27      39       2   .text       
-     strlen                                    D476      13      19       1   .text       
-     D_ADDKL                                   D489      A6     166       1   RUNTIME     
-     _DADD                                     D52F      11      17       3   RUNTIME     
-     _DSUB                                     D540      19      25       1   RUNTIME     
-     _DNEG                                     D559      14      20       1   RUNTIME     
-     D_FREXP                                   D56D      20      32       1   RUNTIME     
-     frexp                                     D58D      1F      31       1   RUNTIME     
-     _DCMP                                     D5AC      30      48       2   RUNTIME     
-     D_TOLONGK                                 D5DC      31      49       1   RUNTIME     
-     D_FRLONGK                                 D60D      18      24       1   RUNTIME     
-     _DUFLOAT                                  D625      14      20       2   RUNTIME     
-     _DSTRUNC                                  D639      19      25       1   RUNTIME     
-     _DUTRUNC                                  D652       3       3       6   RUNTIME     
-     D_PSHK_UNARY                              D655      1E      30       1   RUNTIME     
-     D_CLRK_UNARY                              D673       D      13       2   RUNTIME     
-     D_MAXK_UNARY                              D680       A      10       1   RUNTIME     
-     D_NORMK_UNARY                             D68A      53      83       1   RUNTIME     
-     D_MULKL                                   D6DD      89     137       1   RUNTIME     
-     _DMUL                                     D766      11      17       7   RUNTIME     
-     D_PULK                                    D777      29      41       3   RUNTIME     
-     D_PULL                                    D7A0      25      37       3   RUNTIME     
-     D_PSHK                                    D7C5      23      35       2   RUNTIME     
-     D_STAL                                    D7E8      2A      42       1   RUNTIME     
-     D_XGKL                                    D812      39      57       2   RUNTIME     
-     D_CLRK                                    D84B      13      19       3   RUNTIME     
-     D_MAXK                                    D85E       A      10       1   RUNTIME     
-     D_NORMK                                   D868      77     119       4   RUNTIME     
-     _LNEG                                     D8DF       9       9       1   RUNTIME     
-     _lDivMod                                  D8E8      B9     185       2   RUNTIME     
-     _LDIVU                                    D9A1       E      14       1   RUNTIME     
-     _NEG_P                                    D9AF       C      12       1   RUNTIME     
-     _LMODU                                    D9BB      11      17       1   RUNTIME     
-     _COPY                                     D9CC       8       8       4   RUNTIME     
-     _CASE_DIRECT_BYTE                         D9D4       5       5       2   RUNTIME     
-     _CASE_SEARCH_8                            D9D9      17      23       1   RUNTIME     
-     _CASE_SEARCH_8_BYTE                       D9F0      1A      26       2   RUNTIME     
-     L_NEGK                                    DA0A       7       7       1   RUNTIME     
-     L_PSHK                                    DA11       8       8       1   RUNTIME     
-     UL_PULK                                   DA19       3       3       1   RUNTIME     
+     delay_1ms                                 C03B       9       9       2   .text       
+     delay_nms                                 C044      10      16       2   .text       
+     LCD_write_byte                            C054      44      68       6   .text       
+     LCD_set_XY                                C098      11      17       2   .text       
+     LCD_clear                                 C0A9      2A      42       2   .text       
+     LCD_write_zi                              C0D3      34      52       1   .text       
+     LCD_init                                  C107      34      52       1   .text       
+     LCD_checkkey                              C13B      16      22       4   .text       
+     LCD_keyscan                               C151      97     151       1   .text       
+     main                                      C1E8      27      39       1   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
 NOT USED PROCEDURES
-PRINTF.C.o (ansixsf.lib):
-  set_printf vsprintf 
-STRING.C.o (ansixsf.lib):
-  strerror memchr memcmp memcpy2 memcpy _memcpy_8bitCount memmove memset 
-  _memset_clear_8bitCount strset strcat strncat strcpy strncpy strcmp strncmp 
-  strchr strrchr strspn strcspn strpbrk strstr strtok strcoll strxfrm 
-DADD.C.o (ansixsf.lib):
-  _DINC _DDEC _DABS 
-DANSI.C.o (ansixsf.lib):
-  D_MODF D_LDEXP modf RetErrDom ldexp 
-DCONV.C.o (ansixsf.lib):
-  _DSFLOAT 
-DMUL.C.o (ansixsf.lib):
-  D_DIVKL _DDIV 
-DREGS.C.o (ansixsf.lib):
-  D_TLK D_TKL D_CLRL 
-rtshc12.c.o (ansixsf.lib):
-  _BSHL _BSHRS _BSHRU _BDIVMODU _BDIVMODS _ISHL _ISHRU _ISHRS _LSHL _LSHRU 
-  _LSHRS _LADD _LSUB _LAND _LOR _LXOR _LCMP _LCMP_P _LCMP_PP _LCOM _LINC _LDEC 
-  _LMUL _LMULU16x32 _LMULS16x32 _LDIVS _LMODS _ILSEXT _CASE_DIRECT 
-  _CASE_CHECKED _CASE_CHECKED_BYTE _CASE_SEARCH _CASE_SEARCH_BYTE _FCALL _FPCMP 
-  _PADD _PSUB _PINC _PDEC 
-VREGS.C.o (ansixsf.lib):
-  SL_PULK 
+main.c.o:
+  LCD_position LCD_write_cizu LCD_write_shuzi LCD_write_hanzi LCD_start 
 NOT USED VARIABLES
-STRING.C.o (ansixsf.lib):
-  STRING..1 next.2 
-DANSI.C.o (ansixsf.lib):
-  infinity errno 
-rtshc12.c.o (ansixsf.lib):
-  _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
+main.c.o:
+  STRING..d.1 light_temp_laser_array IR_temp_laser_array LCD_para_num 
+  LCD_module_num module_status hanzi LCD_flag LCD_para_sdj LCD_para_xdj 
+  LCD_module_sdj LCD_module_xdj 
 
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xDA1C ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC20F ---- SIZE       4 ---
 Filling bytes inserted
- 022D2100
-------- ROM-ADDRESS: 0xDA20 ---- RAM-ADDRESS: 0x2100 ---- SIZE       9 ---
-Name of initialized Object : light_temp_laser_array
- 0100010001 00010101
-------- ROM-ADDRESS: 0xDA29 ---- SIZE       4 ---
-Filling bytes inserted
- 00000000
-------- ROM-ADDRESS: 0xDA2D ---- RAM-ADDRESS: 0x210D ---- SIZE      13 ---
-Name of initialized Object : IR_temp_laser_array:1
- 82000000C8 000000FF00 640096
-------- ROM-ADDRESS: 0xDA3A ---- SIZE       1 ---
-Filling bytes inserted
- 00
-------- ROM-ADDRESS: 0xDA3B ---- RAM-ADDRESS: 0x211B ---- SIZE       1 ---
-Name of initialized Object : LCD_para_num:1
- 28
-------- ROM-ADDRESS: 0xDA3C ---- SIZE       1 ---
-Filling bytes inserted
- 00
-------- ROM-ADDRESS: 0xDA3D ---- RAM-ADDRESS: 0x211D ---- SIZE       1 ---
-Name of initialized Object : LCD_module_num:1
- 32
-------- ROM-ADDRESS: 0xDA3E ---- SIZE       1 ---
-Filling bytes inserted
- 00
-------- ROM-ADDRESS: 0xDA3F ---- RAM-ADDRESS: 0x211F ---- SIZE       1 ---
-Name of initialized Object : module_status:1
- 01
-------- ROM-ADDRESS: 0xDA40 ---- SIZE       7 ---
-Filling bytes inserted
- 0000000000 0000
-------- ROM-ADDRESS: 0xDA47 ---- RAM-ADDRESS: 0x2127 ---- SIZE     468 ---
+ 01D42107
+------- ROM-ADDRESS: 0xC213 ---- RAM-ADDRESS: 0x2107 ---- SIZE     468 ---
 Name of initialized Object : data:7
  2F00000007 000700147F 147F14242A
  7F2A126264 0813233649 5522500005
@@ -1937,89 +1632,7 @@ Name of initialized Object : data:7
  1028441CA0 A0A07C4464 544C440008
  3641000000 7F00000041 3608000810
  080408
-------- ROM-ADDRESS: 0xDC1B ---- SIZE       2 ---
-Filling bytes inserted
- 0000
-------- ROM-ADDRESS: 0xDC1D ---- RAM-ADDRESS: 0x22FD ---- SIZE      48 ---
-Name of initialized Object : hanzi:2
- FF0505F555 5D55555555 F505010040
- 300F80A097 BD55555555 55B7808000
- 00F8010600 0002020202 020202FE00
- 0000FF
-------- ROM-ADDRESS: 0xDC4D ---- SIZE       4 ---
-Filling bytes inserted
- 02C42336
-------- ROM-ADDRESS: 0xDC51 ---- RAM-ADDRESS: 0x2336 ---- SIZE     242 ---
-Name of initialized Object : hanzi:59
- 40807F0000 2020202020 2020FF2020
- 2020202020 0080804020 100C030003
- 0C10204080 8000403011 9690909196
- 9090981413 5030000404 0404044484
- 7E06050404 0404040002 020AEAAAAA
- AAAFAAAAAA EA0A020200 824A2A1E0B
- 4A8A7A02FA 4B4A4AFA02 000000FC04
- 24242425F6 242424E404 040040308F
- 8149492919 0F1929494F 8181004030
- 10125C5450 515ED45018 5732100000
- 0202020202 42827F0202 0202020200
- FE02324A86 0C24242526 2424240C04
- 00FF000204 8341310F01 017F818181
- F100404042 4458C0407F 40C0504846
- 4040008080 4020180700 00003F4040
- 4040780000 00F8888888 88FF888888
- 88F8
-------- ROM-ADDRESS: 0xDD43 ---- SIZE       5 ---
-Filling bytes inserted
- 0000000000
-------- ROM-ADDRESS: 0xDD48 ---- RAM-ADDRESS: 0x242D ---- SIZE      58 ---
-Name of initialized Object : hanzi:306
- 1F08080808 7F88888888 9F80F00000
- 1088844320 100C102041 8284080000
- 010100FE42 4242424242 42FE000101
- 000000FE02 1222C202C2 3202FE
-------- ROM-ADDRESS: 0xDD82 ---- SIZE       4 ---
-Filling bytes inserted
- 00000000
-------- ROM-ADDRESS: 0xDD86 ---- RAM-ADDRESS: 0x246B ---- SIZE      15 ---
-Name of initialized Object : hanzi:368
- 80601F0020 100C030C30 000F3040F8
-------- ROM-ADDRESS: 0xDD95 ---- SIZE       4 ---
-Filling bytes inserted
- 00000000
-------- ROM-ADDRESS: 0xDD99 ---- RAM-ADDRESS: 0x247E ---- SIZE      21 ---
-Name of initialized Object : hanzi:387
- E0000000FF 0000002040 8000000804
- 0300004080 7F
-------- ROM-ADDRESS: 0xDDAE ---- SIZE       5 ---
-Filling bytes inserted
- 0000000000
-------- ROM-ADDRESS: 0xDDB3 ---- RAM-ADDRESS: 0x2498 ---- SIZE     354 ---
-Name of initialized Object : hanzi:413
- 010E000008 884828180F E808080808
- 0808000008 0809090909 09FF090909
- 0909080800 00083000FF 20202020FF
- 2020222C20 0004040201 FF8040300E
- 0106182040 8000000484 844424548F
- 1424448484 0400004139 00003C4040
- 424C404070 0409310040 20F807F0A0
- 904C5724A4 544C808000 0000FF001F
- 8092524929 2412080000 0004848484
- 84FC4030CC 0B0808F808 0800007F20
- 1010088040 2116081621 4080000020
- 20A86C2A39 28A82A6CA8 2020000002
- 828190924A 4945242210 0801020200
- 90523410FF 1034528070 8F0808F808
- 00829A5663 22528E0080 40330C3340
- 8000000010 11161010F0 1010141310
- 0000008181 414121110D 030D112141
- 4181810000 F801222022 22A2FA2222
- 2202FE0000 00FF000804 0211201F00
- 0040807F00 001010D0FF 9014E4AFA4
- A4A4AFE404 0000040300 FF00894B2A
- 1A0E1A2A4B 8880002020 20FF202008
- 0808FF0808 08F8000010 30100F8848
- 21110D030D 11214181
-------- ROM-ADDRESS: 0xDF15 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC3E7 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -2032,63 +1645,13 @@ delay_nms                 USES delay_1ms
 LCD_write_byte            USES _PTM 
 LCD_set_XY                USES LCD_write_byte 
 LCD_clear                 USES LCD_set_XY LCD_write_byte lcdx lcdy 
-LCD_position              USES lcdx lcdy 
 LCD_write_zi              USES LCD_set_XY data LCD_write_byte 
-LCD_write_cizu            USES LCD_write_zi strlen LCD_position 
-LCD_write_shuzi           USES STRING..d.1 sprintf LCD_write_cizu 
-LCD_write_hanzi           USES LCD_set_XY hanzi LCD_write_byte 
-LCD_init                  USES _DDRM _PTM delay_1ms LCD_write_byte LCD_clear 
-LCD_jiguang               USES STRING.JG.status.2 LCD_write_cizu LCD_write_zi 
-LCD_hongwai               USES STRING.HW.status.3 LCD_write_cizu STRING...3d.4 
-                                sprintf 
-LCD_start                 USES LCD_clear LCD_write_hanzi 
-LCD_show                  USES LCD_clear LCD_write_hanzi 
-LCD_para                  USES LCD_clear LCD_para_num LCD_write_zi 
-                                STRING.SDJ.5 LCD_write_cizu LCD_para_sdj LCD_write_shuzi 
-                                STRING.XDJ.6 LCD_para_xdj 
-LCD_module                USES LCD_clear LCD_module_num LCD_write_zi 
-                                STRING.SDJ.7 LCD_write_cizu STRING.XDJ.8 
-LCD_status                USES LCD_clear light_temp_laser_array LCD_jiguang 
-                                IR_temp_laser_array LCD_hongwai LCD_para 
-LCD_module_modify         USES LCD_clear STRING.Close.SDJ...9 LCD_write_cizu 
-                                STRING.ON..10 STRING.OFF.11 LCD_module_sdj 
-                                STRING.Close.XDJ...12 STRING.ON..13 STRING.OFF.14 LCD_module_xdj 
-LCD_para_modify           USES LCD_clear STRING.Modify.SDJ.15 LCD_write_cizu 
-                                LCD_para_sdj STRING.Modify.XDJ.16 LCD_para_xdj 
-                                LCD_write_shuzi 
-LCD_determine             USES _PTM LCD_flag LCD_determine LCD_para_num 
-                                LCD_module_num delay_nms module_status _CASE_DIRECT_BYTE 
-                                _CASE_SEARCH_8_BYTE LCD_show LCD_status LCD_para LCD_module 
-                                LCD_para_modify LCD_module_modify 
-main                      USES LCD_init LCD_start delay_nms LCD_show 
-                                LCD_determine 
-Ten                       USES fpow10 fpow_10 Ten _DMUL _COPY 
-vprintf                   USES vprintf _out _CASE_SEARCH_8_BYTE 
-                                _CASE_DIRECT_BYTE _CASE_SEARCH_8 pbuf _LNEG pow8 pow16 _DNEG 
-                                frexp Ten _DMUL _DUTRUNC _DUFLOAT _DADD _COPY _DSUB 
-                                _DCMP pow10 _LDIVU _LMODU 
-_out                      USES pbuf 
-deposit_char              USES pbuf 
-sprintf                   USES pbuf deposit_char vprintf 
-D_ADDKL                   USES D_XGKL D_NORMK 
-_DADD                     USES D_PULK D_PULL D_ADDKL D_PSHK 
-_DSUB                     USES _DADD 
-D_FREXP                   USES D_NORMK 
-frexp                     USES D_PULK D_FREXP D_STAL 
-D_FRLONGK                 USES D_NORMK_UNARY 
-_DUFLOAT                  USES UL_PULK D_FRLONGK D_PSHK_UNARY 
-_DSTRUNC                  USES D_PULL D_TOLONGK L_PSHK 
-_DUTRUNC                  USES _DSTRUNC 
-D_MAXK_UNARY              USES D_CLRK_UNARY 
-D_NORMK_UNARY             USES D_CLRK_UNARY D_MAXK_UNARY 
-D_MULKL                   USES D_CLRK D_NORMK 
-_DMUL                     USES D_PULK D_PULL D_MULKL D_PSHK 
-D_MAXK                    USES D_CLRK 
-D_NORMK                   USES D_CLRK D_MAXK 
-_LDIVU                    USES _lDivMod 
-_LMODU                    USES _lDivMod 
-L_NEGK                    USES _NEG_P 
-L_PSHK                    USES L_NEGK 
+LCD_init                  USES _DDRM _DDRH _PTM delay_1ms LCD_write_byte 
+                                LCD_clear 
+LCD_checkkey              USES _PTM _PTH 
+LCD_keyscan               USES LCD_checkkey delay_nms _PTM _PTH 
+main                      USES LCD_init LCD_checkkey LCD_clear LCD_keyscan 
+                                LCD_write_zi delay_nms 
 
 *********************************************************************************************
 DEPENDENCY TREE
@@ -2111,212 +1674,26 @@ DEPENDENCY TREE
  |  |     |     
  |  |     +- LCD_write_byte       (see above)
  |  |        
- |  +- LCD_start           
+ |  +- LCD_checkkey        
+ |  |    
+ |  +- LCD_clear            (see above)
+ |  |  
+ |  +- LCD_keyscan         
  |  |  | 
- |  |  +- LCD_clear            (see above)
+ |  |  +- LCD_checkkey         (see above)
  |  |  |  
- |  |  +- LCD_write_hanzi     
+ |  |  +- delay_nms           
  |  |     | 
- |  |     +- LCD_set_XY           (see above)
- |  |     |  
- |  |     +- LCD_write_byte       (see above)
+ |  |     +- delay_1ms            (see above)
  |  |        
- |  +- delay_nms           
+ |  +- LCD_write_zi        
  |  |  | 
- |  |  +- delay_1ms            (see above)
- |  |     
- |  +- LCD_show            
- |  |  | 
- |  |  +- LCD_clear            (see above)
+ |  |  +- LCD_set_XY           (see above)
  |  |  |  
- |  |  +- LCD_write_hanzi      (see above)
+ |  |  +- LCD_write_byte       (see above)
  |  |     
- |  +- LCD_determine       
- |     | 
- |     +- delay_nms            (see above)
- |     |  
- |     +- _CASE_DIRECT_BYTE   
- |     |    
- |     +- _CASE_SEARCH_8_BYTE 
- |     |    
- |     +- LCD_show             (see above)
- |     |  
- |     +- LCD_status          
- |     |  | 
- |     |  +- LCD_clear            (see above)
- |     |  |  
- |     |  +- LCD_jiguang         
- |     |  |  | 
- |     |  |  +- LCD_write_cizu      
- |     |  |  |  | 
- |     |  |  |  +- LCD_write_zi        
- |     |  |  |  |  | 
- |     |  |  |  |  +- LCD_set_XY           (see above)
- |     |  |  |  |  |  
- |     |  |  |  |  +- LCD_write_byte       (see above)
- |     |  |  |  |     
- |     |  |  |  +- strlen              
- |     |  |  |  |    
- |     |  |  |  +- LCD_position        
- |     |  |  |       
- |     |  |  +- LCD_write_zi         (see above)
- |     |  |     
- |     |  +- LCD_hongwai         
- |     |  |  | 
- |     |  |  +- LCD_write_cizu       (see above)
- |     |  |  |  
- |     |  |  +- sprintf             
- |     |  |     | 
- |     |  |     +- deposit_char        
- |     |  |     |    
- |     |  |     +- vprintf             
- |     |  |        | 
- |     |  |        +- _out                
- |     |  |        |    
- |     |  |        +- _CASE_SEARCH_8_BYTE  (see above)
- |     |  |        |  
- |     |  |        +- _CASE_DIRECT_BYTE    (see above)
- |     |  |        |  
- |     |  |        +- _CASE_SEARCH_8      
- |     |  |        |    
- |     |  |        +- _LNEG               
- |     |  |        |    
- |     |  |        +- _DNEG               
- |     |  |        |    
- |     |  |        +- frexp               
- |     |  |        |  | 
- |     |  |        |  +- D_PULK              
- |     |  |        |  |    
- |     |  |        |  +- D_FREXP             
- |     |  |        |  |  | 
- |     |  |        |  |  +- D_NORMK             
- |     |  |        |  |     | 
- |     |  |        |  |     +- D_CLRK              
- |     |  |        |  |     |    
- |     |  |        |  |     +- D_MAXK              
- |     |  |        |  |        | 
- |     |  |        |  |        +- D_CLRK               (see above)
- |     |  |        |  |           
- |     |  |        |  +- D_STAL              
- |     |  |        |       
- |     |  |        +- Ten                 
- |     |  |        |  | 
- |     |  |        |  +- _DMUL               
- |     |  |        |  |  | 
- |     |  |        |  |  +- D_PULK               (see above)
- |     |  |        |  |  |  
- |     |  |        |  |  +- D_PULL              
- |     |  |        |  |  |    
- |     |  |        |  |  +- D_MULKL             
- |     |  |        |  |  |  | 
- |     |  |        |  |  |  +- D_CLRK               (see above)
- |     |  |        |  |  |  |  
- |     |  |        |  |  |  +- D_NORMK              (see above)
- |     |  |        |  |  |     
- |     |  |        |  |  +- D_PSHK              
- |     |  |        |  |       
- |     |  |        |  +- _COPY               
- |     |  |        |       
- |     |  |        +- _DMUL                (see above)
- |     |  |        |  
- |     |  |        +- _DUTRUNC            
- |     |  |        |  | 
- |     |  |        |  +- _DSTRUNC            
- |     |  |        |     | 
- |     |  |        |     +- D_PULL               (see above)
- |     |  |        |     |  
- |     |  |        |     +- D_TOLONGK           
- |     |  |        |     |    
- |     |  |        |     +- L_PSHK              
- |     |  |        |        | 
- |     |  |        |        +- L_NEGK              
- |     |  |        |           | 
- |     |  |        |           +- _NEG_P              
- |     |  |        |                
- |     |  |        +- _DUFLOAT            
- |     |  |        |  | 
- |     |  |        |  +- UL_PULK             
- |     |  |        |  |    
- |     |  |        |  +- D_FRLONGK           
- |     |  |        |  |  | 
- |     |  |        |  |  +- D_NORMK_UNARY       
- |     |  |        |  |     | 
- |     |  |        |  |     +- D_CLRK_UNARY        
- |     |  |        |  |     |    
- |     |  |        |  |     +- D_MAXK_UNARY        
- |     |  |        |  |        | 
- |     |  |        |  |        +- D_CLRK_UNARY         (see above)
- |     |  |        |  |           
- |     |  |        |  +- D_PSHK_UNARY        
- |     |  |        |       
- |     |  |        +- _DADD               
- |     |  |        |  | 
- |     |  |        |  +- D_PULK               (see above)
- |     |  |        |  |  
- |     |  |        |  +- D_PULL               (see above)
- |     |  |        |  |  
- |     |  |        |  +- D_ADDKL             
- |     |  |        |  |  | 
- |     |  |        |  |  +- D_XGKL              
- |     |  |        |  |  |    
- |     |  |        |  |  +- D_NORMK              (see above)
- |     |  |        |  |     
- |     |  |        |  +- D_PSHK               (see above)
- |     |  |        |     
- |     |  |        +- _COPY                (see above)
- |     |  |        |  
- |     |  |        +- _DSUB               
- |     |  |        |  | 
- |     |  |        |  +- _DADD                (see above)
- |     |  |        |     
- |     |  |        +- _DCMP               
- |     |  |        |    
- |     |  |        +- _LDIVU              
- |     |  |        |  | 
- |     |  |        |  +- _lDivMod            
- |     |  |        |       
- |     |  |        +- _LMODU              
- |     |  |           | 
- |     |  |           +- _lDivMod             (see above)
- |     |  |              
- |     |  +- LCD_para            
- |     |     | 
- |     |     +- LCD_clear            (see above)
- |     |     |  
- |     |     +- LCD_write_zi         (see above)
- |     |     |  
- |     |     +- LCD_write_cizu       (see above)
- |     |     |  
- |     |     +- LCD_write_shuzi     
- |     |        | 
- |     |        +- sprintf              (see above)
- |     |        |  
- |     |        +- LCD_write_cizu       (see above)
- |     |           
- |     +- LCD_para             (see above)
- |     |  
- |     +- LCD_module          
- |     |  | 
- |     |  +- LCD_clear            (see above)
- |     |  |  
- |     |  +- LCD_write_zi         (see above)
- |     |  |  
- |     |  +- LCD_write_cizu       (see above)
- |     |     
- |     +- LCD_para_modify     
- |     |  | 
- |     |  +- LCD_clear            (see above)
- |     |  |  
- |     |  +- LCD_write_cizu       (see above)
- |     |  |  
- |     |  +- LCD_write_shuzi      (see above)
- |     |     
- |     +- LCD_module_modify   
- |        | 
- |        +- LCD_clear            (see above)
- |        |  
- |        +- LCD_write_cizu       (see above)
- |           
+ |  +- delay_nms            (see above)
+ |     
  +- _Startup            
     | 
     +- Init                
@@ -2329,6 +1706,6 @@ STATISTIC SECTION
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 6
-Total size of all blocks to be downloaded: 7961
+Number of blocks to be downloaded: 4
+Total size of all blocks to be downloaded: 1003
 

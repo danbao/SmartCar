@@ -12,13 +12,19 @@ int IR_temp_laser_array[7]={130,0,200,0,255,100,150};
 
 void main(void)
 {
+   uchar x;	
  // EnableInterrupts;
 	LCD_init();  //³õÊ¼»¯LCDÄ£¿é 
-LCD_start();
-	delay_nms(5000);
-  LCD_show();
+//LCD_start();
+
   for(;;)
-  	{	
-  	LCD_determine();
-}
+  	{ 
+  	if (LCD_checkkey()==0x00) continue;
+	   	else 
+		{     LCD_clear();
+          x= LCD_keyscan();
+          LCD_write_zi(0,0,x);
+    delay_nms(100);
+		}
+  	}
 }
