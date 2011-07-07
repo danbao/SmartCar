@@ -88,11 +88,11 @@
 //这个二维数组作为激光管的历史记录
   int baitoupwm;
   
-   long speedaffect1;
-   long speedaffect2;
-   long speedaffect3;
+  long speedaffect1;
+  long speedaffect2;
+  long speedaffect3;
    
-   int speedinfo;
+  int speedinfo;
   //int dajiao_Slope[3];                   //打角舵机的两个斜率 2为累加值
   
   int  baitou_delay=1;                    //摆头延迟  同时用来等分摆头的每次舵机值
@@ -107,12 +107,10 @@
   void Status_Judge(void);
   
  // int g_countPIT0 =0;   //用于PIT组别的点亮次数
-	int	g_temp_laser_array[LASER_MAX]; //用于接受各个激光管点亮后获取的数据
+//	int	g_temp_laser_array[LASER_MAX]; //用于接受各个激光管点亮后获取的数据
 	
 	
-	int temp_laser_array[LASER_MAX];
-	
-
+//	int temp_laser_array[LASER_MAX];
 
 /*===============时钟初始化========================*/
 void SetBusCLK_40M()
@@ -135,29 +133,32 @@ void delayms(int ms)    //延时程序。
    int ii,jj;
    if (ms<1) ms=1;
    for(ii=0;ii<ms;ii++)
-     for(jj=0;jj<3338;jj++);    //40MHz--1ms      
+     for(jj=0;jj<3338;jj++)
+     ;    //40MHz--1ms      
 }
 
 void delayMS()
 {
-int jj;
-     for(jj=0;jj<833;jj++);    //1/4ms     
+    int jj;
+    for(jj=0;jj<833;jj++)
+    ;    //1/4ms     
 }
 
-
-
 //===============aabs=================================//
-long aabs(long num) {
-  if(num>=0)return num;
-  else {
+long aabs(long num) 
+{
+  if(num>=0)
+    return num;
+  else 
+  {
     num=-num;
     return num;
   }
 }
 
-
 //=====================PWM初始化======================//
-void PWM_Init (void) {   //0519暂时写完！
+void PWM_Init (void) 
+{   //0519暂时写完！
   // Local Declarations
 
   // Statements
@@ -198,8 +199,6 @@ void PWM_Init (void) {   //0519暂时写完！
    PWME_PWME7 = 1;    //通道7输出,调制管使能    
 } //PWMInit
 
-
-
 //=====================ECT捕捉测速初始化======================//
  void Tect_Speed_Init()
  { 
@@ -208,48 +207,46 @@ void PWM_Init (void) {   //0519暂时写完！
    PACNT=0;
  }
 
-
-
 //=====================激光初始化======================//
- void LIGHT_Init(void){ 
-	DDRA = 0X7F;      //PA0--PA5激光管信号点亮
-	DDRB = 0X80;      //PB0--PB3激光管信号接收
+ void LIGHT_Init(void)
+ { 
+   DDRA = 0X7F;      //PA0--PA5激光管信号点亮
+   DDRB = 0X80;      //PB0--PB3激光管信号接收
  }
 
-
-
-
 /*=====================PIT初始化======================*/
- void PITInit (void) {
+ void PITInit (void) 
+ {
 //计算公式：time-out period = (PITMTLD + 1) * (PITLD + 1) / fBUS.
 //BUS为总线！！！
 
     // Local Declarations
 
     // Statements
-  PITCFLMT_PITE = 0;       //PIT通道使能位      
-  PITCE_PCE0 = 1;          //定时器通道0使能    
-  PITMUX_PMUX0 = 0;       //定时通道0使用微计数器0     
-  PITMTLD0 =200-1;  //设置微计数器0的加载寄存器。8位定时器初值设定。200分频，在40MHzBusClock下，为0.2MHz。即5us.    
-  PITLD0 = 340-1;    //16位定时器初值设定。4000 -->  20ms   1500-->7.5ms  
-  PITINTE_PINTE0 = 1;//定时器中断通道0中断使能            
- // PITCFLMT_PITE = 1;       //PIT通道使能位
+    PITCFLMT_PITE = 0;       //PIT通道使能位      
+    PITCE_PCE0 = 1;          //定时器通道0使能    
+    PITMUX_PMUX0 = 0;       //定时通道0使用微计数器0     
+    PITMTLD0 =200-1;  //设置微计数器0的加载寄存器。8位定时器初值设定。200分频，在40MHzBusClock下，为0.2MHz。即5us.    
+    PITLD0 = 340-1;    //16位定时器初值设定。4000 -->  20ms   1500-->7.5ms  
+    PITINTE_PINTE0 = 1;//定时器中断通道0中断使能            
+   // PITCFLMT_PITE = 1;       //PIT通道使能位
 
-  PITCE_PCE1 = 1;          //定时器通道0使能    
-  PITMUX_PMUX1 = 1;       //定时通道0使用微计数器0     
-  PITMTLD1 =200-1;  //设置微计数器0的加载寄存器。8位定时器初值设定。200分频，在40MHzBusClock下，为0.2MHz。即5us.    
-  PITLD1 = 1500-1;    //16位定时器初值设定。4000 -->  20ms   1500-->7.5ms  
-  PITINTE_PINTE1 = 1;//定时器中断通道0中断使能            
-  PITCFLMT_PITE = 1;       //PIT通道使能位
+    PITCE_PCE1 = 1;          //定时器通道0使能    
+    PITMUX_PMUX1 = 1;       //定时通道0使用微计数器0     
+    PITMTLD1 =200-1;  //设置微计数器0的加载寄存器。8位定时器初值设定。200分频，在40MHzBusClock下，为0.2MHz。即5us.    
+    PITLD1 = 1500-1;    //16位定时器初值设定。4000 -->  20ms   1500-->7.5ms  
+    PITINTE_PINTE1 = 1;//定时器中断通道0中断使能            
+    PITCFLMT_PITE = 1;       //PIT通道使能位
 } //PITInit
 
 
 /*=====================激光点亮======================
 最后发现由于用定时中断还是。。所以就换回在主程序中点亮
 */
-   void Light_Up(void) {
-   for(light_count=0;light_count<=6;light_count++) 
-   {
+void Light_Up(void) 
+{
+  for(light_count=0;light_count<=6;light_count++) 
+  {
     if(light_count == 0)   
     { 
       PORTA = 0B00000001;
@@ -279,7 +276,7 @@ void PWM_Init (void) {   //0519暂时写完！
     
     else	if(light_count == 3)       
     {
-      PORTA = 0B00100000;
+      PORTA = 0B00100000;                    
       delayMS();  
 	    light_temp_laser_array[1] = PORTB_PB6^1;
       light_temp_laser_array[8] = PORTB_PB4^1;

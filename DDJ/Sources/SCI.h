@@ -65,59 +65,67 @@ static void SCI_Init(void)  //SCI
 发送激光管信息数组
 编写日期：200110602
 -----------------------------------------  */ 
-void Testjiguang(byte temp_laser_array[]) {
-    int i; 
-    int data;
+void Testjiguang(byte temp_laser_array[]) 
+{
+  int i; 
+  int data;
 	SCISend_chars("SEDJG");
-    for(i=LASER_MAX-1;i>=0;i--)    //发送激光管信息数组
-        {data=temp_laser_array[i]  ;
-            if(data == 0) {
-            SCISend('0');   
-            }
-        else if(data == 1) {
-             SCISend('1'); 
-        }
-        } 
-    SCISend_chars("END");
-    SCISend('\n'); 		
+  for(i=LASER_MAX-1;i>=0;i--)    //发送激光管信息数组
+  {
+    data=temp_laser_array[i];
+    if(data == 0) 
+    {
+      SCISend('0');   
+    }
+    else if(data == 1) 
+    {
+      SCISend('1'); 
+    }
+  } 
+  SCISend_chars("END");
+  SCISend('\n'); 		
 }     
 /*---------------------------------------
 发送红外信息数组（不成熟，暂不使用）
 编写日期：200110607
 ----------------------------------------- */ 
-void TestIR(byte temp_laser_array[]) {
-    int i; 
-    char data[5];
-	SCISend_chars("SEDIR");
-    for(i=0;i<=6;i++)    //发送激光管信息数组
-        {  
+void TestIR(byte temp_laser_array[]) 
+{
+  int i; 
+  char data[5];
+  SCISend_chars("SEDIR");
+  for(i=0;i<=6;i++)    //发送激光管信息数组
+  {  
     (void)sprintf(data,"%.1d",temp_laser_array[i]);
-		SCISend_chars(data);
-        }
-		SCISend_chars("END");
-	    SCISend('\n'); 	
+    SCISend_chars(data);
+  }
+  SCISend_chars("END");
+  SCISend('\n'); 	
 }      
 /*---------------------------------------
 发送相关参数
 编写日期：2001100607
 -----------------------------------------  */ 
-void Testpara(int test_sdj,int test_xdj,int test_speed,int test_position) {
-char SCIsenddata[50];
+void Testpara(int test_sdj,int test_xdj,int test_speed,int test_position) 
+{
+  char SCIsenddata[50];
 	(void)sprintf(SCIsenddata,"SEDPR%.5d%.4d%.4d%.4dEND",test_position+10000,test_sdj,test_xdj,test_speed);
-    SCISend_chars(SCIsenddata);  
-    SCISend('\n');  
+  SCISend_chars(SCIsenddata);  
+  SCISend('\n');  
 }  
 /*---------------------------------------
 无线模块发送总函数
 编写日期：200110602
 参数 t：用于循环几次发送一次
 -----------------------------------------  */  
-void TestSMinfo(byte a){
-if(a!=0){
-Testjiguang(light_temp_laser_array);	//发送激光数组
-Testpara(PWMDTY45,PWMDTY01,speed_clear[1],JG_clear[3]);//发送相关参数
-TestIR(IR_temp_laser_array);
-}
+void TestSMinfo(byte a)
+{
+  if(a!=0)
+  {
+    Testjiguang(light_temp_laser_array);	//发送激光数组
+    Testpara(PWMDTY45,PWMDTY01,speed_clear[1],JG_clear[3]);//发送相关参数
+    TestIR(IR_temp_laser_array);
+  }
 }
 /*---------------------------------------
 无线模块接收处理
@@ -128,92 +136,206 @@ void SCI_REC_chuli(char a[],int x)
 {
 	char *p;
 	char *q;
-	switch(x){
-  case 1:{
-	p = strtok(a, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);DP1=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);DP2=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);DP3=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);DP4=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);DP5=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);DP6=*SCI_DP;} 
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);DP7=*SCI_DP;}
+	switch(x)
+	{
+    case 1:
+    {
+    	p = strtok(a, ";");
+    	if(*p!='F')
+    	{
+      	*SCI_DP=atoi(p);
+      	DP1=*SCI_DP;
+    	}
+    	p = strtok(NULL, ";");
+    	if(*p!='F')
+    	{
+      	*SCI_DP=atoi(p);
+      	DP2=*SCI_DP;
+    	}
+    	p = strtok(NULL, ";");
+    	if(*p!='F')
+    	{
+      	*SCI_DP=atoi(p);
+      	DP3=*SCI_DP;
+    	}
+    	p = strtok(NULL, ";");
+    	if(*p!='F')
+    	{
+      	*SCI_DP=atoi(p);
+      	DP4=*SCI_DP;
+    	}
+    	p = strtok(NULL, ";");
+    	if(*p!='F')
+    	{
+      	*SCI_DP=atoi(p);
+      	DP5=*SCI_DP;
+    	}
+    	p = strtok(NULL, ";");
+    	if(*p!='F')
+    	{
+      	*SCI_DP=atoi(p);
+      	DP6=*SCI_DP;
+    	} 
+    	p = strtok(NULL, ";");
+    	if(*p!='F')
+    	{
+      	*SCI_DP=atoi(p);
+      	DP7=*SCI_DP;
+    	}
+    }
+    break; 
+  case 3:
+  {
+  	p = strtok(a, ";");
+  	if(*p!='F')
+  	{
+  	  *SCI_DP=atoi(p);
+  	  BP1=*SCI_DP;
+  	}
+  	p = strtok(NULL, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BP2=*SCI_DP;
+  	}
+  	p = strtok(NULL, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BP3=*SCI_DP;
+  	}
+  	p = strtok(NULL, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BP4=*SCI_DP;
+  	}
+  	p = strtok(NULL, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BP5=*SCI_DP;
+  	}
+  	p = strtok(NULL, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BP6=*SCI_DP;
+  	} 
+  	p = strtok(NULL, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BP7=*SCI_DP;
+  	}
+  	p = strtok(NULL, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BP8=*SCI_DP;
+  	}
+  	p = strtok(NULL, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BP9=*SCI_DP;
+  	}
+  	p = strtok(NULL, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BP10=*SCI_DP;
+  	}
+    }
+    break;
+  case 4:
+  {
+  	p = strtok(a, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BD1=*SCI_DP;
+  	}
+  	p = strtok(NULL, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BD2=*SCI_DP;
+  	}
+    	p = strtok(NULL, ";");
+    	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BD3=*SCI_DP;
+  	}
+  	p = strtok(NULL, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BD4=*SCI_DP;
+    }
+  	p = strtok(NULL, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BD5=*SCI_DP;
+  	}
+  	p = strtok(NULL, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BD6=*SCI_DP;
+  	} 
+  	p = strtok(NULL, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BD7=*SCI_DP;
+  	}
+  	p = strtok(NULL, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BD8=*SCI_DP;
+  	}
+  	p = strtok(NULL, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BD9=*SCI_DP;
+  	}
+  	p = strtok(NULL, ";");
+  	if(*p!='F')
+  	{
+    	*SCI_DP=atoi(p);
+    	BD10=*SCI_DP;
+  	}
   }
   break; 
-  case 3:{
-	p = strtok(a, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BP1=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BP2=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BP3=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BP4=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BP5=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BP6=*SCI_DP;} 
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BP7=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BP8=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BP9=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BP10=*SCI_DP;}
-  }
+  case 2:
+  {
+    q = strtok(a, ";"); 
+    {
+      *SCI_PWMDTY=atoi(q); 
+      PWMDTY01=*SCI_PWMDTY;
+    }
+    q = strtok(NULL, ";"); 
+  	{
+  	  *SCI_PWMDTY=atoi(q);
+      PWMDTY23=*SCI_PWMDTY;
+    }
+  }   
   break;
-  case 4:{
-	p = strtok(a, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BD1=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BD2=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BD3=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BD4=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BD5=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BD6=*SCI_DP;} 
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BD7=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BD8=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BD9=*SCI_DP;}
-	p = strtok(NULL, ";");
-	if(*p!='F'){*SCI_DP=atoi(p);BD10=*SCI_DP;}
   }
-  break; 
-	case 2:{
-	q = strtok(a, ";"); 
-	{
-	  *SCI_PWMDTY=atoi(q); 
-  PWMDTY01=*SCI_PWMDTY;
-	}
-	q = strtok(NULL, ";"); 
-	{
-	  *SCI_PWMDTY=atoi(q);
-	PWMDTY23=*SCI_PWMDTY;
-	}
-	}   
-	break;
-	}
 }
 /*---------------------------------------
 无线模块返回当前参数值
 编写日期：200110612
 -----------------------------------------  */ 
-void SCI_REC_NOW(){
-char SCIsend[80];
-/*	(void)sprintf(SCIsend,"DP值:%.3d %.3d %.3d %.3d %.3d %.3d %.3d",DP1,DP2,DP3,DP4,DP5,DP6,DP7);		
+void SCI_REC_NOW()
+{
+  char SCIsend[80];
+  /*	(void)sprintf(SCIsend,"DP值:%.3d %.3d %.3d %.3d %.3d %.3d %.3d",DP1,DP2,DP3,DP4,DP5,DP6,DP7);		
   SCISend_chars(SCIsend);*/
   SCISend('\n');  
   (void)sprintf(SCIsend,"BP值:%.2d %.2d %.2d %.2d %.2d %.2d %.2d %.2d %.2d %.2d",BP1,BP2,BP3,BP4,BP5,BP6,BP7,BP8,BP9,BP10);		
@@ -235,50 +357,51 @@ char SCIsend[80];
 #pragma CODE_SEG __NEAR_SEG NON_BANKED 
 interrupt 20 void Rx_SCI(void)
 {
-    DisableInterrupts; 
-      	test_info_send=0;
-      SCIreceive[SCI_i]=SCI_RXD();
-      switch(SCIreceive[SCI_i]) {
-        case '@': 
-        {
-          SCI_i=0;
-          SCI_REC_chuli(SCIreceive,1);  //调节DP
-        }  
-        break;
-        case '&': 
-        {
-          SCI_i=0;
-          SCI_REC_chuli(SCIreceive,3); //调节BP
-        }  
-        break;
-        case '!': 
-        {
-          SCI_i=0;
-          SCI_REC_chuli(SCIreceive,4); //调节BD
-        }  
-        break;
-        case '$': 
-        {
-          SCI_i=0;
-          SCI_REC_NOW();               //反馈回值
-        }  
-        break;
-        case '#': 
-        {
-          SCI_i=0;
-         SCI_REC_chuli(SCIreceive,2);   //调节上下舵机值
-        }
-        break;
-        case '%': 
-        {
-          SCI_i=0;
+  DisableInterrupts; 
+  test_info_send=0;
+  SCIreceive[SCI_i]=SCI_RXD();
+  switch(SCIreceive[SCI_i]) 
+  {
+    case '@': 
+    {
+      SCI_i=0;
+      SCI_REC_chuli(SCIreceive,1);  //调节DP
+    }  
+    break;
+    case '&': 
+    {
+      SCI_i=0;
+      SCI_REC_chuli(SCIreceive,3); //调节BP
+    }  
+    break;
+    case '!': 
+    {
+      SCI_i=0;
+      SCI_REC_chuli(SCIreceive,4); //调节BD
+    }  
+    break;
+    case '$': 
+    {
+      SCI_i=0;
+      SCI_REC_NOW();               //反馈回值
+    }  
+    break;
+    case '#': 
+    {
+      SCI_i=0;
+      SCI_REC_chuli(SCIreceive,2);   //调节上下舵机值
+    }
+    break;
+    case '%': 
+    {
+      SCI_i=0;
       test_info_send=1; 
-        }
-        break;
-      default:
-        SCI_i++;
-         break; 
-      }
-    EnableInterrupts;
+    }
+    break;
+    default:
+      SCI_i++;
+    break; 
+  }
+  EnableInterrupts;
 } 
 #pragma CODE_SEG DEFAULT

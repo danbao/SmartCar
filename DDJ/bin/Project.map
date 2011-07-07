@@ -1,5 +1,5 @@
 *** EVALUATION ***
-PROGRAM "D:\sm\trunk\DDJ\bin\Project.abs"
+PROGRAM "F:\Smart\trunk\DDJ\bin\Project.abs"
 
 *********************************************************************************************
 TARGET SECTION
@@ -2082,7 +2082,7 @@ main.c.o:
   JP3 JP4 JP5 JD temp_pwm45 temp_pwm01 delay_count send_count IR_process_array 
   first_flag DD cross_flag special_count countPIT0 empty_count cha_pos 
   SpeedAver SpeedMax SpeedMin SpeedNow temp_speed IR_temp_laser_array SS_flag 
-  LS_flag Straight_stop turn_stop g_temp_laser_array temp_laser_array 
+  LS_flag Straight_stop turn_stop 
 CTYPE.C.o (ansixb.lib):
   _ctype 
 STDLIB.C.o (ansixb.lib):
