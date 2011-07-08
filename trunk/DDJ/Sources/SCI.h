@@ -61,6 +61,28 @@ static void SCI_Init(void)  //SCI
      SCI0BD=260;                     //设置波特率公式=总线频率/所需要的波特率/16=所要设置的值;
                   
 }
+
+/*---------------------------------------
+发送红外信息数组
+编写日期：200110607
+----------------------------------------- */ 
+void Test_IR(byte temp_laser_array[]) 
+{
+  int i; 
+  char data[5];
+  for(i=0;i<=6;i++)    //发送激光管信息数组
+  {  
+    (void)sprintf(data,"%.1d",temp_laser_array[6-i]);
+  	SCISend_chars(data);
+		SCISend(' ');
+		SCISend(' ');
+  }
+  SCISend('\n'); 	
+}
+
+
+
+
 /*---------------------------------------
 发送激光管信息数组
 编写日期：200110602
