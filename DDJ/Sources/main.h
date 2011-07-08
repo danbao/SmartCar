@@ -18,8 +18,8 @@
   平均速度,最大速度,最小速度,当前速度*/
   int DP1=1,DP2=1,DP3=1,DP4=1,DP5=1,DP6=1,DP7=1;
   int DD=0;
-  int BP1=20,BP2=35,BP3=35,BP4=35,BP5=35,BP6=35,BP7=35,BP8=35,BP9=25,BP10=25;
-  int BD1=250,BD2=200,BD3=70,BD4=50,BD5=35,BD6=32,BD7=32,BD8=32,BD9=25,BD10=25;
+  int BP1=20,BP2=35,BP3=35,BP4=35,BP5=30,BP6=30,BP7=28,BP8=25,BP9=24,BP10=22;
+  int BD1=250,BD2=220,BD3=150,BD4=50,BD5=35,BD6=32,BD7=30,BD8=30,BD9=25,BD10=25;
   char SCIreceive[150];                    /*用于无线串口显示的字符串*/  
   int temp_pwm45=PWM45;						         //激光摆头舵机初始值
   int temp_pwm01=PWM01;					         	 //转向摆头舵机初始值
@@ -45,8 +45,9 @@
   
   //红外
   byte IR_temp_laser_array[7];             //当前红外信息保存数组
-  byte IR_process_array[7]={2,2,2,2,2,2,2}; 
-  byte empty_count=0;
+  byte q_temp_ir_num[7];
+  int 	IR_position=0; 
+  int   His_IR_pos=0;
   
   byte nothing_flag=0 ;
   byte right,left,middle;                    //中线左右值

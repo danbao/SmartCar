@@ -209,13 +209,13 @@ int DP1=15,DP2=13,DP3=11,DP4=10,DP5=8,DP6=7,DP7=6;
 */
 
 
-void dajiao(void)
+void dajiao(byte a)
 {
   //int abs_pos;
 
   //int sub_p[7];
 
-  int changebaitou;
+  int changebaitou;          
   int dj_pwm;
   //int speedinfo;
   //int abs_affect;
@@ -223,6 +223,10 @@ void dajiao(void)
   //int speedaffect;
   //int code[2]={3,1},sum_code=4;
 
+  
+  if(a==0){
+    
+  
   changebaitou=baitoupwm/20;      //摆头占空比 除
   speedinfo=speed_clear[1]-130;    //基准的速度 如果小于它就不执行速度加入转角
 
@@ -231,7 +235,7 @@ void dajiao(void)
     speedinfo=speedinfo/20;
     speedaffect1=speedinfo*speedinfo;
     speedaffect2=speedaffect1*changebaitou;
-    speedaffect3=speedaffect2/160;
+    speedaffect3=speedaffect2/200;
    
     //speedaffect=speedinfo*speedinfo*changebaitou/48; 
     //speedaffect[1]=(10*speedaffect[0]+60*speedaffect[1])/70;
@@ -248,6 +252,16 @@ void dajiao(void)
   //abs_pos=position;
   //abs_pos=aabs(abs_pos);
 
+  } 
+  
+  
+  else  if(a==1) 
+    {
+  dj_pwm=IR_position*50;
+ //	PWMDTY01=PWM01+dj_pwm;
+  
+    }
+ 
   if(dj_pwm>272)
     dj_pwm=272;
   else if(dj_pwm<-272)

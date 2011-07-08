@@ -4,11 +4,12 @@
 #include <string.h>      //LCD中的strlen要用到
 #include <math.h>        //abs绝对值要用到
 #include <stdlib.h>      //随机数用到
-#include "main.h"           //所有变量的定义都放在main.h文件下了           
+#include "main.h"
+#include "IR.h"            //所有变量的定义都放在main.h文件下了           
 #include "dealinfo.h"
 #include "control.h"  
 #include "SCI.h"
-#include "IR.h" 
+
 /* ================= SendSmartcarInfo ====================
       desc: SCI串口发送当前激光管采集信息
       pre:  1当前激光管采集数组，2当前激光管状态
@@ -27,10 +28,11 @@ void main(void)
   LIGHT_Init();
   SCI_Init();
   Tect_Speed_Init();    //ECT 捕捉初始
-  //AD_Init(); 
+  AD_Init(); 
   delayms(3000);
 
   Laser_num();
+  IR_num();
   EnableInterrupts;
   for(;;) 
   {
@@ -64,7 +66,13 @@ void interrupt 66 PIT0_ISR(void)
    DisableInterrupts; 
    PITCE_PCE0=0;PITCE_PCE0=1; 
    Light_Up();         //激光整排点亮   
+   Collect_IR();
+   IR_Status_Judge();
+   
    Confirm_Light(); //排除误点
+   
+   
+   
    if(nothing_flag==1)
    {
       //Clear_baitou();  //position的第一次滤波
@@ -89,7 +97,7 @@ void interrupt 66 PIT0_ISR(void)
   // Judge_Slope();
    Clear_General();
   // delay_count++;
-   dajiao();
+   dajiao(slope_flag);
    Clear_Speed();
    SpeedCtrl(start_flag); 
    EnableInterrupts; 
