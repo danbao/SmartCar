@@ -212,61 +212,61 @@ void SCI_REC_chuli(char a[],int x)
   	if(*p!='F')
   	{
   	  *SCI_DP=atoi(p);
-  	  BP1=*SCI_DP;
+  	  B1P1=*SCI_DP;
   	}
   	p = strtok(NULL, ";");
   	if(*p!='F')
   	{
     	*SCI_DP=atoi(p);
-    	BP2=*SCI_DP;
+    	B1P2=*SCI_DP;
   	}
   	p = strtok(NULL, ";");
   	if(*p!='F')
   	{
     	*SCI_DP=atoi(p);
-    	BP3=*SCI_DP;
+    	B1P3=*SCI_DP;
   	}
   	p = strtok(NULL, ";");
   	if(*p!='F')
   	{
     	*SCI_DP=atoi(p);
-    	BP4=*SCI_DP;
+    	B1P4=*SCI_DP;
   	}
   	p = strtok(NULL, ";");
   	if(*p!='F')
   	{
     	*SCI_DP=atoi(p);
-    	BP5=*SCI_DP;
+    	B1P5=*SCI_DP;
   	}
   	p = strtok(NULL, ";");
   	if(*p!='F')
   	{
     	*SCI_DP=atoi(p);
-    	BP6=*SCI_DP;
+    	B1P6=*SCI_DP;
   	} 
   	p = strtok(NULL, ";");
   	if(*p!='F')
   	{
     	*SCI_DP=atoi(p);
-    	BP7=*SCI_DP;
+    	B1P7=*SCI_DP;
   	}
   	p = strtok(NULL, ";");
   	if(*p!='F')
   	{
     	*SCI_DP=atoi(p);
-    	BP8=*SCI_DP;
+    	B1P8=*SCI_DP;
   	}
   	p = strtok(NULL, ";");
   	if(*p!='F')
   	{
     	*SCI_DP=atoi(p);
-    	BP9=*SCI_DP;
+    	B1P9=*SCI_DP;
   	}
   	p = strtok(NULL, ";");
   	if(*p!='F')
   	{
     	*SCI_DP=atoi(p);
-    	BP10=*SCI_DP;
+    	B1P10=*SCI_DP;
   	}
     }
     break;
@@ -360,7 +360,7 @@ void SCI_REC_NOW()
   /*	(void)sprintf(SCIsend,"DPֵ:%.3d %.3d %.3d %.3d %.3d %.3d %.3d",DP1,DP2,DP3,DP4,DP5,DP6,DP7);		
   SCISend_chars(SCIsend);*/
   SCISend('\n');  
-  (void)sprintf(SCIsend,"BPֵ:%.2d %.2d %.2d %.2d %.2d %.2d %.2d %.2d %.2d %.2d",BP1,BP2,BP3,BP4,BP5,BP6,BP7,BP8,BP9,BP10);		
+  (void)sprintf(SCIsend,"BPֵ:%.2d %.2d %.2d %.2d %.2d %.2d %.2d %.2d %.2d %.2d",B1P1,B1P2,B1P3,B1P4,B1P5,B1P6,B1P7,B1P8,B1P9,B1P10);		
   SCISend_chars(SCIsend);
   SCISend('\n');  
   (void)sprintf(SCIsend,"BDֵ:%.3d %.3d %.3d %.3d %.3d %.3d %.3d %.3d %.3d %.3d",BD1,BD2,BD3,BD4,BD5,BD6,BD7,BD8,BD9,BD10);		

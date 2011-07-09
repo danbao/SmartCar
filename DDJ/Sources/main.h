@@ -13,13 +13,24 @@
 /*===============全局变量定义======================
 全局变量相关 
 */
-  float YP1=0.4,YP2=0.5,YP3=0.7,YP4=0.8,YP5=0.9,YD=2.7;
-  float JP1=1.7,JP2=3.5,JP3=4.9,JP4=6.5,JP5=7.8,JD=2.3,SpeedAver,SpeedMax,SpeedMin,SpeedNow;/*摇头P1,摇头P2,摇头P3,摇头P4,摇头P5,摇头D,打角P1,打角P2,打角P3,打角P4,打角P5,打角P6,打角D
-  平均速度,最大速度,最小速度,当前速度*/
-  int DP1=1,DP2=1,DP3=1,DP4=1,DP5=1,DP6=1,DP7=1;
-  int DD=0;
-  int BP1=20,BP2=35,BP3=35,BP4=35,BP5=30,BP6=30,BP7=28,BP8=25,BP9=24,BP10=22;
-  int BD1=250,BD2=220,BD3=150,BD4=50,BD5=35,BD6=32,BD7=30,BD8=30,BD9=25,BD10=25;
+ // float YP1=0.4,YP2=0.5,YP3=0.7,YP4=0.8,YP5=0.9,YD=2.7;
+ // float JP1=1.7,JP2=3.5,JP3=4.9,JP4=6.5,JP5=7.8,JD=2.3,SpeedAver,SpeedMax,SpeedMin,SpeedNow;/*摇头P1,摇头P2,摇头P3,摇头P4,摇头P5,摇头D,打角P1,打角P2,打角P3,打角P4,打角P5,打角P6,打角D
+ // 平均速度,最大速度,最小速度,当前速度*/
+ int DP1=1,DP2=1,DP3=1,DP4=1,DP5=1,DP6=1,DP7=1;
+  //int DD=0;
+  byte baitou_begin;     //当摆头不在正中时 判断弯道直道  
+  byte go_flag;
+  byte back_flag;
+  int side;
+  byte B1P1=30,B1P2=28,B1P3=26,B1P4=25,B1P5=25,B1P6=23,B1P7=21,B1P8=18,B1P9=16,B1P10=14,B1P11=13,B1P12=13,B1P13=12,B1P14=12;
+  byte B2P1=9,B2P2=8,B2P3=8,B2P4=7,B2P5=7,B2P6=5,B2P7=8,B2P8=7,B2P9=7,B2P10=6,B2P11=6,B2P12=6,B2P13=6,B2P14=5;
+ // byte B3P1=30,B3P2=20,B3P3=14,B3P4=12,B3P5=11,B3P6=10,B3P7=9,B3P8=8,B3P9=7,B3P10=6;
+ // byte B4P1=30,B4P2=20,B4P3=14,B4P4=11,B4P5=10,B4P6=9,B4P7=8,B4P8=7,B4P9=6,B4P10=5;
+ // byte B5P1=30,B5P2=20,B5P3=14,B5P4=10,B5P5=9,B5P6=8,B5P7=7,B5P8=6,B5P9=5,B5P10=4;
+//  byte B6P1=30,B6P2=20,B6P3=14,B6P4=9,B6P5=8,B6P6=7,B6P7=6,B6P8=5,B6P9=4,B6P10=3;
+ // byte B7P1=30,B7P2=20,B7P3=14,B7P4=8,B7P5=7,B7P6=6,B7P7=4,B7P8=3,B7P9=2,B7P10=1;
+  
+  int BD1=250,BD2=220,BD3=150,BD4=50,BD5=35,BD6=25,BD7=25,BD8=25,BD9=24,BD10=22;
   char SCIreceive[150];                    /*用于无线串口显示的字符串*/  
   int temp_pwm45=PWM45;						         //激光摆头舵机初始值
   int temp_pwm01=PWM01;					         	 //转向摆头舵机初始值
@@ -55,7 +66,7 @@
   int HitBlackNum;
   int His_HitBlackNum;
   
-  int baitou_diff; 
+  int baitou_diff[2]; 
   
   byte SS_flag;                           //小s标记  1有效
   byte LS_flag;                           //大S标记   1有效
