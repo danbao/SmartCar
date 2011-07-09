@@ -12,9 +12,9 @@ void Confirm_Start(void)
   middlesidenum=error[9]+error[10]+error[11]+error[12];
 
 
-  if (leftnum>=4)
+  if (leftnum>=3)
    leftside=1;
-  if (rightnum>=4)
+  if (rightnum>=3)
    rightside=1;
 
   if (middleleftnum<=1)
@@ -161,15 +161,22 @@ void Confirm_Light()
           position=0;
      }
     }
-    if(abs_baitoupwm>60)
+   
+   
+   
+    if(abs_baitoupwm>50)
     { 
       if(Straight_flag)
       {
-        diansha_falg=1;diansha_num=speed_clear[1]/8;diansha_num=aabs(diansha_num);
+        diansha_falg=1;diansha_num=speed_clear[1]/7;diansha_num=aabs(diansha_num);
       }             //第一次检测到弯道 标定点刹开始  点刹时间为速度除以10
          
       turn_flag=1;Straight_flag=0;
-    } 
+     
+
+    }
+    
+     
     else 
     {
       if(Straight_flag==1) 
@@ -186,6 +193,23 @@ void Confirm_Light()
       }        //出弯补足角度 以防 还没完全出弯就转角就变小
     } 
 }
+
+
+/*================综合偏差======================
+思路是把每个激光的舵机值加上当前摇头舵机值 相对位置
+实验后发现摇头舵机无法做到很快的回位 周期大概20ms内 
+如果这样的话 我们就把每次摇头处理后的舵机到下次处理前 等分
+
+*/
+void General_Position(void)       
+{
+  int num=position+20;    //数组序号偏移代入
+  baitou_diff[0]=baitou_diff[1];
+  baitou_diff[1]=PWMDTY45-PWM45;      //摆头执行后的差值 我们把他等分试试 
+  befo_General_pos=-(change_JG_DJ_array[num]+baitou_diff[1]);//*baitou_delay/11;
+}
+
+
 
 /*==========================逐个检查 包括计算照黑个数，错误点个数==========*/
 void calculate_light(void)
@@ -240,24 +264,7 @@ void Status_Judge(void)
   }
   position=sum/temp_HitBlackNum;
   
-  if(position>6)
-  {
-    left=1;
-    right=0;
-    middle=0;
-  } 
-  else if(position<-6)
-  {
-    right=1;
-    left=0;
-    middle=0;
-  } 
-  else 
-  {
-    middle=1;
-    right=0;
-    left=0;
-  }
+  
 }
 
 /*=====================红外管程度值======================
