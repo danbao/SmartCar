@@ -5,6 +5,7 @@
 #define ANGLE_DELTA 30
 #define PWM6_MID 224
 #define PWM01 1972
+#define PWM23 500
 #define PWM45 1603
 #define PWM7 30
 #define PWMPE7 60
@@ -16,14 +17,15 @@
  // float YP1=0.4,YP2=0.5,YP3=0.7,YP4=0.8,YP5=0.9,YD=2.7;
  // float JP1=1.7,JP2=3.5,JP3=4.9,JP4=6.5,JP5=7.8,JD=2.3,SpeedAver,SpeedMax,SpeedMin,SpeedNow;/*摇头P1,摇头P2,摇头P3,摇头P4,摇头P5,摇头D,打角P1,打角P2,打角P3,打角P4,打角P5,打角P6,打角D
  // 平均速度,最大速度,最小速度,当前速度*/
- int DP1=1,DP2=1,DP3=1,DP4=1,DP5=1,DP6=1,DP7=1;
+  int DP1=1,DP2=1,DP3=1,DP4=1,DP5=1,DP6=1,DP7=1;
   //int DD=0;
   byte baitou_begin;     //当摆头不在正中时 判断弯道直道  
-  byte go_flag;
-  byte back_flag;
+  
+  byte get_flag;
   int side;
-  byte B1P1=30,B1P2=28,B1P3=26,B1P4=25,B1P5=25,B1P6=23,B1P7=21,B1P8=18,B1P9=16,B1P10=14,B1P11=13,B1P12=13,B1P13=12,B1P14=12;
-  byte B2P1=9,B2P2=8,B2P3=8,B2P4=7,B2P5=7,B2P6=5,B2P7=8,B2P8=7,B2P9=7,B2P10=6,B2P11=6,B2P12=6,B2P13=6,B2P14=5;
+  byte side_baipwm;  
+  byte B1P1=30,B1P2=28,B1P3=26,B1P4=25,B1P5=25,B1P6=23,B1P7=23,B1P8=23,B1P9=22,B1P10=20,B1P11=18,B1P12=17,B1P13=17,B1P14=16;
+  byte B2P1=9,B2P2=8,B2P3=7,B2P4=7,B2P5=7,B2P6=7,B2P7=8,B2P8=7,B2P9=7,B2P10=6,B2P11=6,B2P12=6,B2P13=6,B2P14=5;
  // byte B3P1=30,B3P2=20,B3P3=14,B3P4=12,B3P5=11,B3P6=10,B3P7=9,B3P8=8,B3P9=7,B3P10=6;
  // byte B4P1=30,B4P2=20,B4P3=14,B4P4=11,B4P5=10,B4P6=9,B4P7=8,B4P8=7,B4P9=6,B4P10=5;
  // byte B5P1=30,B5P2=20,B5P3=14,B5P4=10,B5P5=9,B5P6=8,B5P7=7,B5P8=6,B5P9=5,B5P10=4;
@@ -32,8 +34,9 @@
   
   int BD1=250,BD2=220,BD3=150,BD4=50,BD5=35,BD6=25,BD7=25,BD8=25,BD9=24,BD10=22;
   char SCIreceive[150];                    /*用于无线串口显示的字符串*/  
-  int temp_pwm45=PWM45;						         //激光摆头舵机初始值
+/* int temp_pwm45=PWM45;						         //激光摆头舵机初始值
   int temp_pwm01=PWM01;					         	 //转向摆头舵机初始值
+  int temp_pwm23=PWM23;					         	 //速度初始值  */
   
   byte light_temp_laser_array[LASER_MAX];  //当前激光管信息保存数组
   int  light_count;                        //激光点亮延迟
@@ -42,10 +45,14 @@
   byte maybe_special_flag=0;                 //开启可能的特殊  为坡道
   byte start_flag=0,cross_flag=0;             //起跑 十字标志
   byte slope_flag=0;                         //坡道 标识 
-  int special_count=0;                         //25mm 4571 编码值
+  byte slope_count=0;                         //坡道与十字时照空计数
+  byte maybe_count=0;                         //区别坡道和十字的程序运行计数
  
   byte error[LASER_MAX];
   //int error;
+  long speedaffect1;
+  long speedaffect2;
+  long speedaffect3;
   
   double temp_speed;
   int delay_count=1;                      //普通延时计数
@@ -68,8 +75,8 @@
   
   int baitou_diff[2]; 
   
-  byte SS_flag;                           //小s标记  1有效
-  byte LS_flag;                           //大S标记   1有效
+ // byte SS_flag;                           //小s标记  1有效
+ // byte LS_flag;                           //大S标记   1有效
   byte Straight_flag=1;                     //直道标记  非0有效
   byte turn_flag=0;                         //弯道标记  非0有效                 
   byte Straight_stop;                      //直道入弯的反转
@@ -100,19 +107,25 @@
 //这个二维数组作为激光管的历史记录
   int baitoupwm;
   
-  long speedaffect1;
-  long speedaffect2;
-  long speedaffect3;
+  
    
   int speedinfo;
   //int dajiao_Slope[3];                   //打角舵机的两个斜率 2为累加值
   
   int  baitou_delay=1;                    //摆头延迟  同时用来等分摆头的每次舵机值
-  int JG_clear[4];                      //激光一次迭代滤波 此次和上次
+  int JG_clear[2];                      //激光一次迭代滤波 此次和上次
   int JG_clear_Pos[2];                  //存入当前和上一次摆头时的JG_clear 的值
                              
- // int speed_collect;                     //速度捕捉值
+ 
+  byte speed_begian;                       //开始速度策略（等待脉冲捕捉完成）
   long speed_clear[2];                    //速度滤波值  最终结果 此次和上次
+  float Kp=4.5;                      //比例常数
+  float Ki=0;                      //积分常数
+  float Kd=0;                      //微分常数
+  int error0=0;                      //当前误差，为目标速度减去当前获取的脉冲值
+  int error1=0;                      //前一次误差
+  int error2=0;                      //前前一次的误差
+  byte daozhuan_flag;                //反转标志 减速用
   //int speed[20];                          //给
   
   void calculate_light(void);
@@ -200,7 +213,7 @@ void PWM_Init (void)
    PWMPER7 = PWMPE7;  //频率 166kHz   周期602ns
    
    PWMDTY01 = PWM01;      //占空比50%  前轮舵机
-   PWMDTY23 = 500;      //占空比50%    电机正转
+   PWMDTY23 = PWM23;      //占空比50%  电机正转
    PWMDTY45 = PWM45;      //           摆头舵机
    PWMDTY6 = 7;      //占空比50%      电机反转
    PWMDTY7 = PWM7;      //占空比50%    调制管
@@ -246,7 +259,7 @@ void PWM_Init (void)
     PITCE_PCE1 = 1;          //定时器通道0使能    
     PITMUX_PMUX1 = 1;       //定时通道0使用微计数器0     
     PITMTLD1 =200-1;  //设置微计数器0的加载寄存器。8位定时器初值设定。200分频，在40MHzBusClock下，为0.2MHz。即5us.    
-    PITLD1 = 1500-1;    //16位定时器初值设定。4000 -->  20ms   1500-->7.5ms  
+    PITLD1 = 1700-1;    //16位定时器初值设定。4000 -->  20ms   1500-->7.5ms    1700-->8.5
     PITINTE_PINTE1 = 1;//定时器中断通道0中断使能            
     PITCFLMT_PITE = 1;       //PIT通道使能位
 } //PITInit

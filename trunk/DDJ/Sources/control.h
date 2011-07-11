@@ -60,6 +60,8 @@ byte really_special_flag=0;                //开启 起跑或者十字 也有可能是坡道
 byte maybe_special_flag=0;                 //开启可能的特殊  为坡道
 byte start_flag=0,cross_flag=0;             //起跑 十字标志
 byte slope_flag=0;
+byte slope_count=0;                         //坡道与十字时照空计数
+byte maybe_count=0;                         //区别坡道和十字的程序运行计数
 ========================================================*/
 
 void Confirm_Light()
@@ -126,22 +128,23 @@ void Confirm_Light()
     else if(maybe_slope_flag==1)
     {
       calculate_light();
+      maybe_count++;
       if(HitBlackNum==21)
-        slope_flag=1;
-        // special_count++;
-
-        /*  else 
-         {
-          slope_flag=0;special_count=0;maybe_special_flag==0;maybe_slope_flag==0;
-         } */
-          
-     // if(special_count>=5)
-      else  
-        slope_flag=0;
+      slope_count++;
+      
+      if(maybe_count%6==0) 
+      {
+      if(slope_count==maybe_count){slope_flag=1; }
+      else slope_flag=0;
+      
+      maybe_count=0;
+      slope_count=0;
       maybe_special_flag=0;
       maybe_slope_flag=0; 
-     }  
-   }
+      }
+        
+    }  
+  }
    else 
    {
      calculate_light(); 
@@ -149,7 +152,7 @@ void Confirm_Light()
      {
         nothing_flag=1;
      }
-     else if(HitBlackNum<=5) 
+     else if(HitBlackNum<=6) 
      {
         nothing_flag=0;
         Status_Judge();
@@ -157,22 +160,17 @@ void Confirm_Light()
      else 
      {
         maybe_special_flag=1;  //
-        if (light_temp_laser_array[9]+light_temp_laser_array[10]+light_temp_laser_array[11]>=2)
-          position=0;
+        if (light_temp_laser_array[9]+light_temp_laser_array[10]+light_temp_laser_array[11]>=2);
+          
      }
     }
    
    
-   
+//==========================弯道直道判断=======
     if(abs_baitoupwm>50)
     { 
-      if(Straight_flag)
-      {
-        diansha_falg=1;diansha_num=speed_clear[1]/7;diansha_num=aabs(diansha_num);
-      }             //第一次检测到弯道 标定点刹开始  点刹时间为速度除以10
-         
+      if(Straight_flag==1)
       turn_flag=1;Straight_flag=0;
-     
 
     }
     
@@ -337,7 +335,7 @@ void Level_IR( void)
 void Clear_Speed(void) 
 {
   //long Speed_sum;
-  speed_clear[1]=(60*speed_clear[0]+10*speed_clear[1])/70;
+  speed_clear[1]=(30*speed_clear[0]+10*speed_clear[1])/40;
   speed_clear[0]=speed_clear[1];
 }
 
