@@ -30,9 +30,10 @@ void main(void)
   Tect_Speed_Init();    //ECT 捕捉初始
   AD_Init(); 
   delayms(3000);
-
+  
   Laser_num();
   IR_num();
+  
   EnableInterrupts;
   for(;;) 
   {
@@ -43,6 +44,7 @@ void main(void)
      send_count=1;
     TestSMinfo(test_info_send);  
    }  */ 
+ //  Testpara(speed_clear[1],PWMDTY01-PWM01);//发送相关参数
  }
     
         
@@ -65,12 +67,12 @@ void interrupt 66 PIT0_ISR(void)
 {
    DisableInterrupts; 
    PITCE_PCE0=0;PITCE_PCE0=1; 
-   Light_Up();         //激光整排点亮   
+  Light_Up();         //激光整排点亮   
    Collect_IR();
    IR_Status_Judge();
    
    Confirm_Light(); //排除误点
-   
+   General_Position();
    
    
    if(nothing_flag==1)
@@ -91,15 +93,16 @@ void interrupt 66 PIT0_ISR(void)
       } 
    }
  
-   General_Position();      
+         
   // Collect_Point();
   // Collect_Section();
   // Judge_Slope();
    Clear_General();
   // delay_count++;
-   dajiao(slope_flag);
+   dajiao(slope_flag);         
+   
    Clear_Speed();
-   SpeedCtrl(start_flag); 
+   SpeedCtrl(start_flag);        
    EnableInterrupts; 
 }   
  
@@ -107,6 +110,7 @@ void interrupt 67 PIT1_ISR(void)
 {
    PITCE_PCE1=0;PITCE_PCE1=1;
    speed_clear[1]= PACNT;
+   speed_begian=1;
    PACNT = 0x0000; 
 
 }//PIT0_ISR
