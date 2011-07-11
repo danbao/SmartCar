@@ -67,7 +67,7 @@ void interrupt 66 PIT0_ISR(void)
 {
    DisableInterrupts; 
    PITCE_PCE0=0;PITCE_PCE0=1; 
-  Light_Up();         //激光整排点亮   
+   Light_Up();         //激光整排点亮   
    Collect_IR();
    IR_Status_Judge();
    

@@ -181,11 +181,11 @@ void Confirm_Light()
       {
         turn_flag=0;Straight_flag=1; 
       } 
-      else if((turn_flag==1)&&(abs_baitoupwm>5))
+      else if((turn_flag==1)&&(abs_baitoupwm>10))
       {
         turn_flag=1;Straight_flag=0;
       }  
-      else if((turn_flag==1)&&(abs_baitoupwm<=5)) 
+      else if((turn_flag==1)&&(abs_baitoupwm<=10)) 
       {
         turn_flag=0;Straight_flag=1;diansha_falg=0;
       }        //出弯补足角度 以防 还没完全出弯就转角就变小
