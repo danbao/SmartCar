@@ -1,5 +1,8 @@
 
 
+
+
+
 /*=====================激光摆头滤波======================
 long JG_clear[2];                      //激光一次迭代滤波 此次和上次
 long JG_clear_Pos[2];                  //存入当前和上一次JG_clear 的值
@@ -45,7 +48,7 @@ void  baitou (void)
   int JG_pwm;
   int JG_pwm_his=PWMDTY45;
   int sub_p[20],sub2_p[20];
- // int sub_baitou;
+  int sub_baitou;
  // int abs_baitoupwm;
   
  
@@ -69,15 +72,16 @@ void  baitou (void)
   else if(baitou_diff[1]<-150&&baitou_begin==0) //左边情况
   {
       side=1;
-   
+     // side_baipwm=baitou_diff[1]-baitou_diff[0]; 
       if(position<=-4&&get_flag==1) 
       { 
        get_flag=0;
-      side_baipwm=baitou_diff[1];  
+       side_baipwm=baitou_diff[1];  
       }
-        
+      
+ 
+   
   
-
  if(side==1&&get_flag==0){
   
  if((baitou_diff[1]-side_baipwm)>0&&(baitou_diff[1]-side_baipwm)<30) {side=0;baitou_begin=1; }
@@ -227,35 +231,35 @@ void  baitou (void)
       else if(JG_pos_abs>10&&JG_pos_abs<=20) 
       {
         if(JG_clear_Pos[1]>0)    
-          JG_pwm=-(JG_clear_Pos[1]/B1P1-sub_p[0]);
+         JG_pwm=0;  // JG_pwm=-(JG_clear_Pos[1]/B1P1-sub_p[0]);
         else if(JG_clear_Pos[1]<0)
           JG_pwm=-(JG_clear_Pos[1]/B2P1);  
       }
       else if(JG_pos_abs>20&&JG_pos_abs<=40) 
       {
        if(JG_clear_Pos[1]>0)   
-          JG_pwm=-(JG_clear_Pos[1]/B1P2-sub_p[1]);
+         JG_pwm=0;  // JG_pwm=-(JG_clear_Pos[1]/B1P2-sub_p[1]);
         else if(JG_clear_Pos[1]<0)
           JG_pwm=-(JG_clear_Pos[1]/B2P2+sub2_p[0]);
       }
       else if(JG_pos_abs>40&&JG_pos_abs<=60) 
       {
           if(JG_clear_Pos[1]>0)   
-          JG_pwm=-(JG_clear_Pos[1]/B1P3-sub_p[2]);
+         JG_pwm=0;  // JG_pwm=-(JG_clear_Pos[1]/B1P3-sub_p[2]);
          else if(JG_clear_Pos[1]<0)
           JG_pwm=-(JG_clear_Pos[1]/B2P3+sub2_p[1]);
       }      
       else if(JG_pos_abs>60&&JG_pos_abs<=80)
       {
         if(JG_clear_Pos[1]>0)    
-           JG_pwm=-(JG_clear_Pos[1]/B1P4-sub_p[3]);
+         JG_pwm=-(JG_clear_Pos[1]/B1P4-sub_p[3])*get_flag;
         else  if(JG_clear_Pos[1]<0)
           JG_pwm=-(JG_clear_Pos[1]/B2P4+sub2_p[2]); 
       }
       else if(JG_pos_abs>80&&JG_pos_abs<=100)
       {
         if(JG_clear_Pos[1]>0)    
-           JG_pwm=-(JG_clear_Pos[1]/B1P5-sub_p[4]);
+          JG_pwm=-(JG_clear_Pos[1]/B1P5-sub_p[4])*get_flag;
          else if(JG_clear_Pos[1]<0)
           JG_pwm=-(JG_clear_Pos[1]/B2P5+sub2_p[3]); 
       }
@@ -351,35 +355,35 @@ void  baitou (void)
        if(JG_clear_Pos[1]>0)    
        JG_pwm=-(JG_clear_Pos[1]/B2P1);
        else if(JG_clear_Pos[1]<0)
-        JG_pwm=-(JG_clear_Pos[1]/B1P1+sub_p[0]); 
+      JG_pwm=0;  //  JG_pwm=-(JG_clear_Pos[1]/B1P1+sub_p[0]); 
     }
     else if(JG_pos_abs>20&&JG_pos_abs<=40) 
     {
        if(JG_clear_Pos[1]>0)    
         JG_pwm=-(JG_clear_Pos[1]/B2P2-sub2_p[0]);
        else  if(JG_clear_Pos[1]<0)
-        JG_pwm=-(JG_clear_Pos[1]/B1P2+sub_p[1]);
+      JG_pwm=0;  //  JG_pwm=-(JG_clear_Pos[1]/B1P2+sub_p[1]);
     }
     else if(JG_pos_abs>40&&JG_pos_abs<=60) 
     {
        if(JG_clear_Pos[1]>0)    
         JG_pwm=-(JG_clear_Pos[1]/B2P3-sub2_p[1]);
        else if(JG_clear_Pos[1]<0)
-        JG_pwm=-(JG_clear_Pos[1]/B1P3+sub_p[2]);
+      JG_pwm=0;  //  JG_pwm=-(JG_clear_Pos[1]/B1P3+sub_p[2]);
     }      
     else if(JG_pos_abs>60&&JG_pos_abs<=80)
     {
        if(JG_clear_Pos[1]>0)    
         JG_pwm=-(JG_clear_Pos[1]/B2P4-sub2_p[2]);
        else if(JG_clear_Pos[1]<0)
-        JG_pwm=-(JG_clear_Pos[1]/B1P4+sub_p[3]);
+       JG_pwm=-(JG_clear_Pos[1]/B1P4+sub_p[3])*get_flag;
     }
     else if(JG_pos_abs>80&&JG_pos_abs<=100)
     {
        if(JG_clear_Pos[1]>0)    
         JG_pwm=-(JG_clear_Pos[1]/B2P5-sub2_p[3]);
       else if(JG_clear_Pos[1]<0)
-        JG_pwm=-(JG_clear_Pos[1]/B1P5+sub_p[4]);
+      JG_pwm=-(JG_clear_Pos[1]/B1P5+sub_p[4])*get_flag;
     }
     else if(JG_pos_abs>100&&JG_pos_abs<=120)
     {
@@ -491,7 +495,7 @@ void Clear_General(void)
   if(befo_General_pos>=0)
     General_pos=befo_General_pos*0.5016+4.503;
   else 
-    General_pos=befo_General_pos*0.5016-4.503;
+    General_pos=befo_General_pos*0.5016-7.503 ;
 
 //General_pos[1]=(10*General_pos[0]+130*General_pos[1])/140;
 //cha_pos=General_pos[1]-General_pos[0];
@@ -510,31 +514,27 @@ int DP1=15,DP2=13,DP3=11,DP4=10,DP5=8,DP6=7,DP7=6;
 
 void dajiao(byte a)
 {
-  //int abs_pos;
-
-  //int sub_p[7];
-
+  long speedaffect1=0;
+  long speedaffect2=0;
+  long speedaffect3=0;
+  int speedinfo;
   int changebaitou;          
   int dj_pwm;
-  //int speedinfo;
-  //int abs_affect;
-
-  //int speedaffect;
-  //int code[2]={3,1},sum_code=4;
+  
 
   
   if(a==0){
     
   
-  changebaitou=baitoupwm/20;      //摆头占空比 除
-  speedinfo=speed_clear[1]-140;    //基准的速度 如果小于它就不执行速度加入转角
+  changebaitou=baitoupwm/10;      //摆头占空比 除
+  speedinfo=speed_clear[1]-120;    //基准的速度 如果小于它就不执行速度加入转角
 
   if(speedinfo>=5)
   {
     speedinfo=speedinfo/25;
     speedaffect1=speedinfo*speedinfo;
     speedaffect2=speedaffect1*changebaitou;
-    speedaffect3=speedaffect2/200;
+    speedaffect3=speedaffect2/10;
    
     //speedaffect=speedinfo*speedinfo*changebaitou/48; 
     //speedaffect[1]=(10*speedaffect[0]+60*speedaffect[1])/70;
@@ -544,7 +544,7 @@ void dajiao(byte a)
   {
     dj_pwm=General_pos;
   }
-  else
+  else if(turn_flag==1)
   {
     dj_pwm=General_pos+speedaffect3; 
   }
@@ -561,10 +561,10 @@ void dajiao(byte a)
   
     }
  
-  if(dj_pwm>272)
-    dj_pwm=272;
-  else if(dj_pwm<-272)
-    dj_pwm=-272;
+  if(dj_pwm>300)
+    dj_pwm=300;
+  else if(dj_pwm<-300)
+    dj_pwm=-300;
   dj_pwm=dj_pwm+PWM01;
   PWMDTY01=dj_pwm;
 }
@@ -591,7 +591,7 @@ void SpeedCtrl (byte a)
   float A,B,C; 
   int abs_error;
   
-  if(a==1)
+ if(a==1)
   {
     PORTB_PB7=0;
     PWMDTY23 = 0; 
@@ -611,32 +611,35 @@ void SpeedCtrl (byte a)
  {
     PORTB_PB7=1;
     
-    changebaitou=baitoupwm;  //速度调节分80段
+/*   changebaitou=baitoupwm;  //速度调节分80段
     if(changebaitou>180)changebaitou=180;
     else if(changebaitou<-180)changebaitou=-180;
     
     if(changebaitou>0)
-      aim_speed=(-0.7486)*changebaitou+800;
+      aim_speed=(-0.7486)*changebaitou+350;
     else  
-      aim_speed=0.7486*changebaitou+800;                    //弯道 偏移和速度的一个假象的关系 没有验证过
+      aim_speed=0.7486*changebaitou+350;                    //弯道 偏移和速度的一个假象的关系 没有验证过
    
      error0=aim_speed-speed_clear[1];
      
-     if(error0<=-400)                  //积分分离
+     if(error0<=-200)                  //积分分离
        {
-       PWMDTY6=60;
+       PWMDTY6=30;
        PWMDTY23=0;
-       }
+       }     
    
       
-      else if(error0>=-400)
-       {
+     // else if(error0>=-200)
+    //   {
        A=Kp*(1+Ki+Kd);
        B=Kp*(1+2*Kd);
        C=Kp*(Kd);
        speed_pwm=A*error0+B*error1+C*error2;
        
-       }   
+       PWMDTY6=0;
+    //   }
+      error2=error1;                                       //存储误差，用于下次计算
+      error1=error0;    
        
       if(his_pwm+speed_pwm>=625)  
      PWMDTY23=625;
@@ -644,11 +647,12 @@ void SpeedCtrl (byte a)
      { PWMDTY23=0;daozhuan_flag=1;  }
      else PWMDTY23=PWMDTY23+speed_pwm;
         
-  
-    }
-    
-
-    
+  */
+  PWMDTY23=400;
+   PWMDTY6=0;
+    }      
+   
+   
     
  }
 

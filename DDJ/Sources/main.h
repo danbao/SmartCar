@@ -24,8 +24,9 @@
   byte get_flag;
   int side;
   byte side_baipwm;  
-  byte B1P1=30,B1P2=28,B1P3=26,B1P4=25,B1P5=25,B1P6=23,B1P7=23,B1P8=23,B1P9=22,B1P10=20,B1P11=18,B1P12=17,B1P13=17,B1P14=16;
-  byte B2P1=9,B2P2=8,B2P3=7,B2P4=7,B2P5=7,B2P6=7,B2P7=8,B2P8=7,B2P9=7,B2P10=6,B2P11=6,B2P12=6,B2P13=6,B2P14=5;
+ 
+  byte B1P1=30,B1P2=28,B1P3=26,B1P4=25,B1P5=25,B1P6=23,B1P7=23,B1P8=23,B1P9=22,B1P10=20,B1P11=18,B1P12=18,B1P13=17,B1P14=16;
+  byte B2P1=5,B2P2=5,B2P3=5,B2P4=5,B2P5=4,B2P6=4,B2P7=8,B2P8=7,B2P9=7,B2P10=6,B2P11=6,B2P12=6,B2P13=6,B2P14=5;
  // byte B3P1=30,B3P2=20,B3P3=14,B3P4=12,B3P5=11,B3P6=10,B3P7=9,B3P8=8,B3P9=7,B3P10=6;
  // byte B4P1=30,B4P2=20,B4P3=14,B4P4=11,B4P5=10,B4P6=9,B4P7=8,B4P8=7,B4P9=6,B4P10=5;
  // byte B5P1=30,B5P2=20,B5P3=14,B5P4=10,B5P5=9,B5P6=8,B5P7=7,B5P8=6,B5P9=5,B5P10=4;
@@ -50,9 +51,7 @@
  
   byte error[LASER_MAX];
   //int error;
-  long speedaffect1;
-  long speedaffect2;
-  long speedaffect3;
+  
   
   double temp_speed;
   int delay_count=1;                      //普通延时计数
@@ -109,7 +108,7 @@
   
   
    
-  int speedinfo;
+  
   //int dajiao_Slope[3];                   //打角舵机的两个斜率 2为累加值
   
   int  baitou_delay=1;                    //摆头延迟  同时用来等分摆头的每次舵机值
@@ -119,7 +118,7 @@
  
   byte speed_begian;                       //开始速度策略（等待脉冲捕捉完成）
   long speed_clear[2];                    //速度滤波值  最终结果 此次和上次
-  float Kp=4.5;                      //比例常数
+  float Kp=2.5;                      //比例常数
   float Ki=0;                      //积分常数
   float Kd=0;                      //微分常数
   int error0=0;                      //当前误差，为目标速度减去当前获取的脉冲值
