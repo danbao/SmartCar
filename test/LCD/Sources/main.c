@@ -5,29 +5,18 @@
 #include <stdlib.h>      //随机数用到
 #define uchar 	unsigned char
 #define uint 	unsigned int
-#define LASER_MAX 12          //激光管数量
-byte light_temp_laser_array[12]={1,0,1,0,1,0,1,1,1,0,0,0};
+#define LASER_MAX 21          //激光管数量
+byte light_temp_laser_array[21]={1,0,1,0,1,0,1,1,1,0,0,0,1,0,1,0,1,0,0,1,1};
 int IR_temp_laser_array[7]={130,0,200,0,255,100,150};
-int xiugaizhi;
 #include "LCD.h"
 
 void main(void)
 {
-   uchar key;	
- // EnableInterrupts;
 	LCD_init();  //初始化LCD模块 
-  //LCD_start();
-  // delay_nms(5000);
-   LCD_clear();
+  LCD_start();
+  //delay_nms(5000);
+  LCD_clear();
   LCD_show();
   for(;;)
-  	{ 
-  	if (LCD_checkkey()==0x00) continue;
-	   	else 
-		{
-          key= LCD_keyscan();
-          LCD_determine(LCD_keytran(key));
-    delay_nms(100);
-		}
-  	}
+  {LCD_xianshi();}
 }
