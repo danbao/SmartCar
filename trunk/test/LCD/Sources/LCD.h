@@ -7,6 +7,7 @@
 ----------------------------------------------*/        
 uint LCD_flag=0,LCD_temp=0,LCD_para_num=0;
 uint PD1=15,PD2=134,PD3=456,PD4=6894;
+byte LCD_plan_xudas,LCD_plan_xuxiaos,LCD_plan_das,LCD_plan_xiaos,LCD_plan_podao,LCD_plan_qipao;
 
 #define RST PTM_PTM0     		//复位用M7口   
 #define SCE PTM_PTM1          //片选用M6口
@@ -199,7 +200,7 @@ hanzi_12: 自定义汉字12*12字库
 说明：如需添加汉字，在最后面按顺序添加，切勿中间插入
 编写日期：20110707 
 ----------------------------------------------*/
-unsigned char hanzi_12[]=
+	unsigned char hanzi_12[]=
 {
 //进
 	0x10,0x11,0xF2,0x40,0x44,0xFF,0x44,0x44,0xFF,0x44,0x40,0x00,0x08,0x04,0x03,0x04,0x0A,0x09,0x08,0x08,0x0B,0x08,0x08,0x00,
@@ -241,6 +242,14 @@ unsigned char hanzi_12[]=
 	0x9E,0x12,0xF2,0x9E,0x08,0xF4,0x97,0x94,0xF4,0x04,0xFC,0x00,0x0F,0x08,0x07,0x04,0x00,0x07,0x08,0x08,0x08,0x09,0x0D,0x00,
 //速
 	0x11,0xF2,0x00,0x7A,0x4A,0xCA,0xFF,0xCA,0x4A,0x7A,0x02,0x00,0x08,0x07,0x08,0x0A,0x09,0x08,0x0F,0x08,0x09,0x0A,0x08,0x00,
+//方
+	0x04,0x04,0x04,0xFC,0x25,0x26,0x24,0x24,0x24,0xE4,0x04,0x00,0x08,0x04,0x03,0x00,0x00,0x00,0x08,0x08,0x08,0x07,0x00,0x00,
+//案
+	0x46,0x4A,0x4A,0x5A,0x2E,0xAB,0x2A,0x5A,0x4A,0x4A,0x06,0x00,0x09,0x09,0x05,0x03,0x01,0x0F,0x01,0x03,0x05,0x09,0x09,0x00,
+//选
+	0x10,0x11,0xF2,0x00,0x28,0x26,0xE4,0x3F,0xE4,0x24,0x20,0x00,0x08,0x04,0x03,0x04,0x0A,0x09,0x08,0x08,0x09,0x0A,0x0B,0x00,
+//择
+	0x88,0x88,0xFF,0x48,0x21,0xA3,0x95,0xE9,0x95,0xA3,0x20,0x00,0x00,0x08,0x0F,0x00,0x02,0x02,0x02,0x0F,0x02,0x02,0x02,0x00,
 	};
 
 void delay_1ms(void)                  //1ms延时函数
@@ -543,6 +552,10 @@ LCD_show: 显示屏显示主界面
 	LCD_write_hanzi_12(14,2,8); //参
 	LCD_write_hanzi_12(18,2,9); //数
 	
+	LCD_write_hanzi_12(6,4,20);  //方
+	LCD_write_hanzi_12(10,4,21); //案
+	LCD_write_hanzi_12(14,4,22); //选
+	LCD_write_hanzi_12(18,4,23); //择
 	}
 /*---------------------------------------------
 LCD_T_JG: 检测激光
@@ -718,7 +731,82 @@ void LCD_temp_zhi(uchar a) {
    LCD_temp=LCD_temp*10+temp;
    LCD_write_shuzi(5,3,LCD_temp);
 	}
-		
+	/*---------------------------------------------
+LCD_plan_choose: 方案选择页面 
+编写日期：20110711
+-----------------------------------------------*/
+void LCD_plan_choose(uint a) {
+	switch(a) {
+	 case 40:     //方案选择的主页面0
+   { LCD_write_cizu(5,0,"Plan Choose 1");
+  	LCD_write_cizu(15,1,"Xu-Da-S");
+    if(LCD_plan_xudas==1)LCD_write_zi(5,1,'*');
+    else if(LCD_plan_xudas==0)LCD_write_zi(5,1,' ');
+  	LCD_write_cizu(15,2,"Xu-Xiao-S");
+  	if(LCD_plan_xuxiaos==1)LCD_write_zi(5,2,'*');
+    else if(LCD_plan_xuxiaos==0)LCD_write_zi(5,2,' ');
+  	LCD_write_cizu(15,3,"Da-S");
+  	if(LCD_plan_das==1)LCD_write_zi(5,3,'*');
+    else if(LCD_plan_das==0)LCD_write_zi(5,3,' ');
+  	LCD_write_cizu(15,4,"Xiao-S");
+  	if(LCD_plan_xiaos==1)LCD_write_zi(5,4,'*');
+    else if(LCD_plan_xiaos==0)LCD_write_zi(5,4,' ');
+	  LCD_write_cizu(0,5,"<-");
+	  LCD_write_cizu(73,5,"->"); 
+	}
+	break;
+    case 41:     //方案选择的主页面1
+  {
+  LCD_write_cizu(5,0,"Plan Choose 2");
+  LCD_write_cizu(15,1,"Podao");
+  if(LCD_plan_podao==1)LCD_write_zi(5,1,'*');
+  else if(LCD_plan_podao==0)LCD_write_zi(5,1,' ');
+  LCD_write_cizu(15,2,"Start Line");
+  if(LCD_plan_qipao==1)LCD_write_zi(5,2,'*');
+  else if(LCD_plan_qipao==0)LCD_write_zi(5,2,' ');
+	LCD_write_cizu(0,5,"<-");
+	LCD_write_cizu(73,5,"->");
+  }break;
+    case 42:     //方案选择的主页面2
+    {
+  LCD_write_cizu(5,0,"Plan Choose 3");
+	LCD_write_cizu(0,5,"<-");
+	LCD_write_cizu(73,5,"->");  
+   }break; 
+	} 
+}
+	/*---------------------------------------------
+LCD_close_plan:关闭方案选择
+编写日期：20110711             
+-----------------------------------------------*/
+void LCD_close_plan(uint a){
+	switch(a) {
+  	case 11: {
+	  if(LCD_plan_xudas==0)LCD_plan_xudas=1;
+	  else if(LCD_plan_xudas==1)LCD_plan_xudas=0; 
+	}	break; 
+		case 12: {
+	  if(LCD_plan_xuxiaos==0)LCD_plan_xuxiaos=1;
+	  else if(LCD_plan_xuxiaos==1)LCD_plan_xuxiaos=0; 
+	}	break; 
+		case 13: {
+	  if(LCD_plan_das==0)LCD_plan_das=1;
+	  else if(LCD_plan_das==1)LCD_plan_das=0; 
+	}	break; 
+		case 14: {
+	  if(LCD_plan_xiaos==0)LCD_plan_xiaos=1;
+	  else if(LCD_plan_xiaos==1)LCD_plan_xiaos=0; 
+	}	break; 
+		case 21: {
+	  if(LCD_plan_podao==0)LCD_plan_podao=1;
+	  else if(LCD_plan_podao==1)LCD_plan_podao=0; 
+	}	break; 
+		case 22: {
+	  if(LCD_plan_qipao==0)LCD_plan_qipao=1;
+	  else if(LCD_plan_qipao==1)LCD_plan_qipao=0; 
+	}	break;   
+}  
+}
 /*---------------------------------------------
 LCD_determine: 按键判断并执行动作
 编写日期：20110707
@@ -737,11 +825,20 @@ else if(LCD_flag>20&&LCD_flag<=22&&x=='Y')LCD_flag--;
 else if(LCD_flag>=20&&LCD_flag<22&&x=='N')LCD_flag++;
 else if(LCD_flag==20&&x=='Y')LCD_flag=0;
 else if(LCD_flag==22&&x=='N')LCD_flag=0;    
-else if(LCD_flag>=20&&LCD_flag<=22&&x>='0'&&x<='4'){LCD_para_num=(uint)((LCD_flag-20)*10+x-38);LCD_flag=3;LCD_clear();}
+else if(LCD_flag>=20&&LCD_flag<=22&&x>'0'&&x<='4'){LCD_para_num=(uint)((LCD_flag-20)*10+x-38);LCD_flag=3;LCD_clear();}
 /*修改参数页面*/
 else if(LCD_flag==3&&x>='0'&&x<='9'){LCD_temp_zhi(x);}
 else if(LCD_flag==3&&x=='Y'){LCD_temp_confirm(LCD_para_num,LCD_temp);LCD_flag=(uchar)(LCD_para_num/10+19);}
 else if(LCD_flag==3&&x=='N'){LCD_temp=0;LCD_flag=(uchar)(LCD_para_num/10+19);}
+/*方案选择页面*/
+else if(LCD_flag==0&&x=='9'){LCD_clear();LCD_flag=40;}
+else if(LCD_flag>40&&LCD_flag<=42&&x=='Y'){LCD_clear();LCD_flag--;}
+else if(LCD_flag>=40&&LCD_flag<42&&x=='N'){LCD_clear();LCD_flag++;}
+else if(LCD_flag==40&&x=='Y')LCD_flag=0;
+else if(LCD_flag==42&&x=='N')LCD_flag=0; 
+else if(LCD_flag>=40&&LCD_flag<=42&&x>'0'&&x<='4'){LCD_close_plan(((int)LCD_flag-39)*10+(int)x-48);}
+
+
    result= LCD_flag;
     switch(result)
     {
@@ -779,5 +876,24 @@ else if(LCD_flag==3&&x=='N'){LCD_temp=0;LCD_flag=(uchar)(LCD_para_num/10+19);}
     case 3:    /*进入调节参数状态页面*/
     LCD_para_modify(LCD_para_num);						
     break;
+    /*方案选择*/
+    case 40:    /*进入方案选择页面0*/
+    LCD_plan_choose(40);						
+    break;
+    case 41:    /*进入方案选择页面1*/
+    LCD_plan_choose(41);						
+    break;
+    case 42:    /*进入方案选择页面2*/
+    LCD_plan_choose(42);						
+    break;
     }
+}
+void LCD_xianshi(){ 
+   uchar key; 
+  	if (LCD_checkkey()!=0x00){
+    key= LCD_keyscan();
+          LCD_determine(LCD_keytran(key));
+    delay_nms(100);
+    	}
+
 }
