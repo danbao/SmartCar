@@ -84,7 +84,7 @@ void  baitou (void)
   
  if(side==1&&get_flag==0){
   
- if((baitou_diff[1]-side_baipwm)>0&&(baitou_diff[1]-side_baipwm)<30) {side=0;baitou_begin=1; }
+ if(position<=-12) {side=0;baitou_begin=1; }
  }
   } 
  
@@ -100,7 +100,7 @@ void  baitou (void)
    
    if(side==-1&&get_flag==0){
     
-   if((baitou_diff[1]-side_baipwm)<0&&(baitou_diff[1]-side_baipwm)>-30) {side=0;baitou_begin=1; }
+   if(position>=12) {side=0;baitou_begin=1; }
    }
   }
   
@@ -531,7 +531,7 @@ void dajiao(byte a)
 
   if(speedinfo>=5)
   {
-    speedinfo=speedinfo/25;
+    speedinfo=speedinfo/20;
     speedaffect1=speedinfo*speedinfo;
     speedaffect2=speedaffect1*changebaitou;
     speedaffect3=speedaffect2/10;
@@ -611,24 +611,24 @@ void SpeedCtrl (byte a)
  {
     PORTB_PB7=1;
     
-/*   changebaitou=baitoupwm;  //速度调节分80段
-    if(changebaitou>180)changebaitou=180;
-    else if(changebaitou<-180)changebaitou=-180;
+  changebaitou=baitoupwm;  //速度调节分80段
+    if(changebaitou>300)changebaitou=300;
+    else if(changebaitou<-300)changebaitou=-300;
     
     if(changebaitou>0)
-      aim_speed=(-0.7486)*changebaitou+350;
+      aim_speed=(-0.7486)*changebaitou+400;
     else  
-      aim_speed=0.7486*changebaitou+350;                    //弯道 偏移和速度的一个假象的关系 没有验证过
+      aim_speed=0.7486*changebaitou+400;                    //弯道 偏移和速度的一个假象的关系 没有验证过
    
      error0=aim_speed-speed_clear[1];
      
-     if(error0<=-200)                  //积分分离
+   /*  if(error0<=-200)                  //积分分离
        {
        PWMDTY6=30;
        PWMDTY23=0;
        }     
    
-      
+    */  
      // else if(error0>=-200)
     //   {
        A=Kp*(1+Ki+Kd);
@@ -647,9 +647,8 @@ void SpeedCtrl (byte a)
      { PWMDTY23=0;daozhuan_flag=1;  }
      else PWMDTY23=PWMDTY23+speed_pwm;
         
-  */
-  PWMDTY23=400;
-   PWMDTY6=0;
+  
+ 
     }      
    
    

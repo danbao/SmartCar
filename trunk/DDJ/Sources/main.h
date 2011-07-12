@@ -118,7 +118,7 @@
  
   byte speed_begian;                       //开始速度策略（等待脉冲捕捉完成）
   long speed_clear[2];                    //速度滤波值  最终结果 此次和上次
-  float Kp=2.5;                      //比例常数
+  float Kp=6.5;                      //比例常数
   float Ki=0;                      //积分常数
   float Kd=0;                      //微分常数
   int error0=0;                      //当前误差，为目标速度减去当前获取的脉冲值
