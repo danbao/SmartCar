@@ -625,7 +625,6 @@ LCD_para: 修改参数的主页面
   void LCD_para(uint a) {
   	int num;
 	LCD_clear();
-
 	switch(a)
     {
     case 20:     //修改参数的主页面0
@@ -640,6 +639,7 @@ LCD_para: 修改参数的主页面
   else num=1;  
   LCD_write_zi(25+num*6,1,'.');
   LCD_write_shuzi(31+num*6,1,(int)(Kp*10)%10);
+  LCD_write_shuzi(37+num*6,1,(int)(Kp*100)%10);
   LCD_write_cizu(0,2,"Ki:");
   LCD_write_shuzi(25,2,(int)Ki);
        if ((int)Ki>9999)  num=5;
@@ -649,6 +649,7 @@ LCD_para: 修改参数的主页面
   else num=1;
   LCD_write_zi(25+num*6,2,'.');
   LCD_write_shuzi(31+num*6,2,(int)(Ki*10)%10); 
+  LCD_write_shuzi(37+num*6,2,(int)(Ki*100)%10); 
   LCD_write_cizu(0,3,"Kd:");
   LCD_write_shuzi(25,3,(int)Kd);
        if ((int)Kd>9999)  num=5;
@@ -658,6 +659,7 @@ LCD_para: 修改参数的主页面
   else num=1;
   LCD_write_zi(25+num*6,3,'.');
   LCD_write_shuzi(31+num*6,3,(int)(Kd*10)%10); 
+  LCD_write_shuzi(37+num*6,3,(int)(Kd*100)%10);  
 	LCD_write_cizu(0,5,"<-");
 	LCD_write_cizu(73,5,"->");
  }
@@ -712,15 +714,15 @@ void LCD_temp_confirm(uint num,uint zhi) {
  switch(num)
  {
     case 11:     //修改参数1
-  Kp=(float)zhi/10;
+  Kp=(float)zhi/100;
   LCD_temp=0; 
     break;
     case 12:     //修改参数2
-  Ki=(float)zhi/10;
+  Ki=(float)zhi/100;
   LCD_temp=0;
     break;
     case 13:     //修改参数3
-  Kd=(float)zhi/10;
+  Kd=(float)zhi/100;
   LCD_temp=0;
     break;
    } 
