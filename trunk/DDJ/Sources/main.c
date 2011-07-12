@@ -7,8 +7,9 @@
 #include "main.h"
 #include "IR.h"            //所有变量的定义都放在main.h文件下了           
 #include "dealinfo.h"
-#include "control.h"  
-#include "SCI.h"
+#include "control.h"
+#include "LCD.h"  
+//#include "SCI.h"
 
 /* ================= SendSmartcarInfo ====================
       desc: SCI串口发送当前激光管采集信息
@@ -26,17 +27,22 @@ void main(void)
   PITInit();          //PIT初始
   PWM_Init();
   LIGHT_Init();
-  SCI_Init();
+  //SCI_Init();
   Tect_Speed_Init();    //ECT 捕捉初始
   AD_Init(); 
   delayms(3000);
-  
+  LCD_init();  //初始化LCD模块 
+  LCD_start();
+  delay_nms(500);
+  LCD_clear();
+  LCD_show();
   Laser_num();
   IR_num();
   
   EnableInterrupts;
   for(;;) 
   {
+   LCD_xianshi();
 // TestCross_judge();
 // Test_IR(IR_temp_laser_array);
    /*send_count++;
@@ -48,7 +54,7 @@ void main(void)
  }
     
         
-// _FEED_COP(); /*看门狗，防死循环用的 */
+ _FEED_COP(); /*看门狗，防死循环用的 */
  /* loop forever */
   /* please make sure that you never leave main */
 }
