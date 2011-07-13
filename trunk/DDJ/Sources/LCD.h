@@ -590,6 +590,7 @@ void LCD_T_JG(byte temp_laser_array[]) {
       LCD_write_zi((i-11)*7,3,'1');  
    }
   }
+  LCD_write_shuzi(35,4,position);
 	LCD_write_cizu(0,5,"<-");
 	LCD_write_cizu(73,5,"->");  
 }
