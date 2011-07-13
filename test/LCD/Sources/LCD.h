@@ -2,12 +2,13 @@
 	Written by:	林震
 	Modify by: 	林震
     Date:       2011.04.09
-    Update:     2011.07.07
+    Update:     2011.07.07             
 	说明：LCD显示初始化及相关函数调用
 ----------------------------------------------*/        
-uint LCD_flag=0,LCD_temp=0,LCD_para_num=0;
-uint PD1=15,PD2=134,PD3=456,PD4=6894;
+uint LCD_flag=0,LCD_temp=0,LCD_para_num=0,LCD_float_flag=0;
 byte LCD_plan_xudas,LCD_plan_xuxiaos,LCD_plan_das,LCD_plan_xiaos,LCD_plan_podao,LCD_plan_qipao;
+float float_num;
+float Kp,Ki,Kd;
 
 #define RST PTM_PTM0     		//复位用M7口   
 #define SCE PTM_PTM1          //片选用M6口
@@ -624,31 +625,64 @@ LCD_para: 修改参数的主页面
 编写日期：20110708
 -----------------------------------------------*/
   void LCD_para(uint a) {
+  	int num;
 	LCD_clear();
+
 	switch(a)
     {
     case 20:     //修改参数的主页面0
-  LCD_write_cizu(0,0,"Modify Page 1");
-  LCD_write_cizu(0,1,"PD1:");
-  LCD_write_shuzi(40,1,PD1);
-  LCD_write_cizu(0,2,"PD2:");
-  LCD_write_shuzi(40,2,PD2);
-  LCD_write_cizu(0,3,"PD3:");
-  LCD_write_shuzi(40,3,PD3);
-  LCD_write_cizu(0,4,"PD4:");
-  LCD_write_shuzi(40,4,PD4);
+ {
+  LCD_write_cizu(0,0,"Mod Sped Ctr");
+  LCD_write_cizu(0,1,"Kp:");
+  LCD_write_shuzi(25,1,(int)Kp);
+       if ((int)Kp>9999)  num=5;
+  else if ((int)Kp>999)   num=4;
+  else if ((int)Kp>99)    num=3;
+  else if ((int)Kp>9)     num=2;
+  else num=1;  
+  LCD_write_zi(25+num*6,1,'.');
+  LCD_write_shuzi(31+num*6,1,(int)(Kp*10)%10);
+  LCD_write_shuzi(37+num*6,1,(int)(Kp*100)%10);
+  LCD_write_shuzi(43+num*6,1,(int)(Kp*1000)%10);
+  LCD_write_cizu(0,2,"Ki:");
+  LCD_write_shuzi(25,2,(int)Ki);
+       if ((int)Ki>9999)  num=5;
+  else if ((int)Ki>999)   num=4;
+  else if ((int)Ki>99)    num=3;
+  else if ((int)Ki>9)     num=2;
+  else num=1;
+  LCD_write_zi(25+num*6,2,'.');
+  LCD_write_shuzi(31+num*6,2,(int)(Ki*10)%10);
+  LCD_write_shuzi(37+num*6,2,(int)(Ki*100)%10);
+  LCD_write_shuzi(43+num*6,2,(int)(Ki*1000)%10); 
+  LCD_write_cizu(0,3,"Kd:");
+  LCD_write_shuzi(25,3,(int)Kd);
+       if ((int)Kd>9999)  num=5;
+  else if ((int)Kd>999)   num=4;
+  else if ((int)Kd>99)    num=3;
+  else if ((int)Kd>9)     num=2;
+  else num=1;
+  LCD_write_zi(25+num*6,3,'.');
+  LCD_write_shuzi(31+num*6,3,(int)(Kd*10)%10);
+  LCD_write_shuzi(37+num*6,3,(int)(Kd*100)%10);
+  LCD_write_shuzi(43+num*6,3,(int)(Kd*1000)%10); 
 	LCD_write_cizu(0,5,"<-");
-	LCD_write_cizu(73,5,"->");  
+	LCD_write_cizu(73,5,"->");
+ }
     break;
     case 21:     //修改参数的主页面1
+ {
   LCD_write_cizu(0,0,"Modify Page 2");
 	LCD_write_cizu(0,5,"<-");
-	LCD_write_cizu(73,5,"->"); 
+	LCD_write_cizu(73,5,"->");
+ }
     break;
     case 22:     //修改参数的主页面2
-  LCD_write_cizu(0,0,"Modify Page 3");
+  {
+    LCD_write_cizu(0,0,"Modify Page 3");
 	LCD_write_cizu(0,5,"<-");
-	LCD_write_cizu(73,5,"->");  
+	LCD_write_cizu(73,5,"->"); 
+  }
     break;
     } 
 	}
@@ -662,22 +696,17 @@ LCD_write_cizu(0,0,"Modify");
  switch(a)
  {
     case 11:     //修改参数页面11
-  LCD_write_cizu(40,0,"PD1");
+  LCD_write_cizu(40,0,"Kp");
   LCD_write_cizu(0,5,"YES");
 	LCD_write_cizu(73,5,"NO");   
     break;
     case 12:     //修改参数页面12
-  LCD_write_cizu(40,0,"PD2");
+  LCD_write_cizu(40,0,"Ki");
   LCD_write_cizu(0,5,"YES");
 	LCD_write_cizu(73,5,"NO"); 
     break;
     case 13:     //修改参数页面13
-  LCD_write_cizu(40,0,"PD3");
-  LCD_write_cizu(0,5,"YES");
-	LCD_write_cizu(73,5,"NO"); 
-    break;
-    case 14:     //修改参数页面14
-  LCD_write_cizu(40,0,"PD3");
+  LCD_write_cizu(40,0,"Kd");
   LCD_write_cizu(0,5,"YES");
 	LCD_write_cizu(73,5,"NO"); 
     break;
@@ -690,23 +719,46 @@ LCD_temp_confirm: 确认后修改值
 void LCD_temp_confirm(uint num,uint zhi) {
  switch(num)
  {
-    case 11:     //修改参数1
-  PD1=zhi;
+    case 21:     //修改参数1
+  Kp=(float)zhi;
   LCD_temp=0; 
     break;
-    case 12:     //修改参数2
-  PD2=zhi;
+    case 22:     //修改参数2
+  Ki=(float)zhi;
   LCD_temp=0;
+    break;
+    case 23:     //修改参数3
+  Kd=(float)zhi;
+  LCD_temp=0;
+    break;
+   } 
+	}
+/*---------------------------------------------
+LCD_temp_float_confirm: 确认后修改值
+编写日期：20110713
+-----------------------------------------------*/
+void LCD_temp_float_confirm(uint num,float zhi) {
+ switch(num)
+ {
+    case 11:     //修改参数1
+  Kp=zhi;
+  LCD_temp=0;
+  float_num=0;
+  LCD_float_flag=0; 
+    break;
+    case 12:     //修改参数2
+  Ki=zhi;
+  LCD_temp=0;
+  float_num=0;
+  LCD_float_flag=0;
     break;
     case 13:     //修改参数3
-  PD3=zhi;
+  Kd=zhi;
   LCD_temp=0;
+  float_num=0;
+  LCD_float_flag=0;
     break;
-    case 14:     //修改参数4
-  PD4=zhi;
-  LCD_temp=0;
-    break;
-    } 
+   } 
 	}
 /*---------------------------------------------
 LCD_keytran: 按键转数字
@@ -725,12 +777,37 @@ LCD_temp_zhi: 要改的值
 编写日期：20110708
 -----------------------------------------------*/
 void LCD_temp_zhi(uchar a) {
-   int temp;
-   temp=(int)a-48;
-   if(temp==10)temp=0;
-   LCD_temp=LCD_temp*10+temp;
-   LCD_write_shuzi(5,3,LCD_temp);
+   int int_tmp;
+   int_tmp=(int)a-48;
+   if(int_tmp==10)int_tmp=0;
+   LCD_temp=LCD_temp*10+int_tmp;
+   LCD_write_shuzi(5,3,LCD_temp); 
 	}
+/*---------------------------------------------
+LCD_tmp_float: 要改的值(Float型)
+编写日期：20110713
+-----------------------------------------------*/	
+	void LCD_tmp_float(uchar a){
+	 int tmp,i;
+	 float float_tmp;
+	 char b[10];
+	 if(a=='Y') 
+	 {  
+	 (void)sprintf(b,"%.5f",float_num);
+    LCD_write_cizu(5,3,b);
+    } 
+    else{
+    	  tmp=(int)a-48;
+	 if(tmp==10)tmp=0;
+	 
+   float_tmp=(float)tmp;  
+	 for(i=LCD_float_flag;i>1;i--) float_tmp=float_tmp/10;
+	 
+	 float_num=float_num+float_tmp;
+	 (void)sprintf(b,"%.5f",float_num);
+    LCD_write_cizu(5,3,b);
+	 }
+ }
 	/*---------------------------------------------
 LCD_plan_choose: 方案选择页面 
 编写日期：20110711
@@ -813,6 +890,7 @@ LCD_determine: 按键判断并执行动作
 -----------------------------------------------*/	
 void LCD_determine(uchar x) {
 	uint result;
+	
 /*进入赛道测试向导*/
 if(LCD_flag==0&&x=='1')LCD_flag=10;
 else if(LCD_flag>10&&LCD_flag<=14&&x=='Y')LCD_flag--;
@@ -827,8 +905,11 @@ else if(LCD_flag==20&&x=='Y')LCD_flag=0;
 else if(LCD_flag==22&&x=='N')LCD_flag=0;    
 else if(LCD_flag>=20&&LCD_flag<=22&&x>'0'&&x<='4'){LCD_para_num=(uint)((LCD_flag-20)*10+x-38);LCD_flag=3;LCD_clear();}
 /*修改参数页面*/
-else if(LCD_flag==3&&x>='0'&&x<='9'){LCD_temp_zhi(x);}
-else if(LCD_flag==3&&x=='Y'){LCD_temp_confirm(LCD_para_num,LCD_temp);LCD_flag=(uchar)(LCD_para_num/10+19);}
+else if(LCD_flag==3&&x>='0'&&x<='9'&&LCD_float_flag!=0){LCD_float_flag++;LCD_tmp_float(x);}
+else if(LCD_flag==3&&x>='0'&&x<='9'&&LCD_float_flag==0){LCD_temp_zhi(x);}
+else if(LCD_flag==3&&x=='Y'&&(uchar)(LCD_para_num/10+19)==20&&LCD_float_flag==0) {LCD_float_flag=1;float_num=(float)LCD_temp;LCD_temp=0;LCD_tmp_float(x);}
+else if(LCD_flag==3&&x=='Y'&&(uchar)(LCD_para_num/10+19)==20&&LCD_float_flag!=0) {LCD_temp_float_confirm(LCD_para_num,float_num);LCD_flag=20;}  
+else if(LCD_flag==3&&x=='Y'&&(uchar)(LCD_para_num/10+19)!=20){LCD_temp_confirm(LCD_para_num,LCD_temp);LCD_flag=(uchar)(LCD_para_num/10+19);}
 else if(LCD_flag==3&&x=='N'){LCD_temp=0;LCD_flag=(uchar)(LCD_para_num/10+19);}
 /*方案选择页面*/
 else if(LCD_flag==0&&x=='9'){LCD_clear();LCD_flag=40;}

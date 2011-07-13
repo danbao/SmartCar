@@ -14,7 +14,7 @@ void main(void)
 {
 	LCD_init();  //³õÊ¼»¯LCDÄ£¿é 
   LCD_start();
-  //delay_nms(5000);
+  delay_nms(500);
   LCD_clear();
   LCD_show();
   for(;;)
