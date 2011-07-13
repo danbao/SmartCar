@@ -109,16 +109,25 @@ void interrupt 66 PIT0_ISR(void)
    
    Clear_Speed();
    SpeedCtrl(start_flag);        
+   
+   speed_begian++;
+   if(speed_begian%5==0)
+   {
+    speed_begian=0;
+    speed_clear[1]= PACNT;
+    PACNT = 0x0000;
+   }
+   
    EnableInterrupts; 
 }   
  
-void interrupt 67 PIT1_ISR(void)
+/*void interrupt 67 PIT1_ISR(void)
 {
    PITCE_PCE1=0;PITCE_PCE1=1;
-   speed_clear[1]= PACNT;
+   
    speed_begian=1;
-   PACNT = 0x0000; 
+    
 
-}//PIT0_ISR
+}//PIT0_ISR       */
 
 #pragma CODE_SEG DEFAULT

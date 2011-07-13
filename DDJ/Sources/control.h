@@ -167,7 +167,7 @@ void Confirm_Light()
    
    
 //==========================ÍäµÀÖ±µÀÅÐ¶Ï=======
-    if(abs_baitoupwm>50)
+    if(abs_baitoupwm>150)
     { 
       if(Straight_flag==1)
       turn_flag=1;Straight_flag=0;

@@ -25,8 +25,8 @@
   int side;
   byte side_baipwm;  
  
-  byte B1P1=30,B1P2=28,B1P3=26,B1P4=25,B1P5=25,B1P6=23,B1P7=23,B1P8=23,B1P9=22,B1P10=20,B1P11=18,B1P12=18,B1P13=17,B1P14=16;
-  byte B2P1=5,B2P2=5,B2P3=5,B2P4=5,B2P5=4,B2P6=4,B2P7=8,B2P8=7,B2P9=7,B2P10=6,B2P11=6,B2P12=6,B2P13=6,B2P14=5;
+   byte B1P1=30,B1P2=28,B1P3=26,B1P4=25,B1P5=24,B1P6=23,B1P7=22,B1P8=20,B1P9=18,B1P10=16,B1P11=14,B1P12=14,B1P13=12,B1P14=12;
+   byte B2P1=5,B2P2=5,B2P3=5,B2P4=4,B2P5=4,B2P6=4,B2P7=8,B2P8=7,B2P9=7,B2P10=6,B2P11=6,B2P12=6,B2P13=6,B2P14=5;
  // byte B3P1=30,B3P2=20,B3P3=14,B3P4=12,B3P5=11,B3P6=10,B3P7=9,B3P8=8,B3P9=7,B3P10=6;
  // byte B4P1=30,B4P2=20,B4P3=14,B4P4=11,B4P5=10,B4P6=9,B4P7=8,B4P8=7,B4P9=6,B4P10=5;
  // byte B5P1=30,B5P2=20,B5P3=14,B5P4=10,B5P5=9,B5P6=8,B5P7=7,B5P8=6,B5P9=5,B5P10=4;
@@ -118,8 +118,8 @@
  
   byte speed_begian;                       //开始速度策略（等待脉冲捕捉完成）
   long speed_clear[2];                    //速度滤波值  最终结果 此次和上次
-  float Kp=6.5;                      //比例常数
-  float Ki=0;                      //积分常数
+  float Kp=20;                      //比例常数
+  float Ki=0.1;                      //积分常数
   float Kd=0;                      //微分常数
   int error0=0;                      //当前误差，为目标速度减去当前获取的脉冲值
   int error1=0;                      //前一次误差
@@ -196,25 +196,25 @@ void PWM_Init (void)
  
    PWMPOL = 0XFF;     //先输出高电平   PWM极性寄存器
    PWMCTL = 0X70;     //通道01级联，23级联，45级联
-   PWMPRCLK = 0X21;   //clockA 2分频,clockA=busclock/2=20MHz;CLK B 4分频:10Mhz 
+   PWMPRCLK = 0X11;   //clockA 2分频,clockA=busclock/2=20MHz;CLK B 2分频:20Mhz 
    PWMSCLA = 8;       //对clock SA 进行2*8=16分频；pwm clock=clockA/16=1.25MHz;
-   PWMSCLB = 4;       //对clock SB 进行2*4=8分频；pwm clock=clockB/8=1.25MHz;
+   PWMSCLB = 4;       //对clock SB 进行2*4=8分频；pwm clock=clockB/8=2.5MHz;
    PWMCLK_PCLK1 = 1;  //选择clock SA做时钟源  
-   PWMCLK_PCLK3 = 0;  //选择clock SB做时钟源  
+   PWMCLK_PCLK3 = 0;  //选择clock B做时钟源  
    PWMCLK_PCLK5 = 1;  //选择clock SA做时钟源  
-   PWMCLK_PCLK6 = 1;  //选择clock B 做时钟源
+   PWMCLK_PCLK6 = 1;  //选择clock SB 做时钟源
    PWMCLK_PCLK7 = 0;  //选择clock B 做时钟源      
 
-   PWMPER01 = 25000;    //频率 100Hz  周期10ms
-   PWMPER23 = 625;    //频率 16kHz    周期6.25us
-   PWMPER45 = 12500;  //频率 50Hz    周期10ms
-   PWMPER6 = 78;  //频率 16kHz        周期6.25us
+   PWMPER01 = 25000;    //频率 50Hz  周期20ms
+   PWMPER23 = 1667;    //频率 12kHz    周期6.25us
+   PWMPER45 = 12500;  //频率 100Hz    周期10ms
+   PWMPER6 = 208;  //频率 12kHz        周期6.25us
    PWMPER7 = PWMPE7;  //频率 166kHz   周期602ns
    
    PWMDTY01 = PWM01;      //占空比50%  前轮舵机
    PWMDTY23 = PWM23;      //占空比50%  电机正转
    PWMDTY45 = PWM45;      //           摆头舵机
-   PWMDTY6 = 7;      //占空比50%      电机反转
+   PWMDTY6 = 18;      //占空比50%      电机反转18
    PWMDTY7 = PWM7;      //占空比50%    调制管
    PWME_PWME1 = 1;    //通道1输出,前轮舵机使能  
    PWME_PWME3 = 1;    //通道3输出,电机正转使能
@@ -253,14 +253,14 @@ void PWM_Init (void)
     PITMTLD0 =200-1;  //设置微计数器0的加载寄存器。8位定时器初值设定。200分频，在40MHzBusClock下，为0.2MHz。即5us.    
     PITLD0 = 340-1;    //16位定时器初值设定。4000 -->  20ms   1500-->7.5ms  
     PITINTE_PINTE0 = 1;//定时器中断通道0中断使能            
-   // PITCFLMT_PITE = 1;       //PIT通道使能位
+     PITCFLMT_PITE = 1;       //PIT通道使能位
 
-    PITCE_PCE1 = 1;          //定时器通道0使能    
+   /* PITCE_PCE1 = 1;          //定时器通道0使能    
     PITMUX_PMUX1 = 1;       //定时通道0使用微计数器0     
     PITMTLD1 =200-1;  //设置微计数器0的加载寄存器。8位定时器初值设定。200分频，在40MHzBusClock下，为0.2MHz。即5us.    
     PITLD1 = 1700-1;    //16位定时器初值设定。4000 -->  20ms   1500-->7.5ms    1700-->8.5
     PITINTE_PINTE1 = 1;//定时器中断通道0中断使能            
-    PITCFLMT_PITE = 1;       //PIT通道使能位
+    PITCFLMT_PITE = 1;       //PIT通道使能位       */
 } //PITInit
 
 
