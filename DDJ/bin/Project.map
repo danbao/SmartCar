@@ -33,7 +33,7 @@ Entry point: 0xC000 (_Startup)
 _startupData is allocated at 0xC00F and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x2100     1744
+  _Range   pZeroOut       0x2100     1746
   _Copy    *toCopyDownBeg 0xC7D0
 } _startupData;
 
@@ -46,10 +46,10 @@ Section Name                    Size  Type     From       To       Segment
 .rodata                          212     R     0xC019     0xC0EC   ROM_C000
 .rodata1                         356     R     0xC0ED     0xC250   ROM_C000
 NON_BANKED                      1407     R     0xC251     0xC7CF   ROM_C000
-.copy                           1557     R     0xC7D0     0xCDE4   ROM_C000
-.text                          11844     R   0xFE8000   0xFEAE43   PAGE_FE
+.copy                           1559     R     0xC7D0     0xCDE6   ROM_C000
+.text                          11897     R   0xFE8000   0xFEAE78   PAGE_FE
 .stack                           256   R/W     0x2000     0x20FF   RAM
-.data                           1557   R/W     0x2100     0x2714   RAM
+.data                           1559   R/W     0x2100     0x2716   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
 .abs_section_b                     1   N/I        0xB        0xB   .absSeg2
@@ -342,13 +342,13 @@ NON_BANKED                      1407     R     0xC251     0xC7CF   ROM_C000
 .abs_section_354                   2   N/I      0x354      0x355   .absSeg289
 .abs_section_356                   2   N/I      0x356      0x357   .absSeg290
 .abs_section_ff7a                  2     R     0xFF7A     0xFF7B   .absSeg291
-.bss                              39   R/W     0x2715     0x273B   RAM
-.common                          148   R/W     0x273C     0x27CF   RAM
+.bss                              39   R/W     0x2717     0x273D   RAM
+.common                          148   R/W     0x273E     0x27D1   RAM
 .vectSeg292_vect                   2     R     0xFFFE     0xFFFF   .vectSeg292
 
 Summary of section sizes per section type:
-READ_ONLY (R):        3C2D (dec:    15405)
-READ_WRITE (R/W):      7D0 (dec:     2000)
+READ_ONLY (R):        3C64 (dec:    15460)
+READ_WRITE (R/W):      7D2 (dec:     2002)
 NO_INIT (N/I):         168 (dec:      360)
 
 *********************************************************************************************
@@ -586,7 +586,7 @@ MODULE:                 -- MC9S12XS128.c.o --
      _PITTF                                     345       1       1       0   .abs_section_345
      _PITMTLD0                                  346       1       1       1   .abs_section_346
      _PITMTLD1                                  347       1       1       0   .abs_section_347
-     _PORTAB                                      0       2       2      18   .abs_section_0
+     _PORTAB                                      0       2       2      19   .abs_section_0
      _DDRAB                                       2       2       2       2   .abs_section_2
      _PARTID                                     1A       2       2       0   .abs_section_1a
      _DBGTB                                      24       2       2       0   .abs_section_24
@@ -644,9 +644,9 @@ MODULE:                 -- MC9S12XS128.c.o --
      _PWMPER45                                  318       2       2       1   .abs_section_318
      _PWMPER67                                  31A       2       2       2   .abs_section_31a
      _PWMDTY01                                  31C       2       2       2   .abs_section_31c
-     _PWMDTY23                                  31E       2       2       9   .abs_section_31e
+     _PWMDTY23                                  31E       2       2      10   .abs_section_31e
      _PWMDTY45                                  320       2       2       5   .abs_section_320
-     _PWMDTY67                                  322       2       2       7   .abs_section_322
+     _PWMDTY67                                  322       2       2      10   .abs_section_322
      _PITLD0                                    348       2       2       1   .abs_section_348
      _PITCNT0                                   34A       2       2       0   .abs_section_34a
      _PITLD1                                    34C       2       2       0   .abs_section_34c
@@ -675,47 +675,47 @@ MODULE:                 -- main.c.o --
      baitou                                  FE8371     98D    2445     230   .text       
      Clear_General                           FE8CFE      36      54       2   .text       
      dajiao                                  FE8D34      91     145       2   .text       
-     SpeedCtrl                               FE8DC5     1AB     427      10   .text       
-     Confirm_Start                           FE8F70      CD     205       2   .text       
-     Confirm_Light                           FE903D     158     344       4   .text       
-     General_Position                        FE9195      23      35       2   .text       
-     calculate_light                         FE91B8      24      36       8   .text       
-     Laser_num                               FE91DC      15      21       2   .text       
-     Status_Judge                            FE91F1      2E      46       2   .text       
-     Clear_Speed                             FE921F      42      66       2   .text       
-     delay_1ms                               FE9261       9       9       4   .text       
-     delay_nms                               FE926A      12      18       6   .text       
-     LCD_write_byte                          FE927C      44      68      16   .text       
-     LCD_set_XY                              FE92C0      15      21      12   .text       
-     LCD_clear                               FE92D5      2E      46      28   .text       
-     LCD_position                            FE9303      23      35       2   .text       
-     LCD_write_zi                            FE9326      37      55      22   .text       
-     LCD_write_cizu                          FE935D      51      81     108   .text       
-     LCD_write_shuzi                         FE93AE      23      35      38   .text       
-     LCD_write_hanzi_16                      FE93D1      4A      74      24   .text       
-     LCD_write_hanzi_12                      FE941B      4C      76      60   .text       
-     LCD_init                                FE9467      38      56       2   .text       
-     LCD_checkkey                            FE949F      16      22       8   .text       
-     LCD_keyscan                             FE94B5      9E     158       2   .text       
-     LCD_start                               FE9553      8F     143       2   .text       
-     LCD_show                                FE95E2      AB     171       4   .text       
-     LCD_T_JG                                FE968D      BF     191       4   .text       
-     LCD_T_IR                                FE974C      68     104       4   .text       
-     LCD_T_podao                             FE97B4      70     112       4   .text       
-     LCD_T_qipao                             FE9824      64     100       4   .text       
-     LCD_T_cesu                              FE9888      50      80       4   .text       
-     LCD_para                                FE98D8     32F     815      36   .text       
-     LCD_para_modify                         FE9C07     115     277       2   .text       
-     LCD_temp_confirm                        FE9D1C      2F      47       2   .text       
-     LCD_temp_float_confirm                  FE9D4B      42      66       2   .text       
-     LCD_keytran                             FE9D8D      23      35       2   .text       
-     LCD_temp_zhi                            FE9DB0      28      40       2   .text       
-     LCD_tmp_float                           FE9DD8      88     136       2   .text       
-     LCD_plan_choose                         FE9E60     195     405       6   .text       
-     LCD_close_plan                          FE9FF5      8E     142       2   .text       
-     LCD_determine                           FEA083     2F6     758      32   .text       
-     LCD_xianshi                             FEA379      83     131       2   .text       
-     main                                    FEA3FC      48      72       2   .text       
+     SpeedCtrl                               FE8DC5     1E0     480      13   .text       
+     Confirm_Start                           FE8FA5      CD     205       2   .text       
+     Confirm_Light                           FE9072     158     344       4   .text       
+     General_Position                        FE91CA      23      35       2   .text       
+     calculate_light                         FE91ED      24      36       8   .text       
+     Laser_num                               FE9211      15      21       2   .text       
+     Status_Judge                            FE9226      2E      46       2   .text       
+     Clear_Speed                             FE9254      42      66       2   .text       
+     delay_1ms                               FE9296       9       9       4   .text       
+     delay_nms                               FE929F      12      18       6   .text       
+     LCD_write_byte                          FE92B1      44      68      16   .text       
+     LCD_set_XY                              FE92F5      15      21      12   .text       
+     LCD_clear                               FE930A      2E      46      28   .text       
+     LCD_position                            FE9338      23      35       2   .text       
+     LCD_write_zi                            FE935B      37      55      22   .text       
+     LCD_write_cizu                          FE9392      51      81     108   .text       
+     LCD_write_shuzi                         FE93E3      23      35      38   .text       
+     LCD_write_hanzi_16                      FE9406      4A      74      24   .text       
+     LCD_write_hanzi_12                      FE9450      4C      76      60   .text       
+     LCD_init                                FE949C      38      56       2   .text       
+     LCD_checkkey                            FE94D4      16      22       8   .text       
+     LCD_keyscan                             FE94EA      9E     158       2   .text       
+     LCD_start                               FE9588      8F     143       2   .text       
+     LCD_show                                FE9617      AB     171       4   .text       
+     LCD_T_JG                                FE96C2      BF     191       4   .text       
+     LCD_T_IR                                FE9781      68     104       4   .text       
+     LCD_T_podao                             FE97E9      70     112       4   .text       
+     LCD_T_qipao                             FE9859      64     100       4   .text       
+     LCD_T_cesu                              FE98BD      50      80       4   .text       
+     LCD_para                                FE990D     32F     815      36   .text       
+     LCD_para_modify                         FE9C3C     115     277       2   .text       
+     LCD_temp_confirm                        FE9D51      2F      47       2   .text       
+     LCD_temp_float_confirm                  FE9D80      42      66       2   .text       
+     LCD_keytran                             FE9DC2      23      35       2   .text       
+     LCD_temp_zhi                            FE9DE5      28      40       2   .text       
+     LCD_tmp_float                           FE9E0D      88     136       2   .text       
+     LCD_plan_choose                         FE9E95     195     405       6   .text       
+     LCD_close_plan                          FEA02A      8E     142       2   .text       
+     LCD_determine                           FEA0B8     2F6     758      32   .text       
+     LCD_xianshi                             FEA3AE      83     131       2   .text       
+     main                                    FEA431      48      72       2   .text       
      PIT0_ISR                                  C251      81     129       1   NON_BANKED  
 - VARIABLES:
      STRING..d.1                               C0ED       3       3       1   .rodata1    
@@ -813,59 +813,60 @@ MODULE:                 -- main.c.o --
      Ki                                        2172       4       4       6   .data       
      ZhiSpeed                                  2176       2       2       3   .data       
      WanSpeed                                  2178       2       2       3   .data       
-     data                                      217A     1DB     475       1   .data       
-     hanzi_16                                  2355     180     384       1   .data       
-     hanzi_12                                  24D5     240     576       1   .data       
-     maybe_slope_flag                          2715       1       1       3   .bss        
-     maybe_special_flag                        2716       1       1       5   .bss        
-     start_flag                                2717       1       1       4   .bss        
-     slope_flag                                2718       1       1       6   .bss        
-     slope_count                               2719       1       1       3   .bss        
-     maybe_count                               271A       1       1       4   .bss        
-     IR_position                               271B       2       2       3   .bss        
-     His_IR_pos                                271D       2       2       2   .bss        
-     nothing_flag                              271F       1       1       3   .bss        
-     turn_flag                                 2720       1       1       5   .bss        
-     Kd                                        2721       4       4       6   .bss        
-     error0                                    2725       2       2       5   .bss        
-     error1                                    2727       2       2       4   .bss        
-     error2                                    2729       2       2       2   .bss        
-     LCD_flag                                  272B       2       2      31   .bss        
-     LCD_temp                                  272D       2       2       9   .bss        
-     LCD_para_num                              272F       2       2       6   .bss        
-     LCD_float_flag                            2731       2       2       9   .bss        
-     lcdx                                      2733       1       1       2   .bss        
-     lcdy                                      2734       1       1       2   .bss        
+     XuSpeed                                   217A       2       2       1   .data       
+     data                                      217C     1DB     475       1   .data       
+     hanzi_16                                  2357     180     384       1   .data       
+     hanzi_12                                  24D7     240     576       1   .data       
+     maybe_slope_flag                          2717       1       1       3   .bss        
+     maybe_special_flag                        2718       1       1       5   .bss        
+     start_flag                                2719       1       1       4   .bss        
+     slope_flag                                271A       1       1       6   .bss        
+     slope_count                               271B       1       1       3   .bss        
+     maybe_count                               271C       1       1       4   .bss        
+     IR_position                               271D       2       2       3   .bss        
+     His_IR_pos                                271F       2       2       2   .bss        
+     nothing_flag                              2721       1       1       4   .bss        
+     turn_flag                                 2722       1       1       5   .bss        
+     Kd                                        2723       4       4       6   .bss        
+     error0                                    2727       2       2       6   .bss        
+     error1                                    2729       2       2       4   .bss        
+     error2                                    272B       2       2       2   .bss        
+     LCD_flag                                  272D       2       2      31   .bss        
+     LCD_temp                                  272F       2       2       9   .bss        
+     LCD_para_num                              2731       2       2       6   .bss        
+     LCD_float_flag                            2733       2       2       9   .bss        
+     lcdx                                      2735       1       1       2   .bss        
+     lcdy                                      2736       1       1       2   .bss        
      _Vector_66                                FF7A       2       2       0   .abs_section_ff7a
-     baitou_begin                              273C       1       1       4   .common     
-     side                                      273D       2       2       5   .common     
-     light_temp_laser_array                    273F      15      21      26   .common     
-     light_count                               2754       2       2       5   .common     
-     error                                     2756      15      21      20   .common     
-     q_temp_laser_num                          276B      2A      42       2   .common     
-     position                                  2795       2       2      19   .common     
-     IR_temp_laser_array                       2797       7       7      10   .common     
-     q_temp_ir_num                             279E       7       7       1   .common     
-     HitBlackNum                               27A5       2       2       8   .common     
-     His_HitBlackNum                           27A7       2       2       1   .common     
-     baitou_diff                               27A9       4       4       6   .common     
-     befo_General_pos                          27AD       2       2       3   .common     
-     General_pos                               27AF       4       4       6   .common     
-     baitoupwm                                 27B3       2       2       4   .common     
-     JG_clear                                  27B5       4       4       5   .common     
-     JG_clear_Pos                              27B9       4       4      32   .common     
-     speed_begian                              27BD       1       1       3   .common     
-     speed_clear                               27BE       8       8      16   .common     
-     LCD_plan_xudas                            27C6       1       1       4   .common     
-     LCD_plan_xuxiaos                          27C7       1       1       4   .common     
-     LCD_plan_das                              27C8       1       1       4   .common     
-     LCD_plan_xiaos                            27C9       1       1       4   .common     
-     LCD_plan_podao                            27CA       1       1       4   .common     
-     LCD_plan_qipao                            27CB       1       1       4   .common     
-     float_num                                 27CC       4       4      14   .common     
+     baitou_begin                              273E       1       1       4   .common     
+     side                                      273F       2       2       5   .common     
+     light_temp_laser_array                    2741      15      21      26   .common     
+     light_count                               2756       2       2       5   .common     
+     error                                     2758      15      21      20   .common     
+     q_temp_laser_num                          276D      2A      42       2   .common     
+     position                                  2797       2       2      19   .common     
+     IR_temp_laser_array                       2799       7       7      10   .common     
+     q_temp_ir_num                             27A0       7       7       1   .common     
+     HitBlackNum                               27A7       2       2       8   .common     
+     His_HitBlackNum                           27A9       2       2       1   .common     
+     baitou_diff                               27AB       4       4       6   .common     
+     befo_General_pos                          27AF       2       2       3   .common     
+     General_pos                               27B1       4       4       6   .common     
+     baitoupwm                                 27B5       2       2       4   .common     
+     JG_clear                                  27B7       4       4       5   .common     
+     JG_clear_Pos                              27BB       4       4      32   .common     
+     speed_begian                              27BF       1       1       3   .common     
+     speed_clear                               27C0       8       8      17   .common     
+     LCD_plan_xudas                            27C8       1       1       4   .common     
+     LCD_plan_xuxiaos                          27C9       1       1       4   .common     
+     LCD_plan_das                              27CA       1       1       4   .common     
+     LCD_plan_xiaos                            27CB       1       1       4   .common     
+     LCD_plan_podao                            27CC       1       1       4   .common     
+     LCD_plan_qipao                            27CD       1       1       4   .common     
+     float_num                                 27CE       4       4      14   .common     
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
-     Init                                    FEA444      29      41       2   .text       
+     Init                                    FEA479      29      41       2   .text       
      _Startup                                  C000       F      15       0   .init       
 - VARIABLES:
      _startupData                              C00F       6       6       3   .startData  
@@ -873,21 +874,21 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          2100       0       0       1               
 MODULE:                 -- PRINTF.C.o (ansixb.lib) --
 - PROCEDURES:
-     Ten                                     FEA46D      AC     172       5   .text       
-     vprintf                                 FEA519     8D8    2264     121   .text       
-     _out                                    FEADF1       9       9       2   .text       
-     deposit_char                            FEADFA       A      10       3   .text       
-     sprintf                                 FEAE04      2D      45       4   .text       
+     Ten                                     FEA4A2      AC     172       5   .text       
+     vprintf                                 FEA54E     8D8    2264     121   .text       
+     _out                                    FEAE26       9       9       2   .text       
+     deposit_char                            FEAE2F       A      10       3   .text       
+     sprintf                                 FEAE39      2D      45       4   .text       
 - VARIABLES:
      pow10                                     C019      28      40       4   .rodata     
      pow16                                     C041      20      32       4   .rodata     
      pow8                                      C061      2C      44       4   .rodata     
      fpow10                                    C08D      30      48       1   .rodata     
      fpow_10                                   C0BD      30      48       1   .rodata     
-     pbuf                                      2735       7       7      15   .bss        
+     pbuf                                      2737       7       7      15   .bss        
 MODULE:                 -- STRING.C.o (ansixb.lib) --
 - PROCEDURES:
-     strlen                                  FEAE31      13      19       2   .text       
+     strlen                                  FEAE66      13      19       2   .text       
 - VARIABLES:
 MODULE:                 -- FADD.C.o (ansixb.lib) --
 - PROCEDURES:
@@ -962,7 +963,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   MC9S12XS128.c.o                            360      0      0
-  main.c.o                                  1737   9413    358
+  main.c.o                                  1739   9466    358
   Start12.c.o                                  0     56      0
   PRINTF.C.o (ansixb.lib)                      7   2500    212
   STRING.C.o (ansixb.lib)                      0     19      0
@@ -974,7 +975,7 @@ MODULE STATISTIC
   FREGS.C.o (ansixb.lib)                       0    182      0
   rtshc12.c.o (ansixb.lib)                     0    424      0
   VREGS.C.o (ansixb.lib)                       0     28      0
-  other                                      256     12   1557
+  other                                      256     12   1559
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
@@ -994,7 +995,7 @@ SECTION: ".text"
 SECTION: ".data"
   B1P1 B1P2 B1P3 B1P4 B1P5 B1P6 B1P7 B1P8 B1P9 B1P10 B1P11 B1P12 B1P13 B1P14 
   B2P1 B2P2 B2P3 B2P4 B2P5 B2P6 B2P7 Straight_flag change_JG_DJ_array Subu 
-  baitou_delay Kp Ki ZhiSpeed WanSpeed data hanzi_16 hanzi_12 
+  baitou_delay Kp Ki ZhiSpeed WanSpeed XuSpeed data hanzi_16 hanzi_12 
 SECTION: ".bss"
   maybe_slope_flag maybe_special_flag start_flag slope_flag slope_count 
   maybe_count IR_position His_IR_pos nothing_flag turn_flag Kd error0 error1 
@@ -1621,7 +1622,7 @@ SECTION: ".common"
 OBJECT LIST SORTED BY ADDRESS
      Name                                      Addr   hSize   dSize     Ref    Section   RLIB
 ---------------------------------------------------------------------------------------------
-     _PORTAB                                      0       2       2      18   .abs_section_0
+     _PORTAB                                      0       2       2      19   .abs_section_0
      _DDRAB                                       2       2       2       2   .abs_section_2
      _PORTE                                       8       1       1       0   .abs_section_8
      _DDRE                                        9       1       1       0   .abs_section_9
@@ -1892,9 +1893,9 @@ OBJECT LIST SORTED BY ADDRESS
      _PWMPER45                                  318       2       2       1   .abs_section_318
      _PWMPER67                                  31A       2       2       2   .abs_section_31a
      _PWMDTY01                                  31C       2       2       2   .abs_section_31c
-     _PWMDTY23                                  31E       2       2       9   .abs_section_31e
+     _PWMDTY23                                  31E       2       2      10   .abs_section_31e
      _PWMDTY45                                  320       2       2       5   .abs_section_320
-     _PWMDTY67                                  322       2       2       7   .abs_section_322
+     _PWMDTY67                                  322       2       2      10   .abs_section_322
      _PWMSDN                                    324       1       1       0   .abs_section_324
      _PITCFLMT                                  340       1       1       2   .abs_section_340
      _PITFLT                                    341       1       1       0   .abs_section_341
@@ -1941,56 +1942,57 @@ OBJECT LIST SORTED BY ADDRESS
      Ki                                        2172       4       4       6   .data       
      ZhiSpeed                                  2176       2       2       3   .data       
      WanSpeed                                  2178       2       2       3   .data       
-     data                                      217A     1DB     475       1   .data       
-     hanzi_16                                  2355     180     384       1   .data       
-     hanzi_12                                  24D5     240     576       1   .data       
-     maybe_slope_flag                          2715       1       1       3   .bss        
-     maybe_special_flag                        2716       1       1       5   .bss        
-     start_flag                                2717       1       1       4   .bss        
-     slope_flag                                2718       1       1       6   .bss        
-     slope_count                               2719       1       1       3   .bss        
-     maybe_count                               271A       1       1       4   .bss        
-     IR_position                               271B       2       2       3   .bss        
-     His_IR_pos                                271D       2       2       2   .bss        
-     nothing_flag                              271F       1       1       3   .bss        
-     turn_flag                                 2720       1       1       5   .bss        
-     Kd                                        2721       4       4       6   .bss        
-     error0                                    2725       2       2       5   .bss        
-     error1                                    2727       2       2       4   .bss        
-     error2                                    2729       2       2       2   .bss        
-     LCD_flag                                  272B       2       2      31   .bss        
-     LCD_temp                                  272D       2       2       9   .bss        
-     LCD_para_num                              272F       2       2       6   .bss        
-     LCD_float_flag                            2731       2       2       9   .bss        
-     lcdx                                      2733       1       1       2   .bss        
-     lcdy                                      2734       1       1       2   .bss        
-     pbuf                                      2735       7       7      15   .bss        
-     baitou_begin                              273C       1       1       4   .common     
-     side                                      273D       2       2       5   .common     
-     light_temp_laser_array                    273F      15      21      26   .common     
-     light_count                               2754       2       2       5   .common     
-     error                                     2756      15      21      20   .common     
-     q_temp_laser_num                          276B      2A      42       2   .common     
-     position                                  2795       2       2      19   .common     
-     IR_temp_laser_array                       2797       7       7      10   .common     
-     q_temp_ir_num                             279E       7       7       1   .common     
-     HitBlackNum                               27A5       2       2       8   .common     
-     His_HitBlackNum                           27A7       2       2       1   .common     
-     baitou_diff                               27A9       4       4       6   .common     
-     befo_General_pos                          27AD       2       2       3   .common     
-     General_pos                               27AF       4       4       6   .common     
-     baitoupwm                                 27B3       2       2       4   .common     
-     JG_clear                                  27B5       4       4       5   .common     
-     JG_clear_Pos                              27B9       4       4      32   .common     
-     speed_begian                              27BD       1       1       3   .common     
-     speed_clear                               27BE       8       8      16   .common     
-     LCD_plan_xudas                            27C6       1       1       4   .common     
-     LCD_plan_xuxiaos                          27C7       1       1       4   .common     
-     LCD_plan_das                              27C8       1       1       4   .common     
-     LCD_plan_xiaos                            27C9       1       1       4   .common     
-     LCD_plan_podao                            27CA       1       1       4   .common     
-     LCD_plan_qipao                            27CB       1       1       4   .common     
-     float_num                                 27CC       4       4      14   .common     
+     XuSpeed                                   217A       2       2       1   .data       
+     data                                      217C     1DB     475       1   .data       
+     hanzi_16                                  2357     180     384       1   .data       
+     hanzi_12                                  24D7     240     576       1   .data       
+     maybe_slope_flag                          2717       1       1       3   .bss        
+     maybe_special_flag                        2718       1       1       5   .bss        
+     start_flag                                2719       1       1       4   .bss        
+     slope_flag                                271A       1       1       6   .bss        
+     slope_count                               271B       1       1       3   .bss        
+     maybe_count                               271C       1       1       4   .bss        
+     IR_position                               271D       2       2       3   .bss        
+     His_IR_pos                                271F       2       2       2   .bss        
+     nothing_flag                              2721       1       1       4   .bss        
+     turn_flag                                 2722       1       1       5   .bss        
+     Kd                                        2723       4       4       6   .bss        
+     error0                                    2727       2       2       6   .bss        
+     error1                                    2729       2       2       4   .bss        
+     error2                                    272B       2       2       2   .bss        
+     LCD_flag                                  272D       2       2      31   .bss        
+     LCD_temp                                  272F       2       2       9   .bss        
+     LCD_para_num                              2731       2       2       6   .bss        
+     LCD_float_flag                            2733       2       2       9   .bss        
+     lcdx                                      2735       1       1       2   .bss        
+     lcdy                                      2736       1       1       2   .bss        
+     pbuf                                      2737       7       7      15   .bss        
+     baitou_begin                              273E       1       1       4   .common     
+     side                                      273F       2       2       5   .common     
+     light_temp_laser_array                    2741      15      21      26   .common     
+     light_count                               2756       2       2       5   .common     
+     error                                     2758      15      21      20   .common     
+     q_temp_laser_num                          276D      2A      42       2   .common     
+     position                                  2797       2       2      19   .common     
+     IR_temp_laser_array                       2799       7       7      10   .common     
+     q_temp_ir_num                             27A0       7       7       1   .common     
+     HitBlackNum                               27A7       2       2       8   .common     
+     His_HitBlackNum                           27A9       2       2       1   .common     
+     baitou_diff                               27AB       4       4       6   .common     
+     befo_General_pos                          27AF       2       2       3   .common     
+     General_pos                               27B1       4       4       6   .common     
+     baitoupwm                                 27B5       2       2       4   .common     
+     JG_clear                                  27B7       4       4       5   .common     
+     JG_clear_Pos                              27BB       4       4      32   .common     
+     speed_begian                              27BF       1       1       3   .common     
+     speed_clear                               27C0       8       8      17   .common     
+     LCD_plan_xudas                            27C8       1       1       4   .common     
+     LCD_plan_xuxiaos                          27C9       1       1       4   .common     
+     LCD_plan_das                              27CA       1       1       4   .common     
+     LCD_plan_xiaos                            27CB       1       1       4   .common     
+     LCD_plan_podao                            27CC       1       1       4   .common     
+     LCD_plan_qipao                            27CD       1       1       4   .common     
+     float_num                                 27CE       4       4      14   .common     
      _Startup                                  C000       F      15       0   .init       
      pow10                                     C019      28      40       4   .rodata     
      pow16                                     C041      20      32       4   .rodata     
@@ -2126,54 +2128,54 @@ OBJECT LIST SORTED BY ADDRESS
      baitou                                  FE8371     98D    2445     230   .text       
      Clear_General                           FE8CFE      36      54       2   .text       
      dajiao                                  FE8D34      91     145       2   .text       
-     SpeedCtrl                               FE8DC5     1AB     427      10   .text       
-     Confirm_Start                           FE8F70      CD     205       2   .text       
-     Confirm_Light                           FE903D     158     344       4   .text       
-     General_Position                        FE9195      23      35       2   .text       
-     calculate_light                         FE91B8      24      36       8   .text       
-     Laser_num                               FE91DC      15      21       2   .text       
-     Status_Judge                            FE91F1      2E      46       2   .text       
-     Clear_Speed                             FE921F      42      66       2   .text       
-     delay_1ms                               FE9261       9       9       4   .text       
-     delay_nms                               FE926A      12      18       6   .text       
-     LCD_write_byte                          FE927C      44      68      16   .text       
-     LCD_set_XY                              FE92C0      15      21      12   .text       
-     LCD_clear                               FE92D5      2E      46      28   .text       
-     LCD_position                            FE9303      23      35       2   .text       
-     LCD_write_zi                            FE9326      37      55      22   .text       
-     LCD_write_cizu                          FE935D      51      81     108   .text       
-     LCD_write_shuzi                         FE93AE      23      35      38   .text       
-     LCD_write_hanzi_16                      FE93D1      4A      74      24   .text       
-     LCD_write_hanzi_12                      FE941B      4C      76      60   .text       
-     LCD_init                                FE9467      38      56       2   .text       
-     LCD_checkkey                            FE949F      16      22       8   .text       
-     LCD_keyscan                             FE94B5      9E     158       2   .text       
-     LCD_start                               FE9553      8F     143       2   .text       
-     LCD_show                                FE95E2      AB     171       4   .text       
-     LCD_T_JG                                FE968D      BF     191       4   .text       
-     LCD_T_IR                                FE974C      68     104       4   .text       
-     LCD_T_podao                             FE97B4      70     112       4   .text       
-     LCD_T_qipao                             FE9824      64     100       4   .text       
-     LCD_T_cesu                              FE9888      50      80       4   .text       
-     LCD_para                                FE98D8     32F     815      36   .text       
-     LCD_para_modify                         FE9C07     115     277       2   .text       
-     LCD_temp_confirm                        FE9D1C      2F      47       2   .text       
-     LCD_temp_float_confirm                  FE9D4B      42      66       2   .text       
-     LCD_keytran                             FE9D8D      23      35       2   .text       
-     LCD_temp_zhi                            FE9DB0      28      40       2   .text       
-     LCD_tmp_float                           FE9DD8      88     136       2   .text       
-     LCD_plan_choose                         FE9E60     195     405       6   .text       
-     LCD_close_plan                          FE9FF5      8E     142       2   .text       
-     LCD_determine                           FEA083     2F6     758      32   .text       
-     LCD_xianshi                             FEA379      83     131       2   .text       
-     main                                    FEA3FC      48      72       2   .text       
-     Init                                    FEA444      29      41       2   .text       
-     Ten                                     FEA46D      AC     172       5   .text       
-     vprintf                                 FEA519     8D8    2264     121   .text       
-     _out                                    FEADF1       9       9       2   .text       
-     deposit_char                            FEADFA       A      10       3   .text       
-     sprintf                                 FEAE04      2D      45       4   .text       
-     strlen                                  FEAE31      13      19       2   .text       
+     SpeedCtrl                               FE8DC5     1E0     480      13   .text       
+     Confirm_Start                           FE8FA5      CD     205       2   .text       
+     Confirm_Light                           FE9072     158     344       4   .text       
+     General_Position                        FE91CA      23      35       2   .text       
+     calculate_light                         FE91ED      24      36       8   .text       
+     Laser_num                               FE9211      15      21       2   .text       
+     Status_Judge                            FE9226      2E      46       2   .text       
+     Clear_Speed                             FE9254      42      66       2   .text       
+     delay_1ms                               FE9296       9       9       4   .text       
+     delay_nms                               FE929F      12      18       6   .text       
+     LCD_write_byte                          FE92B1      44      68      16   .text       
+     LCD_set_XY                              FE92F5      15      21      12   .text       
+     LCD_clear                               FE930A      2E      46      28   .text       
+     LCD_position                            FE9338      23      35       2   .text       
+     LCD_write_zi                            FE935B      37      55      22   .text       
+     LCD_write_cizu                          FE9392      51      81     108   .text       
+     LCD_write_shuzi                         FE93E3      23      35      38   .text       
+     LCD_write_hanzi_16                      FE9406      4A      74      24   .text       
+     LCD_write_hanzi_12                      FE9450      4C      76      60   .text       
+     LCD_init                                FE949C      38      56       2   .text       
+     LCD_checkkey                            FE94D4      16      22       8   .text       
+     LCD_keyscan                             FE94EA      9E     158       2   .text       
+     LCD_start                               FE9588      8F     143       2   .text       
+     LCD_show                                FE9617      AB     171       4   .text       
+     LCD_T_JG                                FE96C2      BF     191       4   .text       
+     LCD_T_IR                                FE9781      68     104       4   .text       
+     LCD_T_podao                             FE97E9      70     112       4   .text       
+     LCD_T_qipao                             FE9859      64     100       4   .text       
+     LCD_T_cesu                              FE98BD      50      80       4   .text       
+     LCD_para                                FE990D     32F     815      36   .text       
+     LCD_para_modify                         FE9C3C     115     277       2   .text       
+     LCD_temp_confirm                        FE9D51      2F      47       2   .text       
+     LCD_temp_float_confirm                  FE9D80      42      66       2   .text       
+     LCD_keytran                             FE9DC2      23      35       2   .text       
+     LCD_temp_zhi                            FE9DE5      28      40       2   .text       
+     LCD_tmp_float                           FE9E0D      88     136       2   .text       
+     LCD_plan_choose                         FE9E95     195     405       6   .text       
+     LCD_close_plan                          FEA02A      8E     142       2   .text       
+     LCD_determine                           FEA0B8     2F6     758      32   .text       
+     LCD_xianshi                             FEA3AE      83     131       2   .text       
+     main                                    FEA431      48      72       2   .text       
+     Init                                    FEA479      29      41       2   .text       
+     Ten                                     FEA4A2      AC     172       5   .text       
+     vprintf                                 FEA54E     8D8    2264     121   .text       
+     _out                                    FEAE26       9       9       2   .text       
+     deposit_char                            FEAE2F       A      10       3   .text       
+     sprintf                                 FEAE39      2D      45       4   .text       
+     strlen                                  FEAE66      13      19       2   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -2214,7 +2216,7 @@ COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
 ------- ROM-ADDRESS: 0xC7D0 ---- SIZE       4 ---
 Filling bytes inserted
- 02872100
+ 02892100
 ------- ROM-ADDRESS: 0xC7D4 ---- RAM-ADDRESS: 0x2100 ---- SIZE       1 ---
 Name of initialized Object : B1P1
  1E
@@ -2319,10 +2321,16 @@ Filling bytes inserted
 ------- ROM-ADDRESS: 0xC84D ---- RAM-ADDRESS: 0x2179 ---- SIZE       1 ---
 Name of initialized Object : WanSpeed:1
  B4
-------- ROM-ADDRESS: 0xC84E ---- SIZE       7 ---
+------- ROM-ADDRESS: 0xC84E ---- SIZE       1 ---
+Filling bytes inserted
+ 00
+------- ROM-ADDRESS: 0xC84F ---- RAM-ADDRESS: 0x217B ---- SIZE       1 ---
+Name of initialized Object : XuSpeed:1
+ A0
+------- ROM-ADDRESS: 0xC850 ---- SIZE       7 ---
 Filling bytes inserted
  0000000000 0000
-------- ROM-ADDRESS: 0xC855 ---- RAM-ADDRESS: 0x2181 ---- SIZE     468 ---
+------- ROM-ADDRESS: 0xC857 ---- RAM-ADDRESS: 0x2183 ---- SIZE     468 ---
 Name of initialized Object : data:7
  2F00000007 000700147F 147F14242A
  7F2A126264 0813233649 5522500005
@@ -2356,19 +2364,19 @@ Name of initialized Object : data:7
  1028441CA0 A0A07C4464 544C440008
  3641000000 7F00000041 3608000810
  080408
-------- ROM-ADDRESS: 0xCA29 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xCA2B ---- SIZE       2 ---
 Filling bytes inserted
  0000
-------- ROM-ADDRESS: 0xCA2B ---- RAM-ADDRESS: 0x2357 ---- SIZE      48 ---
+------- ROM-ADDRESS: 0xCA2D ---- RAM-ADDRESS: 0x2359 ---- SIZE      48 ---
 Name of initialized Object : hanzi_16:2
  FF0505F555 5D55555555 F505010040
  300F80A097 BD55555555 55B7808000
  00F8010600 0002020202 020202FE00
  0000FF
-------- ROM-ADDRESS: 0xCA5B ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xCA5D ---- SIZE       4 ---
 Filling bytes inserted
- 03842390
-------- ROM-ADDRESS: 0xCA5F ---- RAM-ADDRESS: 0x2390 ---- SIZE     242 ---
+ 03842392
+------- ROM-ADDRESS: 0xCA61 ---- RAM-ADDRESS: 0x2392 ---- SIZE     242 ---
 Name of initialized Object : hanzi_16:59
  40807F0000 2020202020 2020FF2020
  2020202020 0080804020 100C030003
@@ -2387,33 +2395,33 @@ Name of initialized Object : hanzi_16:59
  4040008080 4020180700 00003F4040
  4040780000 00F8888888 88FF888888
  88F8
-------- ROM-ADDRESS: 0xCB51 ---- SIZE       5 ---
+------- ROM-ADDRESS: 0xCB53 ---- SIZE       5 ---
 Filling bytes inserted
  0000000000
-------- ROM-ADDRESS: 0xCB56 ---- RAM-ADDRESS: 0x2487 ---- SIZE      58 ---
+------- ROM-ADDRESS: 0xCB58 ---- RAM-ADDRESS: 0x2489 ---- SIZE      58 ---
 Name of initialized Object : hanzi_16:306
  1F08080808 7F88888888 9F80F00000
  1088844320 100C102041 8284080000
  010100FE42 4242424242 42FE000101
  000000FE02 1222C202C2 3202FE
-------- ROM-ADDRESS: 0xCB90 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xCB92 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xCB94 ---- RAM-ADDRESS: 0x24C5 ---- SIZE      15 ---
+------- ROM-ADDRESS: 0xCB96 ---- RAM-ADDRESS: 0x24C7 ---- SIZE      15 ---
 Name of initialized Object : hanzi_16:368
  80601F0020 100C030C30 000F3040F8
-------- ROM-ADDRESS: 0xCBA3 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xCBA5 ---- SIZE       1 ---
 Filling bytes inserted
  00
-------- ROM-ADDRESS: 0xCBA4 ---- RAM-ADDRESS: 0x24D5 ---- SIZE      32 ---
+------- ROM-ADDRESS: 0xCBA6 ---- RAM-ADDRESS: 0x24D7 ---- SIZE      32 ---
 Name of initialized Object : hanzi_12
  1011F24044 FF4444FF44 4000080403
  040A090808 0B08080000 000181720C
  7080
-------- ROM-ADDRESS: 0xCBC4 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xCBC6 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xCBC8 ---- RAM-ADDRESS: 0x24F9 ---- SIZE     143 ---
+------- ROM-ADDRESS: 0xCBCA ---- RAM-ADDRESS: 0x24FB ---- SIZE     143 ---
 Name of initialized Object : hanzi_12:36
  0804020100 0000010204 080026AAEA
  BEAAABAABE EAAA260001 000B080403
@@ -2425,10 +2433,10 @@ Name of initialized Object : hanzi_12:36
  040E0011F2 0000FF21A9 BDA921FF00
  0007020807 0003020B08 0F00242424
  2FE424242F 24E404
-------- ROM-ADDRESS: 0xCC57 ---- SIZE       5 ---
+------- ROM-ADDRESS: 0xCC59 ---- SIZE       5 ---
 Filling bytes inserted
  0000000000
-------- ROM-ADDRESS: 0xCC5C ---- RAM-ADDRESS: 0x258D ---- SIZE     148 ---
+------- ROM-ADDRESS: 0xCC5E ---- RAM-ADDRESS: 0x258F ---- SIZE     148 ---
 Name of initialized Object : hanzi_12:184
  0F00000002 0300009054 B6955C5434
  9436549000 000A0A0A0A 0905040402
@@ -2440,10 +2448,10 @@ Name of initialized Object : hanzi_12:184
  D4B3880002 02FE020200 0004040202
  0808080F08 0808004030 4F88780000
  FF1020C000 0804020100 00000F
-------- ROM-ADDRESS: 0xCCF0 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xCCF2 ---- SIZE       4 ---
 Filling bytes inserted
  00000000
-------- ROM-ADDRESS: 0xCCF4 ---- RAM-ADDRESS: 0x2625 ---- SIZE     239 ---
+------- ROM-ADDRESS: 0xCCF6 ---- RAM-ADDRESS: 0x2627 ---- SIZE     239 ---
 Name of initialized Object : hanzi_12:336
  809294FF94 9280FC0000 FF00000806
  0100000001 08080F00FC 9254FF5492
@@ -2461,7 +2469,7 @@ Name of initialized Object : hanzi_12:336
  002826E43F E424200008 0403040A09
  0808090A0B 008888FF48 21A395E995
  A320000008 0F00020202 0F020202
-------- ROM-ADDRESS: 0xCDE3 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xCDE5 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -2525,10 +2533,10 @@ Clear_General             USES befo_General_pos _FADD General_pos _FSFLOAT
 dajiao                    USES baitoupwm speed_clear _FSFLOAT Subu _FMUL 
                                 turn_flag General_pos _FSTRUNC _FADD IR_position 
                                 _PWMDTY01 
-SpeedCtrl                 USES _PWMDTY23 _PORTAB SpeedCtrl baitoupwm _FMUL 
-                                _FADD speed_clear _FSFLOAT _FSUB _FSTRUNC error0 
-                                WanSpeed _PWMDTY67 ZhiSpeed error1 Kp Ki error2 Kd 
-                                _FCMP _FUFLOAT _FUTRUNC 
+SpeedCtrl                 USES _PWMDTY23 nothing_flag _PORTAB speed_clear 
+                                error0 XuSpeed _PWMDTY67 SpeedCtrl baitoupwm _FMUL 
+                                _FADD _FSFLOAT _FSUB _FSTRUNC WanSpeed ZhiSpeed 
+                                error1 Kp Ki error2 Kd _FCMP _FUFLOAT _FUTRUNC 
 Confirm_Start             USES error start_flag 
 Confirm_Light             USES befo_General_pos baitoupwm aabs position 
                                 HitBlackNum slope_flag calculate_light maybe_special_flag 
@@ -3077,5 +3085,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 15405
+Total size of all blocks to be downloaded: 15460
 
