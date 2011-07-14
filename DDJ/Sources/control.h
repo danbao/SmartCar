@@ -29,7 +29,7 @@ void Confirm_Start(void)
   if((leftside&&rightside)&&(middleleft&&middleright)&&middleside)
   start_flag=1;
   else start_flag= 0;
-}
+}    
 
 /*==========================Ê®×Ö¼ì²â=====================
 void Confirm_Cross(void)
