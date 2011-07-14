@@ -25,8 +25,8 @@
   int side;
   byte side_baipwm;  
  
-   byte B1P1=30,B1P2=25,B1P3=22,B1P4=20,B1P5=17,B1P6=17,B1P7=16,B1P8=16,B1P9=15,B1P10=15,B1P11=14,B1P12=13,B1P13=12,B1P14=11;
-   byte B2P1=4,B2P2=3,B2P3=2,B2P4=2,B2P5=2,B2P6=1,B2P7=8,B2P8=7,B2P9=7,B2P10=6,B2P11=6,B2P12=6,B2P13=6,B2P14=5;
+   byte B1P1=30,B1P2=25,B1P3=21,B1P4=19,B1P5=17,B1P6=16,B1P7=15,B1P8=14,B1P9=13,B1P10=12,B1P11=12,B1P12=13,B1P13=11,B1P14=11;
+   byte B2P1=3,B2P2=3,B2P3=2,B2P4=2,B2P5=1,B2P6=1,B2P7=8,B2P8=7,B2P9=7,B2P10=6,B2P11=6,B2P12=6,B2P13=6,B2P14=5;
  // byte B3P1=30,B3P2=20,B3P3=14,B3P4=12,B3P5=11,B3P6=10,B3P7=9,B3P8=8,B3P9=7,B3P10=6;
  // byte B4P1=30,B4P2=20,B4P3=14,B4P4=11,B4P5=10,B4P6=9,B4P7=8,B4P8=7,B4P9=6,B4P10=5;
  // byte B5P1=30,B5P2=20,B5P3=14,B5P4=10,B5P5=9,B5P6=8,B5P7=7,B5P8=6,B5P9=5,B5P10=4;
@@ -35,7 +35,7 @@
   
   int BD1=250,BD2=220,BD3=150,BD4=50,BD5=35,BD6=25,BD7=25,BD8=25,BD9=24,BD10=22;
   char SCIreceive[150];                    /*用于无线串口显示的字符串*/  
-/* int temp_pwm45=PWM45;						         //激光摆头舵机初始值
+//int temp_pwm45=PWM45;						         //激光摆头舵机初始值
   int temp_pwm01=PWM01;					         	 //转向摆头舵机初始值
   int temp_pwm23=PWM23;					         	 //速度初始值  */
   
@@ -106,7 +106,7 @@
 //这个二维数组作为激光管的历史记录
   int baitoupwm;
   
-   int Subu=53;
+   float Subu=0.9;
    
   
   //int dajiao_Slope[3];                   //打角舵机的两个斜率 2为累加值
@@ -126,7 +126,7 @@
   int error2=0;                      //前前一次的误差
   byte daozhuan_flag;                //反转标志 减速用
   int ZhiSpeed=1500;
-  int WanSpeed=160;
+  int WanSpeed=180;
   //int speed[20];                          //给
   
   void calculate_light(void);
