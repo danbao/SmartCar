@@ -721,9 +721,43 @@ LCD_para: 修改参数的主页面
 	LCD_write_cizu(73,5,"->");
  }
     break;
-    case 22:     //修改参数的主页面2
+    case 22:     //修改BD参数的主页面1
   {
-    LCD_write_cizu(0,0,"Modify Page 3");
+    LCD_write_cizu(0,0,"Modify BD PG1");
+  LCD_write_cizu(0,1,"BD1:");
+  LCD_write_shuzi(30,1,BD1);
+  LCD_write_cizu(0,2,"BD2:");
+  LCD_write_shuzi(30,2,BD2);
+  LCD_write_cizu(0,3,"BD3:");
+  LCD_write_shuzi(30,3,BD3);
+  LCD_write_cizu(0,4,"BD4:");
+  LCD_write_shuzi(30,4,BD4);
+	LCD_write_cizu(0,5,"<-");
+	LCD_write_cizu(73,5,"->"); 
+  }
+    break;
+        case 23:     //修改BD参数的主页面2
+  {
+    LCD_write_cizu(0,0,"Modify BD PG2");
+  LCD_write_cizu(0,1,"BD5:");
+  LCD_write_shuzi(30,1,BD5);
+  LCD_write_cizu(0,2,"BD6:");
+  LCD_write_shuzi(30,2,BD6);
+  LCD_write_cizu(0,3,"BD7:");
+  LCD_write_shuzi(30,3,BD7);
+  LCD_write_cizu(0,4,"BD8:");
+  LCD_write_shuzi(30,4,BD8);
+	LCD_write_cizu(0,5,"<-");
+	LCD_write_cizu(73,5,"->"); 
+  }
+    break;
+        case 24:     //修改BD参数的主页面3
+  {
+    LCD_write_cizu(0,0,"Modify BD PG3");
+  LCD_write_cizu(0,1,"BD9:");
+  LCD_write_shuzi(30,1,BD9);
+  LCD_write_cizu(0,2,"BD10:");
+  LCD_write_shuzi(30,2,BD10);
 	LCD_write_cizu(0,5,"<-");
 	LCD_write_cizu(73,5,"->"); 
   }
@@ -769,6 +803,56 @@ LCD_write_cizu(0,0,"Modify");
   LCD_write_cizu(0,5,"YES");
 	LCD_write_cizu(73,5,"NO"); 
     break;
+    case 31:     //修改BD1参数
+  LCD_write_cizu(40,0,"BD1");
+  LCD_write_cizu(0,5,"YES");
+	LCD_write_cizu(73,5,"NO"); 
+    break;
+    case 32:     //修改BD2参数
+  LCD_write_cizu(40,0,"BD2");
+  LCD_write_cizu(0,5,"YES");
+	LCD_write_cizu(73,5,"NO"); 
+    break;
+    case 33:     //修改BD3参数
+  LCD_write_cizu(40,0,"BD3");
+  LCD_write_cizu(0,5,"YES");
+	LCD_write_cizu(73,5,"NO"); 
+    break;
+    case 34:     //修改BD4参数
+  LCD_write_cizu(40,0,"BD4");
+  LCD_write_cizu(0,5,"YES");
+	LCD_write_cizu(73,5,"NO"); 
+    break;
+  case 41:     //修改BD5参数
+  LCD_write_cizu(40,0,"BD5");
+  LCD_write_cizu(0,5,"YES");
+	LCD_write_cizu(73,5,"NO"); 
+    break;
+  case 42:     //修改BD6参数
+  LCD_write_cizu(40,0,"BD6");
+  LCD_write_cizu(0,5,"YES");
+	LCD_write_cizu(73,5,"NO"); 
+    break;
+  case 43:     //修改BD7参数
+  LCD_write_cizu(40,0,"BD7");
+  LCD_write_cizu(0,5,"YES");
+	LCD_write_cizu(73,5,"NO"); 
+    break;
+  case 44:     //修改BD8参数
+  LCD_write_cizu(40,0,"BD8");
+  LCD_write_cizu(0,5,"YES");
+	LCD_write_cizu(73,5,"NO"); 
+    break;
+  case 51:     //修改BD9参数
+  LCD_write_cizu(40,0,"BD9");
+  LCD_write_cizu(0,5,"YES");
+	LCD_write_cizu(73,5,"NO"); 
+    break;
+  case 52:     //修改BD10参数
+  LCD_write_cizu(40,0,"BD10");
+  LCD_write_cizu(0,5,"YES");
+	LCD_write_cizu(73,5,"NO"); 
+    break;
     } 
 	 }
 /*---------------------------------------------
@@ -789,6 +873,46 @@ void LCD_temp_confirm(uint num,uint zhi) {
     case 23:     //修改WanSpeed参数
   WanSpeed=zhi;
   LCD_temp=0;
+    break;
+        case 31:     //修改BD1参数
+      BD1=zhi;
+      LCD_temp=0;
+    break;
+    case 32:     //修改BD2参数
+      BD2=zhi;
+      LCD_temp=0; 
+    break;
+    case 33:     //修改BD3参数
+      BD3=zhi;
+      LCD_temp=0; 
+    break;
+    case 34:     //修改BD4参数
+      BD4=zhi;
+      LCD_temp=0;
+    break;
+  case 41:     //修改BD5参数
+      BD5=zhi;
+      LCD_temp=0; 
+    break;
+  case 42:     //修改BD6参数
+      BD6=zhi;
+      LCD_temp=0; 
+    break;
+  case 43:     //修改BD7参数
+      BD7=zhi;
+      LCD_temp=0; 
+    break;
+  case 44:     //修改BD8参数
+      BD8=zhi;
+      LCD_temp=0;
+    break;
+  case 51:     //修改BD9参数
+      BD9=zhi;
+      LCD_temp=0; 
+    break;
+  case 52:     //修改BD10参数
+      BD10=zhi;
+      LCD_temp=0;
     break;
    } 
 	}
@@ -958,11 +1082,11 @@ else if(LCD_flag==10&&x=='Y')LCD_flag=0;
 else if(LCD_flag==14&&x=='N')LCD_flag=0;
 /*调节参数页面*/
 else if(LCD_flag==0&&x=='5')LCD_flag=20;
-else if(LCD_flag>20&&LCD_flag<=22&&x=='Y')LCD_flag--;
-else if(LCD_flag>=20&&LCD_flag<22&&x=='N')LCD_flag++;
+else if(LCD_flag>20&&LCD_flag<=24&&x=='Y')LCD_flag--;
+else if(LCD_flag>=20&&LCD_flag<24&&x=='N')LCD_flag++;
 else if(LCD_flag==20&&x=='Y')LCD_flag=0;
-else if(LCD_flag==22&&x=='N')LCD_flag=0;    
-else if(LCD_flag>=20&&LCD_flag<=22&&x>'0'&&x<='4'){LCD_para_num=(uint)((LCD_flag-20)*10+x-38);LCD_flag=3;LCD_clear();}
+else if(LCD_flag==24&&x=='N')LCD_flag=0;    
+else if(LCD_flag>=20&&LCD_flag<=24&&x>'0'&&x<='4'){LCD_para_num=(uint)((LCD_flag-20)*10+x-38);LCD_flag=3;LCD_clear();}
 /*修改参数页面*/
 else if(LCD_flag==3&&x>='0'&&x<='9'&&LCD_float_flag!=0){LCD_float_flag++;LCD_tmp_float(x);}
 else if(LCD_flag==3&&x>='0'&&x<='9'&&LCD_float_flag==0){LCD_temp_zhi(x);}
@@ -1009,8 +1133,14 @@ else if(LCD_flag>=40&&LCD_flag<=42&&x>'0'&&x<='4'){LCD_close_plan(((int)LCD_flag
     case 21:    /*进入调节参数状态主页面1*/
     LCD_para(21);						
     break;
-    case 22:    /*进入调节参数状态主页面2*/
+    case 22:    /*进入调节BD1参数状态页面*/
     LCD_para(22);						
+    break;
+    case 23:    /*进入调节BD2参数状态页面*/
+    LCD_para(23);						
+    break;
+    case 24:    /*进入调节BD3参数状态页面*/
+    LCD_para(24);						
     break;
     /*修改小车参数*/
     case 3:    /*进入调节参数状态页面*/
