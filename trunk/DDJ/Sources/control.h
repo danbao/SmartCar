@@ -92,7 +92,7 @@ void Confirm_Light()
       //PWMDTY01=PWM01+supple_dajiaopwm();
       
       	
-    else if(HitBlackNum<=4)
+    else if(HitBlackNum<=4&&(position>=-12&&position<=12))
       slope_flag=0;
 
   } 
@@ -167,7 +167,7 @@ void Confirm_Light()
    
    
 //==========================弯道直道判断=======
-    if(abs_baitoupwm>150)
+    if(abs_baitoupwm>100)
     { 
       if(Straight_flag==1)
       turn_flag=1;Straight_flag=0;
@@ -181,13 +181,13 @@ void Confirm_Light()
       {
         turn_flag=0;Straight_flag=1; 
       } 
-      else if((turn_flag==1)&&(abs_baitoupwm>10))
+      else if((turn_flag==1)&&(abs_baitoupwm>30))
       {
         turn_flag=1;Straight_flag=0;
       }  
-      else if((turn_flag==1)&&(abs_baitoupwm<=10)) 
+      else if((turn_flag==1)&&(abs_baitoupwm<=30)) 
       {
-        turn_flag=0;Straight_flag=1;diansha_falg=0;
+        turn_flag=0;Straight_flag=1;
       }        //出弯补足角度 以防 还没完全出弯就转角就变小
     } 
 }

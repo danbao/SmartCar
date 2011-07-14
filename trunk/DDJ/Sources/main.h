@@ -25,8 +25,8 @@
   int side;
   byte side_baipwm;  
  
-   byte B1P1=30,B1P2=28,B1P3=26,B1P4=25,B1P5=24,B1P6=23,B1P7=22,B1P8=20,B1P9=18,B1P10=16,B1P11=14,B1P12=14,B1P13=12,B1P14=12;
-   byte B2P1=5,B2P2=5,B2P3=5,B2P4=4,B2P5=4,B2P6=4,B2P7=8,B2P8=7,B2P9=7,B2P10=6,B2P11=6,B2P12=6,B2P13=6,B2P14=5;
+   byte B1P1=30,B1P2=27,B1P3=25,B1P4=22,B1P5=21,B1P6=20,B1P7=19,B1P8=18,B1P9=17,B1P10=16,B1P11=14,B1P12=14,B1P13=12,B1P14=12;
+   byte B2P1=4,B2P2=4,B2P3=3,B2P4=3,B2P5=3,B2P6=2,B2P7=8,B2P8=7,B2P9=7,B2P10=6,B2P11=6,B2P12=6,B2P13=6,B2P14=5;
  // byte B3P1=30,B3P2=20,B3P3=14,B3P4=12,B3P5=11,B3P6=10,B3P7=9,B3P8=8,B3P9=7,B3P10=6;
  // byte B4P1=30,B4P2=20,B4P3=14,B4P4=11,B4P5=10,B4P6=9,B4P7=8,B4P8=7,B4P9=6,B4P10=5;
  // byte B5P1=30,B5P2=20,B5P3=14,B5P4=10,B5P5=9,B5P6=8,B5P7=7,B5P8=6,B5P9=5,B5P10=4;
@@ -85,9 +85,9 @@
   //int quanyi=0;
   
   byte YDdelay=1;
-  byte diansha_falg=0;                     //点刹标志
-  byte diansha_count;                      //点刹计数
-  byte diansha_num;                        //点刹时间 利用入弯时的速度 来进行点刹时间
+  //byte diansha_falg=0;                     //点刹标志
+  //byte diansha_count;                      //点刹计数
+  //byte diansha_num;                        //点刹时间 利用入弯时的速度 来进行点刹时间
  // int road_point[6];                      //5点归为一段  假设2.5m/s 5点为1.8cm  road_point[5]为最后点值
  // int point_count;                        //5点计数 同时也可作为段判断开始的标志
  // int road_section[20];                   //8段归为一长路  同假设8段为15cm
@@ -106,12 +106,12 @@
 //这个二维数组作为激光管的历史记录
   int baitoupwm;
   
-  
+   int Subu=53;
    
   
   //int dajiao_Slope[3];                   //打角舵机的两个斜率 2为累加值
   
-  int  baitou_delay=1;                    //摆头延迟  同时用来等分摆头的每次舵机值
+  int baitou_delay=1;                    //摆头延迟  同时用来等分摆头的每次舵机值
   int JG_clear[2];                      //激光一次迭代滤波 此次和上次
   int JG_clear_Pos[2];                  //存入当前和上一次摆头时的JG_clear 的值
                              
@@ -125,6 +125,8 @@
   int error1=0;                      //前一次误差
   int error2=0;                      //前前一次的误差
   byte daozhuan_flag;                //反转标志 减速用
+  int ZhiSpeed=1500;
+  int WanSpeed=160;
   //int speed[20];                          //给
   
   void calculate_light(void);
