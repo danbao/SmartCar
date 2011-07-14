@@ -73,17 +73,13 @@ void  baitou (void)
   {
       side=1;
      // side_baipwm=baitou_diff[1]-baitou_diff[0]; 
-      if(position<=-4) 
-      { 
-  
-      }
       
    
    
   
  if(side==1){
   
- if(position<=-11) {side=0;baitou_begin=1; }
+ if(position<=-9) {side=0;baitou_begin=1; }
  }
   } 
  
@@ -91,14 +87,10 @@ void  baitou (void)
   {
   side=-1;
    
-      if(position>=4)
-      { 
-        
-      }
-   
+     
    if(side==-1){
     
-   if(position>=11) {side=0;baitou_begin=1; }
+   if(position>=9) {side=0;baitou_begin=1; }
    }
   }
   
@@ -594,6 +586,34 @@ void SpeedCtrl (byte a)
  // float A,B,C; 
 //  int abs_error;
   
+ if(nothing_flag==1){
+  PORTB_PB7=1;
+  error0=110-speed_clear[1];
+
+  if(error0<-40)                  //积分分离
+       {
+       PWMDTY6=XuSpeed;
+       PWMDTY23=0;
+       }     
+
+
+     else if(error0<=-40)
+       {
+        speed_pwm=Kp*(error0-error1)+Ki*error0+Kd*(error0-2*error1+error2);
+        PWMDTY6=0;
+       
+       }
+       
+      error2=error1;                                       //存储误差，用于下次计算
+      error1=error0;    
+       
+ 
+ } 
+ 
+ 
+ else {
+  
+ 
  if(a==1)
   {
     PORTB_PB7=0;
@@ -649,6 +669,10 @@ void SpeedCtrl (byte a)
       error2=error1;                                       //存储误差，用于下次计算
       error1=error0;    
        
+ }
+     
+     
+     
       if(his_pwm+speed_pwm>=1667)  
      PWMDTY23=1667;
      else if(his_pwm+speed_pwm<=0) 

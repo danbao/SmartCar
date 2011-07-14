@@ -127,6 +127,7 @@
   byte daozhuan_flag;                //反转标志 减速用
   int ZhiSpeed=1500;
   int WanSpeed=180;
+  int XuSpeed=160;
   //int speed[20];                          //给
   
   void calculate_light(void);
