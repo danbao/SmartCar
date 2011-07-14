@@ -75,7 +75,7 @@ void  baitou (void)
      // side_baipwm=baitou_diff[1]-baitou_diff[0]; 
       if(position<=-4&&get_flag==1) 
       { 
-       get_flag=0;
+      // get_flag=0;
        side_baipwm=baitou_diff[1];  
       }
       
@@ -94,7 +94,7 @@ void  baitou (void)
    
       if(position>=4&&get_flag==1)
       { 
-         get_flag=0;
+        get_flag=0;
          side_baipwm=baitou_diff[1];  
       }
    
@@ -220,62 +220,64 @@ void  baitou (void)
       sub_p[12]=240/B1P13-(240/B1P12-sub_p[11]);
       sub_p[13]=260/B1P14-(260/B1P13-sub_p[12]);
       
-      sub2_p[0]=10/B2P1;
-      sub2_p[1]=20/B2P2-(20/B2P1-sub2_p[0]);
-      sub2_p[2]=40/B2P3-(40/B2P2-sub2_p[1]);
-      sub2_p[3]=60/B2P4-(60/B2P3-sub2_p[2]);
-      sub2_p[4]=80/B2P5-(80/B2P4-sub2_p[3]);
-   
+    sub2_p[0]=10/B2P1;
+    sub2_p[1]=20/B2P2-(20/B2P1-sub2_p[0]);
+    sub2_p[2]=40/B2P3-(40/B2P2-sub2_p[1]);
+    sub2_p[3]=60/B2P4-(60/B2P3-sub2_p[2]);
+    sub2_p[4]=80/B2P5-(80/B2P4-sub2_p[3]);
+    sub2_p[5]=100/B2P6-(100/B2P5-sub2_p[4]);
+    sub2_p[6]=120/B2P7-(120/B2P6-sub2_p[5]);
+    
       if(JG_pos_abs<=10)                            
         JG_pwm=0;
       else if(JG_pos_abs>10&&JG_pos_abs<=20) 
       {
         if(JG_clear_Pos[1]>0)    
-         JG_pwm=0;  // JG_pwm=-(JG_clear_Pos[1]/B1P1-sub_p[0]);
+         JG_pwm=-(JG_clear_Pos[1]/B1P1-sub_p[0]);
         else if(JG_clear_Pos[1]<0)
-          JG_pwm=-(JG_clear_Pos[1]/B2P1);  
+          JG_pwm=-(JG_clear_Pos[1]/B2P1+sub2_p[0]);  
       }
       else if(JG_pos_abs>20&&JG_pos_abs<=40) 
       {
        if(JG_clear_Pos[1]>0)   
-         JG_pwm=0;  // JG_pwm=-(JG_clear_Pos[1]/B1P2-sub_p[1]);
+          JG_pwm=-(JG_clear_Pos[1]/B1P2-sub_p[1]);
         else if(JG_clear_Pos[1]<0)
-          JG_pwm=-(JG_clear_Pos[1]/B2P2+sub2_p[0]);
+          JG_pwm=-(JG_clear_Pos[1]/B2P2+sub2_p[1]);
       }
       else if(JG_pos_abs>40&&JG_pos_abs<=60) 
       {
           if(JG_clear_Pos[1]>0)   
-         JG_pwm=0;  // JG_pwm=-(JG_clear_Pos[1]/B1P3-sub_p[2]);
+          JG_pwm=-(JG_clear_Pos[1]/B1P3-sub_p[2]);
          else if(JG_clear_Pos[1]<0)
-          JG_pwm=-(JG_clear_Pos[1]/B2P3+sub2_p[1]);
+          JG_pwm=-(JG_clear_Pos[1]/B2P3+sub2_p[2]);
       }      
       else if(JG_pos_abs>60&&JG_pos_abs<=80)
       {
         if(JG_clear_Pos[1]>0)    
-         JG_pwm=-(JG_clear_Pos[1]/B1P4-sub_p[3])*get_flag;
+         JG_pwm=-(JG_clear_Pos[1]/B1P4-sub_p[3]);
         else  if(JG_clear_Pos[1]<0)
-          JG_pwm=-(JG_clear_Pos[1]/B2P4+sub2_p[2]); 
+          JG_pwm=-(JG_clear_Pos[1]/B2P4+sub2_p[3]); 
       }
       else if(JG_pos_abs>80&&JG_pos_abs<=100)
       {
         if(JG_clear_Pos[1]>0)    
-          JG_pwm=-(JG_clear_Pos[1]/B1P5-sub_p[4])*get_flag;
+          JG_pwm=-(JG_clear_Pos[1]/B1P5-sub_p[4]);
          else if(JG_clear_Pos[1]<0)
-          JG_pwm=-(JG_clear_Pos[1]/B2P5+sub2_p[3]); 
+          JG_pwm=-(JG_clear_Pos[1]/B2P5+sub2_p[4]); 
       }
       else if(JG_pos_abs>100&&JG_pos_abs<=120)
       {
         if(JG_clear_Pos[1]>0)    
           JG_pwm=-(JG_clear_Pos[1]/B1P6-sub_p[5]);
          else if(JG_clear_Pos[1]<0)
-          JG_pwm=-(JG_clear_Pos[1]/B2P6+sub2_p[4]); 
+          JG_pwm=-(JG_clear_Pos[1]/B2P6+sub2_p[5]); 
       }
         
       else if(JG_pos_abs>120&&JG_pos_abs<=140)
       {
         if(JG_clear_Pos[1]>0)    
           JG_pwm=-(JG_clear_Pos[1]/B1P7-sub_p[6]);
-       
+        
       } 
     //=========================================  
       else if(JG_pos_abs>140&&JG_pos_abs<=160) 
@@ -346,6 +348,8 @@ void  baitou (void)
     sub2_p[2]=40/B2P3-(40/B2P2-sub2_p[1]);
     sub2_p[3]=60/B2P4-(60/B2P3-sub2_p[2]);
     sub2_p[4]=80/B2P5-(80/B2P4-sub2_p[3]);
+    sub2_p[5]=100/B2P6-(100/B2P5-sub2_p[4]);
+    sub2_p[6]=120/B2P7-(120/B2P6-sub2_p[5]);
     
     
     if(JG_pos_abs<=10)                            
@@ -353,42 +357,42 @@ void  baitou (void)
     else if(JG_pos_abs>10&&JG_pos_abs<=20) 
     {
        if(JG_clear_Pos[1]>0)    
-       JG_pwm=-(JG_clear_Pos[1]/B2P1);
+       JG_pwm=-(JG_clear_Pos[1]/B2P1-sub2_p[0]);
        else if(JG_clear_Pos[1]<0)
-      JG_pwm=0;  //  JG_pwm=-(JG_clear_Pos[1]/B1P1+sub_p[0]); 
+        JG_pwm=-(JG_clear_Pos[1]/B1P1+sub_p[0]); 
     }
     else if(JG_pos_abs>20&&JG_pos_abs<=40) 
     {
        if(JG_clear_Pos[1]>0)    
-        JG_pwm=-(JG_clear_Pos[1]/B2P2-sub2_p[0]);
+        JG_pwm=-(JG_clear_Pos[1]/B2P2-sub2_p[1]);
        else  if(JG_clear_Pos[1]<0)
-      JG_pwm=0;  //  JG_pwm=-(JG_clear_Pos[1]/B1P2+sub_p[1]);
+       JG_pwm=-(JG_clear_Pos[1]/B1P2+sub_p[1]);
     }
     else if(JG_pos_abs>40&&JG_pos_abs<=60) 
     {
        if(JG_clear_Pos[1]>0)    
-        JG_pwm=-(JG_clear_Pos[1]/B2P3-sub2_p[1]);
+        JG_pwm=-(JG_clear_Pos[1]/B2P3-sub2_p[2]);
        else if(JG_clear_Pos[1]<0)
-      JG_pwm=0;  //  JG_pwm=-(JG_clear_Pos[1]/B1P3+sub_p[2]);
+       JG_pwm=-(JG_clear_Pos[1]/B1P3+sub_p[2]);
     }      
     else if(JG_pos_abs>60&&JG_pos_abs<=80)
     {
        if(JG_clear_Pos[1]>0)    
-        JG_pwm=-(JG_clear_Pos[1]/B2P4-sub2_p[2]);
+        JG_pwm=-(JG_clear_Pos[1]/B2P4-sub2_p[3]);
        else if(JG_clear_Pos[1]<0)
-       JG_pwm=-(JG_clear_Pos[1]/B1P4+sub_p[3])*get_flag;
+       JG_pwm=-(JG_clear_Pos[1]/B1P4+sub_p[3]);
     }
     else if(JG_pos_abs>80&&JG_pos_abs<=100)
     {
        if(JG_clear_Pos[1]>0)    
-        JG_pwm=-(JG_clear_Pos[1]/B2P5-sub2_p[3]);
+        JG_pwm=-(JG_clear_Pos[1]/B2P5-sub2_p[4]);
       else if(JG_clear_Pos[1]<0)
-      JG_pwm=-(JG_clear_Pos[1]/B1P5+sub_p[4])*get_flag;
+      JG_pwm=-(JG_clear_Pos[1]/B1P5+sub_p[4]);
     }
     else if(JG_pos_abs>100&&JG_pos_abs<=120)
     {
       if(JG_clear_Pos[1]>0)    
-        JG_pwm=-(JG_clear_Pos[1]/B2P6-sub2_p[4]);
+        JG_pwm=-(JG_clear_Pos[1]/B2P6-sub2_p[5]);
       else if(JG_clear_Pos[1]<0)
         JG_pwm=-(JG_clear_Pos[1]/B1P6+sub_p[5]) ;
     }
@@ -398,7 +402,8 @@ void  baitou (void)
       
       if(JG_clear_Pos[1]<0)
         JG_pwm=-(JG_clear_Pos[1]/B1P7+sub_p[6]);
-    } 
+    }
+     
   //=========================================  
     else if(JG_pos_abs>140&&JG_pos_abs<=160) 
     {
@@ -610,15 +615,15 @@ void SpeedCtrl (byte a)
  
  {
     PORTB_PB7=1;
-    PWMDTY6=0;
+   
   changebaitou=baitoupwm;  //速度调节分80段
     if(changebaitou>=300)changebaitou=300;
     else if(changebaitou<=-300)changebaitou=-300;
     
     if(changebaitou>0)
-      aim_speed=(-0.3)*changebaitou+350;
+      aim_speed=(-0.5)*changebaitou+350;
     else  
-      aim_speed=0.3*changebaitou+350;                    //弯道 偏移和速度的一个假象的关系 没有验证过
+      aim_speed=0.5*changebaitou+350;                    //弯道 偏移和速度的一个假象的关系 没有验证过
    
      error0=aim_speed-speed_clear[1];
      
@@ -639,7 +644,7 @@ void SpeedCtrl (byte a)
      else if(error0>=-50&&error0<=60)
        {
        speed_pwm=Kp*(error0-error1)+Ki*error0+Kd*(error0-2*error1+error2);
-       
+        PWMDTY6=0;
        
        }
        
