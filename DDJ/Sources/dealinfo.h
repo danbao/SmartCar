@@ -493,7 +493,7 @@ void Clear_General(void)
 {
 
   if(befo_General_pos>=0)
-    General_pos=befo_General_pos*0.5016+5.503;
+    General_pos=befo_General_pos*0.5016+7.503;
   else 
     General_pos=befo_General_pos*0.5016-7.503 ;
 
@@ -527,14 +527,14 @@ void dajiao(byte a)
     
   
   changebaitou=baitoupwm/10;      //摆头占空比 除
-  speedinfo=speed_clear[1]-125;    //基准的速度 如果小于它就不执行速度加入转角
+  speedinfo=speed_clear[1]-160;    //基准的速度 如果小于它就不执行速度加入转角
 
   if(speedinfo>=5)
   {
-    speedinfo=speedinfo/20;
+    speedinfo=speedinfo/5;
     speedaffect1=speedinfo*speedinfo;
     speedaffect2=speedaffect1*changebaitou;
-    speedaffect3=speedaffect2/20;
+    speedaffect3=speedaffect2/Subu;
    
     //speedaffect=speedinfo*speedinfo*changebaitou/48; 
     //speedaffect[1]=(10*speedaffect[0]+60*speedaffect[1])/70;
@@ -622,19 +622,27 @@ void SpeedCtrl (byte a)
    
      error0=aim_speed-speed_clear[1];
      
-     if(error0<=-60)                  //积分分离
+     if(error0<-50)                  //积分分离
        {
-       PWMDTY6=60;
+       PWMDTY6=WanSpeed;
        PWMDTY23=0;
        }     
     
+      else if(error0>60)
+       {
+       PWMDTY23=ZhiSpeed;
+       PWMDTY6=0;
+        
+       }
+     
       
-     else if(error0>=-60)
+     else if(error0>=-50&&error0<=60)
        {
        speed_pwm=Kp*(error0-error1)+Ki*error0+Kd*(error0-2*error1+error2);
        
        
        }
+       
       error2=error1;                                       //存储误差，用于下次计算
       error1=error0;    
        
@@ -645,7 +653,8 @@ void SpeedCtrl (byte a)
      
      else PWMDTY23=PWMDTY23+speed_pwm;
         
-
+     if(PWMDTY6>208)PWMDTY6=208;
+     else if(PWMDTY6<0)PWMDTY6=0;
  
     } 
    

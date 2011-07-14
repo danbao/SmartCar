@@ -711,6 +711,12 @@ LCD_para: 修改参数的主页面
     case 21:     //修改参数的主页面1
  {
   LCD_write_cizu(0,0,"Modify Page 2");
+  LCD_write_cizu(0,1,"Subu:");
+  LCD_write_shuzi(30,1,Subu);
+  LCD_write_cizu(0,2,"ZhiSp:");
+  LCD_write_shuzi(37,2,ZhiSpeed);
+  LCD_write_cizu(0,3,"WanSp:");
+  LCD_write_shuzi(37,3,WanSpeed);
 	LCD_write_cizu(0,5,"<-");
 	LCD_write_cizu(73,5,"->");
  }
@@ -733,18 +739,33 @@ void LCD_para_modify(uint a) {
 LCD_write_cizu(0,0,"Modify");
  switch(a)
  {
-    case 11:     //修改参数页面11
+    case 11:     //修改Kp参数
   LCD_write_cizu(40,0,"Kp");
   LCD_write_cizu(0,5,"YES");
 	LCD_write_cizu(73,5,"NO");   
     break;
-    case 12:     //修改参数页面12
+    case 12:     //修改Ki参数
   LCD_write_cizu(40,0,"Ki");
   LCD_write_cizu(0,5,"YES");
 	LCD_write_cizu(73,5,"NO"); 
     break;
-    case 13:     //修改参数页面13
+    case 13:     //修改Kd参数
   LCD_write_cizu(40,0,"Kd");
+  LCD_write_cizu(0,5,"YES");
+	LCD_write_cizu(73,5,"NO"); 
+    break;
+    case 21:     //修改Subu参数
+  LCD_write_cizu(40,0,"Subu");
+  LCD_write_cizu(0,5,"YES");
+	LCD_write_cizu(73,5,"NO");   
+    break;
+    case 22:     //修改ZhiSpeed参数
+  LCD_write_cizu(40,0,"ZhiS");
+  LCD_write_cizu(0,5,"YES");
+	LCD_write_cizu(73,5,"NO"); 
+    break;
+    case 23:     //修改WanSpeed参数
+  LCD_write_cizu(40,0,"WanS");
   LCD_write_cizu(0,5,"YES");
 	LCD_write_cizu(73,5,"NO"); 
     break;
@@ -757,16 +778,16 @@ LCD_temp_confirm: 确认后修改值
 void LCD_temp_confirm(uint num,uint zhi) {
  switch(num)
  {
-    case 21:     //修改参数1
-  Kp=(float)zhi;
+    case 21:     //修改Subu参数
+  Subu=zhi;
   LCD_temp=0; 
     break;
-    case 22:     //修改参数2
-  Ki=(float)zhi;
+    case 22:     //修改ZhiSpeed参数
+  ZhiSpeed=zhi;
   LCD_temp=0;
     break;
-    case 23:     //修改参数3
-  Kd=(float)zhi;
+    case 23:     //修改WanSpeed参数
+  WanSpeed=zhi;
   LCD_temp=0;
     break;
    } 

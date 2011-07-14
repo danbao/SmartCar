@@ -54,7 +54,7 @@ void main(void)
  }
     
         
- _FEED_COP(); /*看门狗，防死循环用的 */
+// _FEED_COP(); /*看门狗，防死循环用的 */
  /* loop forever */
   /* please make sure that you never leave main */
 }
