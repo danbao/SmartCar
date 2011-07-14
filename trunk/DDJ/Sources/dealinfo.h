@@ -56,51 +56,49 @@ void  baitou (void)
   
  
   
-  if((baitou_diff[1]<=150&&baitou_diff[1]>=-150))//直道情况
+  if((baitou_diff[1]<=200&&baitou_diff[1]>=-200))//直道情况
   { //if(position>14)
     //side=1;
     //else if(position<-14)
     //side=-1;
     //else
    baitou_begin=0; 
-   get_flag=1;  
+  // get_flag=1;  
    side=0;
   } 
   
   
   
-  else if(baitou_diff[1]<-150&&baitou_begin==0) //左边情况
+  else if(baitou_diff[1]<-200&&baitou_begin==0) //左边情况
   {
       side=1;
      // side_baipwm=baitou_diff[1]-baitou_diff[0]; 
-      if(position<=-4&&get_flag==1) 
+      if(position<=-4) 
       { 
-      // get_flag=0;
-       side_baipwm=baitou_diff[1];  
+  
       }
       
- 
+   
    
   
- if(side==1&&get_flag==0){
+ if(side==1){
   
- if(position<=-9) {side=0;baitou_begin=1; }
+ if(position<=-11) {side=0;baitou_begin=1; }
  }
   } 
  
-  else if(baitou_diff[1]>150&&baitou_begin==0) //右边情况
+  else if(baitou_diff[1]>200&&baitou_begin==0) //右边情况
   {
   side=-1;
    
-      if(position>=4&&get_flag==1)
+      if(position>=4)
       { 
-        get_flag=0;
-         side_baipwm=baitou_diff[1];  
+        
       }
    
-   if(side==-1&&get_flag==0){
+   if(side==-1){
     
-   if(position>=9) {side=0;baitou_begin=1; }
+   if(position>=11) {side=0;baitou_begin=1; }
    }
   }
   
@@ -519,9 +517,9 @@ int DP1=15,DP2=13,DP3=11,DP4=10,DP5=8,DP6=7,DP7=6;
 
 void dajiao(byte a)
 {
-  long speedaffect1=0;
-  long speedaffect2=0;
-  long speedaffect3=0;
+  float speedaffect1=0;
+ // long speedaffect2=0;
+  //long speedaffect3=0;
   int speedinfo;
   int changebaitou;          
   int dj_pwm;
@@ -536,10 +534,10 @@ void dajiao(byte a)
 
   if(speedinfo>=5)
   {
-    speedinfo=speedinfo/5;
-    speedaffect1=speedinfo*speedinfo;
-    speedaffect2=speedaffect1*changebaitou;
-    speedaffect3=speedaffect2/Subu;
+   // speedinfo=speedinfo/5;
+   // speedaffect1=speedinfo*speedinfo;
+    speedaffect1=changebaitou*Subu;
+   
    
     //speedaffect=speedinfo*speedinfo*changebaitou/48; 
     //speedaffect[1]=(10*speedaffect[0]+60*speedaffect[1])/70;
@@ -551,7 +549,7 @@ void dajiao(byte a)
   }
   else if(turn_flag==1)
   {
-    dj_pwm=General_pos+speedaffect3; 
+    dj_pwm=General_pos+speedaffect1; 
   }
   //abs_pos=position;
   //abs_pos=aabs(abs_pos);
@@ -614,7 +612,7 @@ void SpeedCtrl (byte a)
      else
  
  {
-    PORTB_PB7=1;
+  PORTB_PB7=1;
    
   changebaitou=baitoupwm;  //速度调节分80段
     if(changebaitou>=300)changebaitou=300;
@@ -661,7 +659,9 @@ void SpeedCtrl (byte a)
      if(PWMDTY6>208)PWMDTY6=208;
      else if(PWMDTY6<0)PWMDTY6=0;
  
-    } 
+    }      
+    
+    
    
    
     

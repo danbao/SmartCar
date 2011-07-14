@@ -116,7 +116,8 @@ void interrupt 66 PIT0_ISR(void)
     speed_begian=0;
     speed_clear[1]= PACNT;
     PACNT = 0x0000;
-   }
+   }                        
+   			
    
    EnableInterrupts; 
 }   
